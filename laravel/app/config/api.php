@@ -128,7 +128,7 @@ return array(
             ),
         ),
         'example' => '',
-        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS.',
+        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason</strong>',
         'params' => '',
         'group' => array(UserGroups::DEVELOPER)
     )

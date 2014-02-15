@@ -8,7 +8,9 @@ use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Process;
 
 class APIController extends BaseController {
 
@@ -360,5 +362,25 @@ class APIController extends BaseController {
 
         return Response::json(array('job'=>$url.'job/'.$plugin->name,'build'=>$build['build'],'build_link'=>$build['url']));
 
+    }
+
+    public function deployWebsite(){
+        $uid = Session::get('userId');
+        $groups = UserGroups::getGroups($uid);
+
+        if(!in_array(UserGroups::DEVELOPER, $groups)){
+            return Response::json("You are not a developer");
+        }
+
+        Artisan::call("down");
+
+        $process = new Process('/home/battleplugins/git/BattlePlugins/deploy.sh');
+        $process->start();
+
+        while($process->isRunning()){}
+
+        Artisan::call("up");
+
+        return Response::json($process->getOutput());
     }
 }

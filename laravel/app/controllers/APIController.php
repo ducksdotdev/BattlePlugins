@@ -375,12 +375,17 @@ class APIController extends BaseController {
         Artisan::call("down");
 
         $process = new Process('(cd /home/battleplugins/git/BattlePlugins; ./deploy.sh)');
-        $process->start();
+
+        $process->start(function ($type, $buffer) {
+            if (Process::ERR === $type) {
+                echo 'ERR > '.$buffer;
+            } else {
+                echo 'OUT > '.$buffer;
+            }
+        });
 
         while($process->isRunning()){}
 
         Artisan::call("up");
-
-        return Response::json(array('output'=>$process->getOutput(),'errors'=>$process->getErrorOutput()));
     }
 }

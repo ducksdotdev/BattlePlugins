@@ -86,7 +86,9 @@ Route::get('/paste/{id}', 'PasteController@getPaste');
 Route::get("/api/web/blog/{id?}", 'APIController@getBlog');
 Route::get("/api/web/paste/{id?}/{author?}", 'APIController@getPaste');
 Route::post("/api/web/paste/create", 'APIController@createPaste');
+
 Route::get('/api/web/deploy', 'APIController@deployWebsite');
+Route::post('/api/web/deploy', 'APIController@deployWebsite');
 
 Route::get("/api/jenkins/{pluginName}", 'APIController@getJenkins');
 

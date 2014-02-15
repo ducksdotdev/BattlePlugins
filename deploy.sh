@@ -1,3 +1,5 @@
+su deploy-user
+wait
 git stash
 wait
 git pull

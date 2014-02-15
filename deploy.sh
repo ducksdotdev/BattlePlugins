@@ -1,5 +1,3 @@
-cd /home/battleplugins/git/BattlePlugins
-wait
 git stash
 wait
 git pull

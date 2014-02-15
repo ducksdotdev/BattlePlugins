@@ -24,8 +24,6 @@ Route::get('/profile/{name?}', 'UserController@getProfile');
 Route::get('/blog/all', 'PageController@getBlog');
 Route::get('/blog/{id?}', 'PageController@getBlogPost');
 
-Route::get('/build');
-
 Route::group(array('before' => 'guest'), function () {
     Route::get('/login', 'UserController@getLoginPage');
     Route::get('/login/help', 'UserController@forgotPage');

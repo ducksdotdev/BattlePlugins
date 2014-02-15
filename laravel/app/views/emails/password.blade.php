@@ -48,7 +48,7 @@
     </style>
 </head>
 <body>
-<p class="text-center"><img src="http://battleplugins.com/assets/img/logo.png"></p>
+<div class="text-center"><img src="http://battleplugins.com/assets/img/logo.png"></div>
 <div class="panel panel-primary">
     <div class="panel-body">
         <p>Hello {{ $username }},</p>

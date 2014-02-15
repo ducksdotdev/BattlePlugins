@@ -117,5 +117,19 @@ return array(
         'description' => 'Gets information about a specific user from BattleTracker. Possible "action" types are '.$actionString.'. Please use their action ID for the action param.',
         'params' => '',
         'group' => UserGroups::getAll()
+    ),
+    array(
+        'title' => 'Deploy From Github',
+        'url' => '/api/web/deploy',
+        'methods' => array(
+            array(
+                'name'=>'get',
+                'color'=>'info'
+            ),
+        ),
+        'example' => '',
+        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS.',
+        'params' => '',
+        'group' => array(UserGroups::DEVELOPER)
     )
 );

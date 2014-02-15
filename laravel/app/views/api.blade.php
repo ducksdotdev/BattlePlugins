@@ -41,7 +41,7 @@
         <div class="row" id="{{ $doc['title'] }}">
             <div class="col-lg-12">
                 <hr />
-                <h3>{{ $doc['title'] }} @foreach($doc['methods'] as $method)<span class="label label-{{ $method['color'] }}">{{ strtoupper($method['name']) }}</span>@endforeach</h3>
+                <h3>{{ $doc['title'] }} @foreach($doc['methods'] as $method)<span class="label label-{{ $method['color'] }}">{{ strtoupper($method['name']) }}</span> @endforeach</h3>
                 <p>{{ $doc['description'] }}</p>
                 <p><strong>URL: </strong><code>{{ $doc['url']}}</code></p>
                 @if(is_array($doc['params']))

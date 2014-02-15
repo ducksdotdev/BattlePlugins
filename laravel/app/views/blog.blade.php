@@ -17,8 +17,13 @@
                 <div class="col-lg-12">{{ $blog->content }}</div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="fb-like" data-href="http://battleplugins.com/blog/{{ $blog->id }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <ul class="pager">
+                        <li class="next"><a href="/blog/all">View all blog posts</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

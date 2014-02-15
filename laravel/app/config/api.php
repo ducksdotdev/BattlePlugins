@@ -132,7 +132,7 @@ return array(
             ),
         ),
         'example' => '{"status":"Git repository pulled - running compression scripts\nDone\n"}',
-        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason</strong>',
+        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason</strong>. The POST method is mainly used for GitHub.',
         'params' => '',
         'group' => array(UserGroups::DEVELOPER)
     )

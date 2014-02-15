@@ -374,7 +374,7 @@ class APIController extends BaseController {
 
         Artisan::call("down");
 
-        $process = new Process('shell_exec(./deploy.sh)', '/home/battleplugins/git/BattlePlugins');
+        $process = new Process('./deploy.sh', '/home/battleplugins/git/BattlePlugins');
         $process->start();
 
         while($process->isRunning()){}

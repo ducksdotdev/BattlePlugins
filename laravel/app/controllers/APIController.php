@@ -381,6 +381,6 @@ class APIController extends BaseController {
 
         Artisan::call("up");
 
-        return Response::json($process->getOutput());
+        return Response::json(array('status'=>$process->getOutput()));
     }
 }

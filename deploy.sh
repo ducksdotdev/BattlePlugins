@@ -1,3 +1,4 @@
+whoami
 git stash
 wait
 git pull origin master

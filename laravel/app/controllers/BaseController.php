@@ -55,6 +55,7 @@ class BaseController extends Controller {
         }else{
             array_push($navigation['primary'], new NavigationItem("Login", '/login'));
         }
+        array_push($navigation['primary'],new NavigationItem("Donate", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H7AGURDPKJ7BW"));
 
         foreach($navigation['primary'] as $navItem){
             if(starts_with($navItem->getTitle(), self::$activeNavTitle)){

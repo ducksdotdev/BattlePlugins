@@ -74,7 +74,7 @@ class PageController extends BaseController {
 
         $vars['builds'] = $builds;
 
-        parent::setActive("Plugins");
+        parent::setActive("Resources");
 
         return View::make('plugins', $vars);
     }
@@ -155,13 +155,13 @@ class PageController extends BaseController {
     }
 
     public function getDonateCancel(){
-        parent::setActive('Donate');
+        parent::setActive('Resources');
         $vars['title'] = 'Thanks!';
         return View::make('donate.cancel', $vars);
     }
 
     public function getDonateThanks(){
-        parent::setActive('Donate');
+        parent::setActive('Resources');
         $vars['title'] = 'Thank You!';
         return View::make('donate.thanks', $vars);
     }

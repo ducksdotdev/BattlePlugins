@@ -19,12 +19,15 @@ class BaseController extends Controller {
 
         $navigation['primary'] = array(
             new NavigationItem("Home", "/"),
-            new NavigationItem("Plugins", "/plugins"),
-            new NavigationItem("BattleWiki", "/w"),
-            new NavigationItem("Jenkins CI", "/ci"),
         );
 
         $navigation['secondary'] = array();
+
+        array_push($navigation['primary'], new NavigationItem("Resources", '#', true));
+        array_push($navigation['secondary'], new NavigationItem('Plugins', '/plugins', false, 'Resources'));
+        array_push($navigation['secondary'], new NavigationItem('BattleWiki', '/w', false, 'Resources'));
+        array_push($navigation['secondary'], new NavigationItem('Jenkins CI', '/ci', false, 'Resources'));
+        array_push($navigation['secondary'],new NavigationItem("Donate", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H7AGURDPKJ7BW", false, 'Resources'));
 
         if(Auth::check()){
             $uid = Auth::user()->id;
@@ -55,7 +58,6 @@ class BaseController extends Controller {
         }else{
             array_push($navigation['primary'], new NavigationItem("Login", '/login'));
         }
-        array_push($navigation['primary'],new NavigationItem("Donate", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H7AGURDPKJ7BW"));
 
         foreach($navigation['primary'] as $navItem){
             if(starts_with($navItem->getTitle(), self::$activeNavTitle)){

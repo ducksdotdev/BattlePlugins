@@ -10,12 +10,12 @@
         <div class="col-md-2 col-md-offset-2">
             <i class="fa fa-cogs service-icon"></i>
             <h3>Development</h3>
-            <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released {{ count($plugins) }} plugins for multiple purposes. <a href="/plugins">Click here to see them</a>.</p>
+            <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released <a href="/plugins">{{ count($plugins) }}</a> plugins for multiple purposes since February 2012.</p>
         </div>
         <div class="col-md-2">
             <i class="fa fa-question service-icon"></i>
             <h3>Support</h3>
-            <p>BattlePlugins was built on the idea that support for our users is extremely important. We provide support through our Bukkit plugin pages, GitHub, or IRC. Why not <a href="http://webchat.esper.net/?nick=&channels=battleplugins">chat with us</a>?</p>
+            <p>BattlePlugins was built on the idea that support for our users is extremely important. We try and answer any questions you may have about our services or Bukkit in general. We provide support through our Bukkit plugin pages, GitHub, or IRC. Why not <a href="http://webchat.esper.net/?nick=&channels=battleplugins">chat with us</a>?</p>
         </div>
         <div class="col-md-2">
             <i class="fa fa-pencil service-icon"></i>
@@ -25,7 +25,7 @@
         <div class="col-md-2">
             <i class="fa fa-users service-icon"></i>
             <h3>Dedication</h3>
-            <p>BattlePlugins has and forever will be dedicated to providing the best experience for our users. We are always improving our plugins, website, and tools for our users.</p>
+            <p>BattlePlugins has and forever will be dedicated to providing the best experience for our users. We are always improving our plugins, website, and tools for our users. If you have any improvements or ideas for our plugins, don't hesitate to tell us about them.</p>
         </div>
     </div>
 </div>

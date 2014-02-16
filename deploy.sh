@@ -1,4 +1,6 @@
+su lducks
 whoami
+wait
 git stash
 wait
 git pull origin master

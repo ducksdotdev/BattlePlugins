@@ -174,7 +174,7 @@ class UserController extends BaseController {
             $query->where('hidden_on', '0000-00-00 00:00:00')
                 ->orWhere('hidden_on', '>', Carbon::now());
 
-        }))->get();
+        }))->orderBy('created_on', 'desc')->get();
 
         $prettyTime = array();
         foreach($vars['pastes'] as $paste){

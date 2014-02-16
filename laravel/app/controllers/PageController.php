@@ -154,4 +154,16 @@ class PageController extends BaseController {
         return View::make('pluginsHelp', $vars);
     }
 
+    public function getDonateCancel(){
+        parent::setActive('Donate');
+        $vars['title'] = 'Thanks!';
+        return View::make('donate.cancel', $vars);
+    }
+
+    public function getDonateThanks(){
+        parent::setActive('Donate');
+        $vars['title'] = 'Thank You!';
+        return View::make('donate.thanks', $vars);
+    }
+
 }

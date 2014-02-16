@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation">
+<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -31,7 +31,7 @@
     </div>
 </nav>
 <div class="banner">
-    <div class="logo">
+    <div class="logo wow fadeInDown">
         <a href="/">battleplugins</a>
         <div class="quote visible-lg">Simplicity is Prerequisite for Reliability. - Edsger Dijkstra</div>
     </div>

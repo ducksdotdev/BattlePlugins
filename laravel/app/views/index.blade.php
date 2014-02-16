@@ -19,7 +19,7 @@
     <div class="row text-center">
         <div class="col-md-2 col-md-offset-2">
             <i class="fa fa-cogs service-icon"></i>
-            <h3>Plugin Development</h3>
+            <h3>Development</h3>
             <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released {{ count($plugins) }} plugins for multiple purposes. <a href="/plugins">Click here to see them</a>.</p>
         </div>
         <div class="col-md-2">

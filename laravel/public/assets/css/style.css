@@ -100,3 +100,10 @@ hr.hr-dark {
 .fb-like {
     margin-top:5px;
 }
+form {
+    padding: 10px;
+    background: rgb(221, 221, 221);
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 4px;
+    box-shadow: 0px 1px 0px rgba(168, 168, 168, 0.43);
+}

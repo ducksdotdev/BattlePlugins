@@ -39,7 +39,7 @@ $(function(){
         }, 'json');
 
         $("#resetPassword").submit(function(e){
-            e.preventDefault;
+            e.preventDefault();
             var formData = $("#resetPassword :input").serialize();
             $.post('/login/help/reset', formData, function(data){
                 if(data.result == 'success')

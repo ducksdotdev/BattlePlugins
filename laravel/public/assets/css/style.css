@@ -23,10 +23,10 @@ html, body {
 .wrapper {
     min-height: 100%;
     height: auto !important;
-    margin: 0 auto -115px; /* the bottom margin is the negative value of the footer's height */
+    margin: 0 auto -105px; /* the bottom margin is the negative value of the footer's height */
 }
 footer, .push {
-    height: 115px; /* .push must be the same height as .footer */
+    height: 105px; /* .push must be the same height as .footer */
     overflow:hidden;
 }
 .banner {
@@ -96,4 +96,7 @@ footer .footer-middle {
 }
 hr.hr-dark {
     border-color: rgba(0, 0, 0, 0.25);
+}
+.fb-like {
+    margin-top:5px;
 }

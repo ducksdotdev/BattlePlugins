@@ -1,19 +1,9 @@
 @extends('layouts.master')
 @section('content')
 <div class="content-section-a">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>Welcome to BattlePlugins!</h2>
-                BattlePlugins is dedicated to providing the best experience to it's users. Since February 2012, BattlePlugins ran by lDucks and alkarin_v. We pride ourselves on the dedication of our staff and community members. We have {{ count($plugins) }} Bukkit plugins that have hundreds of thousands of combined downloads. Our website alone has over 170,000 hits per month. BattlePlugins has grown exponentially since founded. We're currently working hard on expanding our features both on the plugins we create and our website.
-            </div>
-        </div>
-    </div>
-</div>
-<div class="content-section-b">
     <div class="row">
         <div class="col-lg-12 text-center">
-            <h2>Who We Are</h2>
+            <h2>Welcome to BattlePlugins!</h2>
         </div>
     </div>
     <div class="row text-center">
@@ -39,7 +29,7 @@
         </div>
     </div>
 </div>
-<div class="content-section-a">
+<div class="content-section-b">
     <div class="container">
         @if(count($blog) == 0)
         <div class="row">
@@ -65,7 +55,7 @@
         @endif
     </div>
 </div>
-<div class="content-section-b">
+<div class="content-section-a">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">

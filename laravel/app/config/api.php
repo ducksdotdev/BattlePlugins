@@ -131,8 +131,8 @@ return array(
                 'color'=>'warning'
             ),
         ),
-        'example' => '{"status":"Git repository pulled - running compression scripts\nDone\n"}',
-        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason</strong>. The POST method is mainly used for GitHub.',
+        'example' => '{"output":"www-data\nSaved working directory and index state WIP on master: c7ef6f4 Testing deploy!\nHEAD is now at c7ef6f4 Testing deploy!\nAlready up-to-date.\n","errors":""}',
+        'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
         'params' => '',
         'group' => array(UserGroups::DEVELOPER)
     ),

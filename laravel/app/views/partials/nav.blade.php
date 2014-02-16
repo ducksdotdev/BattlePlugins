@@ -31,7 +31,7 @@
     </div>
 </nav>
 <div class="banner">
-    <div class="logo wow fadeInDown">
+    <div class="logo">
         <a href="/">battleplugins</a>
         <div class="quote visible-lg">Simplicity is Prerequisite for Reliability. - Edsger Dijkstra</div>
     </div>

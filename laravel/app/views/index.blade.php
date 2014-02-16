@@ -11,6 +11,35 @@
     </div>
 </div>
 <div class="content-section-b">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2>Who We Are</h2>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-2 col-md-offset-2">
+            <i class="fa fa-cogs service-icon"></i>
+            <h3>Plugin Development</h3>
+            <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released {{ count($plugins) }} plugins for multiple purposes. <a href="/plugins">Click here to see them</a>.</p>
+        </div>
+        <div class="col-md-2">
+            <i class="fa fa-question service-icon"></i>
+            <h3>Support</h3>
+            <p>BattlePlugins was built on the idea that support for our users is extremely important. We provide support through our Bukkit plugin pages, GitHub, or IRC. Why not <a href="http://webchat.esper.net/?nick=&channels=battleplugins">chat with us</a>?</p>
+        </div>
+        <div class="col-md-2">
+            <i class="fa fa-pencil service-icon"></i>
+            <h3>Tools</h3>
+            <p>We have created many different tools for the public to use. We have our own API that allows for anyone to hook into our website and use our services from anywhere. To access these amazing features, all you need to do is <a href="/register">sign up</a>!</p>
+        </div>
+        <div class="col-md-2">
+            <i class="fa fa-users service-icon"></i>
+            <h3>Dedication</h3>
+            <p>BattlePlugins has and forever will be dedicated to providing the best experience for our users. We are always improving our plugins, website, and tools for our users.</p>
+        </div>
+    </div>
+</div>
+<div class="content-section-a">
     <div class="container">
         @if(count($blog) == 0)
         <div class="row">
@@ -36,7 +65,7 @@
         @endif
     </div>
 </div>
-<div class="content-section-a">
+<div class="content-section-b">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -45,7 +74,7 @@
         </div>
         <div class="row">
             @foreach($builds as $build)
-            <div class="col-lg-3">
+            <div class="col-md-3">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <a href="{{ $build['bukkit'] }}"><span class="panel-title">{{ $build['name'] }}</span> <i class="fa fa-external-link"></i></a>

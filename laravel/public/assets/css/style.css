@@ -117,3 +117,14 @@ form {
     color: #FFFFFF !important;
     background-color: #4B4B4B !important;
 }
+i.service-icon {
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    font-size: 56px;
+    width: 140px;
+    height: 140px;
+    line-height: 136px;
+    vertical-align: middle;
+    text-align: center;
+}

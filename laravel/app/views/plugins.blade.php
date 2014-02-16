@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             @foreach($builds as $build)
-            <div class="col-lg-4">
+            <div class="col-md-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <a href="{{ $build['bukkit'] }}"><span class="panel-title">{{ $build['name'] }}</span> <i class="fa fa-external-link"></i></a>

@@ -6,7 +6,7 @@
             <h2>Welcome to BattlePlugins!</h2>
         </div>
     </div>
-    <div class="row text-center">
+    <div class="row text-center hidden-sm">
         <div class="col-md-2 col-md-offset-2">
             <i class="fa fa-cogs service-icon"></i>
             <h3>Development</h3>

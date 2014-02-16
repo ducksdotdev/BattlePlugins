@@ -131,7 +131,7 @@ return array(
                 'color'=>'warning'
             ),
         ),
-        'example' => '{"output":"www-data\nSaved working directory and index state WIP on master: c7ef6f4 Testing deploy!\nHEAD is now at c7ef6f4 Testing deploy!\nAlready up-to-date.\n","errors":""}',
+        'example' => '{"output":"www-data\nNo local changes to save\nUpdating f74f466..e40111a\nFast-forward\n laravel\/app\/views\/forgot.blade.php | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n","errors":"From github.com:lDucks\/BattlePlugins\n   f74f466..e40111a  master     -> origin\/master\n"}',
         'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
         'params' => '',
         'group' => array(UserGroups::DEVELOPER)

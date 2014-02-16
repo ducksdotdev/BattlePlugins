@@ -17,7 +17,7 @@
             <div id="alert"></div>
         </div>
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <h3>Retrieve Password</h3>
                 {{ Form::open(array('id'=>'retrieveWithUsername')) }}
                 <div class="form-group">
@@ -27,7 +27,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
                 {{ Form::close() }}
             </div>
-            <div class="col-lg-5 col-lg-offset-2">
+            <div class="col-lg-6">
                 <h3>Retrieve Username</h3>
                 {{ Form::open(array('id'=>'retrieveWithEmail')) }}
                 <div class="form-group">

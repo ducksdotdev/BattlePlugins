@@ -14,7 +14,7 @@
                     @foreach($pastes as $paste)
                     <a href="/paste/{{ $paste->id }}" class="list-group-item">
                         <span class="badge">{{ $paste->id }}</span>
-                        {{{ substr($paste->title, 0, 15) }}} {{ $prettyTime[$paste->id] }}
+                        <strong>{{{ $paste->title }}}</strong> {{ $prettyTime[$paste->id] }}
                     </a>
                     @endforeach
                 </div>

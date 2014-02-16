@@ -253,7 +253,7 @@ class APIController extends BaseController {
         $validator = Validator::make($input,$rules,$messages);
 
         if($validator->fails()){
-            return Response::json($validator->messages()->all());
+            return Response::json(array('result'=>'failure','reason'=>$validator->messages()->all(),'input'=>Input::all()));
         }
 
         $deletionDate = Input::get('delete');

@@ -28,10 +28,10 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>IP</th>
-                                <th>Route</th>
-                                <th>Count</th>
+                                <th width="20%">Username</th>
+                                <th width="30%">IP</th>
+                                <th width="40%">Route</th>
+                                <th width="10%">Count</th>
                             </tr>
                             </thead>
                             <tbody>

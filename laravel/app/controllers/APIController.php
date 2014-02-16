@@ -18,7 +18,7 @@ class APIController extends BaseController {
         $controller = $this;
 
         $this->beforeFilter(function ($route, $request) use ($controller) {
-            $ip = $request->getClientIp();
+            $ip = gethostbyaddr($request->getClientIp());
             $port =  $request->getPort();
 
             $banned_server = DB::table('banned_server')->where('server',$ip)->get();
@@ -313,7 +313,7 @@ class APIController extends BaseController {
             return Response::json($validator->messages()->all());
         }
 
-        $ip = gethostbyaddr(Session::get('userIp'));
+        $ip = Session::get('userIp');
         if(!in_array($action, Actions::getAll())){
             return Response::json('Invalid action');
         }

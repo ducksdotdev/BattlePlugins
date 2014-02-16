@@ -9,6 +9,7 @@
 </style>
 <h1>BattlePlugins will be back soon!</h1>
 <div>
-    <p>Sorry for any inconveniences but we&rsquo;re performing maintenance on our website. You can still access the CI server at <a href="http://ci.battleplugins.com">ci.battleplugins.com</a> and the Wiki at <a href="http://wiki.battleplugins.com">wiki.battleplugins.com</a></p>
+    <p>Sorry for any inconveniences but we took the website down in order to perform maintenance. Odds are the website is already back up, so try and refresh this page.</p>
+    <p>You can still access the CI server at <a href="http://ci.battleplugins.com">ci.battleplugins.com</a> and the Wiki at <a href="http://wiki.battleplugins.com">wiki.battleplugins.com</a>.</p>
     <p>&mdash; lDucks</p>
 </div>

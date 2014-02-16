@@ -313,7 +313,7 @@ class APIController extends BaseController {
             return Response::json($validator->messages()->all());
         }
 
-        $ip = Session::get('userIp');
+        $ip = gethostbyaddr(Session::get('userIp'));
         if(!in_array($action, Actions::getAll())){
             return Response::json('Invalid action');
         }

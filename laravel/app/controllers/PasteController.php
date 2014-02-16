@@ -41,7 +41,7 @@ class PasteController extends BaseController {
         );
 
         $rules = array(
-            'title' => "max:32",
+            'title' => "max:132",
             'content' => "required",
             'recaptcha_response_field' => 'required|recaptcha',
         );

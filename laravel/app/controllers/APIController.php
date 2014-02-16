@@ -18,7 +18,7 @@ class APIController extends BaseController {
         $controller = $this;
 
         $this->beforeFilter(function ($route, $request) use ($controller) {
-            $ip = gethostbyaddr($request->getClientIp());
+            $ip = $request->getClientIp();
             $port =  $request->getPort();
 
             $banned_server = DB::table('banned_server')->where('server',$ip)->get();
@@ -239,13 +239,13 @@ class APIController extends BaseController {
         );
 
         $rules = array(
-            'title' => "max:32",
+            'title' => "max:132",
             'content' => "required",
             'lang' => "max:11"
         );
 
         $messages = array(
-            "title.max" => "Your title exceeds 32 characters.",
+            "title.max" => "Your title exceeds 132 characters.",
             "content.required" => "You left the content param blank.",
             "lang.max" => "Your lang param is exceeds 11 characters"
         );

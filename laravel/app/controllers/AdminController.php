@@ -27,7 +27,7 @@ class AdminController extends BaseController {
         );
 
         $rules = array(
-            'title' => 'required|max:32',
+            'title' => 'required|max:132',
             'content' => 'required'
         );
 
@@ -71,7 +71,7 @@ class AdminController extends BaseController {
         );
 
         $rules = array(
-            'title' => 'required|max:32',
+            'title' => 'required|max:132',
             'content' => 'required'
         );
 

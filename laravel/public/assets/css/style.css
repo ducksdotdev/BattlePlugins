@@ -23,10 +23,10 @@ html, body {
 .wrapper {
     min-height: 100%;
     height: auto !important;
-    margin: 0 auto -130px; /* the bottom margin is the negative value of the footer's height */
+    margin: 0 auto -115px; /* the bottom margin is the negative value of the footer's height */
 }
 footer, .push {
-    height: 130px; /* .push must be the same height as .footer */
+    height: 115px; /* .push must be the same height as .footer */
     overflow:hidden;
 }
 .banner {
@@ -59,27 +59,25 @@ footer, .push {
     line-height: 30px;
 }
 .content-section-a {
-    background-color: #E9E9E9;
+    background-color: #DFDFDF;
     padding: 25px 0;
 }
 .content-section-b {
-    border: solid #CCCCCC;
+    border: solid #C5C5C5;
     border-width: 1px 0;
     padding: 25px 0;
-    background: rgba(236, 236, 236, 0.44);
+    background: rgb(233, 233, 233);
 }
 .text-center {
     text-align: center;
 }
 footer {
     width:100%;
-    background: black;
+    background: #222;
     color:#bfbfbf;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
-    border: solid #222222;
-    border-width: 15px 0 0 0;
 }
 footer .footnote {
     font-family:Tenby Five;
@@ -87,7 +85,7 @@ footer .footnote {
     font-variant:small-caps;
 }
 footer .footer-middle {
-    background: #222222;
+    background: #2C2C2C;
 }
 .navbar {
     margin-bottom: 0 !important;

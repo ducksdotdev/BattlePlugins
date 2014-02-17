@@ -226,9 +226,9 @@ class APIController extends BaseController {
 
         $content = Input::get('content');
 
-        if(Input::has('compressed') && Input::get('compressed') == 'true'){
-            $content = gzuncompress($content);
-        }
+//        if(Input::has('compressed') && Input::get('compressed') == 'true'){
+//            $content = gzuncompress($content);
+//        }
 
         if(!Input::has('lang')){
             $lang = '';

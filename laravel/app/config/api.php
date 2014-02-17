@@ -73,7 +73,7 @@ return array(
         ),
         'example' => '{"id": "z0QtkP"}',
         'description' => 'Creates a paste under your account name. The output is the ID of your paste which you can use to access pastes at <code>/paste/{id}</code>',
-        'params' => array('title (VARCHAR 32)','content (TEXT) REQUIRED','delete (TIMESTAMP)','private (BOOLEAN)','lang (VARCHAR 11)','compressed (BOOLEAN)'),
+        'params' => array('title (VARCHAR 32)','content (TEXT) REQUIRED','delete (TIMESTAMP)','private (BOOLEAN)','lang (VARCHAR 11)'),
         'group' => UserGroups::getAll()
     ),
     array(

@@ -35,7 +35,8 @@
         @else
         <div class="row">
             <div class="col-lg-12">
-                <h2><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a> <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h2>
+                <h2><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a><br />
+                    <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h2>
             </div>
         </div>
         <div class="well">

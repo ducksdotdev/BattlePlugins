@@ -231,10 +231,6 @@ class APIController extends BaseController {
 
         $content = Input::get('content');
 
-        if(gzdecode($content)){
-            $content = gzdecode($content);
-        }
-
         if(!Input::has('lang')){
             $lang = '';
         }else{

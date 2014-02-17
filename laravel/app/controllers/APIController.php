@@ -229,7 +229,11 @@ class APIController extends BaseController {
             $title = '';
         }
 
-        $content = eval(gzinflate(base64_decode(Input::get('content'))));
+        $content = Input::get('content');
+
+        if(gzdecode($content)){
+            $content = gzdecode($content);
+        }
 
         if(!Input::has('lang')){
             $lang = '';

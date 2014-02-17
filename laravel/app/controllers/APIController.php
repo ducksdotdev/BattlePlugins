@@ -19,6 +19,11 @@ class APIController extends BaseController {
 
         $this->beforeFilter(function ($route, $request) use ($controller) {
             $ip = $request->getClientIp();
+
+            if(strpos($ip, '192.30.252.') === 0){
+                $ip = 'GitHub';
+            }
+
             $port =  $request->getPort();
 
             $banned_server = DB::table('banned_server')->where('server',$ip)->get();

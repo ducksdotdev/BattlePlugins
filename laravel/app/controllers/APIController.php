@@ -226,6 +226,10 @@ class APIController extends BaseController {
 
         $content = Input::get('content');
 
+        if(gzuncompress($content)){
+            $content = gzuncompress($content);
+        }
+
         if(!Input::has('lang')){
             $lang = '';
         }else{

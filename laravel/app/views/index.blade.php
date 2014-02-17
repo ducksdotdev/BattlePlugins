@@ -27,20 +27,22 @@
 <div class="content-section-b">
     <div class="container">
         @if(count($blog) == 0)
-        <div class="row">
+        <div class="row well">
             <div class="col-lg-12">
                 <h3>There are no blog posts! :(</h3>
             </div>
         </div>
         @else
-        <div class="row">
-            <div class="col-lg-12">
-                <h3><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a> <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h3>
-                <hr />
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a> <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h3>
+                    <hr />
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">{{ $blog->content }}</div>
+            <div class="row">
+                <div class="col-lg-12">{{ $blog->content }}</div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-12">

@@ -62,8 +62,7 @@ footer, .push {
     padding: 25px 0;
     color: #ffffff;
     font-size: 13px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid black;
 }
 .content-section-a {
     background-color: #DFDFDF;

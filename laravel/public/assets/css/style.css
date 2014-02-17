@@ -31,8 +31,6 @@ footer, .push {
 }
 .banner {
     background: url("/assets/img/bg.png") no-repeat bottom center;
-    border: solid #222222;
-    border-width: 0 0 25px 0;
     width: 100%;
     padding: 15px 0px 30px 0;
     background-size: cover;
@@ -57,6 +55,11 @@ footer, .push {
 .logo .quote {
     font-size: 20px;
     line-height: 30px;
+}
+.content-section-index {
+    background-color: #222;
+    padding: 25px 0;
+    color: #ffffff;
 }
 .content-section-a {
     background-color: #DFDFDF;
@@ -118,7 +121,7 @@ form {
     background-color: #1A1A1A !important;
 }
 i.service-icon {
-    border: 3px solid #222;
+    border: 3px solid #fff;
     border-radius: 50%;
     display: inline-block;
     font-size: 56px;

@@ -92,16 +92,16 @@ return array(
     ),
     array(
         'title' => 'Delete Paste',
-        'url' => '/api/web/paste/delete',
+        'url' => '/api/web/paste/delete/{id}',
         'methods' => array(
             array(
-                'name'=>'post',
-                'color'=>'warning'
+                'name'=>'get',
+                'color'=>'info'
             ),
         ),
         'example' => '["success"]',
         'description' => 'Deletes a paste. You can only delete pastes that belong to you. Admins can delete any pastes regardless of ownership.',
-        'params' => array('id (VARCHAR) REQUIRED'),
+        'params' => '',
         'group' => UserGroups::getAll()
     ),
     array(

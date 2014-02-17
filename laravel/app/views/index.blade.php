@@ -5,7 +5,7 @@
         <div class="col-md-2 col-md-offset-2">
             <i class="fa fa-cogs service-icon"></i>
             <h3>Development</h3>
-            <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released <a href="/plugins">{{ count($plugins) }}</a> plugins for multiple purposes since February 2012.</p>
+            <p>Looking for a plugin? Need player statistics? What about administration tools? BattlePlugins has created and released <a href="/plugins">{{ count($plugins) }} plugins</a> for multiple purposes since February 2012.</p>
         </div>
         <div class="col-md-2">
             <i class="fa fa-question service-icon"></i>

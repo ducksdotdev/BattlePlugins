@@ -281,8 +281,7 @@ class APIController extends BaseController {
         return Response::json(array('id'=>$id));
     }
 
-    public function deletePaste(){
-        $id = Input::get('id');
+    public function deletePaste($id){
         $paste = DB::table('pastes')->where('id', $id)->where((function($query)
         {
             $query->where('hidden_on', '0000-00-00 00:00:00')

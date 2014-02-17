@@ -135,5 +135,6 @@ i.service-icon {
     text-align: center;
 }
 hr {
-    border-color:  #C0C0C0;
+    border-color: #CCCCCC !important;
+    box-shadow: 0px 0px 1px rgba(179, 179, 179, 0.48);
 }

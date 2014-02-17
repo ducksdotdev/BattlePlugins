@@ -281,6 +281,32 @@ class APIController extends BaseController {
         return Response::json(array('id'=>$id));
     }
 
+    public function deletePaste(){
+        $id = Input::get('id');
+        $paste = DB::table('pastes')->where('id', $id)->where((function($query)
+        {
+            $query->where('hidden_on', '0000-00-00 00:00:00')
+                ->orWhere('hidden_on', '>', Carbon::now());
+
+        }));
+
+        if(count($paste->get()) == 0){
+            return Response::json('Paste not found');
+        }
+
+        $uid = $paste->get()->author;
+        $usergroups = UserGroups::getGroups(Session::get('userId'));
+        if(!($uid == Session::get('userId') || in_array(UserGroups::ADMINISTRATOR, $usergroups))){
+            return Response::json('Invalid permissions');
+        }
+
+        $paste->update(array(
+            'hidden_on' => Carbon::now()
+        ));
+
+        return Response::json('success');
+    }
+
     public function setBattleTracker(){
         $action = Input::get('action');
         $action_by = Input::get('action_by');

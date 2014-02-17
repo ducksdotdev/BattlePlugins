@@ -91,6 +91,20 @@ return array(
         'group' => UserGroups::getAll()
     ),
     array(
+        'title' => 'Delete Paste',
+        'url' => '/api/web/paste/delete',
+        'methods' => array(
+            array(
+                'name'=>'post',
+                'color'=>'warning'
+            ),
+        ),
+        'example' => '["success"]',
+        'description' => 'Deletes a paste. You can only delete pastes that belong to you. Admins can delete any pastes regardless of ownership.',
+        'params' => array('id (VARCHAR) REQUIRED'),
+        'group' => UserGroups::getAll()
+    ),
+    array(
         'title' => 'Add BattleTracker Information',
         'url' => '/api/battletracker/user/set',
         'methods' => array(

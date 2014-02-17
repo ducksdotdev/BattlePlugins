@@ -153,7 +153,7 @@ class PasteController extends BaseController {
     public function deletePaste(){
         $id = Input::get('id');
         $paste = DB::table('pastes')->where('id', $id)->first();
-        if($paste->author != Auth::user()->id && !UserGroups::hasGroup(Auth::user()->id, UserGroups::ADMINISTRATOR)){
+        if(!($paste->author == Auth::user()->id || UserGroups::hasGroup(Auth::user()->id, UserGroups::ADMINISTRATOR))){
             return Response::json(array('result'=>'failure'));
         }
 

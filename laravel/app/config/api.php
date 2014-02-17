@@ -63,7 +63,7 @@ return array(
         'group' => UserGroups::getAll()
     ),
     array(
-        'title' => 'Create a Paste',
+        'title' => 'Create Paste',
         'url' => '/api/web/paste/create',
         'methods' => array(
             array(

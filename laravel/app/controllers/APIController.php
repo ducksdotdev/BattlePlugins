@@ -410,7 +410,10 @@ class APIController extends BaseController {
         while($process->isRunning()){}
 
         Artisan::call("up");
-
-        return Response::json(array('output'=>$process->getOutput(),'errors'=>$process->getErrorOutput()));
+        $errors = $process->getErrorOutput();
+        if(strpos($errors, 'From github') == 0){
+            $errors = '';
+        }
+        return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
     }
 }

@@ -20,7 +20,7 @@ class APIController extends BaseController {
         $this->beforeFilter(function ($route, $request) use ($controller) {
             $ip = $request->getClientIp();
 
-            if(strpos($ip, '192.30.252.') === 0){
+            if(strpos($ip, '192.30.252.') === 0 || strpos($ip, '204.232.175.') === 0){
                 $ip = 'GitHub';
             }
 

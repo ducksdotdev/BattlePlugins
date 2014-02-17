@@ -33,13 +33,12 @@
             </div>
         </div>
         @else
-        <div class="well">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h3><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a> <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h3>
-                    <hr />
-                </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h2><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a> <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h2>
             </div>
+        </div>
+        <div class="well">
             <div class="row">
                 <div class="col-lg-12">{{ $blog->content }}</div>
             </div>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
-<div class="content-section-index">
-    <div class="row text-center hidden-xs">
+<div class="content-section-index hidden-xs">
+    <div class="row text-center">
         <div class="col-md-2 col-md-offset-2">
             <i class="fa fa-cogs service-icon"></i>
             <h3>Development</h3>

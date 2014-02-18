@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class PasteController extends BaseController {
 
-    public function getCreatePage(){
+    public function  __construct(){
         parent::setActive('Tools');
+    }
+
+    public function getCreatePage(){
         $vars['title'] = 'Create Paste';
 
         $vars['pastes'] = DB::table('pastes')->where('author', Auth::user()->id)->where((function($query)

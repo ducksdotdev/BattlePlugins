@@ -85,7 +85,7 @@ class APIController extends BaseController {
             Session::put("userId", $uid);
             Session::put("userPort", $port);
 
-        }, array('except'=>array('getDocumentation','getMinecraftFace','generateKey')));
+        }, array('except'=>array('getDocumentation','getMinecraftFace','userGenerateKey')));
 
         $this->afterFilter(function() use ($controller){
             Session::flush();
@@ -179,12 +179,14 @@ class APIController extends BaseController {
     }
 
     public function getBlog($id='all'){
+        $blog = DB::table('blog')->orderBy('id', 'desc');
+
         if($id == 'all'){
-            $blog = DB::table('blog')->orderBy('id', 'desc')->get();
+            $blog = $blog->get();
         }else if($id == 'newest'){
-            $blog = DB::table('blog')->orderBy('id', 'desc')->first();
+            $blog = $blog->first();
         }else{
-            $blog = DB::table('blog')->where('id', $id)->first();
+            $blog = $blog->where('id', $id)->first();
         }
 
         if(count($blog) == 0){

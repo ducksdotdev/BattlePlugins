@@ -20,6 +20,7 @@ foreach($plugins as $plugin){
 $pluginsList = ListSentence::toSentence($pluginsList, 'or');
 
 return array(
+    //  Basic API methods
     array(
         'title' => 'Minecraft Skin Faces',
         'url' => '/api/minecraft/face/{name}/{size?}',
@@ -146,6 +147,11 @@ return array(
         'params' => '',
         'group' => UserGroups::getAll()
     ),
+
+
+
+
+    // Admin only for security reasons
     array(
         'title' => 'Deploy From Github',
         'url' => '/api/web/deploy',
@@ -164,4 +170,9 @@ return array(
         'params' => '',
         'group' => array(UserGroups::DEVELOPER)
     ),
+
+
+
+    // Anonymous Statistics
+    // TODO
 );

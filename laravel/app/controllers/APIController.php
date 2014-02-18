@@ -418,7 +418,7 @@ class APIController extends BaseController {
     }
 
     public function getPlugins($name='all'){
-        $plugins = DB::get('plugins');
+        $plugins = DB::table('plugins');
         if($name == 'all'){
             return Response::json($plugins->get());
         }else{

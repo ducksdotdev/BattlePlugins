@@ -113,7 +113,7 @@ return array(
                 'color'=>'info'
             ),
         ),
-        'example' => '',
+        'example' => '[{"name":"ArenaCTF","author":"5","bukkit":"http:\/\/dev.bukkit.org\/server-mods\/arenactf\/"}]',
         'description' => 'Get\'s the name, author, and Bukkit URL of all or a specific plugin. Authors are represented by their User IDs.',
         'params' => '',
         'group' => UserGroups::getAll()

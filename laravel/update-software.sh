@@ -1,3 +1,4 @@
+#!/bin/sh
 php artisan down
 wait
 composer update

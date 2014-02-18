@@ -1,3 +1,4 @@
+#!/bin/sh
 whoami
 git stash
 wait

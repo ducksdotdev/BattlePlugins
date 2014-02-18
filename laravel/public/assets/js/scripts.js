@@ -1,7 +1,4 @@
 $(function(){
-
-    progressJs().start();
-
     if($("#summernote").length > 0){
         jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/summernote/0.5.0/summernote.min.js", function(){
             $('head').append('<link type="text/css" rel="stylesheet" href="/assets/css/summernote.min.css">');

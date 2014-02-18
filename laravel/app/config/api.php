@@ -105,6 +105,20 @@ return array(
         'group' => UserGroups::getAll()
     ),
     array(
+        'title' => 'Get Plugins',
+        'url' => '/api/web/plugins/{name|all}',
+        'methods' => array(
+            array(
+                'name'=>'get',
+                'color'=>'info'
+            ),
+        ),
+        'example' => '',
+        'description' => 'Get\'s the name, author, and Bukkit URL of all or a specific plugin. Authors are represented by their User IDs.',
+        'params' => '',
+        'group' => UserGroups::getAll()
+    ),
+    array(
         'title' => 'Add BattleTracker Information',
         'url' => '/api/battletracker/user/set',
         'methods' => array(

@@ -416,4 +416,15 @@ class APIController extends BaseController {
         }
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
     }
+
+    public function getPlugins($name='all'){
+        $plugins = DB::get('plugins');
+        if($name == 'all'){
+            return Response::json($plugins->get());
+        }else{
+            $plugins = $plugins->where('name', $name)->get();
+            return Response::json($plugins);
+        }
+    }
+
 }

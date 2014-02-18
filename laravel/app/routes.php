@@ -87,9 +87,12 @@ Route::get('/paste/{id}', 'PasteController@getPaste');
 
 // API
 Route::get("/api/web/blog/{id?}", 'APIController@getBlog');
+
 Route::post("/api/web/paste/create", 'APIController@createPaste');
 Route::post("/api/web/paste/delete/{id}", 'APIController@deletePaste');
 Route::get("/api/web/paste/{id?}/{author?}", 'APIController@getPaste');
+
+Route::get('/api/web/plugins/{name?}', 'APIController@getPlugins');
 
 Route::get('/api/web/deploy', 'APIController@deployWebsite');
 Route::post('/api/web/deploy', 'APIController@deployWebsite');

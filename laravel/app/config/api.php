@@ -57,6 +57,7 @@ return array(
             )
         ),
     ),
+
     array(
         'name' => 'website',
         'methods' => array(
@@ -150,6 +151,7 @@ return array(
             ),
         ),
     ),
+
     array(
         'name' => 'battletracker',
         'methods' => array(
@@ -183,6 +185,7 @@ return array(
             ),
         ),
     ),
+
     array(
         'name' => 'statistics',
         'methods' => array(

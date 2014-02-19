@@ -408,19 +408,29 @@ class APIController extends BaseController {
 
         if(Input::has('payload')){
             $ref = Input::get('payload.ref');
-            if(strpos($ref, -strlen('master')) == 'master'){
-                $cd = '/home/battleplugins/real/BattlePlugins';
-            }else if(strpos($ref, -strlen('dev')) == 'dev'){
-                $cd = '/home/battleplugins/dev/BattlePlugins';
-            }
+            $ref = explode('/', $ref);
+            $branch = $ref[2];
         }else{
-            $cd = '/home/battleplugins/dev/BattlePlugins';
+            $branch = 'dev';
         }
 
-        $process = new Process('./deploy.sh', $cd);
+        $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
+
+        // run processes
+
+        $process = new Process('git stash && git pull', $cd);
         $process->start();
 
         while($process->isRunning()){}
+
+        $process = new Process('java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.min.js; java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.min.js; java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.css > /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.min.css', $cd);
+
+        $process->start();
+
+        while($process->isRunning()){}
+
+
+        // stop processes
 
         Artisan::call("up");
         $errors = $process->getErrorOutput();

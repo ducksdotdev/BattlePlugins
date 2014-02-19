@@ -52,6 +52,8 @@ App::error(function(Exception $exception, $code)
 {
     if ($exception instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
         return Redirect::to('/');
+    }else{
+        Log::error($exception);
     }
 
 });

@@ -18,7 +18,7 @@
 <div class="content-section-b">
     <div class="container">
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="row">
                     <div class="col-lg-12">
                         <h3>API Requests</h3>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-lg-offset-2">
+            <div class="col-lg-6">
                 <div class="row">
                     <div class="col-lg-12">
                         <h3>Statistic Requests</h3>

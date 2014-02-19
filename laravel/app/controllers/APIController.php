@@ -429,5 +429,4 @@ class APIController extends BaseController {
             return Response::json($plugins);
         }
     }
-
 }

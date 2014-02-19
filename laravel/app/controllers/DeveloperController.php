@@ -11,11 +11,17 @@ class DeveloperController extends BaseController {
 
     public function getStatistics(){
         $vars['title'] = 'Statistics';
-        $vars['apiRequests'] = DB::table('api_requests')
-            ->select('*', DB::raw('count(*) as total'))
-            ->groupBy('route','ip')
-            ->orderBy('total', 'desc')
-            ->get();
+        $vars['apiRequests'] = DB::table('api_requests')->
+            select('*', DB::raw('count(*) as total'))->
+            groupBy('route','ip')->
+            orderBy('total', 'desc')->
+            get();
+
+        $vars['statisticRequests'] = DB::table('statistic_requests')->
+            select('*', DB::raw('count (*) as total'))->
+            groupBy('server','plugin')->
+            orderBy('total', 'desc')->
+            get();
 
         $usernames = array();
 
@@ -30,6 +36,11 @@ class DeveloperController extends BaseController {
 
     public function clearAPIRequests(){
         DB::table('api_requests')->delete();
+        return Redirect::to('/developer/statistics');
+    }
+
+    public function clearStatisticRequests(){
+        DB::table('statistic_requests')->delete();
         return Redirect::to('/developer/statistics');
     }
 

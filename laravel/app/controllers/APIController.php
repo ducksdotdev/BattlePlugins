@@ -393,7 +393,6 @@ class APIController extends BaseController {
         $build = Jenkins::getLatestBuild($url, $plugin->name);
 
         return Response::json(array('job'=>$url.'job/'.$plugin->name,'build'=>$build['build'],'build_link'=>$build['url']));
-
     }
 
     public function deployWebsite(){

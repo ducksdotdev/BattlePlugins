@@ -38,7 +38,6 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
-        $value = Input::get('value');
 
         if(!Input::has('key')){
             return Response::json('Key is blank');
@@ -56,16 +55,18 @@ class StatisticsController extends BaseController {
             $plugin = 'Bukkit';
         }
 
-//        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-//        if(!$minecraft->Online){
-//            return Response::json("Not a Minecraft server");
-//        }
+        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+        if(!$minecraft->Online){
+            return Response::json("Not a Minecraft server");
+        }
 
         $key = Input::get('key');
         $server = Session::get('serverIp');
         $query = DB::table('statistics')->where('key', $key)->where('server', $server);
 
         if(Input::has('value')){
+            $value = Input::get('value');
+
             if(count($query->get()) > 0){
                 $query->update('value', $value);
             }else{

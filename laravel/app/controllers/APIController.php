@@ -405,7 +405,7 @@ class APIController extends BaseController {
 
         if(Input::has('payload')){
             $ref = Input::get('payload');
-            $ref = json_decode($ref);
+            $ref = json_decode($ref, true);
             $ref = $ref['refs'];
             $ref = explode('/', $ref);
             $branch = $ref[2];

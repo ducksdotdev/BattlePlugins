@@ -38,7 +38,7 @@
     <div class="container">
         @foreach($docs as $docType)
         <h1>{{ $docType['name'] }}</h1>
-        @foreach($docType as $doc)
+        @foreach($docType['methods'] as $doc)
         @if(count(array_intersect($doc['group'], $userGroups)) > 0)
         <div class="row" id="{{ $doc['title'] }}">
             <div class="col-lg-12">

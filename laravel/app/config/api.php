@@ -197,7 +197,7 @@ return array(
                 'color'=>'warning'
             ),
         ),
-        'example' => '',
+        'example' => '[{"server":"198.168.1.109","plugin":"Bukkit","key":"bPlayers","value":"10"}]',
         'description' => 'Gets a statistic for a plugin and server. This does not impact limitations and does not require an API key.',
         'params' => array('key (VARCHAR 16) REQUIRED', 'server (VARCHAR 16)'),
         'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)

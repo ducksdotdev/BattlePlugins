@@ -74,8 +74,11 @@ class StatisticsController extends BaseController {
                     'value' => $value
                 ));
             }
+
+            return Response::json('updated');
         }else{
             $query->delete();
+            return Response::json('deleted');
         }
     }
 

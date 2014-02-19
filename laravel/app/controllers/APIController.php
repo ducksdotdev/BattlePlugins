@@ -19,7 +19,7 @@ class APIController extends BaseController {
 
         $this->beforeFilter(function ($route, $request) use ($controller) {
             $ip = $request->getClientIp();
-
+            Session::set('rawData', $request->getContent());
             if(strpos($ip, '192.30.252.') === 0 || strpos($ip, '204.232.175.') === 0){
                 $ip = 'GitHub';
             }
@@ -397,10 +397,7 @@ class APIController extends BaseController {
     }
 
     public function deployWebsite(){
-        $request = Request::instance();
-        $raw = $request->getContent();
-
-        Log::info($raw);
+        Log::info(Session::get('rawData'));
         $uid = Session::get('userId');
         $groups = UserGroups::getGroups($uid);
 

@@ -397,6 +397,7 @@ class APIController extends BaseController {
     }
 
     public function deployWebsite(){
+        Log::info(Input::raw());
         $uid = Session::get('userId');
         $groups = UserGroups::getGroups($uid);
 

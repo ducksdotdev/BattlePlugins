@@ -406,7 +406,18 @@ class APIController extends BaseController {
 
         Artisan::call("down");
 
-        $process = new Process('./deploy.sh', '/home/battleplugins/real/BattlePlugins');
+        if(Input::has('payload')){
+            $ref = Input::get('payload.ref');
+            if(strpos($ref, -strlen('master')) == 'master'){
+                $cd = '/home/battleplugins/real/BattlePlugins';
+            }else if(strpos($ref, -strlen('dev')) == 'dev'){
+                $cd = '/home/battleplugins/dev/BattlePlugins';
+            }
+        }else{
+            $cd = '/home/battleplugins/dev/BattlePlugins';
+        }
+
+        $process = new Process('./deploy.sh', $cd);
         $process->start();
 
         while($process->isRunning()){}

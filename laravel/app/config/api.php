@@ -58,7 +58,7 @@ return array(
         ),
     ),
     array(
-        'name' => 'web',
+        'name' => 'website',
         'methods' => array(
             array(
                 'title' => 'Retrieve Blog Post',
@@ -130,6 +130,24 @@ return array(
                 'params' => '',
                 'group' => UserGroups::getAll()
             ),
+            array(
+                'title' => 'Deploy From Github',
+                'url' => '/api/web/deploy',
+                'methods' => array(
+                    array(
+                        'name'=>'get',
+                        'color'=>'info'
+                    ),
+                    array(
+                        'name'=>'post',
+                        'color'=>'warning'
+                    ),
+                ),
+                'example' => '{"output":"www-data\nNo local changes to save\nUpdating f74f466..e40111a\nFast-forward\n laravel\/app\/views\/forgot.blade.php | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n","errors":"From github.com:lDucks\/BattlePlugins\n   f74f466..e40111a  master     -> origin\/master\n"}',
+                'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
+                'params' => '',
+                'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
+            ),
         ),
     ),
     array(
@@ -162,24 +180,6 @@ return array(
                 'description' => 'Gets information about a specific user from BattleTracker. Possible "action" types are '.$actionString.'. Please use their action ID for the action param.',
                 'params' => '',
                 'group' => UserGroups::getAll()
-            ),
-            array(
-                'title' => 'Deploy From Github',
-                'url' => '/api/web/deploy',
-                'methods' => array(
-                    array(
-                        'name'=>'get',
-                        'color'=>'info'
-                    ),
-                    array(
-                        'name'=>'post',
-                        'color'=>'warning'
-                    ),
-                ),
-                'example' => '{"output":"www-data\nNo local changes to save\nUpdating f74f466..e40111a\nFast-forward\n laravel\/app\/views\/forgot.blade.php | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n","errors":"From github.com:lDucks\/BattlePlugins\n   f74f466..e40111a  master     -> origin\/master\n"}',
-                'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
-                'params' => '',
-                'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
             ),
         ),
     ),

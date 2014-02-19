@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-lg-9">
                 <h2><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a><br />
-                    <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h2>
+                    <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}.</small></h2>
             </div>
             <div class="col-lg-3 text-right">
                 <ul class="pager">

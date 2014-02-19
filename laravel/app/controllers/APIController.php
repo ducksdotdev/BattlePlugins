@@ -396,15 +396,12 @@ class APIController extends BaseController {
     }
 
     public function deployWebsite(){
-        Log::info(Session::get('rawData'));
         $uid = Session::get('userId');
         $groups = UserGroups::getGroups($uid);
 
         if(!in_array(UserGroups::DEVELOPER, $groups)){
             return Response::json("You are not a developer");
         }
-
-        Artisan::call("down");
 
         if(Input::has('payload')){
             $ref = Input::get('payload.ref');
@@ -418,10 +415,17 @@ class APIController extends BaseController {
 
         // run processes
 
-        $process = new Process('git stash && git pull', $cd);
+        $process = new Process('php artisan down', $cd.'/laravel');
         $process->start();
 
         while($process->isRunning()){}
+
+        $process = new Process('git stash && git pull origin '.$branch, $cd);
+        $process->start();
+
+        while($process->isRunning()){}
+
+        $errors = $process->getErrorOutput();
 
         $process = new Process('java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.min.js; java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.min.js; java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.css > /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.min.css', $cd);
 
@@ -429,14 +433,15 @@ class APIController extends BaseController {
 
         while($process->isRunning()){}
 
+        $process = new Process('php artisan up', $cd.'/laravel');
+        $process->start();
+
+        while($process->isRunning()){}
 
         // stop processes
 
-        Artisan::call("up");
-        $errors = $process->getErrorOutput();
-        if(strpos($errors, 'From github') == 0){
-            $errors = '';
-        }
+        $errors .= $process->getErrorOutput();
+
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
     }
 

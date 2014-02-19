@@ -59,6 +59,7 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::get('/developer/statistics', 'DeveloperController@getStatistics');
     Route::get('/developer/statistics/clear/apiRequests', 'DeveloperController@clearAPIRequests');
+    Route::get('/developer/statistics/clear/statisticRequests', 'DeveloperController@clearStatisticRequests');
 
     Route::get('/plugins/help', 'PageController@getPluginsHelp');
 

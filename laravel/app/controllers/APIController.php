@@ -100,6 +100,7 @@ class APIController extends BaseController {
         $vars['title'] = 'API Documentation';
         $apiKey = UserSettings::get($uid, 'api-key');
         $timeout = UserSettings::get($uid, 'api-timeout');
+
         if($apiKey == null){
             self::generateKey();
         }

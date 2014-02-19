@@ -396,7 +396,6 @@ class APIController extends BaseController {
     }
 
     public function deployWebsite(){
-        Log::info(Session::get('rawData'));
         $uid = Session::get('userId');
         $groups = UserGroups::getGroups($uid);
 
@@ -423,6 +422,8 @@ class APIController extends BaseController {
 
         while($process->isRunning()){}
 
+        $errors = $process->getErrorOutput();
+
         $process = new Process('java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.min.js; java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.min.js; java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.css > /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.min.css', $cd);
 
         $process->start();
@@ -433,10 +434,8 @@ class APIController extends BaseController {
         // stop processes
 
         Artisan::call("up");
-        $errors = $process->getErrorOutput();
-        if(strpos($errors, 'From github') == 0){
-            $errors = '';
-        }
+        $errors .= $process->getErrorOutput();
+
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
     }
 

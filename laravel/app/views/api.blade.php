@@ -36,7 +36,9 @@
 </div>
 <div class="content-section-b">
     <div class="container">
-        @foreach($docs as $doc)
+        @foreach($docs as $docType)
+        <h1>{{ $docType['name'] }}</h1>
+        @foreach($docType as $doc)
         @if(count(array_intersect($doc['group'], $userGroups)) > 0)
         <div class="row" id="{{ $doc['title'] }}">
             <div class="col-lg-12">
@@ -54,6 +56,7 @@
             </div>
         </div>
         @endif
+        @endforeach
         @endforeach
     </div>
 </div>

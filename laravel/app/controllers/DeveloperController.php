@@ -19,7 +19,7 @@ class DeveloperController extends BaseController {
 
         $vars['statisticRequests'] =  DB::table('statistic_requests')->
             select('*', DB::raw('count(*) as total'))->
-            groupBy('plugin','server')->
+            groupBy('server','route')->
             orderBy('total', 'desc')->
             get();
 

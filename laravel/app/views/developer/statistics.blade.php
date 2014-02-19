@@ -61,7 +61,6 @@
                             <thead>
                             <tr>
                                 <th width="20%">Server</th>
-                                <th width="30%">Plugin</th>
                                 <th width="40%">Route</th>
                                 <th width="40%">Inputs</th>
                                 <th width="10%">Count</th>
@@ -71,7 +70,6 @@
                             @foreach($statisticRequests as $request)
                             <tr>
                                 <td>{{ $request->server }}</td>
-                                <td>{{ $request->plugin }}</td>
                                 <td>{{ $request->route }}</td>
                                 <td>{{ $request->inputs }}</td>
                                 <td>{{ $request->total }}</td>

@@ -17,9 +17,9 @@ class DeveloperController extends BaseController {
             orderBy('total', 'desc')->
             get();
 
-        $vars['statisticRequests'] = DB::table('statistic_requests')->
-            select('*', DB::raw('count (*) as total'))->
-            groupBy('server','plugin')->
+        $vars['statisticRequests'] =  DB::table('statistic_requests')->
+            select('*', DB::raw('count(*) as total'))->
+            groupBy('plugin','server')->
             orderBy('total', 'desc')->
             get();
 

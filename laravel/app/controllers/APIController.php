@@ -403,8 +403,6 @@ class APIController extends BaseController {
             return Response::json("You are not a developer");
         }
 
-        Artisan::call("down");
-
         if(Input::has('payload')){
             $ref = Input::get('payload.ref');
             $ref = explode('/', $ref);
@@ -416,6 +414,11 @@ class APIController extends BaseController {
         $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
 
         // run processes
+
+        $process = new Process('php artisan down', $cd.'/laravel');
+        $process->start();
+
+        while($process->isRunning()){}
 
         $process = new Process('git stash && git pull', $cd);
         $process->start();
@@ -430,10 +433,13 @@ class APIController extends BaseController {
 
         while($process->isRunning()){}
 
+        $process = new Process('php artisan up', $cd.'/laravel');
+        $process->start();
+
+        while($process->isRunning()){}
 
         // stop processes
 
-        Artisan::call("up");
         $errors .= $process->getErrorOutput();
 
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));

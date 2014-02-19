@@ -37,8 +37,8 @@
 <div class="content-section-b">
     <div class="container">
         @foreach($docs as $docType)
-        <div class="well">
-            <h1>{{ $docType['name'] }}</h1>
+        <div class="well" id="{{ $docType['name'] }}">
+            <h1><a href="#{{ $docType['name'] }}">{{ ucfirst($docType['name']) }}</a></h1>
             @foreach($docType['methods'] as $doc)
             @if(count(array_intersect($doc['group'], $userGroups)) > 0)
             <div class="row" id="{{ $doc['title'] }}">

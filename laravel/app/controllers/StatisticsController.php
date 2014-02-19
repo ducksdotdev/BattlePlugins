@@ -3,7 +3,7 @@
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 
-class APIController extends BaseController {
+class StatisticsController extends BaseController {
 
     public function __construct() {
         $controller = $this;

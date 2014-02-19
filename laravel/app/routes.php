@@ -103,3 +103,6 @@ Route::get('/api/battletracker/user/get/{username}/{action?}', 'APIController@ge
 Route::post('/api/battletracker/user/set', 'APIController@setBattleTracker');
 
 Route::get("/api/minecraft/face/{name?}/{size?}", 'APIController@getMinecraftFace');
+
+Route::post("/statistics/set", 'StatisticsController@get');
+Route::post("/statistics/get", 'StatisticsController@set');

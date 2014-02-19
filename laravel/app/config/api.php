@@ -168,11 +168,38 @@ return array(
         'example' => '{"output":"www-data\nNo local changes to save\nUpdating f74f466..e40111a\nFast-forward\n laravel\/app\/views\/forgot.blade.php | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n","errors":"From github.com:lDucks\/BattlePlugins\n   f74f466..e40111a  master     -> origin\/master\n"}',
         'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
         'params' => '',
-        'group' => array(UserGroups::DEVELOPER)
+        'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
     ),
 
 
 
     // Anonymous Statistics
-    // TODO
+    array(
+        'title' => 'Set Statistic',
+        'url' => '/statistics/set',
+        'methods' => array(
+            array(
+                'name'=>'post',
+                'color'=>'warning'
+            ),
+        ),
+        'example' => '',
+        'description' => 'Sets a statistic for a plugin and server. Leaving \'value\' blank will delete the key/value pair. This does not impact limitations and does not require an API key.',
+        'params' => array('key (VARCHAR 16) REQUIRED', 'value (VARCHAR 256)', 'plugin (VARCHAR 64)'),
+        'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
+    ),
+    array(
+        'title' => 'Get Statistic',
+        'url' => '/statistics/get',
+        'methods' => array(
+            array(
+                'name'=>'post',
+                'color'=>'warning'
+            ),
+        ),
+        'example' => '',
+        'description' => 'Gets a statistic for a plugin and server. This does not impact limitations and does not require an API key.',
+        'params' => array('key (VARCHAR 16) REQUIRED', 'server (VARCHAR 16)'),
+        'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
+    ),
 );

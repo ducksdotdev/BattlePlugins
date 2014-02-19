@@ -184,7 +184,7 @@ return array(
             ),
         ),
         'example' => '',
-        'description' => 'Sets a statistic for a plugin and server. Leaving \'value\' blank will delete the key/value pair. This does not impact limitations and does not require an API key.',
+        'description' => 'Sets a statistic for a plugin and server. Leaving \'value\' blank will delete the key/value pair. This does not impact limitations and does not require an API key. Requests must come from a Minecraft server.',
         'params' => array('key (VARCHAR 16) REQUIRED', 'value (VARCHAR 256)', 'plugin (VARCHAR 64)'),
         'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
     ),

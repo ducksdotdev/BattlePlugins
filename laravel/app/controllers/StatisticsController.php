@@ -17,11 +17,6 @@ class APIController extends BaseController {
                 return Response::json("Your IP ($ip) is blocked from making requests");
             }
 
-            $minecraft = new MinecraftStatus($ip, $port);
-            if(!$minecraft->Online){
-                return Response::json("Not a Minecraft server");
-            }
-
             DB::table('statistic_requests')->insert(array(
                 'server' => $ip,
                 'requested_on' => Carbon::now(),
@@ -56,6 +51,11 @@ class APIController extends BaseController {
             }
         }else{
             $plugin = 'Bukkit';
+        }
+
+        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+        if(!$minecraft->Online){
+            return Response::json("Not a Minecraft server");
         }
 
         $key = Input::get('key');

@@ -420,7 +420,7 @@ class APIController extends BaseController {
 
         while($process->isRunning()){}
 
-        $process = new Process('git stash && git pull', $cd);
+        $process = new Process('git stash && git pull origin '.$branch, $cd);
         $process->start();
 
         while($process->isRunning()){}

@@ -50,14 +50,16 @@ class StatisticsController extends BaseController {
             if(count($check) == 0){
                 return Response::json('Plugin not found');
             }
+
+            $plugin = $check->name;
         }else{
             $plugin = 'Bukkit';
         }
 
-        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-        if(!$minecraft->Online){
-            return Response::json("Not a Minecraft server");
-        }
+//        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+//        if(!$minecraft->Online){
+//            return Response::json("Not a Minecraft server");
+//        }
 
         $key = Input::get('key');
         $server = Session::get('serverIp');

@@ -37,26 +37,28 @@
 <div class="content-section-b">
     <div class="container">
         @foreach($docs as $docType)
-        <h1>{{ $docType['name'] }}</h1>
-        @foreach($docType['methods'] as $doc)
-        @if(count(array_intersect($doc['group'], $userGroups)) > 0)
-        <div class="row" id="{{ $doc['title'] }}">
-            <div class="col-lg-12">
-                <hr />
-                <h3>{{ $doc['title'] }} @foreach($doc['methods'] as $method)<span class="label label-{{ $method['color'] }}">{{ strtoupper($method['name']) }}</span> @endforeach</h3>
-                <p>{{ $doc['description'] }}</p>
-                <p><strong>URL: </strong><code>{{ $doc['url']}}</code></p>
-                @if(is_array($doc['params']))
-                <p><strong>Post Params:</strong> @foreach($doc['params'] as $param)<span class="label label-@if(strpos($param,'REQUIRED')) label-danger @else label-default @endif">{{ $param }}</span> @endforeach</p>
-                @endif
-                @if(strlen($doc['example']) > 0)
-                <p><strong>Example Output:</strong></p>
-                <pre>{{{ $doc['example'] }}}</pre>
-                @endif
+        <div class="well">
+            <h1>{{ $docType['name'] }}</h1>
+            @foreach($docType['methods'] as $doc)
+            @if(count(array_intersect($doc['group'], $userGroups)) > 0)
+            <div class="row" id="{{ $doc['title'] }}">
+                <div class="col-lg-12">
+                    <hr />
+                    <h3>{{ $doc['title'] }} @foreach($doc['methods'] as $method)<span class="label label-{{ $method['color'] }}">{{ strtoupper($method['name']) }}</span> @endforeach</h3>
+                    <p>{{ $doc['description'] }}</p>
+                    <p><strong>URL: </strong><code>{{ $doc['url']}}</code></p>
+                    @if(is_array($doc['params']))
+                    <p><strong>Post Params:</strong> @foreach($doc['params'] as $param)<span class="label label-@if(strpos($param,'REQUIRED')) label-danger @else label-default @endif">{{ $param }}</span> @endforeach</p>
+                    @endif
+                    @if(strlen($doc['example']) > 0)
+                    <p><strong>Example Output:</strong></p>
+                    <pre>{{{ $doc['example'] }}}</pre>
+                    @endif
+                </div>
             </div>
+            @endif
+            @endforeach
         </div>
-        @endif
-        @endforeach
         @endforeach
     </div>
 </div>

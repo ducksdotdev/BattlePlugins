@@ -405,9 +405,9 @@ class APIController extends BaseController {
         }
 
         $payload = Input::get('payload');
-        Deploy::run($payload, Input::get('timeout'));
+        $results = Deploy::run($payload, Input::get('timeout'));
 
-        return Response::json();
+        return Response::json($results);
     }
 
     public function getPlugins($name='all'){

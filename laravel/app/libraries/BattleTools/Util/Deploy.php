@@ -27,6 +27,7 @@ class Deploy {
 
         while($process->isRunning()){}
 
+        $output = $process->getOutput();
         $errors = $process->getErrorOutput();
 
         if($branch == 'master'){
@@ -39,17 +40,23 @@ class Deploy {
             if(Input::has('payload')){
                 foreach($payload['head_commit']['modified'] as $file){
                     if(in_array($file, $doMinify)){
-                        $errors .= self::minify($file, $branch, $cd, $timeout);
+                        $method = self::minify($file, $branch, $cd, $timeout);
+                        $output .= $method['output'];
+                        $errors .= $method['errors'];
                     }
                 }
                 foreach($payload['head_commit']['added'] as $file){
                     if(in_array($file, $doMinify)){
-                        $errors .= self::minify($file, $branch, $cd, $timeout);
+                        $method = self::minify($file, $branch, $cd, $timeout);
+                        $output .= $method['output'];
+                        $errors .= $method['errors'];
                     }
                 }
             }else{
                 foreach($doMinify as $file){
-                    $errors .= self::minify($file, $branch, $cd, $timeout);
+                    $method = self::minify($file, $branch, $cd, $timeout);
+                    $output .= $method['output'];
+                    $errors .= $method['errors'];
                 }
             }
         }
@@ -58,6 +65,14 @@ class Deploy {
         $process->start();
 
         while($process->isRunning()){}
+
+        $output .= $process->getOutput();
+        $errors .= $process->getErrorOutput();
+
+        return array(
+            'output' => $output,
+            'errors' => $errors
+        );
     }
 
     public function minify($file, $branch, $cd, $timeout=180){
@@ -82,7 +97,10 @@ class Deploy {
         $process->start();
         while($process->isRunning()){}
 
-        return $process->getErrorOutput();
+        return array(
+            'output' => $process->getOutput(),
+            'errors' => $process->getErrorOutput()
+        );
     }
 
 }

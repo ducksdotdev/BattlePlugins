@@ -1,9 +1,7 @@
 <?php
 
 use BattleTools\UserManagement\UserGroups;
-use BattleTools\UserManagement\UserSettings;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Request;
 
 function checkGroup($group){
     if(!Auth::check()){

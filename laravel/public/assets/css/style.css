@@ -2,16 +2,10 @@
     font-family: Tenby Five;
     src: url("/assets/css/fonts/tenby-five.otf");
 }
-::selection {
+::selection, ::-moz-selection {
     background: #4899ea;
 }
-::-moz-selection {
-    background: #4899ea;
-}
-a::selection {
-    color: #2A6496;
-}
-a::-moz-selection {
+a::selection, a::-moz-selection {
     color: #2A6496;
 }
 html, body {
@@ -85,7 +79,6 @@ footer {
 footer .footnote {
     font-family:Tenby Five;
     size:16px;
-    font-variant:small-caps;
 }
 footer .footer-middle {
     background: #2C2C2C;

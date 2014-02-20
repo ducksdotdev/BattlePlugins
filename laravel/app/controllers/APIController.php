@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Process\Process;
+use Whoops\Example\Exception;
 
 class APIController extends BaseController {
 
@@ -404,9 +405,10 @@ class APIController extends BaseController {
             return Response::json("You are not a developer");
         }
 
+        $payload = Input::get('payload');
+
         if(Input::has('payload')){
-            $ref = Input::get('payload');
-            $ref = json_decode($ref, true);
+            $ref = json_decode($payload, true);
             $ref = $ref['ref'];
             $ref = explode('/', $ref);
             $branch = $ref[2];
@@ -430,11 +432,25 @@ class APIController extends BaseController {
 
         $errors = $process->getErrorOutput();
 
-        $process = new Process('java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/scripts.min.js; java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.js --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/js/admin.min.js; java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.css > /home/battleplugins/'.$branch.'/BattlePlugins/laravel/public/assets/css/style.min.css', $cd);
+        $doMinify = array(
+            'laravel/public/assets/css/style.css',
+            'laravel/public/assets/js/admin.js',
+            'laravel/public/assets/js/scripts.js',
+        );
 
-        $process->start();
-
-        while($process->isRunning()){}
+        if(Input::has('payload')){
+            foreach($payload['commits'] as $commit){
+                foreach($commit['modified'] as $file){
+                    if(in_array($file, $doMinify)){
+                        $errors .= self::minify($file, $branch, $cd);
+                    }
+                }
+            }
+        }else{
+            foreach($doMinify as $file){
+                $errors .= self::minify($file, $branch, $cd);
+            }
+        }
 
         $process = new Process('php artisan up', $cd.'/laravel');
         $process->start();
@@ -443,9 +459,32 @@ class APIController extends BaseController {
 
         // stop processes
 
-        $errors .= $process->getErrorOutput();
-
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
+    }
+
+    private function minify($file, $branch, $cd){
+
+        if(ListSentence::endsWith($file, 'css')){
+            $type = 'css';
+        }else if(ListSentence::endsWith($file, 'js')){
+            $type = 'js';
+        }else{
+            return new Exception();
+        }
+
+        $fileMin = str_replace('.'.$type, '.min.'.$type, $file);
+
+        if($type == 'js'){
+            $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+        }else if($type == 'css'){
+            $process = new Process('java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin, $cd);
+        }
+
+        $process = new Process($process, $cd);
+        $process->start();
+        while($process->isRunning()){}
+
+        return $process->getErrorOutput();
     }
 
     public function getPlugins($name='all'){

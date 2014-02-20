@@ -20,18 +20,24 @@ class Deploy {
 
         $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
 
-        $process = new Process('php artisan down', $cd.'/laravel');
+        $command = 'php artisan down';
+        $process = new Process($command, $cd.'/laravel');
         $process->start();
 
         while($process->isRunning()){}
 
-        $process = new Process('git stash && git pull origin '.$branch, $cd);
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+
+        $command = 'git stash && git pull origin '.$branch;
+        $process = new Process($command, $cd);
         $process->start();
 
         while($process->isRunning()){}
 
-        $output = $process->getOutput();
-        $errors = $process->getErrorOutput();
+        $gitError = $process->getErrorOutput();
+        if(ListSentence::startsWith($gitError, 'From GitHub:'))
+
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
 
         if($branch == 'master'){
             $doMinify = array(
@@ -44,46 +50,40 @@ class Deploy {
                 foreach($payload['head_commit']['modified'] as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);
-                        $output .= $method['output'];
-                        $errors .= $method['errors'];
+                        $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                     }
                 }
                 foreach($payload['head_commit']['added'] as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);
-                        $output .= $method['output'];
-                        $errors .= $method['errors'];
+                        $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                     }
                 }
             }else{
                 foreach($doMinify as $file){
                     $method = self::minify($file, $branch, $cd, $timeout);
-                    $output .= $method['output'];
-                    $errors .= $method['errors'];
+                    $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                 }
             }
 
-            $process = new Process('git stash pop', $cd);
+            $command = 'git stash pop';
+            $process = new Process($command, $cd);
             $process->start();
 
             while($process->isRunning()){}
 
-            $output .= $process->getOutput();
-            $errors .= $process->getErrorOutput();
+            $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
         }
 
-        $process = new Process('php artisan up', $cd.'/laravel');
+        $command = 'php artisan up';
+        $process = new Process($command, $cd.'/laravel');
         $process->start();
 
         while($process->isRunning()){}
 
-        $output .= $process->getOutput();
-        $errors .= $process->getErrorOutput();
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
-        return array(
-            'output' => $output,
-            'errors' => $errors
-        );
+        return $output;
     }
 
     public static function minify($file, $branch, $cd, $timeout=180){

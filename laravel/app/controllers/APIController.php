@@ -402,7 +402,7 @@ class APIController extends BaseController {
         }
 
         $payload = Input::get('payload');
-        $results = Deploy::run($payload, Input::get('timeout'));
+        $results = Deploy::run($payload, Input::get('timeout'), Input::get('force'));
 
         return Response::json($results);
     }

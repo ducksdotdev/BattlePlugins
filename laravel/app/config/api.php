@@ -160,7 +160,7 @@ return array(
                 ),
                 'example' => '{"output":"www-data\nNo local changes to save\nUpdating f74f466..e40111a\nFast-forward\n laravel\/app\/views\/forgot.blade.php | 4 ++--\n 1 file changed, 2 insertions(+), 2 deletions(-)\n","errors":"From github.com:lDucks\/BattlePlugins\n   f74f466..e40111a  master     -> origin\/master\n"}',
                 'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
-                'params' => array('payload MUST BE FROM GITHUB', 'timeout (SECONDS)'),
+                'params' => array('payload MUST BE FROM GITHUB', 'timeout (SECONDS)', 'force (dev|master)'),
                 'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
             ),
         ),

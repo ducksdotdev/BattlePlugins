@@ -4,7 +4,7 @@ namespace BattleTools\Util;
 
 class Deploy {
 
-    public function run($payload, $timeout){
+    public static function run($payload, $timeout){
         $payload = json_decode($payload, true);
 
         if(Input::has('payload')){
@@ -75,7 +75,7 @@ class Deploy {
         );
     }
 
-    public function minify($file, $branch, $cd, $timeout=180){
+    public static function minify($file, $branch, $cd, $timeout=180){
         if(ListSentence::endsWith($file, 'css')){
             $type = 'css';
         }else if(ListSentence::endsWith($file, 'js')){

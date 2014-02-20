@@ -13,7 +13,7 @@ class Subdomains{
         }
     }
 
-    public static function extractSubdomains($domain){
+    public static function extractSubdomain($domain){
         $subdomains = $domain;
         $domain = extract_domain($subdomains);
 

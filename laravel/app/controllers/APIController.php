@@ -457,4 +457,9 @@ class APIController extends BaseController {
             return Response::json($plugins);
         }
     }
+
+    public function getServerInfo($ip,$port=25565){
+        $minecraft = new MinecraftStatus($ip, $port);
+        return Response::json($minecraft->Info());
+    }
 }

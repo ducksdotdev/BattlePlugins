@@ -104,6 +104,7 @@ Route::get('/api/battletracker/user/get/{username}/{action?}', 'APIController@ge
 Route::post('/api/battletracker/user/set', 'APIController@setBattleTracker');
 
 Route::get("/api/minecraft/face/{name?}/{size?}", 'APIController@getMinecraftFace');
+Route::get("/api/minecraft/server/{ip}/{port?}", 'APIController@getServerInfo');
 
 Route::post("/statistics/set", 'StatisticsController@set');
 Route::post("/statistics/get", 'StatisticsController@get');

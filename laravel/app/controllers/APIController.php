@@ -406,10 +406,10 @@ class APIController extends BaseController {
         }
 
         $payload = Input::get('payload');
+        $payload = json_decode($payload, true);
 
         if(Input::has('payload')){
-            $ref = json_decode($payload, true);
-            $ref = $ref['ref'];
+            $ref = $payload['ref'];
             $ref = explode('/', $ref);
             $branch = $ref[2];
         }else{

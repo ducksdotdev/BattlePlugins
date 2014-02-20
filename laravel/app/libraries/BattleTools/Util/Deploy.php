@@ -34,7 +34,10 @@ class Deploy {
 
         while($process->isRunning()){}
 
-        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+        $gitError = $process->getErrorOutput();
+        if(ListSentence::startsWith($gitError, 'From GitHub:'))
+
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
 
         if($branch == 'master'){
             $doMinify = array(

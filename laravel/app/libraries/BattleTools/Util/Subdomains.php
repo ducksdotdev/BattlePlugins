@@ -15,7 +15,7 @@ class Subdomains{
 
     public static function extractSubdomain($domain){
         $subdomains = $domain;
-        $domain = extract_domain($subdomains);
+        $domain = self::extractDomain($subdomains);
 
         $subdomains = rtrim(strstr($subdomains, $domain, true), '.');
 

@@ -26,8 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-    'master' => array('battleplugins.com'),
-    'dev' => array('dev.battleplugins.com'),
+    'master' => array('battleplugins'),
+    'dev' => array('dev.battleplugins'),
 
 ));
 

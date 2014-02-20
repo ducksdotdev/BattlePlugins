@@ -25,13 +25,16 @@ class Deploy {
 
         while($process->isRunning()){}
 
+        $output = $process->getOutput();
+        $errors = $process->getErrorOutput();
+
         $process = new Process('git stash && git pull origin '.$branch, $cd);
         $process->start();
 
         while($process->isRunning()){}
 
-        $output = $process->getOutput();
-        $errors = $process->getErrorOutput();
+        $output .= $process->getOutput();
+        $errors .= $process->getErrorOutput();
 
         if($branch == 'master'){
             $doMinify = array(

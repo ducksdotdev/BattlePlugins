@@ -7,7 +7,7 @@ use Whoops\Example\Exception;
 
 class Deploy {
 
-    public static function run($payload=null, $timeout=180){
+    public static function run($payload=null, $timeout=180, $force='dev'){
         $payload = json_decode($payload, true);
 
         if($payload != null){
@@ -15,7 +15,7 @@ class Deploy {
             $ref = explode('/', $ref);
             $branch = $ref[2];
         }else{
-            $branch = 'dev';
+            $branch = $force;
         }
 
         $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';

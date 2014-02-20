@@ -1,7 +1,7 @@
 <?php
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\Util\Subdomains;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 View::composer('partials.nav', function($view){
     $view->with('nav', BaseController::getNavigation());

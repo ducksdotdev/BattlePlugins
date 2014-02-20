@@ -18,6 +18,7 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
 
 View::composer(array('partials.head', 'partials.nav'), function($view){
     $subdomain = Subdomains::extractSubdomain(URL::to('/'));
+    $subdomain = str_replace('http://', '', $subdomain);
     Log::info(URL::to('/').'        '.$subdomain);
     $dev = $subdomain === 'dev';
     $view->with('dev', $dev);

@@ -74,9 +74,12 @@ class MinecraftStatus {
 
     public function Info() {
         return array(
-            'MOTD'       => $this->MOTD,
-            'CurPlayers' => $this->CurPlayers,
-            'MaxPlayers' => $this->MaxPlayers
+            'ip'         => $this->IP,
+            'port'       => $this->Port,
+            'online'     => $this->Online,
+            'motd'       => $this->MOTD,
+            'curPlayers' => $this->CurPlayers,
+            'maxPlayers' => $this->MaxPlayers
         );
     }
 

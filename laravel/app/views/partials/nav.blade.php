@@ -32,7 +32,11 @@
 </nav>
 <div class="banner">
     <div class="logo">
+        @if($dev)
+        <a href="/">battleplugins-dev</a>
+        @else
         <a href="/">battleplugins</a>
+        @endif
         <div class="quote visible-lg">Simplicity is Prerequisite for Reliability. - Edsger Dijkstra</div>
     </div>
 </div>

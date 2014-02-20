@@ -38,6 +38,20 @@ return array(
                 'params' => '',
                 'group' => UserGroups::getAll()
             ),
+            array(
+                'title' => 'Get Minecraft Server Information',
+                'url' => '/api/minecraft/server/{ip}/{port?}',
+                'methods' => array(
+                    array(
+                        'name'=>'get',
+                        'color'=>'info'
+                    ),
+                ),
+                'example' => '{"ip":"192.168.1.1","port":"25565","online":"true","motd":"Welcome to our server","curPlayers":"2","maxPlayers":"10"}',
+                'description' => 'Gets all the information about a Minecraft server.',
+                'params' => '',
+                'group' => UserGroups::getAll()
+            ),
         ),
         array(
             'name' => 'jenkins',

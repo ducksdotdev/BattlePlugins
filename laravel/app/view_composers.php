@@ -3,7 +3,10 @@ use BattleTools\UserManagement\UserGroups;
 use Carbon\Carbon;
 
 View::composer('partials.nav', function($view){
-    $view->with('nav', BaseController::getNavigation());
+    $view->with('nav', BaseController::getNavigation())
+        ->with('dev', function(){
+            return App::environment('dev');
+        });
 });
 
 View::composer(array('partials.head', 'partials.scripts'), function($view){

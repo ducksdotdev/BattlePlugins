@@ -467,7 +467,7 @@ class APIController extends BaseController {
         return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
     }
 
-    private function minify($file, $branch, $cd){
+    private function minify($file, $branch, $cd, $timeout=180){
 
         if(ListSentence::endsWith($file, 'css')){
             $type = 'css';
@@ -486,6 +486,7 @@ class APIController extends BaseController {
         }
 
         $process = new Process($process, $cd);
+        $process->setTimeout($timeout);
         $process->start();
         while($process->isRunning()){}
 

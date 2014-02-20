@@ -26,8 +26,7 @@ class Deploy {
 
         while($process->isRunning()){}
 
-        $output[$command] = $process->getOutput();
-        $errors[$command] = $process->getErrorOutput();
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
         $command = 'git stash && git pull origin '.$branch;
         $process = new Process($command, $cd);
@@ -35,8 +34,7 @@ class Deploy {
 
         while($process->isRunning()){}
 
-        $output[$command] = $process->getOutput();
-        $errors[$command] = $process->getErrorOutput();
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
         if($branch == 'master'){
             $doMinify = array(
@@ -49,22 +47,19 @@ class Deploy {
                 foreach($payload['head_commit']['modified'] as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);
-                        $output['minify '.$file] = $method['output'];
-                        $errors['minify '.$file] = $method['errors'];
+                        $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                     }
                 }
                 foreach($payload['head_commit']['added'] as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);
-                        $output['minify '.$file] = $method['output'];
-                        $errors['minify '.$file] = $method['errors'];
+                        $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                     }
                 }
             }else{
                 foreach($doMinify as $file){
                     $method = self::minify($file, $branch, $cd, $timeout);
-                    $output['minify '.$file] = $method['output'];
-                    $errors['minify '.$file] = $method['errors'];
+                    $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
                 }
             }
 
@@ -74,8 +69,7 @@ class Deploy {
 
             while($process->isRunning()){}
 
-            $output[$command] = $process->getOutput();
-            $errors[$command] = $process->getErrorOutput();
+            $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
         }
 
         $command = 'php artisan up';
@@ -84,8 +78,7 @@ class Deploy {
 
         while($process->isRunning()){}
 
-        $output[$command] = $process->getOutput();
-        $errors[$command] = $process->getErrorOutput();
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
         return array(
             'output' => $output,

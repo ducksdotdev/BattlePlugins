@@ -3,6 +3,7 @@
 namespace BattleTools\Util;
 
 use Symfony\Component\Process\Process;
+use Whoops\Example\Exception;
 
 class Deploy {
 

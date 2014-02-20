@@ -20,6 +20,8 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
 View::composer(array('partials.head', 'partials.nav'), function($view){
     $view->with('dev', function(){
         $subdomain = Subdomains::extractSubdomain(URL::to('/'));
-        return $subdomain != 'dev';
+        Log::info(URL::to('/').'        '.$subdomain);
+        return false;
+        return $subdomain == 'dev';
     });
 });

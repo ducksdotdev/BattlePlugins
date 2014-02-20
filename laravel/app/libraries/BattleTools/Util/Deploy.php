@@ -40,7 +40,7 @@ class Deploy {
                 'laravel/public/assets/js/scripts.js',
             );
 
-            if(Input::has('payload')){
+            if($payload != null){
                 foreach($payload['head_commit']['modified'] as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);

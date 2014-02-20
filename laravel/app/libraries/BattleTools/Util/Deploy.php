@@ -80,10 +80,7 @@ class Deploy {
 
         $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
-        return array(
-            'output' => $output,
-            'errors' => $errors
-        );
+        return $output;
     }
 
     public static function minify($file, $branch, $cd, $timeout=180){

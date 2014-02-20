@@ -4,10 +4,10 @@ namespace BattleTools\Util;
 
 class Deploy {
 
-    public static function run($payload, $timeout){
+    public static function run($payload=null, $timeout=180){
         $payload = json_decode($payload, true);
 
-        if(Input::has('payload')){
+        if($payload != null){
             $ref = $payload['ref'];
             $ref = explode('/', $ref);
             $branch = $ref[2];

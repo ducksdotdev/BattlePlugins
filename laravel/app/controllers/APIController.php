@@ -8,10 +8,9 @@ use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Process\Process;
 use Whoops\Example\Exception;
+use BattleTools\Util\Deploy;
 
 class APIController extends BaseController {
 
@@ -406,91 +405,9 @@ class APIController extends BaseController {
         }
 
         $payload = Input::get('payload');
-        $payload = json_decode($payload, true);
+        $results = Deploy::run($payload, Input::get('timeout'));
 
-        if(Input::has('payload')){
-            $ref = $payload['ref'];
-            $ref = explode('/', $ref);
-            $branch = $ref[2];
-        }else{
-            $branch = 'dev';
-        }
-
-        $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
-
-        // run processes
-
-        $process = new Process('php artisan down', $cd.'/laravel');
-        $process->start();
-
-        while($process->isRunning()){}
-
-        $process = new Process('git stash && git pull origin '.$branch, $cd);
-        $process->start();
-
-        while($process->isRunning()){}
-
-        $errors = $process->getErrorOutput();
-
-        if($branch == 'master'){
-            $doMinify = array(
-                'laravel/public/assets/css/style.css',
-                'laravel/public/assets/js/admin.js',
-                'laravel/public/assets/js/scripts.js',
-            );
-
-            if(Input::has('payload')){
-                foreach($payload['head_commit']['modified'] as $file){
-                    if(in_array($file, $doMinify)){
-                        $errors .= self::minify($file, $branch, $cd);
-                    }
-                }
-                foreach($payload['head_commit']['added'] as $file){
-                    if(in_array($file, $doMinify)){
-                        $errors .= self::minify($file, $branch, $cd);
-                    }
-                }
-            }else{
-                foreach($doMinify as $file){
-                    $errors .= self::minify($file, $branch, $cd);
-                }
-            }
-        }
-
-        $process = new Process('php artisan up', $cd.'/laravel');
-        $process->start();
-
-        while($process->isRunning()){}
-
-        // stop processes
-
-        return Response::json(array('output'=>$process->getOutput(),'errors'=>$errors));
-    }
-
-    private function minify($file, $branch, $cd, $timeout=180){
-
-        if(ListSentence::endsWith($file, 'css')){
-            $type = 'css';
-        }else if(ListSentence::endsWith($file, 'js')){
-            $type = 'js';
-        }else{
-            return new Exception();
-        }
-
-        $fileMin = str_replace('.'.$type, '.min.'.$type, $file);
-
-        if($type == 'js'){
-            $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
-        }else if($type == 'css'){
-            $process = 'java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
-        }
-
-        $process = new Process($process, $cd);
-        $process->setTimeout($timeout);
-        $process->start();
-        while($process->isRunning()){}
-
-        return $process->getErrorOutput();
+        return Response::json($results);
     }
 
     public function getPlugins($name='all'){

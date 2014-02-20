@@ -2,6 +2,9 @@
 
 namespace BattleTools\Util;
 
+use Symfony\Component\Process\Process;
+use Whoops\Example\Exception;
+
 class Deploy {
 
     public static function run($payload=null, $timeout=180){

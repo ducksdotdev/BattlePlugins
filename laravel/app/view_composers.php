@@ -21,6 +21,6 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
 View::composer(array('partials.head', 'partials.nav'), function($view){
     $view->with('dev', function(){
         $subdomain = Subdomains::extractSubdomain(Request::url());
-        return $subdomain === 'dev';
+        return $subdomain != 'dev';
     });
 });

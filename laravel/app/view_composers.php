@@ -1,7 +1,6 @@
 <?php
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\Util\Subdomains;
-use Illuminate\Support\Facades\Log;
 
 View::composer('partials.nav', function($view){
     $view->with('nav', BaseController::getNavigation());
@@ -20,7 +19,9 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
 
 View::composer(array('partials.head', 'partials.nav'), function($view){
     $view->with('dev', function(){
-        $subdomain = Subdomains::extractSubdomains(Request::getHost());
-        return $subdomain === 'dev';
+        $subdomain = Subdomains::extractSubdomain(URL::to('/'));
+        Log::info(URL::to('/').'        '.$subdomain);
+        return false;
+        return $subdomain == 'dev';
     });
 });

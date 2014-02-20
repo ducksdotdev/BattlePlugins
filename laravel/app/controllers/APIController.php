@@ -432,23 +432,28 @@ class APIController extends BaseController {
 
         $errors = $process->getErrorOutput();
 
-        $doMinify = array(
-            'laravel/public/assets/css/style.css',
-            'laravel/public/assets/js/admin.js',
-            'laravel/public/assets/js/scripts.js',
-        );
+        if($branch == 'master'){
+            $doMinify = array(
+                'laravel/public/assets/css/style.css',
+                'laravel/public/assets/js/admin.js',
+                'laravel/public/assets/js/scripts.js',
+            );
 
-        if(Input::has('payload')){
-            foreach($payload['commits'] as $commit){
-                foreach($commit['modified'] as $file){
+            if(Input::has('payload')){
+                foreach($payload['head_commit']['modified'] as $file){
                     if(in_array($file, $doMinify)){
                         $errors .= self::minify($file, $branch, $cd);
                     }
                 }
-            }
-        }else{
-            foreach($doMinify as $file){
-                $errors .= self::minify($file, $branch, $cd);
+                foreach($payload['head_commit']['added'] as $file){
+                    if(in_array($file, $doMinify)){
+                        $errors .= self::minify($file, $branch, $cd);
+                    }
+                }
+            }else{
+                foreach($doMinify as $file){
+                    $errors .= self::minify($file, $branch, $cd);
+                }
             }
         }
 

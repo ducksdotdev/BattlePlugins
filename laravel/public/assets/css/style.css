@@ -42,7 +42,7 @@ footer, .push {
     font-family: "Tenby Five";
     text-align: center;
     text-shadow: 2px 2px 5px black;
-    line-height: 180px;
+    line-height: 13vw;
     text-decoration: none;
 }
 .logo a, .logo a:hover{

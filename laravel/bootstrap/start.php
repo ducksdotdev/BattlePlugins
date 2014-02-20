@@ -26,8 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-    'master' => array('battleplugins'),
-    'dev' => array('dev.battleplugins'),
+	'local' => array('your-machine-name'),
 
 ));
 

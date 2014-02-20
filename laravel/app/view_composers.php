@@ -1,11 +1,13 @@
 <?php
 use BattleTools\UserManagement\UserGroups;
+use BattleTools\Util\Subdomains;
 use Carbon\Carbon;
 
 View::composer('partials.nav', function($view){
     $view->with('nav', BaseController::getNavigation())
         ->with('dev', function(){
-            return App::environment('dev');
+            $subdomain = Subdomains::extractDomain(Request::getHost());
+            return $subdomain == 'dev';
         });
 });
 

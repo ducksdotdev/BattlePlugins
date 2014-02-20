@@ -62,6 +62,14 @@ class Deploy {
                     $errors .= $method['errors'];
                 }
             }
+
+            $process = new Process('git stash pop', $cd);
+            $process->start();
+
+            while($process->isRunning()){}
+
+            $output .= $process->getOutput();
+            $errors .= $process->getErrorOutput();
         }
 
         $process = new Process('php artisan up', $cd.'/laravel');

@@ -105,5 +105,4 @@ class Deploy {
             'errors' => $process->getErrorOutput()
         );
     }
-
 }

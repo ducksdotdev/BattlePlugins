@@ -47,7 +47,7 @@ class Deploy {
             );
 
             if($payload != null){
-                $files = $payload['head_com6mit']['modified'] + $payload['head_commit']['added'];
+                $files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
 
                 foreach($files as $file){
                     if(in_array($file, $doMinify)){

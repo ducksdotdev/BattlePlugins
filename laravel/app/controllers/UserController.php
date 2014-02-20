@@ -3,8 +3,8 @@
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\DateUtil;
-use BattleTools\Util\ListSentence;
 use BattleTools\Util\EmailUtil;
+use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

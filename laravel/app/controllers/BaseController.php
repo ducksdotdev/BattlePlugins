@@ -1,8 +1,8 @@
 <?php
 
+use BattleTools\UI\NavigationItem;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
-use BattleTools\UI\NavigationItem;
 
 class BaseController extends Controller {
     private static $activeNavTitle = null;

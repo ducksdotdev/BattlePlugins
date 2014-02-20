@@ -3,11 +3,11 @@
 use BattleTools\BattleTracker\Actions;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
+use BattleTools\Util\DateUtil;
+use BattleTools\Util\Deploy;
 use BattleTools\Util\Jenkins;
 use BattleTools\Util\MinecraftStatus;
-use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
-use BattleTools\Util\Deploy;
 
 class APIController extends BaseController {
 

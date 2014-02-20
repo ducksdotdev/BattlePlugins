@@ -2,8 +2,8 @@
 
 namespace BattleTools\Util;
 
+use Psr\Log\InvalidArgumentException;
 use Symfony\Component\Process\Process;
-use Whoops\Example\Exception;
 
 class Deploy {
 
@@ -92,7 +92,7 @@ class Deploy {
         }else if(ListSentence::endsWith($file, 'js')){
             $type = 'js';
         }else{
-            return new Exception();
+            throw new InvalidArgumentException;
         }
 
         $fileMin = str_replace('.'.$type, '.min.'.$type, $file);
@@ -101,6 +101,8 @@ class Deploy {
             $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
         }else if($type == 'css'){
             $process = 'java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+        }else{
+            throw new InvalidArgumentException;
         }
 
         $process = new Process($process, $cd);

@@ -37,7 +37,7 @@ class Deploy {
         $gitError = $process->getErrorOutput();
         if(ListSentence::startsWith($gitError, 'From GitHub:'))
 
-        $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
+            $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
 
         if($branch == 'master'){
             $doMinify = array(
@@ -47,13 +47,9 @@ class Deploy {
             );
 
             if($payload != null){
-                foreach($payload['head_commit']['modified'] as $file){
-                    if(in_array($file, $doMinify)){
-                        $method = self::minify($file, $branch, $cd, $timeout);
-                        $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
-                    }
-                }
-                foreach($payload['head_commit']['added'] as $file){
+                $files = $payload['head_com6mit']['modified'] + $payload['head_commit']['added'];
+
+                foreach($files as $file){
                     if(in_array($file, $doMinify)){
                         $method = self::minify($file, $branch, $cd, $timeout);
                         $output['minify '.$file] = array('output'=>$method['output'],'errors' => $method['errors']);
@@ -89,17 +85,11 @@ class Deploy {
     public static function minify($file, $branch, $cd, $timeout=180){
         if(ListSentence::endsWith($file, 'css')){
             $type = 'css';
+            $fileMin = self::appendMin($file, $type);
+            $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
         }else if(ListSentence::endsWith($file, 'js')){
             $type = 'js';
-        }else{
-            throw new InvalidArgumentException;
-        }
-
-        $fileMin = str_replace('.'.$type, '.min.'.$type, $file);
-
-        if($type == 'js'){
-            $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
-        }else if($type == 'css'){
+            $fileMin = self::appendMin($file, $type);
             $process = 'java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
         }else{
             throw new InvalidArgumentException;
@@ -114,5 +104,18 @@ class Deploy {
             'output' => $process->getOutput(),
             'errors' => $process->getErrorOutput()
         );
+    }
+
+    public static function appendMin($file, $type=null){
+        if($type == null){
+            if(ListSentence::endsWith($file, 'css')){
+                $type = 'css';
+            }else if(ListSentence::endsWith($file, 'js')){
+                $type = 'js';
+            }else{
+                throw new InvalidArgumentException;
+            }
+        }
+        return str_replace('.'.$type, '.min.'.$type, $file);
     }
 }

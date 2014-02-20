@@ -7,21 +7,18 @@ View::composer('partials.nav', function($view){
 });
 
 View::composer(array('partials.head', 'partials.scripts'), function($view){
-    $view->with('admin', function(){
-        if(Auth::check()){
-            $uid = Auth::user()->id;
-            return UserGroups::hasGroup($uid, UserGroups::ADMINISTRATOR);
-        }else{
-            return false;
-        }
-    });
+    if(Auth::check()){
+        $uid = Auth::user()->id;
+        $admin = UserGroups::hasGroup($uid, UserGroups::ADMINISTRATOR);
+    }else{
+        $admin = false;
+    }
+    $view->with('admin', $admin);
 });
 
 View::composer(array('partials.head', 'partials.nav'), function($view){
-    $view->with('dev', function(){
-        $subdomain = Subdomains::extractSubdomain(URL::to('/'));
-        Log::info(URL::to('/').'        '.$subdomain);
-        return false;
-        return $subdomain == 'dev';
-    });
+    $subdomain = Subdomains::extractSubdomain(URL::to('/'));
+    Log::info(URL::to('/').'        '.$subdomain);
+    $dev = $subdomain === 'dev';
+    $view->with('dev', $dev);
 });

@@ -34,6 +34,7 @@ return array (
     ),
 
     // What files should we minify on deploy to master branch?
+    // File paths should start from after path-to-branch. Do not include a leading slash.
     'files-to-minify' => array(
         'laravel/public/assets/css/style.css',
         'laravel/public/assets/js/admin.js',

@@ -28,11 +28,7 @@ class Deploy {
         $output[$command] = self::runProcess($command, $cd);
 
         if($branch == 'master'){
-            $doMinify = array(
-                'laravel/public/assets/css/style.css',
-                'laravel/public/assets/js/admin.js',
-                'laravel/public/assets/js/scripts.js',
-            );
+            $doMinify = Config::get('deploy.doMinify');
 
             if($payload != null){
                 $files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];

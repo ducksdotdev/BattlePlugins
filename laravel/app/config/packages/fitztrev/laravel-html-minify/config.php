@@ -2,8 +2,6 @@
 
 use BattleTools\Util\Deploy;
 
-Log::info(Deploy::isDeveloperMode());
-
 return array(
 
     // Turn on/off minification

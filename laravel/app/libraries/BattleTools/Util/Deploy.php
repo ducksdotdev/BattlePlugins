@@ -2,6 +2,7 @@
 
 namespace BattleTools\Util;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 use Psr\Log\InvalidArgumentException;
 use Symfony\Component\Process\Process;
@@ -19,16 +20,20 @@ class Deploy {
             $branch = $force;
         }
 
-        $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
 
-        $command = 'php artisan down';
-        $output[$command] = self::runProcess($command, $cd);
+        $cd = Config::get('deploy.path-to-branch');
+        $cd = str_replace('{branch}', $branch, $cd);
 
-        $command = 'git stash && git pull origin '.$branch;
-        $output[$command] = self::runProcess($command, $cd);
+        foreach(Config::get('deploy.pre-commands') as $command){
+            $command = str_replace('{branch}', $branch, $command);
+            $output[$command] = self::runProcess($command, $cd);
+        }
 
-        if($branch == 'master'){
-            $doMinify = Config::get('deploy.doMinify');
+        $masterBranch = Config::get('deploy.master-branch');
+        $devBranch = Config::get('deploy.developer-branch');
+
+        if(($branch == $masterBranch && Config::get('deploy.minify-master')) || ($branch == $devBranch && Config::get('deploy.minify-development'))){
+            $doMinify = Config::get('deploy.files-to-minify');
 
             if($payload != null){
                 $files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
@@ -50,8 +55,10 @@ class Deploy {
             $output[$command] = self::runProcess($command, $cd);
         }
 
-        $command = 'php artisan up';
-        $output[$command] = self::runProcess($command, $cd);
+        foreach(Config::get('deploy.post-commands') as $command){
+            $command = str_replace('{branch}', $branch, $command);
+            $output[$command] = self::runProcess($command, $cd);
+        }
 
         return $output;
     }
@@ -63,9 +70,9 @@ class Deploy {
         $fileMin = $appendMin['newFile'];
 
         if($type == 'css'){
-            $process = 'java -jar /home/tools/compiler.jar --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+            $process = 'java -jar '.Config::get('deploy.compiler').' --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
         }else if($type == 'js'){
-            $process = 'java -jar /home/tools/closure-stylesheets.jar /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+            $process = 'java -jar '.Config::get('deploy.compiler-stylesheets').' /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
         }else{
             throw new InvalidArgumentException;
         }

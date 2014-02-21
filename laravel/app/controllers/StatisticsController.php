@@ -67,16 +67,13 @@ class StatisticsController extends BaseController {
         if(Input::has('value')){
             $value = Input::get('value');
 
-            if(count($query->get()) > 0){
-                $query->update('value', $value);
-            }else{
-                $query->insert(array(
-                    'server' => $server,
-                    'plugin' => $plugin,
-                    'key' => $key,
-                    'value' => $value
-                ));
-            }
+            $query->insert(array(
+                'server' => $server,
+                'plugin' => $plugin,
+                'key' => $key,
+                'value' => $value,
+                'inserted_on' => Carbon::now()
+            ));
 
             return Response::json('updated');
         }else{

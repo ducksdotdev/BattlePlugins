@@ -1,7 +1,6 @@
 <?php
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\Util\Deploy;
-use BattleTools\Util\Subdomains;
 
 View::composer('partials.nav', function($view){
     $view->with('nav', BaseController::getNavigation());

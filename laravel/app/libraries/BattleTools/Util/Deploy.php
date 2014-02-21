@@ -2,6 +2,7 @@
 
 namespace BattleTools\Util;
 
+use Illuminate\Support\Facades\URL;
 use Psr\Log\InvalidArgumentException;
 use Symfony\Component\Process\Process;
 

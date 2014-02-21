@@ -2,6 +2,7 @@
 
 namespace BattleTools\Util;
 
+use Illuminate\Support\Facades\URL;
 use Psr\Log\InvalidArgumentException;
 use Symfony\Component\Process\Process;
 
@@ -34,10 +35,7 @@ class Deploy {
 
         while($process->isRunning()){}
 
-        $gitError = $process->getErrorOutput();
-        if(ListSentence::startsWith($gitError, 'From GitHub:'))
-
-            $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
+        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 
         if($branch == 'master'){
             $doMinify = array(
@@ -121,5 +119,11 @@ class Deploy {
             'type' => $type,
             'newFile' => str_replace('.'.$type, '.min.'.$type, $file)
         );
+    }
+
+    public static function isDeveloperMode(){
+        $subdomain = Subdomains::extractSubdomain(URL::to('/'));
+        $subdomain = str_replace('http://', '', $subdomain);
+        return $subdomain == 'dev';
     }
 }

@@ -30,8 +30,6 @@ return array (
     // What commands should we run after branch specific commands?
     // Use {branch} to specify a specific branch name
     'post-commands' => array(
-        'composer update',
-        'composer install',
         'php artisan up',
     ),
 

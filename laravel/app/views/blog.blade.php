@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h2>{{ $blog->title }}
-                        <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}</small></h2>
+                        <small>Written by <a href="/profile/{{ $author }}">{{ $author }}</a> {{ $ago }}.</small></h2>
                 </div>
             </div>
         </div>

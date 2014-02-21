@@ -20,7 +20,6 @@ class Deploy {
             $branch = $force;
         }
 
-
         $cd = Config::get('deploy.path-to-branch');
         $cd = str_replace('{branch}', $branch, $cd);
 
@@ -70,9 +69,9 @@ class Deploy {
         $fileMin = $appendMin['newFile'];
 
         if($type == 'css'){
-            $process = 'java -jar '.Config::get('deploy.compiler').' --js /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' --js_output_file /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+            $process = 'java -jar '.Config::get('deploy.compiler').' --js '.$cd.'/'.$file.' --js_output_file '.$cd.'/'.$fileMin;
         }else if($type == 'js'){
-            $process = 'java -jar '.Config::get('deploy.compiler-stylesheets').' /home/battleplugins/'.$branch.'/BattlePlugins/'.$file.' > /home/battleplugins/'.$branch.'/BattlePlugins/'.$fileMin;
+            $process = 'java -jar '.Config::get('deploy.compiler-stylesheets').' '.$cd.'/'.$file.' > '.$cd.'/'.$fileMin;
         }else{
             throw new InvalidArgumentException;
         }

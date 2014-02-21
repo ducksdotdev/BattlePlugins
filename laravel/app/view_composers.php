@@ -1,5 +1,6 @@
 <?php
 use BattleTools\UserManagement\UserGroups;
+use BattleTools\Util\Deploy;
 use BattleTools\Util\Subdomains;
 
 View::composer('partials.nav', function($view){
@@ -17,8 +18,5 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
 });
 
 View::composer(array('partials.head', 'partials.scripts', 'partials.nav'), function($view){
-    $subdomain = Subdomains::extractSubdomain(URL::to('/'));
-    $subdomain = str_replace('http://', '', $subdomain);
-    $dev = $subdomain === 'dev';
-    $view->with('dev', $dev);
+    $view->with('dev', Deploy::isDeveloperMode());
 });

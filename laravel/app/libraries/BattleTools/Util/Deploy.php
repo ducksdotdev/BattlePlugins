@@ -122,4 +122,10 @@ class Deploy {
             'newFile' => str_replace('.'.$type, '.min.'.$type, $file)
         );
     }
+
+    public static function isDeveloperMode(){
+        $subdomain = Subdomains::extractSubdomain(URL::to('/'));
+        $subdomain = str_replace('http://', '', $subdomain);
+        return $subdomain === 'dev';
+    }
 }

@@ -36,7 +36,9 @@ class Deploy {
         while($process->isRunning()){}
 
         $gitError = $process->getErrorOutput();
-        if(ListSentence::startsWith($gitError, 'From GitHub:'));
+        if(ListSentence::startsWith($gitError, 'From GitHub:')){
+            $gitError = null;
+        }
 
         $output[$command] = array('output' => $process->getOutput(), 'errors' => $gitError);
 

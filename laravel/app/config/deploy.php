@@ -30,6 +30,8 @@ return array (
     // What commands should we run after branch specific commands?
     // Use {branch} to specify a specific branch name
     'post-commands' => array(
+        'composer update',
+        'composer install',
         'php artisan up',
     ),
 
@@ -39,6 +41,5 @@ return array (
         'laravel/public/assets/css/style.css',
         'laravel/public/assets/js/admin.js',
         'laravel/public/assets/js/scripts.js',
-    ),
-
+    )
 );

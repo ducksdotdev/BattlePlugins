@@ -22,20 +22,10 @@ class Deploy {
         $cd = '/home/battleplugins/'.$branch.'/BattlePlugins';
 
         $command = 'php artisan down';
-        $process = new Process($command, $cd.'/laravel');
-        $process->start();
-
-        while($process->isRunning()){}
-
-        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+        $output[$command] = self::runProcess($command, $cd);
 
         $command = 'git stash && git pull origin '.$branch;
-        $process = new Process($command, $cd);
-        $process->start();
-
-        while($process->isRunning()){}
-
-        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+        $output[$command] = self::runProcess($command, $cd);
 
         if($branch == 'master'){
             $doMinify = array(
@@ -61,21 +51,11 @@ class Deploy {
             }
 
             $command = 'git stash pop';
-            $process = new Process($command, $cd);
-            $process->start();
-
-            while($process->isRunning()){}
-
-            $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+            $output[$command] = self::runProcess($command, $cd);
         }
 
         $command = 'php artisan up';
-        $process = new Process($command, $cd.'/laravel');
-        $process->start();
-
-        while($process->isRunning()){}
-
-        $output[$command] = array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
+        $output[$command] = self::runProcess($command, $cd);
 
         return $output;
     }
@@ -94,15 +74,7 @@ class Deploy {
             throw new InvalidArgumentException;
         }
 
-        $process = new Process($process, $cd);
-        $process->setTimeout($timeout);
-        $process->start();
-        while($process->isRunning()){}
-
-        return array(
-            'output' => $process->getOutput(),
-            'errors' => $process->getErrorOutput()
-        );
+        return self::runProcess($process, $cd);
     }
 
     public static function appendMin($file, $type=null){
@@ -119,6 +91,15 @@ class Deploy {
             'type' => $type,
             'newFile' => str_replace('.'.$type, '.min.'.$type, $file)
         );
+    }
+
+    public static function runProcess($command, $cd){
+        $process = new Process($command, $cd);
+        $process->start();
+
+        while($process->isRunning()){}
+
+        return array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
     }
 
     public static function isDeveloperMode(){

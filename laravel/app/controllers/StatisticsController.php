@@ -43,18 +43,6 @@ class StatisticsController extends BaseController {
             return Response::json('Key is blank');
         }
 
-        if(Input::has('plugin')){
-            $plugin = Input::get('plugin');
-            $check = DB::table('plugins')->where('name', $plugin)->get();
-            if(count($check) == 0){
-                return Response::json('Plugin not found');
-            }
-
-            $plugin = $check->name;
-        }else{
-            $plugin = 'Bukkit';
-        }
-
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
         if(!$minecraft->Online){
             return Response::json("Not a Minecraft server");
@@ -69,7 +57,6 @@ class StatisticsController extends BaseController {
 
             $query->insert(array(
                 'server' => $server,
-                'plugin' => $plugin,
                 'key' => $key,
                 'value' => $value,
                 'inserted_on' => Carbon::now()

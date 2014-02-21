@@ -72,7 +72,7 @@
                         <a href="{{ $build['bukkit'] }}"><span class="panel-title">{{ $build['name'] }}</span> <i class="fa fa-external-link"></i></a>
                     </div>
                     <div class="panel-body">
-                        Created by: {{ $authors[$build['author']] }}<br />
+                        Created by: <a href="/profile/{{ $authors[$build['author']] }}">{{ $authors[$build['author']] }}</a><br />
                         Last Successful Build: <a href="{{ $build['ci']['url'] }}">{{ $build['ci']['build'] }}</a><br />
                     </div>
                 </div>

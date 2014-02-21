@@ -124,6 +124,6 @@ class Deploy {
     public static function isDeveloperMode(){
         $subdomain = Subdomains::extractSubdomain(URL::to('/'));
         $subdomain = str_replace('http://', '', $subdomain);
-        return $subdomain === 'dev';
+        return $subdomain == 'dev';
     }
 }

@@ -22,7 +22,7 @@ return array (
     // What commands should we run before branch specific commands?
     // Use {branch} to specify a specific branch name
     'pre-commands' => array(
-        'php artisan down',
+        'php laravel/artisan down',
         'git stash',
         'git pull origin {branch}',
     ),
@@ -30,7 +30,7 @@ return array (
     // What commands should we run after branch specific commands?
     // Use {branch} to specify a specific branch name
     'post-commands' => array(
-        'php artisan up',
+        'php laravel/artisan up',
     ),
 
     // What files should we minify on deploy to master branch?

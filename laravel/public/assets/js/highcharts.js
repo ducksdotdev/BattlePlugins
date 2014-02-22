@@ -31,7 +31,6 @@ $(function () {
         },
         plotOptions: {
             area: {
-                pointStart: 1940,
                 marker: {
                     enabled: false,
                     symbol: 'circle',

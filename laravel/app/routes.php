@@ -27,6 +27,8 @@ Route::get('/blog/{id?}', 'PageController@getBlogPost');
 Route::get('/donate/cancel', 'PageController@getDonateCancel');
 Route::get('/donate/thanks', 'PageController@getDonateThanks');
 
+Route::get('/statistics', 'StatisticsController@displayStatistics');
+
 Route::group(array('before' => 'guest'), function () {
     Route::get('/login', 'UserController@getLoginPage');
     Route::get('/login/help', 'UserController@forgotPage');

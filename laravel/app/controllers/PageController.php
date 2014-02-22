@@ -165,5 +165,4 @@ class PageController extends BaseController {
         $vars['title'] = 'Thank You!';
         return View::make('donate.thanks', $vars);
     }
-
 }

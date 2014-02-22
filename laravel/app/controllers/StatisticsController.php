@@ -28,13 +28,19 @@ class StatisticsController extends BaseController {
             Session::put("serverIp", $ip);
             Session::put("serverPort", $port);
 
-        });
+            parent::setActive('Tools');
+        })->except(array('displayStatistics'));
 
         $this->afterFilter(function() use ($controller){
             Session::flush();
         });
+    }
 
-        parent::setActive('Tools');
+    public function displayStatistics(){
+        parent::setActive('Resources');
+
+        $vars['title'] = 'Statistics';
+        return View::make('statistics', $vars);
     }
 
     public function set(){

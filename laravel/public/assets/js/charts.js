@@ -1,5 +1,5 @@
 $(function(){
-    $.get('/statistics/getTotalServers', function(data){
+    $.get('/statistics/getTotalServers', function(jsonData){
         google.load('visualization', '1.0', {'packages':['corechart']});
         google.setOnLoadCallback(drawChart);
         function drawChart() {

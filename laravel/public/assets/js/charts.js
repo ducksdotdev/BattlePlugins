@@ -3,8 +3,8 @@ $(function () {
         var players = [];
         var servers = [];
         $.each(data, function(i, item){
-            players.push(item.players);
-            servers.push(item.servers);
+            players.push(parseInt(item.players));
+            servers.push(parseInt(item.servers));
         });
 
         $('#serversGraph').highcharts({

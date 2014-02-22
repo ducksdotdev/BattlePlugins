@@ -13,11 +13,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Total Servers and Players</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading"><div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total
                             Servers and Players</div></div>

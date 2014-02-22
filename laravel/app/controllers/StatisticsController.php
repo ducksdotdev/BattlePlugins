@@ -102,7 +102,13 @@ class StatisticsController extends BaseController {
             where('key', 'players')->
             select(DB::raw('sum(value) as players'))->
             groupBy('inserted_on')->
-            pluck('players');
+            get();
+
+        foreach($players as $player){
+            $temp[] = $player->players;
+        }
+
+        $players = $temp;
 
         $players = array(
             'name' => 'Players',
@@ -113,9 +119,15 @@ class StatisticsController extends BaseController {
             where('key', 'players')->
             select(DB::raw('count(*) as servers'))->
             groupBy('inserted_on')->
-            pluck('servers');
+            get();
 
-        $players = array(
+        foreach($servers as $server){
+            $temp[] = $server->servers;
+        }
+
+        $servers = $temp;
+
+        $servers = array(
             'name' => 'servers',
             'data' => $servers
         );

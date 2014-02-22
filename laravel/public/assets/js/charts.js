@@ -47,10 +47,10 @@ $(function () {
             },
             series: [{
                 name: 'Players',
-                data: [players]
+                data: players
             },{
                 name: 'Servers',
-                data: [servers]
+                data: servers
             }]
         });
     }, 'json');

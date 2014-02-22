@@ -7,7 +7,8 @@ $(function () {
             servers.push(parseInt(item.servers));
         });
 
-        var pointstart = new Date(data[0].timestamp.replace(' ', 'T')).getTime()
+        var t = data[0].timestamp.split(/[- :]/);
+        var pointstart = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
 
         $('#serversGraph').highcharts({
             chart: {

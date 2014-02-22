@@ -10,12 +10,22 @@ $(function () {
             subtitle: {
                 text: ''
             },
+            xAxis: {
+                type: 'datetime',
+                tickInterval: 3600 * 1000,
+                tickWidth: 0,
+                gridLineWidth: 1,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                }
+            },
             tooltip: {
                 pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
             },
             plotOptions: {
                 area: {
-                    pointStart: data[0].timestamp,
                     marker: {
                         enabled: false,
                         symbol: 'circle',

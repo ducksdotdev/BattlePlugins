@@ -28,6 +28,11 @@ $(function () {
                     y: -3
                 }
             },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
             tooltip: {
                 crosshairs: true,
                 shared: true

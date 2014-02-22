@@ -5,9 +5,6 @@ $(function(){
                 zoomType: 'x',
                 spacingRight: 20
             },
-            title: {
-                text: 'USD to EUR exchange rate from 2006 through 2008'
-            },
             subtitle: {
                 text: document.ontouchstart === undefined ?
                     'Click and drag in the plot area to zoom in' :
@@ -17,12 +14,12 @@ $(function(){
                 type: 'datetime',
                 maxZoom: 14 * 24 * 3600000, // fourteen days
                 title: {
-                    text: null
+                    text: 'Date'
                 }
             },
             yAxis: {
                 title: {
-                    text: 'Exchange rate'
+                    text: 'Servers'
                 }
             },
             tooltip: {
@@ -34,11 +31,7 @@ $(function(){
             plotOptions: {
                 area: {
                     fillColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
+                        color: 'blue'
                     },
                     lineWidth: 1,
                     marker: {

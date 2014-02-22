@@ -22,7 +22,6 @@ $(function () {
             },
             xAxis: {
                 type: 'datetime',
-                tickInterval: 60 * 3600 * 1000,
                 tickWidth: 0,
                 gridLineWidth: 1,
                 labels: {
@@ -37,23 +36,28 @@ $(function () {
             plotOptions: {
                 pointStart: pointstart,
                 area: {
+                    lineWidth: 1,
                     marker: {
-                        enabled: false,
-                        symbol: 'circle',
-                        radius: 2,
-                        states: {
-                            hover: {
-                                enabled: true
-                            }
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
                         }
-                    }
-                }
+                    },
+                    threshold: null
+                },
             },
             series: [{
                 name: 'Players',
+                pointInterval: 60 * 3600 * 1000,
+                pointStart: pointstart,
                 data: players
             },{
                 name: 'Servers',
+                pointInterval: 60 * 3600 * 1000,
+                pointStart: pointstart,
                 data: servers
             }]
         });

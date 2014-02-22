@@ -47,11 +47,11 @@ $(function () {
             },
             series: [{
                 name: 'Players',
-                pointInterval: 60 * 3600 * 1000,
+                pointInterval: 3600000,
                 data: players
             },{
                 name: 'Servers',
-                pointInterval: 60 * 3600 * 1000,
+                pointInterval: 3600000,
                 data: servers
             }]
         });

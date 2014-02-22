@@ -3,12 +3,14 @@ $(function () {
         var players = [];
         var servers = [];
         $.each(data, function(i, item){
-            players.push(parseInt(item.players));
-            servers.push(parseInt(item.servers));
+            var timestamp = Date.toTimestamp(item.timestamp);
+            players.push(
+                array(timestamp, parseInt(item.players))
+            );
+            servers.push(
+                array(timestamp, parseInt(item.servers))
+            );
         });
-
-        var pointstart = Date.toUnixTimestamp(data[0].timestamp);
-        console.log(pointstart);
 
         $('#serversGraph').highcharts({
             chart: {
@@ -50,20 +52,16 @@ $(function () {
             },
             series: [{
                 name: 'Players',
-                pointStart: pointstart,
-                pointInterval: 3600000,
                 data: players
             },{
                 name: 'Servers',
-                pointStart: pointstart,
-                pointInterval: 3600000,
                 data: servers
             }]
         });
     }, 'json');
 });
 
-Date.toUnixTimestamp = function(s)
+Date.toTimestamp = function(s)
 {
     s = s.split(/[-A-Z :\.]/i);
     var d = new Date(Date.UTC(s[0], --s[1], s[2], s[3], s[4], s[5]));

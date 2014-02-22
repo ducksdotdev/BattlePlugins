@@ -4,12 +4,8 @@ $(function () {
         var servers = [];
         $.each(data, function(i, item){
             var timestamp = Date.toTimestamp(item.timestamp);
-            players.push(
-                array(timestamp, parseInt(item.players))
-            );
-            servers.push(
-                array(timestamp, parseInt(item.servers))
-            );
+            players.push([timestamp, parseInt(item.players)]);
+            servers.push([timestamp, parseInt(item.servers)]);
         });
 
         $('#serversGraph').highcharts({

@@ -4,11 +4,10 @@ $(function () {
             type: 'area'
         },
         title: {
-            text: 'US and USSR nuclear stockpiles'
+            text: ''
         },
         subtitle: {
-            text: 'Source: <a href="http://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">'+
-                'thebulletin.metapress.com</a>'
+            text: ''
         },
         xAxis: {
             labels: {
@@ -19,7 +18,7 @@ $(function () {
         },
         yAxis: {
             title: {
-                text: 'Nuclear weapon states'
+                text: ''
             },
             labels: {
                 formatter: function() {
@@ -28,7 +27,7 @@ $(function () {
             }
         },
         tooltip: {
-            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+            pointFormat: '<b>{point.y:,.0f} servers</b>'
         },
         plotOptions: {
             area: {

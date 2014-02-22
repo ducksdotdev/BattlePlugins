@@ -1,58 +1,59 @@
-$(function(){
-    $(function () {
-        $('#serversGraph').highcharts({
-            chart: {
-                zoomType: 'x',
-                spacingRight: 20
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' :
-                    'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime',
-                maxZoom: 14 * 24 * 3600000, // fourteen days
-                title: {
-                    text: 'Date'
+$(function () {
+    $('#serversGraph').highcharts({
+        chart: {
+            type: 'area'
+        },
+        title: {
+            text: ''
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            labels: {
+                formatter: function() {
+                    return this.value; // clean, unformatted number for year
                 }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Nuclear weapon states'
             },
-            yAxis: {
-                title: {
-                    text: 'Servers'
+            labels: {
+                formatter: function() {
+                    return this.value / 1000 +'k';
                 }
-            },
-            tooltip: {
-                shared: true
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        color: 'blue'
-                    },
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false
-                    },
-                    shadow: false,
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+        },
+        plotOptions: {
+            area: {
+                pointStart: 1940,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
                     states: {
                         hover: {
-                            lineWidth: 1
+                            enabled: true
                         }
-                    },
-                    threshold: null
+                    }
                 }
-            },
-
-            series: [{
-                type: 'area',
-                name: 'USD to EUR',
-                pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2006, 0, 01),
-            }]
-        });
+            }
+        },
+        series: [{
+            name: 'USA',
+            data: [null, null, null, null, null, 6 , 11, 32, 110, 235, 369, 640,
+                1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+                27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
+                26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
+                24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
+                22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
+                10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104 ]
+        }]
     });
 });
+    

@@ -104,6 +104,7 @@ class StatisticsController extends BaseController {
             groupBy('inserted_on')->
             get();
 
+        $temp = array();
         foreach($players as $player){
             $temp[] = $player->players;
         }
@@ -121,6 +122,7 @@ class StatisticsController extends BaseController {
             groupBy('inserted_on')->
             get();
 
+        $temp = array();
         foreach($servers as $server){
             $temp[] = $server->servers;
         }

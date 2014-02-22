@@ -1,5 +1,11 @@
 $(function () {
     $.get('/statistics/getTotalServers', function(data){
+        var players = [];
+        var servers = [];
+        $.each(data, function(i, item){
+            players.push(item.players);
+            servers.push(item.servers);
+        });
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'
@@ -39,11 +45,11 @@ $(function () {
                 }
             },
             series: [{
-                name: 'Servers',
-                data: [1,15]
-            },{
                 name: 'Players',
-                data: [2,20]
+                data: players
+            },{
+                name: 'Servers',
+                data: servers
             }]
         });
     }, 'json');

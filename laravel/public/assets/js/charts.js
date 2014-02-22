@@ -29,6 +29,7 @@ $(function () {
                 }
             },
             yAxis: {
+                min: 0,
                 title: {
                     text: null
                 }

@@ -28,6 +28,7 @@ return array (
         'laravel/public/assets/css/style.css',
         'laravel/public/assets/js/admin.js',
         'laravel/public/assets/js/scripts.js',
+        'laravel/public/assets/js/highcharts.js',
     ),
 
     // What commands should we run before branch specific commands?

@@ -1,5 +1,5 @@
 $(function () {
-    $.get('http://dev.battleplugins.com/statistics/get/plugin/100.2.26.123', function (data) {
+    $.get('http://dev.battleplugins.com/statistics/get/server/plugin/100.2.26.123', function (data) {
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'

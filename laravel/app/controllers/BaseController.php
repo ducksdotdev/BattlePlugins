@@ -25,6 +25,7 @@ class BaseController extends Controller {
 
         array_push($navigation['primary'], new NavigationItem("Resources", '#', true));
         array_push($navigation['secondary'], new NavigationItem('Plugins', '/plugins', false, 'Resources'));
+        array_push($navigation['secondary'], new NavigationItem('Statistics', '/statistics', false, 'Resources'));
         array_push($navigation['secondary'], new NavigationItem('BattleWiki', '/w', false, 'Resources'));
         array_push($navigation['secondary'], new NavigationItem('Jenkins CI', '/ci', false, 'Resources'));
         array_push($navigation['secondary'],new NavigationItem("Donate", "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=H7AGURDPKJ7BW", false, 'Resources'));

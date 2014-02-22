@@ -27,6 +27,8 @@ Route::get('/blog/{id?}', 'PageController@getBlogPost');
 Route::get('/donate/cancel', 'PageController@getDonateCancel');
 Route::get('/donate/thanks', 'PageController@getDonateThanks');
 
+Route::get('/statistics', 'StatisticsController@displayStatistics');
+
 Route::group(array('before' => 'guest'), function () {
     Route::get('/login', 'UserController@getLoginPage');
     Route::get('/login/help', 'UserController@forgotPage');
@@ -107,4 +109,5 @@ Route::get("/api/minecraft/face/{name?}/{size?}", 'APIController@getMinecraftFac
 Route::get("/api/minecraft/server/{ip}/{port?}", 'APIController@getServerInfo');
 
 Route::post("/statistics/set", 'StatisticsController@set');
-Route::post("/statistics/get", 'StatisticsController@get');
+Route::get("/statistics/getTotalServers", 'StatisticsController@getTotalServers');
+Route::get("/statistics/get/{column}/{key}/{server?}", 'StatisticsController@get');

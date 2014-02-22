@@ -18,27 +18,39 @@ class StatisticsController extends BaseController {
                 return Response::json("Your IP ($ip) is blocked from making requests");
             }
 
+            if(count(Input::all()) > 0){
+                $inputs = ListSentence::toSentence(Input::all());
+            }else{
+                $inputs = $request->getRequestUri();
+                $inputs = str_replace('/statistics/','',$inputs);
+            }
+
             DB::table('statistic_requests')->insert(array(
                 'server' => $ip,
                 'requested_on' => Carbon::now(),
                 'route' => '/'.$route->getPath(),
-                'inputs' => ListSentence::toSentence(Input::all()),
+                'inputs' => $inputs,
             ));
 
             Session::put("serverIp", $ip);
             Session::put("serverPort", $port);
 
-        });
+            parent::setActive('Tools');
+        }, array('except'=>array('displayStatistics')));
 
         $this->afterFilter(function() use ($controller){
             Session::flush();
         });
+    }
 
-        parent::setActive('Tools');
+    public function displayStatistics(){
+        parent::setActive('Resources');
+
+        $vars['title'] = 'Statistics';
+        return View::make('statistics', $vars);
     }
 
     public function set(){
-
         if(!Input::has('key')){
             return Response::json('Key is blank');
         }
@@ -55,34 +67,44 @@ class StatisticsController extends BaseController {
         if(Input::has('value')){
             $value = Input::get('value');
 
+            $time = Carbon::now();
+            $time->minute = 0;
+            $time->second = 0;
+
             $query->insert(array(
                 'server' => $server,
                 'key' => $key,
                 'value' => $value,
-                'inserted_on' => Carbon::now()
+                'inserted_on' => $time
             ));
 
             return Response::json('updated');
-        }else{
-            $query->delete();
-            return Response::json('deleted');
         }
     }
 
-    public function get(){
-        if(!Input::has('key')){
-            return Response::json('No key');
+    public function get($column, $key, $server=null){
+        if(!in_array($column, array('server','key','value','inserted_on'))){
+            $column = '*';
         }
 
-        $key = Input::get('key');
-
-        if(Input::has('server')){
-            $server = Input::get('server');
+        if($server == null){
+            $query = DB::table('statistics')->where('key', $key)->
+                select($column)->get();
         }else{
-            $server = Session::get('serverIp');
+            $query = DB::table('statistics')->where('server', $server)->where('key', $key)->
+                select($column)->get();
         }
-
-        $query = DB::table('statistics')->where('server', $server)->where('key', $key)->get();
         return Response::json($query);
+    }
+
+    public function getTotalServers(){
+        $table =  DB::table('statistics')->
+            where('key', 'players')->
+            select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+                DB::raw('sum(value) as players'))->
+            groupBy('inserted_on')->
+            get();
+
+        return Response::json($table);
     }
 }

@@ -92,4 +92,13 @@ class StatisticsController extends BaseController {
         }
         return Response::json($query);
     }
+
+    public function getTotalServers(){
+        $table =  DB::table('statistics')->
+            select('inserted_on', DB::raw('count(*) as total'))->
+            groupBy('server')->
+            get();
+
+        return Response::json($table);
+    }
 }

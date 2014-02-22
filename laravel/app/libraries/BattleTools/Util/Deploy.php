@@ -56,6 +56,16 @@ class Deploy {
             $output[$command] = self::runProcess($command, $cd);
         }
 
+        if($payload != null){
+            $files = $payload['head_commit']['modified'];
+            if(in_array('laravel/composer.json', $files) && Config::get('deploy.update-composer')){
+                $command = 'composer update';
+                $output[$command] = self::runProcess($command, $cd.'/laravel');
+                $command = 'composer install';
+                $output[$command] = self::runProcess($command, $cd.'/laravel');
+            }
+        }
+
         foreach(Config::get('deploy.post-commands') as $command){
             $command = str_replace('{branch}', $branch, $command);
             $output[$command] = self::runProcess($command, $cd);

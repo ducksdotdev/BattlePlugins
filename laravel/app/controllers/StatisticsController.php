@@ -69,6 +69,7 @@ class StatisticsController extends BaseController {
 
             $time = Carbon::now();
             $time->minute = 0;
+            $time->second = 0;
 
             $query->insert(array(
                 'server' => $server,

@@ -28,8 +28,6 @@ class Deploy {
             $output[$command] = self::runProcess($command, $cd);
         }
 
-        SassCompiler::run("assets/scss/", "assets/css/");
-
         $masterBranch = Config::get('deploy.master-branch');
         $devBranch = Config::get('deploy.developer-branch');
 

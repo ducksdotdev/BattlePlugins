@@ -27,6 +27,6 @@ function drawChart() {
         'height':300};
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('serversGraph'));
+    var chart = new google.visualization.AreaChart(document.getElementById('serversGraph'));
     chart.draw(data, options);
 }

@@ -7,6 +7,8 @@ $(function () {
             servers.push(parseInt(item.servers));
         });
 
+        var pointstart = new Date(data[0].timestamp.replace(' ', 'T')).getTime()
+
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'
@@ -32,6 +34,7 @@ $(function () {
                 pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
             },
             plotOptions: {
+                pointStart: pointstart,
                 area: {
                     marker: {
                         enabled: false,

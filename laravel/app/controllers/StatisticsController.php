@@ -78,11 +78,17 @@ class StatisticsController extends BaseController {
         }
     }
 
-    public function get($key, $server=null){
+    public function get($column, $key, $server=null){
+        if($column == 'all'){
+            $column = '*';
+        }
+
         if($server == null){
-            $query = DB::table('statistics')->where('key', $key)->get();
+            $query = DB::table('statistics')->where('key', $key)->
+                select($column)->get();
         }else{
-            $query = DB::table('statistics')->where('server', $server)->where('key', $key)->get();
+            $query = DB::table('statistics')->where('server', $server)->where('key', $key)->
+                select($column)->get();
         }
         return Response::json($query);
     }

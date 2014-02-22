@@ -219,7 +219,7 @@ return array(
             ),
             array(
                 'title' => 'Get Statistic',
-                'url' => '/statistics/get/{key}/{server?}',
+                'url' => '/statistics/get/{column|all}/{key}/{server?}',
                 'methods' => array(
                     array(
                         'name'=>'get',

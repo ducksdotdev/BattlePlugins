@@ -25,7 +25,7 @@
 </div>
 @stop
 @section('extraScripts')
-<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
+<script src="/assets/js/highcharts.min.js"></script>
 @if($dev && !Config::get('deploy.minify-development'))
 <script src="/assets/js/charts.js"></script>
 @else

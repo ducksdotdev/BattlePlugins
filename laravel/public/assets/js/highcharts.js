@@ -46,7 +46,6 @@ $(function () {
                 }
             },
             series: [{
-                name: 'USA',
                 data: data
             }]
         });

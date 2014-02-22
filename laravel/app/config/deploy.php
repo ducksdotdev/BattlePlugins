@@ -14,7 +14,7 @@ return array (
     'minify-master' => true,
 
     // Minify development branch?
-    'minify-development' => false,
+    'minify-development' => true,
 
     // Path to compiler.jar
     'compiler' => '/home/tools/compiler.jar',

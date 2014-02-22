@@ -29,7 +29,7 @@ class StatisticsController extends BaseController {
             Session::put("serverPort", $port);
 
             parent::setActive('Tools');
-        })->except(array('displayStatistics'));
+        }, array('except'=>array('displayStatistics')));
 
         $this->afterFilter(function() use ($controller){
             Session::flush();

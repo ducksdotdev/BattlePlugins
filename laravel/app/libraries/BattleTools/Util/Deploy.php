@@ -29,9 +29,11 @@ class Deploy {
         }
 
         $masterBranch = Config::get('deploy.master-branch');
-        $devBranch = Config::get('deploy.developer-branch');
+        $devBranch = Config::get('deploy.development-branch');
 
-        if(($branch == $masterBranch && Config::get('deploy.minify-master')) || ($branch == $devBranch && Config::get('deploy.minify-development'))){
+        if(($branch == $masterBranch && Config::get('deploy.minify-master')) ||
+            ($branch == $devBranch && Config::get('deploy.minify-development'))){
+
             $doMinify = Config::get('deploy.files-to-minify');
 
             if($payload != null){

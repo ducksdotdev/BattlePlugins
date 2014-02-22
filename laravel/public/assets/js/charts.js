@@ -30,7 +30,10 @@ $(function () {
             series:
                 [{
                     name: 'Servers',
-                    data: data[0].servers
+                    data: [data[0].servers, data[1].servers]
+                },{
+                    name: 'Players',
+                    data: [data[0].players, data[1].players]
                 }]
         });
     }, 'json');

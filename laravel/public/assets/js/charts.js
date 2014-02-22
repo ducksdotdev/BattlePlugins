@@ -22,7 +22,6 @@ $(function () {
             xAxis: {
                 type: 'datetime',
                 tickWidth: 0,
-                gridLineWidth: 1,
                 labels: {
                     align: 'left',
                     x: 3,

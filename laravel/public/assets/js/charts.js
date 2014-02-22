@@ -67,5 +67,5 @@ Date.toUnixTimestamp = function(s)
 {
     s = s.split(/[-A-Z :\.]/i);
     var d = new Date(Date.UTC(s[0], --s[1], s[2], s[3], s[4], s[5]));
-    return Math.round(d.getTime()/1000);
+    return Math.round(d.getTime());
 }

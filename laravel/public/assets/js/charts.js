@@ -20,11 +20,6 @@ $(function () {
             yAxis: {
                 title: {
                     text: 'Nuclear weapon states'
-                },
-                labels: {
-                    formatter: function() {
-                        return this.value / 1000 +'k';
-                    }
                 }
             },
             tooltip: {
@@ -32,7 +27,6 @@ $(function () {
             },
             plotOptions: {
                 area: {
-                    pointStart: 1940,
                     marker: {
                         enabled: false,
                         symbol: 'circle',

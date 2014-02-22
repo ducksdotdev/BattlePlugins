@@ -98,11 +98,29 @@ class StatisticsController extends BaseController {
     }
 
     public function getTotalServers(){
-        $table =  DB::table('statistics')->
+        $players =  DB::table('statistics')->
             where('key', 'players')->
-            select('inserted_on', DB::raw('count(*) as servers'), DB::raw('sum(value) as players'))->
+            select(DB::raw('sum(value) as players'))->
             groupBy('inserted_on')->
             get();
+
+        $players = array(
+            'name' => 'Players',
+            'data' => $players
+        );
+
+        $servers =  DB::table('statistics')->
+            where('key', 'players')->
+            select(DB::raw('count(*) as servers'))->
+            groupBy('inserted_on')->
+            get();
+
+        $players = array(
+            'name' => 'servers',
+            'data' => $servers
+        );
+
+        $table = $servers+$players;
 
         return Response::json($table);
     }

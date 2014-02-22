@@ -7,7 +7,8 @@ $(function () {
             servers.push(item.servers);
         });
 
-        console.log(players+'      '+servers);
+        players = $.parseJSON(players);
+        servers = $.parseJSON(servers);
 
         $('#serversGraph').highcharts({
             chart: {

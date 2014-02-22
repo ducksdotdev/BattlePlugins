@@ -38,7 +38,13 @@ $(function () {
                     }
                 }
             },
-            series: data
+            series: [{
+                name: 'Servers',
+                data: [1,15]
+            },{
+                name: 'Players',
+                data: [2,20]
+            }]
         });
     }, 'json');
 });

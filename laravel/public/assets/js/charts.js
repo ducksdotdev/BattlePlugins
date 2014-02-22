@@ -7,6 +7,9 @@ $(function () {
             servers.push(parseInt(item.servers));
         });
 
+        var pointstart = Date.createFromMysql(data[0].timestamp);
+        console.log(pointstart);
+
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'
@@ -47,12 +50,12 @@ $(function () {
             },
             series: [{
                 name: 'Players',
-                pointStart: Date.createFromMysql(data[0].timestamp),
+                pointStart: pointstart,
                 pointInterval: 3600000,
                 data: players
             },{
                 name: 'Servers',
-                pointStart: Date.createFromMysql(data[0].timestamp),
+                pointStart: pointstart,
                 pointInterval: 3600000,
                 data: servers
             }]

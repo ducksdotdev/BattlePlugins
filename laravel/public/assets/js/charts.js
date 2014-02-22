@@ -7,7 +7,7 @@ $(function () {
             servers.push(parseInt(item.servers));
         });
 
-        var pointstart = Date.createFromMysql(data[0].timestamp);
+        var pointstart = Date.toUnixTimestamp(data[0].timestamp);
         console.log(pointstart);
 
         $('#serversGraph').highcharts({

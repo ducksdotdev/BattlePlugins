@@ -312,3 +312,10 @@ hr {
 .progressjs-theme-blackRadiusInputs .progressjs-percent {
     display: none;
 }
+i.panel-icon {
+    border-right: 1px solid rgb(196, 196, 196);
+    padding-right: 14px;
+    margin: 0 7px 0 0;
+    line-height: 30px;
+    color: rgba(0, 0, 0, 0.53);
+}

@@ -19,6 +19,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
+                    <div class="panel-heading"><div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total
+                            Servers and Players</div></div>
                     <div id="serversGraph" class="panel-body"></div>
                 </div>
             </div>

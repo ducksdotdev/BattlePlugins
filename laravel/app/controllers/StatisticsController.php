@@ -67,11 +67,14 @@ class StatisticsController extends BaseController {
         if(Input::has('value')){
             $value = Input::get('value');
 
+            $time = Carbon::now();
+            $time->minute = 0;
+
             $query->insert(array(
                 'server' => $server,
                 'key' => $key,
                 'value' => $value,
-                'inserted_on' => Carbon::now()
+                'inserted_on' => $time
             ));
 
             return Response::json('updated');
@@ -96,7 +99,7 @@ class StatisticsController extends BaseController {
     public function getTotalServers(){
         $table =  DB::table('statistics')->
             select('inserted_on', DB::raw('count(*) as total'))->
-            groupBy('server')->
+            groupBy('server', 'inserted_on')->
             get();
 
         return Response::json($table);

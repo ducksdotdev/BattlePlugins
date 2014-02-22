@@ -27,7 +27,11 @@ $(function () {
                     }
                 }
             },
-            series: data
+            series:
+                [{
+                    name: 'Servers',
+                    data: data[0].servers
+                }]
         });
     }, 'json');
 });

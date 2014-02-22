@@ -30,7 +30,8 @@ $(function () {
                 }
             },
             tooltip: {
-                pointFormat: '<b>{point.y:,.0f} {series.name}</b>'
+                crosshairs: true,
+                shared: true
             },
             plotOptions: {
                 area: {

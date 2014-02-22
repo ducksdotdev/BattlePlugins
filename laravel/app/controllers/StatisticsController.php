@@ -84,6 +84,5 @@ class StatisticsController extends BaseController {
 
         $query = DB::table('statistics')->where('server', $server)->where('key', $key)->get();
         return Response::json($query);
-
     }
 }

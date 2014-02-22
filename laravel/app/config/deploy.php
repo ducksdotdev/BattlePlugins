@@ -13,11 +13,22 @@ return array (
     // Minify master branch?
     'minify-master' => true,
 
+    // Minify development branch?
+    'minify-development' => false,
+
     // Path to compiler.jar
     'compiler' => '/home/tools/compiler.jar',
 
     // Path to compiler-stylesheets.jar
     'compiler-stylesheets' => '/home/tools/closure-stylesheets.jar',
+
+    // What files should we minify on deploy?
+    // File paths should start from after path-to-branch. Do not include a leading slash.
+    'files-to-minify' => array(
+        'laravel/public/assets/css/style.css',
+        'laravel/public/assets/js/admin.js',
+        'laravel/public/assets/js/scripts.js',
+    ),
 
     // What commands should we run before branch specific commands?
     // Use {branch} to specify a specific branch name
@@ -31,13 +42,5 @@ return array (
     // Use {branch} to specify a specific branch name
     'post-commands' => array(
         'php laravel/artisan up',
-    ),
-
-    // What files should we minify on deploy to master branch?
-    // File paths should start from after path-to-branch. Do not include a leading slash.
-    'files-to-minify' => array(
-        'laravel/public/assets/css/style.css',
-        'laravel/public/assets/js/admin.js',
-        'laravel/public/assets/js/scripts.js',
     )
 );

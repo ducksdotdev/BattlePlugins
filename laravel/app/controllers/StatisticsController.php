@@ -22,6 +22,7 @@ class StatisticsController extends BaseController {
                 $inputs = ListSentence::toSentence(Input::all());
             }else{
                 $inputs = $request->getRequestUri();
+                $inputs = str_replace('/statistics/','',$inputs);
             }
 
             DB::table('statistic_requests')->insert(array(
@@ -74,9 +75,6 @@ class StatisticsController extends BaseController {
             ));
 
             return Response::json('updated');
-        }else{
-            $query->delete();
-            return Response::json('deleted');
         }
     }
 

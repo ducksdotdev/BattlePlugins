@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
 
 <!-- Styles -->
-@if($dev)
+@if($dev && !Config::get('deploy.minify-develop'))
 <link type="text/css" rel="stylesheet" href="/assets/css/style.css">
 @else
 <link type="text/css" rel="stylesheet" href="/assets/css/style.min.css">

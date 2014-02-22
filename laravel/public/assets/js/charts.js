@@ -21,7 +21,7 @@ $(function () {
             },
             xAxis: {
                 type: 'datetime',
-                tickInterval: 3600 * 1000,
+                tickInterval: 60 * 3600 * 1000,
                 tickWidth: 0,
                 gridLineWidth: 1,
                 labels: {

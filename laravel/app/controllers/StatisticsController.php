@@ -100,7 +100,8 @@ class StatisticsController extends BaseController {
     public function getTotalServers(){
         $table =  DB::table('statistics')->
             where('key', 'players')->
-            select('inserted_on', DB::raw('count(*) as servers'), DB::raw('sum(value) as players'))->
+            select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+                DB::raw('sum(value) as players'))->
             groupBy('inserted_on')->
             get();
 

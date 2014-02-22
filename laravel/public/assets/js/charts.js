@@ -21,12 +21,7 @@ function drawChart() {
         ['Pepperoni', 2]
     ]);
 
-    // Set chart options
-    var options = {'title':'How Much Pizza I Ate Last Night',
-        'width':400,
-        'height':300};
-
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.AreaChart(document.getElementById('serversGraph'));
-    chart.draw(data, options);
+    chart.draw(data);
 }

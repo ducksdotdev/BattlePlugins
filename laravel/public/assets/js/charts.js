@@ -10,7 +10,8 @@ $(function () {
 
         $('#serversGraph').highcharts({
             chart: {
-                type: 'area'
+                type: 'area',
+                zoomType: 'x'
             },
             title: {
                 text: null

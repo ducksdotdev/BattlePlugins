@@ -79,7 +79,7 @@ class StatisticsController extends BaseController {
     }
 
     public function get($column, $key, $server=null){
-        if($column == 'all'){
+        if($column == 'all' || !in_array($column, array('server','key','value','inserted_on'))){
             $column = '*';
         }
 

@@ -7,9 +7,6 @@ $(function () {
             servers.push(item.servers);
         });
 
-        players = $.parseJSON(players);
-        servers = $.parseJSON(servers);
-
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'
@@ -50,10 +47,10 @@ $(function () {
             },
             series: [{
                 name: 'Players',
-                data: players
+                data: [players]
             },{
                 name: 'Servers',
-                data: servers
+                data: [servers]
             }]
         });
     }, 'json');

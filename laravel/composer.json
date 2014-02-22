@@ -10,9 +10,6 @@
         "greggilbert/recaptcha": "dev-master",
         "fitztrev/laravel-html-minify": "dev-master"
     },
-    "require-dev": {
-
-    },
     "autoload": {
         "classmap": [
             "app/commands",

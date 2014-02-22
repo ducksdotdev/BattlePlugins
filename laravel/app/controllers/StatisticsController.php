@@ -18,11 +18,17 @@ class StatisticsController extends BaseController {
                 return Response::json("Your IP ($ip) is blocked from making requests");
             }
 
+            if(count(Input::all()) > 0){
+                $inputs = ListSentence::toSentence(Input::all());
+            }else{
+                $inputs = $request->getRequestUri();
+            }
+
             DB::table('statistic_requests')->insert(array(
                 'server' => $ip,
                 'requested_on' => Carbon::now(),
                 'route' => '/'.$route->getPath(),
-                'inputs' => ListSentence::toSentence(Input::all()),
+                'inputs' => $inputs,
             ));
 
             Session::put("serverIp", $ip);

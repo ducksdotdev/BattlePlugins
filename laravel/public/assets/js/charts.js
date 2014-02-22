@@ -6,6 +6,9 @@ $(function () {
             players.push(item.players);
             servers.push(item.servers);
         });
+
+        console.log(players+'      '+servers);
+
         $('#serversGraph').highcharts({
             chart: {
                 type: 'area'

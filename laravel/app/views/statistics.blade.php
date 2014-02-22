@@ -18,7 +18,9 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div id="serversGraph"></div>
+                <div class="panel panel-default">
+                    <div id="serversGraph" class="panel-body"></div>
+                </div>
             </div>
         </div>
     </div>

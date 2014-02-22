@@ -29,10 +29,10 @@
 </div>
 @stop
 @section('extraScripts')
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 @if($dev && !Config::get('deploy.minify-development'))
-<script src="/assets/js/highcharts.js"></script>
+<script src="/assets/js/charts.js"></script>
 @else
-<script src="/assets/js/highcharts.min.js"></script>
+<script src="/assets/js/charts.min.js"></script>
 @endif
-<script src="//cdnjs.cloudflare.com/ajax/libs/highcharts/3.0.9/highcharts.js"></script>
 @stop

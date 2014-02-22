@@ -5,10 +5,10 @@ $(function () {
                 type: 'area'
             },
             title: {
-                text: ''
+                text: null
             },
             subtitle: {
-                text: ''
+                text: null
             },
             xAxis: {
                 type: 'datetime',
@@ -38,14 +38,7 @@ $(function () {
                     }
                 }
             },
-            series:
-                [{
-                    name: 'Servers',
-                    data: [data[0].servers, data[1].servers]
-                },{
-                    name: 'Players',
-                    data: [data[0].players, data[1].players]
-                }]
+            series: data
         });
     }, 'json');
 });

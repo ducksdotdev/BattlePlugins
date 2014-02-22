@@ -16,6 +16,6 @@ View::composer(array('partials.head', 'partials.scripts'), function($view){
     $view->with('admin', $admin);
 });
 
-View::composer(array('layouts.master'), function($view){
+View::composer(array('master.head', 'partials.scripts', 'partials.nav', 'statistics'), function($view){
     $view->with('dev', Deploy::isDeveloperMode());
 });

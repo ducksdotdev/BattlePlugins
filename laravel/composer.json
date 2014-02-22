@@ -11,7 +11,7 @@
         "fitztrev/laravel-html-minify": "dev-master"
     },
     "require-dev": {
-        "panique/laravel-sass": "dev-master"
+
     },
     "autoload": {
         "classmap": [

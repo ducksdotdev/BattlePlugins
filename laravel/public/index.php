@@ -46,6 +46,4 @@ $app = require_once __DIR__.'/../bootstrap/start.php';
 |
 */
 
-SassCompiler::run("assets/scss/", "assets/css/");
-
 $app->run();

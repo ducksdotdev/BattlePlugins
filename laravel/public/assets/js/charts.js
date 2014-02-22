@@ -15,6 +15,7 @@ $(function () {
             },
             plotOptions: {
                 area: {
+                    pointStart: data[0].timestamp,
                     marker: {
                         enabled: false,
                         symbol: 'circle',

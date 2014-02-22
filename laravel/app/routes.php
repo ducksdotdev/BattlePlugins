@@ -109,4 +109,4 @@ Route::get("/api/minecraft/face/{name?}/{size?}", 'APIController@getMinecraftFac
 Route::get("/api/minecraft/server/{ip}/{port?}", 'APIController@getServerInfo');
 
 Route::post("/statistics/set", 'StatisticsController@set');
-Route::post("/statistics/get", 'StatisticsController@get');
+Route::get("/statistics/get/{key}/{server?}", 'StatisticsController@get');

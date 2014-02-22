@@ -44,7 +44,6 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
-
         if(!Input::has('key')){
             return Response::json('Key is blank');
         }
@@ -75,20 +74,12 @@ class StatisticsController extends BaseController {
         }
     }
 
-    public function get(){
-        if(!Input::has('key')){
-            return Response::json('No key');
-        }
-
-        $key = Input::get('key');
-
-        if(Input::has('server')){
-            $server = Input::get('server');
+    public function get($key, $server=null){
+        if($server == null){
+            $query = DB::table('statistics')->where('key', $key)->get();
         }else{
-            $server = Session::get('serverIp');
+            $query = DB::table('statistics')->where('server', $server)->where('key', $key)->get();
         }
-
-        $query = DB::table('statistics')->where('server', $server)->where('key', $key)->get();
         return Response::json($query);
     }
 }

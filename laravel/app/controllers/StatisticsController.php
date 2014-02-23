@@ -2,6 +2,7 @@
 
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
+use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 
 class StatisticsController extends BaseController {
@@ -60,8 +61,22 @@ class StatisticsController extends BaseController {
             return Response::json("Not a Minecraft server");
         }
 
-        $key = Input::get('key');
         $server = Session::get('serverIp');
+        $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
+            ('server', $server)->get();
+
+        if($count > 0){
+            $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
+            return Response::json("You must wait ".$when." before making another statistics request.");
+        }
+
+        $key = Input::get('key');
+        $allowedKeys = Config::get('statistics.tracked');
+
+        if(!in_array($key, $allowedKeys)){
+            return Response::json($key.' not recognized');
+        }
+
         $query = DB::table('statistics')->where('key', $key)->where('server', $server);
 
         if(Input::has('value')){

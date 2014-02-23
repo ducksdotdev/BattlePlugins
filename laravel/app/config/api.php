@@ -214,7 +214,7 @@ return array(
                 ),
                 'example' => '',
                 'description' => 'Sets a statistic for a plugin and server. This does not impact limitations and does not require an API key. Requests must come from a Minecraft server.',
-                'params' => array('key (VARCHAR 16) REQUIRED', 'value (VARCHAR 256)'),
+                'params' => array('key (VARCHAR 16) REQUIRED', 'value (VARCHAR 256) REQUIRED'),
                 'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
             ),
             array(
@@ -230,7 +230,7 @@ return array(
                 'description' => 'Gets statistics about a key/server.',
                 'params' => '',
                 'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
-            ),
+            )
         )
     )
 );

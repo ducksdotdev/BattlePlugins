@@ -48,14 +48,12 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
-    if ($exception instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-        return View::make('errors.404');
+App::error(function(Exception $exception){
+    if ($exception instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
+        return View::make('errors.404', array(), 404);
     }else{
         Log::error($exception);
     }
-
 });
 
 /*

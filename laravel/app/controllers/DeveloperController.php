@@ -40,8 +40,11 @@ class DeveloperController extends BaseController {
     }
 
     public function clearStatisticRequests(){
-        DB::table('statistic_requests')->delete();
+        $stats = DB::table('statistics')->get();
+        if(count($stats) == 0){
+            DB::table('statistic_requests')->delete();
+        }
+
         return Redirect::to('/developer/statistics');
     }
-
 }

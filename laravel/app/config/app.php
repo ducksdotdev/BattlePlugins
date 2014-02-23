@@ -13,7 +13,7 @@ return array(
     |
     */
 
-    'debug' => true,
+    'debug' => \BattleTools\Util\Deploy::isDeveloperMode(),
 
     /*
     |--------------------------------------------------------------------------

@@ -69,7 +69,7 @@ App::error(function(Exception $exception){
 
 App::down(function()
 {
-	return View::make('errors.down');
+	return View::make('errors.down', array(), 503);
 });
 
 /*

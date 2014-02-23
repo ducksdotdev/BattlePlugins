@@ -55,7 +55,7 @@ App::error(function(Exception $exception){
 });
 
 App::missing(function($exception){
-    return View::make('errors.404', array(), 404);
+    return Response::view('errors.404', array(), 404);
 });
 
 /*
@@ -71,7 +71,7 @@ App::missing(function($exception){
 
 App::down(function()
 {
-    return View::make('errors.down', array(), 503);
+    return Response::view('errors.down', array(), 503);
 });
 
 /*

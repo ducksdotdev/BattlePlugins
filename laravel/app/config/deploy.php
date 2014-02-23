@@ -10,6 +10,9 @@ return array (
     'master-branch' => 'master',
     'development-branch' => 'dev',
 
+    // Update composer when changes are made?
+    'update-composer' => true,
+
     // Minify master branch?
     'minify-master' => true,
 

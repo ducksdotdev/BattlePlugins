@@ -81,9 +81,9 @@ class Deploy {
         $fileMin = $appendMin['newFile'];
 
         if($type == 'css'){
-            $process = 'java -jar '.Config::get('deploy.compiler').' --js '.$cd.'/'.$file.' --js_output_file '.$cd.'/'.$fileMin;
-        }else if($type == 'js'){
             $process = 'java -jar '.Config::get('deploy.compiler-stylesheets').' '.$cd.'/'.$file.' > '.$cd.'/'.$fileMin;
+        }else if($type == 'js'){
+            $process = 'java -jar '.Config::get('deploy.compiler').' --js '.$cd.'/'.$file.' --js_output_file '.$cd.'/'.$fileMin;
         }else{
             throw new InvalidArgumentException;
         }

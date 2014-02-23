@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'tenby_fiveregular';
+    font-family: 'Tenby Five';
     src: url('/assets/css/fonts/tenby-five-webfont.eot');
     src: url('/assets/css/fonts/tenby-five-webfont.eot?#iefix') format('embedded-opentype'),
     url('/assets/css/fonts/tenby-five-webfont.woff') format('woff'),
@@ -7,7 +7,6 @@
     url('/assets/css/fonts/tenby-five-webfont.svg#tenby_fiveregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
 ::selection, ::-moz-selection {
     background: #4899ea;

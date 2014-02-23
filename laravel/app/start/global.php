@@ -13,10 +13,10 @@
 
 ClassLoader::addDirectories(array(
 
-	app_path().'/commands',
-	app_path().'/controllers',
-	app_path().'/models',
-	app_path().'/database/seeds',
+    app_path().'/commands',
+    app_path().'/controllers',
+    app_path().'/models',
+    app_path().'/database/seeds',
 
 ));
 
@@ -49,11 +49,13 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 */
 
 App::error(function(Exception $exception){
-    if ($exception instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException){
-        return View::make('errors.404', array(), 404);
-    }else{
+    if (!($exception instanceof Symfony\Component\HttpKernel\Exception\NotFoundHttpException)){
         Log::error($exception);
     }
+});
+
+App::missing(function($exception){
+    return View::make('errors.404', array(), 404);
 });
 
 /*
@@ -69,7 +71,7 @@ App::error(function(Exception $exception){
 
 App::down(function()
 {
-	return View::make('errors.down', array(), 503);
+    return View::make('errors.down', array(), 503);
 });
 
 /*

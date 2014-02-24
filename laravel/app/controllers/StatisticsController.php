@@ -19,18 +19,10 @@ class StatisticsController extends BaseController {
                 return Response::json("Your IP ($ip) is blocked from making requests");
             }
 
-            if(count(Input::all()) > 0){
-                $inputs = ListSentence::toSentence(Input::all());
-            }else{
-                $inputs = $request->getRequestUri();
-                $inputs = str_replace('/statistics/','',$inputs);
-            }
-
             DB::table('statistic_requests')->insert(array(
                 'server' => $ip,
                 'requested_on' => Carbon::now(),
                 'route' => '/'.$route->getPath(),
-                'inputs' => $inputs,
             ));
 
             Session::put("serverIp", $ip);
@@ -52,16 +44,16 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
+        $keys = Input::all();
+
+        Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
+
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
         if(!$minecraft->Online){
             return Response::json("Not a Minecraft server");
         }
 
         $server = Session::get('serverIp');
-
-        $keys = Input::all();
-
-        Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
 
         $time = Carbon::now();
         $time->minute = 0;

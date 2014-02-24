@@ -4,10 +4,6 @@ return array(
 
     // What statistics are tracked?
     'tracked' => array(
-        // Plugin Statistics
-        'pName',
-        'pVersion',
-
         // Bukkit Statistics
         'bServerName',
         'bVersion',

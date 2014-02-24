@@ -46,8 +46,6 @@ class StatisticsController extends BaseController {
     public function set(){
         $keys = Input::all();
 
-        Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
-
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
         if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
             return Response::json("Not a Minecraft server");
@@ -90,8 +88,10 @@ class StatisticsController extends BaseController {
                         ));
                     }
                 }else{
-                    $error[$key] = 'exists';
+                    $error[$key] = 'duplicate';
                 }
+            }else{
+                $error[$key] = 'exists';
             }
         }
 

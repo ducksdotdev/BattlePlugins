@@ -86,6 +86,8 @@ class StatisticsController extends BaseController {
                             'value' => $value,
                             'inserted_on' => $time
                         ));
+                    }else{
+                        $error[$key] = 'invalid';
                     }
                 }else{
                     $error[$key] = 'duplicate';

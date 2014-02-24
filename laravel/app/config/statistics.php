@@ -24,12 +24,9 @@ return array(
 
     // These keys will only be allowed to be modified by a server once.
     'limited-keys' => array(
-        'bServerName',
-        'bVersion',
-
-        // System Statistics
-        'osVersion',
-        'jVersion',
+        'osArch',
+        'osName',
+        'nCores'
     ),
 
     // Check if the request is coming from a MineCraft server

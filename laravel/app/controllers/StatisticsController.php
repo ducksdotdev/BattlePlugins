@@ -61,23 +61,30 @@ class StatisticsController extends BaseController {
 
         $success = array();
 
+        $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server);
+
         foreach(array_keys($keys) as $key){
-            $allowedKeys = Config::get('statistics.tracked');
+            $count->where('key',$key)->select('key')->get();
+            if(count($count) == 0){
+                if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
+                    $allowedKeys = Config::get('statistics.tracked');
 
-            if(in_array($key, $allowedKeys)){
+                    if(in_array($key, $allowedKeys)){
 
-                $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+                        $query = DB::table('statistics')->where('key', $key)->where('server', $server);
 
-                $value = $keys[$key];
+                        $value = $keys[$key];
 
-                $success[$key] = $value;
+                        $success[$key] = $value;
 
-                $query->insert(array(
-                    'server' => $server,
-                    'key' => $key,
-                    'value' => $value,
-                    'inserted_on' => $time
-                ));
+                        $query->insert(array(
+                            'server' => $server,
+                            'key' => $key,
+                            'value' => $value,
+                            'inserted_on' => $time
+                        ));
+                    }
+                }
             }
         }
 

@@ -2,7 +2,6 @@
 
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
-use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 
 class StatisticsController extends BaseController {
@@ -29,7 +28,7 @@ class StatisticsController extends BaseController {
             Session::put("serverPort", $port);
 
             parent::setActive('Tools');
-        }, array('except'=>array('displayStatistics')));
+        }, array('except'=>array('displayStatistics','getTotalServers')));
 
         $this->afterFilter(function() use ($controller){
             Session::flush();

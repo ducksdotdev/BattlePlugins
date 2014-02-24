@@ -52,10 +52,6 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
-        if(!Input::has('data')){
-            return Response::json('No data');
-        }
-
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
         if(!$minecraft->Online){
             return Response::json("Not a Minecraft server");
@@ -65,35 +61,37 @@ class StatisticsController extends BaseController {
         $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
             ('server', $server)->get();
 
-        $keys = Input::get('data');
+        $keys = Input::all();
 
         foreach(array_keys($keys) as $key){
-            $limitedKeys = Config::get('statistics.limited-keys');
-            if($count > 0 && in_array($key, $limitedKeys)){
-                $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
-                return Response::json("You must wait ".$when." before making another statistics request.");
+            if($key != '_key'){
+                $limitedKeys = Config::get('statistics.limited-keys');
+                if($count > 0 && in_array($key, $limitedKeys)){
+                    $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
+                    return Response::json("You must wait ".$when." before making another statistics request.");
+                }
+
+                $allowedKeys = Config::get('statistics.tracked');
+
+                if(!in_array($key, $allowedKeys)){
+                    return Response::json($key.' not recognized');
+                }
+
+                $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+
+                $value = $keys[$key];
+
+                $time = Carbon::now();
+                $time->minute = 0;
+                $time->second = 0;
+
+                $query->insert(array(
+                    'server' => $server,
+                    'key' => $key,
+                    'value' => $value,
+                    'inserted_on' => $time
+                ));
             }
-
-            $allowedKeys = Config::get('statistics.tracked');
-
-            if(!in_array($key, $allowedKeys)){
-                return Response::json($key.' not recognized');
-            }
-
-            $query = DB::table('statistics')->where('key', $key)->where('server', $server);
-
-            $value = $keys[$key];
-
-            $time = Carbon::now();
-            $time->minute = 0;
-            $time->second = 0;
-
-            $query->insert(array(
-                'server' => $server,
-                'key' => $key,
-                'value' => $value,
-                'inserted_on' => $time
-            ));
         }
 
         return Response::json('updated');

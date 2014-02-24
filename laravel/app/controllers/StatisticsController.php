@@ -60,6 +60,7 @@ class StatisticsController extends BaseController {
         $time->second = 0;
 
         $success = array();
+        $error = array();
 
         $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server);
 
@@ -84,11 +85,13 @@ class StatisticsController extends BaseController {
                             'inserted_on' => $time
                         ));
                     }
+                }else{
+                    $error[$key] = 'Key already exists.';
                 }
             }
         }
 
-        return Response::json(array('updated', $success));
+        return Response::json(array('updated', $success, $error));
     }
 
     public function get($column, $key, $server=null){

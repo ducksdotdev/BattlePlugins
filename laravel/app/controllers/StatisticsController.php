@@ -89,7 +89,6 @@ class StatisticsController extends BaseController {
                     ));
                 }
             }else{
-
                 $count = DB::table('server_statistics')
                     ->where('inserted_on', $time)
                     ->where('server', $server)

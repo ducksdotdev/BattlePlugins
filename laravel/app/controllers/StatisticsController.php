@@ -19,18 +19,10 @@ class StatisticsController extends BaseController {
                 return Response::json("Your IP ($ip) is blocked from making requests");
             }
 
-            if(count(Input::all()) > 0){
-                $inputs = ListSentence::toSentence(Input::all());
-            }else{
-                $inputs = $request->getRequestUri();
-                $inputs = str_replace('/statistics/','',$inputs);
-            }
-
             DB::table('statistic_requests')->insert(array(
                 'server' => $ip,
                 'requested_on' => Carbon::now(),
                 'route' => '/'.$route->getPath(),
-                'inputs' => $inputs,
             ));
 
             Session::put("serverIp", $ip);
@@ -52,50 +44,60 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
-        if(!Input::has('key')){
-            return Response::json('Key is blank');
-        }
+        $keys = Input::all();
 
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-        if(!$minecraft->Online){
+        if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
             return Response::json("Not a Minecraft server");
         }
 
         $server = Session::get('serverIp');
-        $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
-            ('server', $server)->get();
 
-        $key = Input::get('key');
-        $limitedKeys = Config::get('statistics.limited-keys');
-        if($count > 0 && in_array($key, $limitedKeys)){
-            $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
-            return Response::json("You must wait ".$when." before making another statistics request.");
+        $time = Carbon::now();
+        $time->minute = 0;
+        $time->second = 0;
+
+        $success = array();
+        $error = array();
+
+        foreach(array_keys($keys) as $key){
+            $count = DB::table('statistics')
+                ->where('inserted_on', $time)
+                ->where('server', $server)
+                ->where('key', $key)
+                ->select('key')
+                ->get();
+
+            if(count($count) == 0){
+                if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
+                    $allowedKeys = Config::get('statistics.tracked');
+
+                    if(in_array($key, $allowedKeys)){
+
+                        $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+
+                        $value = $keys[$key];
+
+                        $success[$key] = $value;
+
+                        $query->insert(array(
+                            'server' => $server,
+                            'key' => $key,
+                            'value' => $value,
+                            'inserted_on' => $time
+                        ));
+                    }else{
+                        $error[$key] = 'invalid';
+                    }
+                }else{
+                    $error[$key] = 'duplicate';
+                }
+            }else{
+                $error[$key] = 'exists';
+            }
         }
 
-        $allowedKeys = Config::get('statistics.tracked');
-
-        if(!in_array($key, $allowedKeys)){
-            return Response::json($key.' not recognized');
-        }
-
-        $query = DB::table('statistics')->where('key', $key)->where('server', $server);
-
-        if(Input::has('value')){
-            $value = Input::get('value');
-
-            $time = Carbon::now();
-            $time->minute = 0;
-            $time->second = 0;
-
-            $query->insert(array(
-                'server' => $server,
-                'key' => $key,
-                'value' => $value,
-                'inserted_on' => $time
-            ));
-
-            return Response::json('updated');
-        }
+        return Response::json(array('updated', $success, $error));
     }
 
     public function get($column, $key, $server=null){

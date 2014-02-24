@@ -60,10 +60,9 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th width="20%">Server</th>
+                                <th width="30%">Server</th>
                                 <th width="40%">Route</th>
-                                <th width="40%">Inputs</th>
-                                <th width="10%">Count</th>
+                                <th width="20%">Count</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,7 +70,6 @@
                             <tr>
                                 <td>{{ $request->server }}</td>
                                 <td>{{ $request->route }}</td>
-                                <td>{{ $request->inputs }}</td>
                                 <td>{{ $request->total }}</td>
                             </tr>
                             @endforeach

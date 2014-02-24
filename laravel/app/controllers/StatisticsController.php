@@ -70,6 +70,7 @@ class StatisticsController extends BaseController {
 
                 $count = DB::table('plugin_statistics')
                     ->where('inserted_on', $time)
+                    ->where('server', $server)
                     ->where('plugin', $plugin)
                     ->get();
 
@@ -79,6 +80,7 @@ class StatisticsController extends BaseController {
                     $success[$key] = $value;
 
                     DB::table('plugin_statistics')->insert(array(
+                        'server' => $server,
                         'plugin' => $plugin,
                         'version' => $value,
                         'inserted_on' => $time

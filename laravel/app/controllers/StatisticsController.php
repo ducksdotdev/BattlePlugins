@@ -52,8 +52,8 @@ class StatisticsController extends BaseController {
     }
 
     public function set(){
-        if(!Input::has('key')){
-            return Response::json('Key is blank');
+        if(!Input::has('data')){
+            return Response::json('No data');
         }
 
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
@@ -65,23 +65,24 @@ class StatisticsController extends BaseController {
         $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
             ('server', $server)->get();
 
-        $key = Input::get('key');
-        $limitedKeys = Config::get('statistics.limited-keys');
-        if($count > 0 && in_array($key, $limitedKeys)){
-            $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
-            return Response::json("You must wait ".$when." before making another statistics request.");
-        }
+        $keys = Input::get('data');
 
-        $allowedKeys = Config::get('statistics.tracked');
+        foreach(array_keys($keys) as $key){
+            $limitedKeys = Config::get('statistics.limited-keys');
+            if($count > 0 && in_array($key, $limitedKeys)){
+                $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
+                return Response::json("You must wait ".$when." before making another statistics request.");
+            }
 
-        if(!in_array($key, $allowedKeys)){
-            return Response::json($key.' not recognized');
-        }
+            $allowedKeys = Config::get('statistics.tracked');
 
-        $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+            if(!in_array($key, $allowedKeys)){
+                return Response::json($key.' not recognized');
+            }
 
-        if(Input::has('value')){
-            $value = Input::get('value');
+            $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+
+            $value = $keys[$key];
 
             $time = Carbon::now();
             $time->minute = 0;
@@ -93,9 +94,9 @@ class StatisticsController extends BaseController {
                 'value' => $value,
                 'inserted_on' => $time
             ));
-
-            return Response::json('updated');
         }
+
+        return Response::json('updated');
     }
 
     public function get($column, $key, $server=null){

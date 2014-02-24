@@ -22,11 +22,6 @@ return array(
         'nCores'
     ),
 
-    // These keys will only be allowed to be modified by a server once an hour.
-    'limited-keys' => array(
-        'bPlayersOnline'
-    ),
-
     // Check if the request is coming from a MineCraft server
     'check-minecraft' => false
 );

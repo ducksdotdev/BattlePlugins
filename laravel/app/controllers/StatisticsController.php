@@ -62,10 +62,10 @@ class StatisticsController extends BaseController {
         $success = array();
         $error = array();
 
-        $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server)->select('key');
+        $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server);
 
         foreach(array_keys($keys) as $key){
-            $count = $count->where('key',$key)->get();
+            $count = $count->where('key',$key)->select('key')->get();
             if(count($count) == 0){
                 if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
                     $allowedKeys = Config::get('statistics.tracked');

@@ -54,7 +54,11 @@ class StatisticsController extends BaseController {
         $server = Session::get('serverIp');
 
         $time = Carbon::now();
-        $time->minute = 0;
+        if($time->minute > 30){
+            $time->minute = 30;
+        }else{
+            $time->minute = 0;
+        }
         $time->second = 0;
 
         $success = array();

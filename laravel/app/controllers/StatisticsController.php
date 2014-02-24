@@ -65,33 +65,39 @@ class StatisticsController extends BaseController {
         $error = array();
 
         foreach(array_keys($keys) as $key){
-            $count = DB::table('statistics')
-                ->where('inserted_on', $time)
-                ->where('server', $server)
-                ->where('key', $key)
-                ->select('key')
-                ->get();
+            if(ListSentence::startsWith($key, 'p')){
+                $plugin = substr($key, 1);
 
-            $canDupe = Config::get('statistics.can-duplicate');
+                $count = DB::table('plugin_statistics')
+                    ->where('inserted_on', $time)
+                    ->where('plugin', $plugin)
+                    ->get();
 
-            if(count($count) == 0 && !in_array($key, $canDupe)){
-                if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
-                    $allowedKeys = Config::get('statistics.tracked');
+                if(count($count) == 0){
+                    $value = $keys[$key];
 
-                    if(in_array($key, $allowedKeys)){
+                    $success[$key] = $value;
 
-                        if(ListSentence::startsWith($key, 'p')){
-                            $value = $keys[$key];
+                    DB::table('plugin_statistics')->insert(array(
+                        'plugin' => $plugin,
+                        'version' => $value,
+                        'inserted_on' => $time
+                    ));
+                }
+            }else{
 
-                            $success[$key] = $value;
+                $count = DB::table('server_statistics')
+                    ->where('inserted_on', $time)
+                    ->where('server', $server)
+                    ->where('key', $key)
+                    ->select('key')
+                    ->get();
 
-                            DB::table('plugin_statistics')->insert(array(
-                                'server' => $server,
-                                'key' => $key,
-                                'value' => $value,
-                                'inserted_on' => $time
-                            ));
-                        }else{
+                if(count($count) == 0){
+                    if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
+                        $allowedKeys = Config::get('statistics.tracked');
+
+                        if(in_array($key, $allowedKeys)){
                             $value = $keys[$key];
 
                             $success[$key] = $value;
@@ -102,15 +108,15 @@ class StatisticsController extends BaseController {
                                 'value' => $value,
                                 'inserted_on' => $time
                             ));
+                        }else{
+                            $error[$key] = 'invalid';
                         }
                     }else{
-                        $error[$key] = 'invalid';
+                        $error[$key] = 'duplicate';
                     }
                 }else{
-                    $error[$key] = 'duplicate';
+                    $error[$key] = 'exists';
                 }
-            }else{
-                $error[$key] = 'exists';
             }
         }
 

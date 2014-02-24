@@ -49,7 +49,7 @@ class StatisticsController extends BaseController {
         Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
 
         $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-        if(!$minecraft->Online){
+        if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
             return Response::json("Not a Minecraft server");
         }
 

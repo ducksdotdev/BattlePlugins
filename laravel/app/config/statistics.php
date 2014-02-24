@@ -6,6 +6,7 @@ return array(
     'tracked' => array(
         // Plugin Statistics
         'pName',
+        'pVersion',
 
         // Bukkit Statistics
         'bServerName',
@@ -24,6 +25,12 @@ return array(
     // These keys will only be allowed to be modified by a server once.
     'limited-keys' => array(
 
+    ),
+
+    // These keys can be updated as many times as needed
+    'can-duplicate' => array(
+        'pName',
+        'pVersion'
     ),
 
     // Check if the request is coming from a MineCraft server

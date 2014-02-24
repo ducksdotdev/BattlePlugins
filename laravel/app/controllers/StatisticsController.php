@@ -72,24 +72,37 @@ class StatisticsController extends BaseController {
                 ->select('key')
                 ->get();
 
-            if(count($count) == 0){
+            $canDupe = Config::get('statistics.can-duplicate');
+
+            if(count($count) == 0 && !in_array($key, $canDupe)){
                 if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
                     $allowedKeys = Config::get('statistics.tracked');
 
                     if(in_array($key, $allowedKeys)){
 
-                        $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+                        if(ListSentence::startsWith($key, 'p')){
+                            $value = $keys[$key];
 
-                        $value = $keys[$key];
+                            $success[$key] = $value;
 
-                        $success[$key] = $value;
+                            DB::table('plugin_statistics')->insert(array(
+                                'server' => $server,
+                                'key' => $key,
+                                'value' => $value,
+                                'inserted_on' => $time
+                            ));
+                        }else{
+                            $value = $keys[$key];
 
-                        $query->insert(array(
-                            'server' => $server,
-                            'key' => $key,
-                            'value' => $value,
-                            'inserted_on' => $time
-                        ));
+                            $success[$key] = $value;
+
+                            DB::table('server_statistics')->insert(array(
+                                'server' => $server,
+                                'key' => $key,
+                                'value' => $value,
+                                'inserted_on' => $time
+                            ));
+                        }
                     }else{
                         $error[$key] = 'invalid';
                     }

@@ -131,17 +131,17 @@ class StatisticsController extends BaseController {
         }
 
         if($server == null){
-            $query = DB::table('statistics')->where('key', $key)->
+            $query = DB::table('server_statistics')->where('key', $key)->
                 select($column)->get();
         }else{
-            $query = DB::table('statistics')->where('server', $server)->where('key', $key)->
+            $query = DB::table('server_statistics')->where('server', $server)->where('key', $key)->
                 select($column)->get();
         }
         return Response::json($query);
     }
 
     public function getTotalServers(){
-        $table =  DB::table('statistics')->
+        $table =  DB::table('server_statistics')->
             where('key', 'bPlayersOnline')->
             select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
                 DB::raw('sum(value) as players'))->

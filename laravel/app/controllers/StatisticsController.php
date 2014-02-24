@@ -68,13 +68,15 @@ class StatisticsController extends BaseController {
             if(ListSentence::startsWith($key, 'p')){
                 $plugin = substr($key, 1);
 
+                $plugins = DB::table('plugins')->select('name')->get();
+
                 $count = DB::table('plugin_statistics')
                     ->where('inserted_on', $time)
                     ->where('server', $server)
                     ->where('plugin', $plugin)
                     ->get();
 
-                if(count($count) == 0){
+                if(count($count) == 0 && in_array($plugin, $plugins)){
                     $value = $keys[$key];
 
                     $success[$key] = $value;

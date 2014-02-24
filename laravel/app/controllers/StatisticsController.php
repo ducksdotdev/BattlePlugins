@@ -65,12 +65,13 @@ class StatisticsController extends BaseController {
         $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
             ('server', $server)->get();
 
-        if($count > 0){
+        $key = Input::get('key');
+        $limitedKeys = Config::get('statistics.limited-keys');
+        if($count > 0 && in_array($key, $limitedKeys)){
             $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
             return Response::json("You must wait ".$when." before making another statistics request.");
         }
 
-        $key = Input::get('key');
         $allowedKeys = Config::get('statistics.tracked');
 
         if(!in_array($key, $allowedKeys)){

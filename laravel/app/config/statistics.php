@@ -6,7 +6,6 @@ return array(
     'tracked' => array(
         // Plugin Statistics
         'pName',
-        'pVersion',
 
         // Bukkit Statistics
         'bServerName',

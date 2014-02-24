@@ -62,6 +62,8 @@ class StatisticsController extends BaseController {
         $count = DB::table('statistics')->where('inserted_on', '>', $time)->where
             ('server', $server)->get();
 
+        $success = array();
+
         foreach(array_keys($keys) as $key){
             $limitedKeys = Config::get('statistics.limited-keys');
             if(!($count > 0 && in_array($key, $limitedKeys))){
@@ -74,6 +76,8 @@ class StatisticsController extends BaseController {
 
                     $value = $keys[$key];
 
+                    $success[$key] = $value;
+
                     $query->insert(array(
                         'server' => $server,
                         'key' => $key,
@@ -84,7 +88,7 @@ class StatisticsController extends BaseController {
             }
         }
 
-        return Response::json('updated');
+        return Response::json(array('updated', $success));
     }
 
     public function get($column, $key, $server=null){

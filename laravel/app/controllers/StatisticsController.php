@@ -58,40 +58,38 @@ class StatisticsController extends BaseController {
         }
 
         $server = Session::get('serverIp');
-        $count = DB::table('statistics')->where('inserted_on', '>', Carbon::now()->subHour())->where
-            ('server', $server)->get();
 
         $keys = Input::all();
 
         Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
 
+        $time = Carbon::now();
+        $time->minute = 0;
+        $time->second = 0;
+
+        $count = DB::table('statistics')->where('inserted_on', '>', $time)->where
+            ('server', $server)->get();
+
         foreach(array_keys($keys) as $key){
             $limitedKeys = Config::get('statistics.limited-keys');
-            if($count > 0 && in_array($key, $limitedKeys)){
-                $when = DateUtil::getCarbonDate($count->inserted_on)->addHour()->diffForHumans();
-                return Response::json("You must wait ".$when." before making another statistics request.");
+            if(!($count > 0 && in_array($key, $limitedKeys))){
+
+                $allowedKeys = Config::get('statistics.tracked');
+
+                if(in_array($key, $allowedKeys)){
+
+                    $query = DB::table('statistics')->where('key', $key)->where('server', $server);
+
+                    $value = $keys[$key];
+
+                    $query->insert(array(
+                        'server' => $server,
+                        'key' => $key,
+                        'value' => $value,
+                        'inserted_on' => $time
+                    ));
+                }
             }
-
-            $allowedKeys = Config::get('statistics.tracked');
-
-            if(!in_array($key, $allowedKeys)){
-                return Response::json($key.' not recognized');
-            }
-
-            $query = DB::table('statistics')->where('key', $key)->where('server', $server);
-
-            $value = $keys[$key];
-
-            $time = Carbon::now();
-            $time->minute = 0;
-            $time->second = 0;
-
-            $query->insert(array(
-                'server' => $server,
-                'key' => $key,
-                'value' => $value,
-                'inserted_on' => $time
-            ));
         }
 
         return Response::json('updated');

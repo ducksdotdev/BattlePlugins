@@ -28,5 +28,5 @@ return array(
     ),
 
     // Check if the request is coming from a MineCraft server
-    'check-minecraft' => false
+    'check-minecraft' => true
 );

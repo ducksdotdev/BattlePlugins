@@ -63,6 +63,8 @@ class StatisticsController extends BaseController {
 
         $keys = Input::all();
 
+        Log::info(ListSentence::toSentence(array_keys($keys)).'\n'.ListSentence::toSentence(Input::all()));
+
         foreach(array_keys($keys) as $key){
             $limitedKeys = Config::get('statistics.limited-keys');
             if($count > 0 && in_array($key, $limitedKeys)){

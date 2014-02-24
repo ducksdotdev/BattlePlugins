@@ -62,10 +62,10 @@ class StatisticsController extends BaseController {
         $success = array();
         $error = array();
 
-        $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server);
+        $count = DB::table('statistics')->where('inserted_on', $time)->where('server', $server)->select('key');
 
         foreach(array_keys($keys) as $key){
-            $count->where('key',$key)->select('key')->get();
+            $count = $count->where('key',$key)->get();
             if(count($count) == 0){
                 if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
                     $allowedKeys = Config::get('statistics.tracked');
@@ -86,7 +86,7 @@ class StatisticsController extends BaseController {
                         ));
                     }
                 }else{
-                    $error[$key] = 'Key already exists.';
+                    $error[$key] = 'exists';
                 }
             }
         }

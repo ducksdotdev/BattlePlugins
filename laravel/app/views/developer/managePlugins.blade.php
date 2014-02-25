@@ -7,7 +7,7 @@
 				<h2>Manage Plugins</h2>
 				<p>Add, edit, or delete plugins from this page. You may only add Battle<em>Plugins</em> to this list. Plugins will go through an approval process before being added to the list. Adding a plugin to the website enables the following features:</p>
 				<ul>
-					<li>Jenkins tracking via the homepage and plugin list</li>
+					<li><a href="http://ci.battleplugins.com/" target="_blank">Jenkins</a> tracking via the homepage and plugin list</li>
 					<li>Statistics tracking for plugins using <a href="https://github.com/alkarinv/BattlePluginsAPI" target="_blank">BattlePluginsAPI</a></li>
 					<li>Advertising of your plugin through BattlePlugins</li>
 				</ul>

@@ -270,7 +270,7 @@ class AdminController extends BaseController {
 
 		$vars['usernames'] = $usernames;
 
-		return View::make('administrator.statistics', $vars);
+		return View::make('admin.statistics', $vars);
 	}
 
 	public function clearAPIRequests(){

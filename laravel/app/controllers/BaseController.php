@@ -50,7 +50,7 @@ use BattleTools\UserManagement\UserSettings;
                 array_push($navigation['primary'], new NavigationItem("Administration", '#', true));
                 array_push($navigation['secondary'], new NavigationItem("Blog", '/admin/blog', false, "Administration"));
                 array_push($navigation['secondary'], new NavigationItem("Manage Users", '/admin/manageUsers', false, "Administration"));
-	            array_push($navigation['secondary'], new NavigationItem("Statistics", '/developer/statistics', false, "Administration"));
+	            array_push($navigation['secondary'], new NavigationItem("Statistics", '/administrator/statistics', false, "Administration"));
 	            array_push($navigation['secondary'], new NavigationItem("Logs", '/logviewer', false, "Administration"));
             }
 

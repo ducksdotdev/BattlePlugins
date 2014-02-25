@@ -2,7 +2,6 @@
 
 	use BattleTools\UserManagement\UserGroups;
 	use BattleTools\UserManagement\UserSettings;
-	use BattleTools\Util\Deploy;
 	use BattleTools\Util\Jenkins;
 
 	class PluginController extends BaseController{
@@ -16,6 +15,7 @@
 
 			$vars['plugins'] = DB::table("plugins")->get();
 
+			$authors = array();
 			foreach($vars['plugins'] as $plugin){
 				$authors[$plugin->author] = UserSettings::getUsernameFromId($plugin->author);
 			}

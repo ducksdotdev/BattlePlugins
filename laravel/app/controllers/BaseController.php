@@ -43,7 +43,8 @@ use BattleTools\UserManagement\UserSettings;
 
             if(in_array(UserGroups::DEVELOPER, $groups)){
                 array_push($navigation['primary'], new NavigationItem("Developer", '#', true));
-                array_push($navigation['secondary'], new NavigationItem("Statistics", '/developer/statistics', false, "Developer"));
+	            array_push($navigation['secondary'], new NavigationItem("Add Plugin", '/plugins/manage', false, "Developer"));
+	            array_push($navigation['secondary'], new NavigationItem("Statistics", '/developer/statistics', false, "Developer"));
             }
 
             if(in_array(UserGroups::ADMINISTRATOR, $groups)){

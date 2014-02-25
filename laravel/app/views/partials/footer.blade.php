@@ -8,7 +8,7 @@
     </div>
     <div class="col-lg-4 footer-middle">
         <div class="row text-center"><span class="logo logo-footer">battleplugins</span></div>
-        <div class="footnote text-center">v2.0.4</div>
+        <div class="footnote text-center">v2.0.5</div>
         <div class="row text-center">
             <h6><small>© 2013-14 BattlePlugins Network<br>
                     This site is not affiliated with Mojang or Bukkit</small></h6>

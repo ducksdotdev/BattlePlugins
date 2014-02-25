@@ -50,6 +50,7 @@ class AdminController extends BaseController {
             return Response::json(array("result"=>"failure","reason"=>$reason));
         }
 
+        $content = str_replace('<a ', '<a target="_blank" ', $content);
         $id = DB::table('blog')->insertGetId(array(
             'title' => $title,
             'author' => Auth::user()->id,
@@ -95,6 +96,7 @@ class AdminController extends BaseController {
         }
 
         $id = Input::get('id');
+        $content = str_replace('<a ', '<a target="_blank" ', $content);
         DB::table('blog')->where('id', $id)->update(array(
             'title' => $title,
             'content' => $content,

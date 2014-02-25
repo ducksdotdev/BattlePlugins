@@ -270,12 +270,12 @@ class AdminController extends BaseController {
 
 		$vars['usernames'] = $usernames;
 
-		return View::make('developer.statistics', $vars);
+		return View::make('administrator.statistics', $vars);
 	}
 
 	public function clearAPIRequests(){
 		DB::table('api_requests')->delete();
-		return Redirect::to('/developer/statistics');
+		return Redirect::to('/administrator/statistics');
 	}
 
 	public function clearStatisticRequests(){
@@ -285,6 +285,6 @@ class AdminController extends BaseController {
 			DB::table('statistic_requests')->delete();
 		}
 
-		return Redirect::to('/developer/statistics');
+		return Redirect::to('/administrator/statistics');
 	}
 }

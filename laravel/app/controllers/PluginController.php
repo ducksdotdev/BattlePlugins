@@ -1,5 +1,8 @@
 <?php
 
+use BattleTools\UserManagement\UserSettings;
+use BattleTools\Util\Jenkins;
+
 class PluginController extends BaseController {
 
     public function __construct(){

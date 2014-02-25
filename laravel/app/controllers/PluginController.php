@@ -1,12 +1,13 @@
 <?php
 
 use BattleTools\UserManagement\UserSettings;
+use BattleTools\Util\Deploy;
 use BattleTools\Util\Jenkins;
 
 class PluginController extends BaseController {
 
     public function __construct(){
-        $this->beforeFilter('auth.administrator', array('except'=>array('getPlugins','getPluginsHelp')));
+        $this->beforeFilter('auth.administrator', array('except'=>array('getPlugins','managePlugins')));
     }
 
     public function getPlugins(){
@@ -39,11 +40,14 @@ class PluginController extends BaseController {
         return View::make('plugins', $vars);
     }
 
-    public function getPluginsHelp(){
-        $vars['title'] = 'Want to create plugins with us?';
-        parent::setActive('Plugins');
+    public function managePlugins(){
+        if(Deploy::isDeveloperMode()){
+            $vars['title'] = 'Want to create plugins with us?';
+            parent::setActive('Plugins');
 
-        return View::make('pluginsHelp', $vars);
+            return View::make('developer.managePlugins', $vars);
+        }else{
+            return Redirect::to("http://wiki.battleplugins.com/w/index.php?title=BA_API_Tutorial");
+        }
     }
-
 }

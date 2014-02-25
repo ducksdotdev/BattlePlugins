@@ -3,8 +3,9 @@
 use BattleTools\UI\NavigationItem;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
+	use BattleTools\Util\Deploy;
 
-class BaseController extends Controller {
+	class BaseController extends Controller {
     private static $activeNavTitle = null;
 
     protected function setupLayout()

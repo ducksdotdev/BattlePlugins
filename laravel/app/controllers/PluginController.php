@@ -7,7 +7,7 @@
 	class PluginController extends BaseController{
 
 		public function __construct(){
-			$this->beforeFilter('auth.administrator', array('except' => array('getPlugins', 'managePlugins')));
+			$this->beforeFilter('auth.developer', array('except' => array('getPlugins', 'managePlugins')));
 		}
 
 		public function getPlugins(){
@@ -39,7 +39,7 @@
 		public function managePlugins(){
 			$groups = UserGroups::getGroups(Auth::user()->id);
 			if(in_array(UserGroups::DEVELOPER, $groups)){
-				$vars['title'] = 'Want to create plugins with us?';
+				$vars['title'] = 'Manage Plugins';
 				parent::setActive('Plugins');
 
 				return View::make('developer.managePlugins', $vars);

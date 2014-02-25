@@ -10,7 +10,7 @@ class UserGroups {
     const BANNED = 0;
     const USER = 1;
     const ADMINISTRATOR = 2;
-    const DEVELOPER = 3;
+	const DEVELOPER = 3;
 
     public static function getGroupName($id) {
         switch ($id) {

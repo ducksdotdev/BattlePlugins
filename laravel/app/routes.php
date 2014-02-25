@@ -59,9 +59,9 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::get('/admin/manageUsers', 'AdminController@manageUsers');
 
-    Route::get('/developer/statistics', 'DeveloperController@getStatistics');
-    Route::get('/developer/statistics/clear/apiRequests', 'DeveloperController@clearAPIRequests');
-    Route::get('/developer/statistics/clear/statisticRequests', 'DeveloperController@clearStatisticRequests');
+    Route::get('/administrator/statistics', 'AdminController@getStatistics');
+    Route::get('/administrator/statistics/clear/apiRequests', 'AdminController@clearAPIRequests');
+    Route::get('/administrator/statistics/clear/statisticRequests', 'AdminController@clearStatisticRequests');
 
     Route::group(array('before'=>'csrf'), function(){
         Route::post("/user/settings", "UserController@changeSettings");

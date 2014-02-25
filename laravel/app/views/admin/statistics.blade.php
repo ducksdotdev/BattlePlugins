@@ -9,8 +9,8 @@
             </div>
             <div class="col-lg-5 col-lg-offset-1">
                 <h2>Tools</h2>
-                <a href="/developer/statistics/clear/apiRequests" class="btn btn-danger">Clear API Requests</a>
-                <a href="/developer/statistics/clear/statisticRequests" class="btn btn-danger">Clear Statistic Requests</a>
+                <a href="/administrator/statistics/clear/apiRequests" class="btn btn-danger">Clear API Requests</a>
+                <a href="/administrator/statistics/clear/statisticRequests" class="btn btn-danger">Clear Statistic Requests</a>
             </div>
         </div>
     </div>

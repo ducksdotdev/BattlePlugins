@@ -164,11 +164,9 @@ class APIController extends BaseController {
 				$output .= '/x0nbcyiS5EAAAAASUVORK5CYII=';
 				$output = base64_decode($output);
 			}
-
+			Cache::put($user.'Skin', $output, 1440);
 			$skin = $output;
 		}
-
-		Cache::put($user.'Skin', $output, 1440);
 
 		$im = imagecreatefromstring($skin);
 		$av = imagecreatetruecolor($size,$size);

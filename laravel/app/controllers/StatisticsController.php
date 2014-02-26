@@ -159,7 +159,7 @@ class StatisticsController extends BaseController{
 		$time->second = 0;
 
 		$last = count($table) - 1;
-		if($time == $table[$last]->inserted_on){
+		if($time == $last->timestamp){
 			array_pop($table);
 		}
 

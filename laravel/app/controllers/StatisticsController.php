@@ -158,7 +158,7 @@ class StatisticsController extends BaseController{
 			take(336)->get();
 
 		if(self::getTime() == $table[0]->timestamp){
-			array_pop($table);
+			array_shift($table);
 		}
 
 		$table = array_reverse($table);

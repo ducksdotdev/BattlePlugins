@@ -90,9 +90,9 @@ $(function () {
     }, 'json');
 
     $.get('/statistics/getPluginCount', function(data){
-        var data = [];
+        var cdata = [];
         $.each(data, function(i, item){
-            data.push([item.plugin, item.total]);
+            cdata.push([item.plugin, item.total]);
         });
 
         $('#pluginsGraph').highcharts({
@@ -121,7 +121,7 @@ $(function () {
             },
             series: [{
                 type: 'pie',
-                data: data
+                data: cdata
             }]
         });
     }, 'json');

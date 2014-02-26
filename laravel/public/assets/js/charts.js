@@ -92,10 +92,8 @@ $(function () {
     $.get('/statistics/getPluginCount', function(data){
         var data = [];
         $.each(data, function(i, item){
-            data.push([item.plugin, item.count]);
+            data.push([item.plugin, item.total]);
         });
-
-        console.log(data);
 
         $('#pluginsGraph').highcharts({
             chart: {

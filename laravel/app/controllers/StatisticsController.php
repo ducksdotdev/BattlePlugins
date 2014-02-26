@@ -165,4 +165,14 @@ class StatisticsController extends BaseController{
 
 		return Response::json($table);
 	}
+
+	public function getPluginCount(){
+		$table = DB::table('plugin_statistics')->
+			where('inserted_on', self::getTime()->subMinutes(30))->
+			select('plugin',DB::raw('count(*) as total'))->
+			groupBy('plugin')->
+			get();
+
+		return Response::json($table);
+	}
 }

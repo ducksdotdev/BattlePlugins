@@ -1,4 +1,29 @@
 $(function () {
+    var colors = [
+        '#41A7D3',
+        '#6CB755',
+        '#D13434',
+        '#2f7ed8',
+        '#0d233a',
+        '#8bbc21',
+        '#910000',
+        '#1aadce',
+        '#492970',
+        '#f28f43',
+        '#77a1e5',
+        '#c42525',
+        '#a6c96a',
+        '#4572A7',
+        '#AA4643',
+        '#89A54E',
+        '#80699B',
+        '#3D96AE',
+        '#DB843D',
+        '#92A8CD',
+        '#A47D7C',
+        '#B5CA92'
+    ];
+
     $.get('/statistics/getTotalServers', function(data){
         var players = [];
         var servers = [];
@@ -53,36 +78,52 @@ $(function () {
                     threshold: null
                 }
             },
-            colors: [
-                '#41A7D3',
-                '#6CB755',
-                '#D13434',
-                '#2f7ed8',
-                '#0d233a',
-                '#8bbc21',
-                '#910000',
-                '#1aadce',
-                '#492970',
-                '#f28f43',
-                '#77a1e5',
-                '#c42525',
-                '#a6c96a',
-                '#4572A7',
-                '#AA4643',
-                '#89A54E',
-                '#80699B',
-                '#3D96AE',
-                '#DB843D',
-                '#92A8CD',
-                '#A47D7C',
-                '#B5CA92'
-            ],
+            colors: colors,
             series: [{
                 name: 'Players',
                 data: players
             },{
                 name: 'Servers',
                 data: servers
+            }]
+        });
+    }, 'json');
+
+    $.get('/statistics/getPluginCount', function(data){
+        var cdata = [];
+        $.each(data, function(i, item){
+            cdata.push([item.plugin, parseInt(item.total)]);
+        });
+
+        console.log(cdata);
+
+        $('#pluginsGraph').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: null
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                data: cdata
             }]
         });
     }, 'json');

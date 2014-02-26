@@ -5,7 +5,7 @@ return array(
     // What statistics are tracked?
     'tracked' => array(
         // Bukkit Statistics
-        'bServerName',
+     // 'bServerName',
         'bVersion',
         'bOnlineMode',
         'bPlayersOnline',

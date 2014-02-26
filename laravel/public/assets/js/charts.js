@@ -95,6 +95,8 @@ $(function () {
             cdata.push([item.plugin, item.total]);
         });
 
+        console.log(cdata);
+
         $('#pluginsGraph').highcharts({
             chart: {
                 plotBackgroundColor: null,

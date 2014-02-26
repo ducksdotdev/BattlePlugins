@@ -98,7 +98,7 @@ return array(
                         'color'=>'warning'
                     ),
                 ),
-                'example' => '{"id": "z0QtkP"}',
+                'example' => '',
                 'description' => 'Creates a paste under your account name. The output is the ID of your paste which you can use to access pastes at <code>/paste/{id}</code>',
                 'params' => array('title (VARCHAR 32)','content (TEXT) REQUIRED','delete (TIMESTAMP)','private (BOOLEAN)','lang (VARCHAR 11)'),
                 'group' => UserGroups::getAll()
@@ -178,7 +178,7 @@ return array(
                         'color'=>'warning'
                     ),
                 ),
-                'example' => '{"action":"completed","server":"192.168.1.1:25565"}',
+                'example' => '',
                 'description' => 'Adds information about a specific user to BattleTracker. Possible "action" types are '.$actionString.'. Please use their action ID for the ID param. This function can only be called from an IP linked to a Minecraft server. This is for validation reasons.',
                 'params' => array('action (INT) REQUIRED','action_by (VARCHAR 16) REQUIRED','action_to (VARCHAR 16) REQUIRED'),
                 'group' => UserGroups::getAll()

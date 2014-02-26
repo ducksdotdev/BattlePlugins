@@ -9,44 +9,44 @@ use BattleTools\Util\Jenkins;
 use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 
-class APIController extends BaseController {
+class APIController extends BaseController{
 
-	public function __construct() {
+	public function __construct(){
 		$controller = $this;
 
-		$this->beforeFilter(function ($route, $request) use ($controller) {
+		$this->beforeFilter(function ($route, $request) use ($controller){
 			$ip = $request->getClientIp();
 			Session::set('rawData', $request->getContent());
 			if(strpos($ip, '192.30.252.') === 0 || strpos($ip, '204.232.175.') === 0){
 				$ip = 'GitHub';
 			}
 
-			$port =  $request->getPort();
+			$port = $request->getPort();
 
-			$banned_server = DB::table('banned_server')->where('server',$ip)->get();
+			$banned_server = DB::table('banned_server')->where('server', $ip)->get();
 			if(count($banned_server) > 0){
 				return Response::json("Your IP ($ip) is blocked from making requests");
 			}
 
 			$key = $request->header('X-API-Key');
-			if ($key == null && Input::has("_key")) {
+			if($key == null && Input::has("_key")){
 				$key = Input::get("_key");
 			}
 
 			$result = DB::table('user_settings')->where('value', $key)->where("key", "api-key")->first();
 			$uid = null;
-			if ($result != null) {
+			if($result != null){
 				$uid = $result->user_id;
-			} else {
-				if ($key == null && Auth::check()) {
+			}else{
+				if($key == null && Auth::check()){
 					$uid = Auth::user()->id;
 				}
 			}
 
-			if ($uid == null) {
+			if($uid == null){
 				return Response::json(array("Invalid API key"));
-			} else {
-				if (UserGroups::hasGroup($uid, UserGroups::BANNED)) {
+			}else{
+				if(UserGroups::hasGroup($uid, UserGroups::BANNED)){
 					return Response::json(array("Banned key."));
 				}
 			}
@@ -66,25 +66,25 @@ class APIController extends BaseController {
 					$timestamp = $when->timestamp;
 					$when = $when->diffForHumans();
 
-					return Response::json(array('result'=>'failure','reason'=>"You may not make any requests until $when",'timestamp'=>$timestamp));
+					return Response::json(array('result' => 'failure', 'reason' => "You may not make any requests until $when", 'timestamp' => $timestamp));
 				}
 			}
 
 			UserSettings::set($uid, 'api-request', Carbon::now());
 			DB::table('api_requests')->insert(array(
-				'user_id' => $uid,
-				'ip' => $ip,
+				'user_id'      => $uid,
+				'ip'           => $ip,
 				'requested_on' => Carbon::now(),
-				'route' => '/'.$route->getPath(),
+				'route'        => '/'.$route->getPath(),
 			));
 
 			Session::put("userIp", $ip);
 			Session::put("userId", $uid);
 			Session::put("userPort", $port);
 
-		}, array('except'=>array('getDocumentation','getMinecraftFace','userGenerateKey')));
+		}, array('except' => array('getDocumentation', 'getMinecraftFace', 'userGenerateKey')));
 
-		$this->afterFilter(function() use ($controller){
+		$this->afterFilter(function () use ($controller){
 			Session::flush();
 		});
 
@@ -122,21 +122,22 @@ class APIController extends BaseController {
 
 	public function userGenerateKey(){
 		self::generateKey();
+
 		return Redirect::to('/api');
 	}
 
-	public function getMinecraftFace($user="char",$size=256){
+	public function getMinecraftFace($user = "char", $size = 256){
 		if(Cache::has($user.'Skin')){
 			$skin = Cache::get($user.'Skin');
 		}else{
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, 'http://s3.amazonaws.com/MinecraftSkins/' . $user . '.png');
+			curl_setopt($ch, CURLOPT_URL, 'http://s3.amazonaws.com/MinecraftSkins/'.$user.'.png');
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 			$output = curl_exec($ch);
 			$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			curl_close($ch);
-			if($status!='200') {
+			if($status != '200'){
 				// Default Skin: http://www.minecraft.net/skin/char.png
 				$output = 'iVBORw0KGgoAAAANSUhEUgAAAEAAAAAgCAMAAACVQ462AAAABGdBTUEAALGPC/xhBQAAAwBQTFRFAAAAHxALIxcJJBgIJBgKJhgLJhoKJx';
 				$output .= 'sLJhoMKBsKKBsLKBoNKBwLKRwMKh0NKx4NKx4OLR0OLB4OLx8PLB4RLyANLSAQLyIRMiMQMyQRNCUSOigUPyoVKCgoPz8/JiFbMChyAFt';
@@ -169,15 +170,16 @@ class APIController extends BaseController {
 		}
 
 		$im = imagecreatefromstring($skin);
-		$av = imagecreatetruecolor($size,$size);
-		imagecopyresized($av,$im,0,0,8,8,$size,$size,8,8);    // Face
-		imagecolortransparent($im,imagecolorat($im,63,0));    // Black Hat Issue
-		imagecopyresized($av,$im,0,0,40,8,$size,$size,8,8);   // Accessories
+		$av = imagecreatetruecolor($size, $size);
+		imagecopyresized($av, $im, 0, 0, 8, 8, $size, $size, 8, 8); // Face
+		imagecolortransparent($im, imagecolorat($im, 63, 0)); // Black Hat Issue
+		imagecopyresized($av, $im, 0, 0, 40, 8, $size, $size, 8, 8); // Accessories
 		$image = imagepng($av);
+
 		return Response::make($image.'')->header('Content-Type', 'image/png');
 	}
 
-	public function getBlog($id='all'){
+	public function getBlog($id = 'all'){
 		$blog = DB::table('blog')->orderBy('id', 'desc');
 
 		if($id == 'all'){
@@ -189,13 +191,13 @@ class APIController extends BaseController {
 		}
 
 		if(count($blog) == 0){
-			return Response::json(array('error'=>'Not Found'));
+			return Response::json(array('error' => 'Not Found'));
 		}
 
 		return Response::json($blog);
 	}
 
-	public function getPaste($id='all',$author=null){
+	public function getPaste($id = 'all', $author = null){
 		$author = UserSettings::getIdFromUsername($author);
 		$pastes = DB::table('pastes')->where('private', false)->where('hidden_on', '0000-00-00 00:00:00')->orderBy('created_on', 'desc')->select(
 			'id',
@@ -239,27 +241,27 @@ class APIController extends BaseController {
 		}
 
 		$input = array(
-			'title' => $title,
+			'title'   => $title,
 			'content' => $content,
-			'lang' => $lang
+			'lang'    => $lang
 		);
 
 		$rules = array(
-			'title' => "max:132",
+			'title'   => "max:132",
 			'content' => "required",
-			'lang' => "max:11"
+			'lang'    => "max:11"
 		);
 
 		$messages = array(
-			"title.max" => "Your title exceeds 132 characters.",
+			"title.max"        => "Your title exceeds 132 characters.",
 			"content.required" => "You left the content param blank.",
-			"lang.max" => "Your lang param is exceeds 11 characters"
+			"lang.max"         => "Your lang param is exceeds 11 characters"
 		);
 
-		$validator = Validator::make($input,$rules,$messages);
+		$validator = Validator::make($input, $rules, $messages);
 
 		if($validator->fails()){
-			return Response::json(array('result'=>'failure','reason'=>$validator->messages()->all(),'input'=>Input::all()));
+			return Response::json(array('result' => 'failure', 'reason' => $validator->messages()->all(), 'input' => Input::all()));
 		}
 
 		$deletionDate = Input::get('delete');
@@ -274,22 +276,24 @@ class APIController extends BaseController {
 		$id = str_random(6);
 
 		$paste = DB::table('pastes')->insertGetId(array(
-			'id' => $id,
-			'author' => Session::get('userId'),
-			'title' => $title,
-			'content' => $content,
-			'private' => $private,
-			'lang' => $lang,
+			'id'         => $id,
+			'author'     => Session::get('userId'),
+			'title'      => $title,
+			'content'    => $content,
+			'private'    => $private,
+			'lang'       => $lang,
 			'created_on' => Carbon::now(),
-			'hidden_on' => $deletionDate
+			'hidden_on'  => $deletionDate
 		));
 
-		return Response::json(array('id'=>$id));
+		$inputs = Input::all();
+		$inputs['id'] = $id;
+
+		return Response::json($inputs);
 	}
 
 	public function deletePaste($id){
-		$paste = DB::table('pastes')->where('id', $id)->where((function($query)
-		{
+		$paste = DB::table('pastes')->where('id', $id)->where((function ($query){
 			$query->where('hidden_on', '0000-00-00 00:00:00')
 				->orWhere('hidden_on', '>', Carbon::now());
 
@@ -318,27 +322,27 @@ class APIController extends BaseController {
 		$action_to = Input::get('action_to');
 
 		$input = array(
-			'action' => $action,
+			'action'    => $action,
 			'action_by' => $action_by,
 			'action_to' => $action_to
 		);
 
 		$rules = array(
-			'action' => "required|integer",
+			'action'    => "required|integer",
 			'action_by' => "required|max:16",
 			'action_to' => "required|max:16"
 		);
 
 		$messages = array(
-			"action.required" => "action is required",
-			"action.integer" => "action must be an integer",
+			"action.required"    => "action is required",
+			"action.integer"     => "action must be an integer",
 			"action_by.required" => "action_by is required",
-			"action_by.max" => "action_by exceeds 16 characters",
+			"action_by.max"      => "action_by exceeds 16 characters",
 			"action_to.required" => "action_to is required",
-			"action_to.max" => "action_to exceeds 16 characters",
+			"action_to.max"      => "action_to exceeds 16 characters",
 		);
 
-		$validator = Validator::make($input,$rules,$messages);
+		$validator = Validator::make($input, $rules, $messages);
 
 		if($validator->fails()){
 			return Response::json($validator->messages()->all());
@@ -356,17 +360,17 @@ class APIController extends BaseController {
 		}
 
 		DB::table('battletracker')->insert(array(
-			'action' => $action,
-			'action_by' => $action_by,
-			'action_to' => $action_to,
-			'server' => $ip.':'.Session::get('userPort'),
+			'action'     => $action,
+			'action_by'  => $action_by,
+			'action_to'  => $action_to,
+			'server'     => $ip.':'.Session::get('userPort'),
 			'created_on' => Carbon::now()
 		));
 
-		return Response::json(array("action"=>'completed','server'=>$ip.':'.Session::get('userPort')));
+		return Response::json(Input::all());
 	}
 
-	public function getBattleTracker($username, $action=null){
+	public function getBattleTracker($username, $action = null){
 		if($action != null){
 			$action = Input::get('action');
 
@@ -391,7 +395,7 @@ class APIController extends BaseController {
 		$url = 'http://ci.battleplugins.com';
 		$build = Jenkins::getLatestBuild($url, $plugin->name);
 
-		return Response::json(array('job'=>$url.'job/'.$plugin->name,'build'=>$build['build'],'build_link'=>$build['url']));
+		return Response::json(array('job' => $url.'job/'.$plugin->name, 'build' => $build['build'], 'build_link' => $build['url']));
 	}
 
 	public function deployWebsite(){
@@ -419,18 +423,20 @@ class APIController extends BaseController {
 		return Response::json($results);
 	}
 
-	public function getPlugins($name='all'){
+	public function getPlugins($name = 'all'){
 		$plugins = DB::table('plugins');
 		if($name == 'all'){
 			return Response::json($plugins->get());
 		}else{
 			$plugins = $plugins->where('name', $name)->get();
+
 			return Response::json($plugins);
 		}
 	}
 
-	public function getServerInfo($ip,$port=25565){
+	public function getServerInfo($ip, $port = 25565){
 		$minecraft = new MinecraftStatus($ip, $port);
+
 		return Response::json($minecraft->Info());
 	}
 }

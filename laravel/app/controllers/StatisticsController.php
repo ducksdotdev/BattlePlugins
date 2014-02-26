@@ -43,6 +43,18 @@ class StatisticsController extends BaseController{
 		return View::make('statistics', $vars);
 	}
 
+	private function getTime(){
+		$time = Carbon::now();
+		if($time->minute > 30){
+			$time->minute = 30;
+		}else{
+			$time->minute = 0;
+		}
+		$time->second = 0;
+		
+		return $time;
+	}
+
 	public function set(){
 		$keys = Input::all();
 
@@ -53,13 +65,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$time = Carbon::now();
-		if($time->minute > 30){
-			$time->minute = 30;
-		}else{
-			$time->minute = 0;
-		}
-		$time->second = 0;
+		$time = self::getTime();
 
 		$success = array();
 		$error = array();
@@ -151,16 +157,8 @@ class StatisticsController extends BaseController{
 			orderBy('timestamp', 'desc')->
 			take(336)->get();
 
-		$time = Carbon::now();
-		if($time->minute > 30){
-			$time->minute = 30;
-		}else{
-			$time->minute = 0;
-		}
-		$time->second = 0;
-
-		if($time == $table[0]->timestamp){
-			array_pop($table);
+		if(self::getTime() == $table[0]->timestamp){
+			array_shift($table);
 		}
 
 		$table = array_reverse($table);

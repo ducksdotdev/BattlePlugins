@@ -149,7 +149,7 @@ class StatisticsController extends BaseController{
 				DB::raw('sum(value) as players'))->
 			groupBy('inserted_on')->
 			orderBy('timestamp', 'desc')->
-			take(144)->get();
+			take(336)->get();
 
 		$time = Carbon::now();
 		if($time->minute > 30){

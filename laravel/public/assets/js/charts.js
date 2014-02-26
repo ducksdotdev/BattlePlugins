@@ -92,7 +92,7 @@ $(function () {
     $.get('/statistics/getPluginCount', function(data){
         var cdata = [];
         $.each(data, function(i, item){
-            cdata.push([item.plugin, item.total]);
+            cdata.push([item.plugin, parseInt(item.total)]);
         });
 
         console.log(cdata);

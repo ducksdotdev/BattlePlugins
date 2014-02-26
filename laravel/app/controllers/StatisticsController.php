@@ -163,7 +163,7 @@ class StatisticsController extends BaseController{
 			array_pop($table);
 		}
 
-		array_reverse($table);
+		$table = array_reverse($table);
 
 		return Response::json($table);
 	}

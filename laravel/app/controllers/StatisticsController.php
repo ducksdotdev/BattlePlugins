@@ -148,7 +148,7 @@ class StatisticsController extends BaseController{
 			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
 				DB::raw('sum(value) as players'))->
 			groupBy('inserted_on')->
-			orderBy('inserted_on', 'desc')->
+			orderBy('tiemstamp', 'desc')->
 			take(144);
 
 		$time = Carbon::now();

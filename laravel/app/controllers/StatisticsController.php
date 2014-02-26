@@ -123,7 +123,7 @@ class StatisticsController extends BaseController{
 			}
 		}
 
-		return Response::json(array($success, $error));
+		return Response::json($success);
 	}
 
 	public function get($column, $key, $server = null){

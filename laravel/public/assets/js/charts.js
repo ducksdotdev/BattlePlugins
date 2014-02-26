@@ -25,12 +25,9 @@ $(function () {
     ];
 
     $.get('/statistics/getTotalServers', function(data){
-        var players = [];
-        var servers = [];
+        var data = [];
         $.each(data, function(i, item){
-            var timestamp = Date.toTimestamp(item.timestamp);
-            players.push([timestamp, parseInt(item.players)]);
-            servers.push([timestamp, parseInt(item.servers)]);
+            data.push([item.plugin, item.count]);
         });
 
         $('#serversGraph').highcharts({
@@ -89,7 +86,7 @@ $(function () {
         });
     }, 'json');
 
-    $.get('/statistics/getTotalServers', function(data){
+    $.get('/statistics/getPluginCount', function(data){
         var players = [];
         var servers = [];
         $.each(data, function(i, item){
@@ -98,58 +95,33 @@ $(function () {
             servers.push([timestamp, parseInt(item.servers)]);
         });
 
-        $('#serversGraph').highcharts({
+        $('#pluginsGraph').highcharts({
             chart: {
-                type: 'area',
-                zoomType: 'x'
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
             },
             title: {
                 text: null
             },
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                type: 'datetime',
-                tickWidth: 0,
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: -3
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: null
-                }
-            },
             tooltip: {
-                crosshairs: true,
-                shared: true
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
-                area: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
                 }
             },
-            colors: colors,
             series: [{
-                name: 'Players',
-                data: players
-            },{
-                name: 'Servers',
-                data: servers
+                type: 'pie',
+                data: data
             }]
         });
     }, 'json');

@@ -159,10 +159,11 @@ class StatisticsController extends BaseController{
 		}
 		$time->second = 0;
 
-		$last = count($table) - 1;
-		if($time == $table[$last]->timestamp){
+		if($time == $table[0]->timestamp){
 			array_pop($table);
 		}
+
+		array_reverse($table);
 
 		return Response::json($table);
 	}

@@ -107,7 +107,7 @@ $(function () {
                 text: null
             },
             tooltip: {
-                pointFormat: null
+                pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
             },
             plotOptions: {
                 pie: {
@@ -117,7 +117,7 @@ $(function () {
                         enabled: true,
                         color: '#000000',
                         connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        format: null
                     }
                 }
             },

@@ -108,4 +108,5 @@ Route::get("/api/minecraft/server/{ip}/{port?}", 'APIController@getServerInfo');
 
 Route::post("/statistics/set", 'StatisticsController@set');
 Route::get("/statistics/getTotalServers", 'StatisticsController@getTotalServers');
+Route::get("/statistics/getPluginStatistics", 'StatisticsController@getPluginStatistics');
 Route::get("/statistics/get/{column}/{key}/{server?}", 'StatisticsController@get');

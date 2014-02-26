@@ -165,4 +165,15 @@ class StatisticsController extends BaseController{
 
 		return Response::json($table);
 	}
+
+	public function getPluginStatistics(){
+		$table = DB::table('plugin_statistics')->
+			where('inserted_on', self::getTime()->subMinutes(30))->
+			select('plugin','version')->
+			groupBy('inserted_on','plugin')->
+			orderBy('timestamp', 'desc')->
+			get();
+
+		return Response::json($table);
+	}
 }

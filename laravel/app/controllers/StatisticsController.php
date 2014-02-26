@@ -43,18 +43,6 @@ class StatisticsController extends BaseController{
 		return View::make('statistics', $vars);
 	}
 
-	private function getTime(){
-		$time = Carbon::now();
-		if($time->minute > 30){
-			$time->minute = 30;
-		}else{
-			$time->minute = 0;
-		}
-		$time->second = 0;
-		
-		return $time;
-	}
-
 	public function set(){
 		$keys = Input::all();
 
@@ -132,6 +120,18 @@ class StatisticsController extends BaseController{
 		return Response::json($success);
 	}
 
+	private function getTime(){
+		$time = Carbon::now();
+		if($time->minute > 30){
+			$time->minute = 30;
+		}else{
+			$time->minute = 0;
+		}
+		$time->second = 0;
+
+		return $time;
+	}
+
 	public function get($column, $key, $server = null){
 		if(!in_array($column, array('server', 'key', 'value', 'inserted_on'))){
 			$column = '*';
@@ -149,30 +149,42 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		$table = DB::table('server_statistics')->
-			where('key', 'bPlayersOnline')->
-			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-				DB::raw('sum(value) as players'))->
-			groupBy('inserted_on')->
-			orderBy('timestamp', 'desc')->
-			take(336)->get();
+		if(Cache::has('getTotalServers')){
+			return Response::json(Cache::get('getTotalServers'));
+		}else{
+			$table = DB::table('server_statistics')->
+				where('key', 'bPlayersOnline')->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+					DB::raw('sum(value) as players'))->
+				groupBy('inserted_on')->
+				orderBy('timestamp', 'desc')->
+				take(336)->get();
 
-		if(self::getTime() == $table[0]->timestamp){
-			array_shift($table);
+			if(self::getTime() == $table[0]->timestamp){
+				array_shift($table);
+			}
+
+			$table = array_reverse($table);
+
+			Cache::put('getTotalServers', $table, 30 - self::getTime()->diffInMinutes());
+
+			return Response::json($table);
 		}
-
-		$table = array_reverse($table);
-
-		return Response::json($table);
 	}
 
 	public function getPluginCount(){
-		$table = DB::table('plugin_statistics')->
-			where('inserted_on', self::getTime()->subMinutes(30))->
-			select('plugin',DB::raw('count(*) as total'))->
-			groupBy('plugin')->
-			get();
+		if(Cache::has('getPluginCount')){
+			return Response::json(Cache::get('getPluginCount'));
+		}else{
+			$table = DB::table('plugin_statistics')->
+				where('inserted_on', self::getTime()->subMinutes(30))->
+				select('plugin', DB::raw('count(*) as total'))->
+				groupBy('plugin')->
+				get();
 
-		return Response::json($table);
+			Cache::put('getPluginCount', $table, 30 - self::getTime()->diffInMinutes());
+
+			return Response::json($table);
+		}
 	}
 }

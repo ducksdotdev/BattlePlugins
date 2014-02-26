@@ -168,8 +168,8 @@ class StatisticsController extends BaseController{
 
 	public function getPluginStatistics(){
 		$table = DB::table('plugin_statistics')->
-			where('inserted_on', self::getTime()->subMinutes(30), 'count(*) as total')->
-			select('plugin','total')->
+			where('inserted_on', self::getTime()->subMinutes(30))->
+			select('plugin','count(*) as total')->
 			groupBy('plugin')->
 			get();
 

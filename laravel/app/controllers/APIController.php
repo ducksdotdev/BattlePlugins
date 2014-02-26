@@ -25,7 +25,7 @@ class APIController extends BaseController{
 
 			$banned_server = DB::table('banned_server')->where('server', $ip)->get();
 			if(count($banned_server) > 0){
-				return Response::json(array('errors'=>"Your IP ($ip) is blocked from making requests"));
+				return Response::json(array('errors' => "Your IP ($ip) is blocked from making requests"));
 			}
 
 			$key = $request->header('X-API-Key');
@@ -44,10 +44,10 @@ class APIController extends BaseController{
 			}
 
 			if($uid == null){
-				return Response::json(array('errors'=>"Invalid API key"));
+				return Response::json(array('errors' => "Invalid API key"));
 			}else{
 				if(UserGroups::hasGroup($uid, UserGroups::BANNED)){
-					return Response::json(array('errors'=>"Banned key."));
+					return Response::json(array('errors' => "Banned key."));
 				}
 			}
 
@@ -300,13 +300,13 @@ class APIController extends BaseController{
 		}));
 
 		if(count($paste->get()) == 0){
-			return Response::json(array('errors'=> 'Paste not found'));
+			return Response::json(array('errors' => 'Paste not found'));
 		}
 
 		$uid = $paste->get()->author;
 		$usergroups = UserGroups::getGroups(Session::get('userId'));
 		if(!($uid == Session::get('userId') || in_array(UserGroups::ADMINISTRATOR, $usergroups))){
-			return Response::json(array('errors'=>'Invalid permissions'));
+			return Response::json(array('errors' => 'Invalid permissions'));
 		}
 
 		$paste->update(array(
@@ -345,18 +345,18 @@ class APIController extends BaseController{
 		$validator = Validator::make($input, $rules, $messages);
 
 		if($validator->fails()){
-			return Response::json(array('errors'=>$validator->messages()->all()));
+			return Response::json(array('errors' => $validator->messages()->all()));
 		}
 
 		$ip = Session::get('userIp');
 		if(!in_array($action, Actions::getAll())){
-			return Response::json(array('errors'=>'Invalid action'));
+			return Response::json(array('errors' => 'Invalid action'));
 		}
 
 		$server = new MinecraftStatus($ip, Session::get('userPort'));
 
 		if(!$server->Online){
-			return Response::json(array('errors'=>'Not a Minecraft Server'));
+			return Response::json(array('errors' => 'Not a Minecraft Server'));
 		}
 
 		DB::table('battletracker')->insert(array(
@@ -375,7 +375,7 @@ class APIController extends BaseController{
 			$action = Input::get('action');
 
 			if(!in_array($action, Actions::getAll())){
-				return Response::json(array('errors'=>"Invalid action key"));
+				return Response::json(array('errors' => "Invalid action key"));
 			}
 
 			$result = DB::table('battletracker')->where('action_by', $username)->orWhere('action_to', $username)->where('action', $action)->get();
@@ -389,7 +389,7 @@ class APIController extends BaseController{
 	public function getJenkins($plugin){
 		$plugin = DB::table('plugins')->where('name', $plugin)->first();
 		if(count($plugin) == 0){
-			return Response::json(array('errors'=>'That plugin doesn\'t exist'));
+			return Response::json(array('errors' => 'That plugin doesn\'t exist'));
 		}
 
 		$url = 'http://ci.battleplugins.com';
@@ -403,7 +403,7 @@ class APIController extends BaseController{
 		$groups = UserGroups::getGroups($uid);
 
 		if(!in_array(UserGroups::DEVELOPER, $groups)){
-			return Response::json(array('errors'=>"You are not a developer"));
+			return Response::json(array('errors' => "You are not a developer"));
 		}
 
 		$payload = Input::get('payload');

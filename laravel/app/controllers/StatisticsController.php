@@ -15,7 +15,7 @@ class StatisticsController extends BaseController{
 
 			$banned_server = DB::table('banned_server')->where('server', $ip)->get();
 			if(count($banned_server) > 0){
-				return Response::json(array('errors'=>"Your IP ($ip) is blocked from making requests"));
+				return Response::json(array('errors' => "Your IP ($ip) is blocked from making requests"));
 			}
 
 			DB::table('statistic_requests')->insert(array(
@@ -48,7 +48,7 @@ class StatisticsController extends BaseController{
 
 		$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
 		if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
-			return Response::json(array('errors'=>"Not a Minecraft server"));
+			return Response::json(array('errors' => "Not a Minecraft server"));
 		}
 
 		$server = Session::get('serverIp');
@@ -149,6 +149,8 @@ class StatisticsController extends BaseController{
 				DB::raw('sum(value) as players'))->
 			groupBy('inserted_on')->
 			get();
+
+		array_pop($table);
 
 		return Response::json($table);
 	}

@@ -4,150 +4,152 @@ use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 
-class StatisticsController extends BaseController {
+class StatisticsController extends BaseController{
 
-    public function __construct() {
-        $controller = $this;
+	public function __construct(){
+		$controller = $this;
 
-        $this->beforeFilter(function ($route, $request) use ($controller) {
-            $ip = $request->getClientIp();
-            $port =  $request->getPort();
+		$this->beforeFilter(function ($route, $request) use ($controller){
+			$ip = $request->getClientIp();
+			$port = $request->getPort();
 
-            $banned_server = DB::table('banned_server')->where('server',$ip)->get();
-            if(count($banned_server) > 0){
-                return Response::json("Your IP ($ip) is blocked from making requests");
-            }
+			$banned_server = DB::table('banned_server')->where('server', $ip)->get();
+			if(count($banned_server) > 0){
+				return Response::json(array('errors'=>"Your IP ($ip) is blocked from making requests"));
+			}
 
-            DB::table('statistic_requests')->insert(array(
-                'server' => $ip,
-                'requested_on' => Carbon::now(),
-                'route' => '/'.$route->getPath(),
-            ));
+			DB::table('statistic_requests')->insert(array(
+				'server'       => $ip,
+				'requested_on' => Carbon::now(),
+				'route'        => '/'.$route->getPath(),
+			));
 
-            Session::put("serverIp", $ip);
-            Session::put("serverPort", $port);
+			Session::put("serverIp", $ip);
+			Session::put("serverPort", $port);
 
-            parent::setActive('Tools');
-        }, array('except'=>array('displayStatistics','getTotalServers')));
+			parent::setActive('Tools');
+		}, array('except' => array('displayStatistics', 'getTotalServers')));
 
-        $this->afterFilter(function() use ($controller){
-            Session::flush();
-        });
-    }
+		$this->afterFilter(function () use ($controller){
+			Session::flush();
+		});
+	}
 
-    public function displayStatistics(){
-        parent::setActive('Resources');
+	public function displayStatistics(){
+		parent::setActive('Resources');
 
-        $vars['title'] = 'Statistics';
-        return View::make('statistics', $vars);
-    }
+		$vars['title'] = 'Statistics';
 
-    public function set(){
-        $keys = Input::all();
+		return View::make('statistics', $vars);
+	}
 
-        $minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-        if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
-            return Response::json("Not a Minecraft server");
-        }
+	public function set(){
+		$keys = Input::all();
 
-        $server = Session::get('serverIp');
+		$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+		if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
+			return Response::json(array('errors'=>"Not a Minecraft server"));
+		}
 
-        $time = Carbon::now();
-        if($time->minute > 30){
-            $time->minute = 30;
-        }else{
-            $time->minute = 0;
-        }
-        $time->second = 0;
+		$server = Session::get('serverIp');
 
-        $success = array();
-        $error = array();
+		$time = Carbon::now();
+		if($time->minute > 30){
+			$time->minute = 30;
+		}else{
+			$time->minute = 0;
+		}
+		$time->second = 0;
 
-        foreach(array_keys($keys) as $key){
-            if(ListSentence::startsWith($key, 'p')){
-                $plugin = substr($key, 1);
+		$success = array();
+		$error = array();
 
-                $plugins = DB::table('plugins')->where('name', $plugin)->get();
+		foreach(array_keys($keys) as $key){
+			if(ListSentence::startsWith($key, 'p')){
+				$plugin = substr($key, 1);
 
-                $count = DB::table('plugin_statistics')
-                    ->where('inserted_on', $time)
-                    ->where('server', $server)
-                    ->where('plugin', $plugin)
-                    ->get();
+				$plugins = DB::table('plugins')->where('name', $plugin)->get();
 
-                if(count($count) == 0 && count($plugins) > 0){
-                    $value = $keys[$key];
+				$count = DB::table('plugin_statistics')
+					->where('inserted_on', $time)
+					->where('server', $server)
+					->where('plugin', $plugin)
+					->get();
 
-                    $success[$key] = $value;
+				if(count($count) == 0 && count($plugins) > 0){
+					$value = $keys[$key];
 
-                    DB::table('plugin_statistics')->insert(array(
-                        'server' => $server,
-                        'plugin' => $plugin,
-                        'version' => $value,
-                        'inserted_on' => $time
-                    ));
-                }
-            }else{
-                $count = DB::table('server_statistics')
-                    ->where('inserted_on', $time)
-                    ->where('server', $server)
-                    ->where('key', $key)
-                    ->select('key')
-                    ->get();
+					$success[$key] = $value;
 
-                if(count($count) == 0){
-                    if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
-                        $allowedKeys = Config::get('statistics.tracked');
+					DB::table('plugin_statistics')->insert(array(
+						'server'      => $server,
+						'plugin'      => $plugin,
+						'version'     => $value,
+						'inserted_on' => $time
+					));
+				}
+			}else{
+				$count = DB::table('server_statistics')
+					->where('inserted_on', $time)
+					->where('server', $server)
+					->where('key', $key)
+					->select('key')
+					->get();
 
-                        if(in_array($key, $allowedKeys)){
-                            $value = $keys[$key];
+				if(count($count) == 0){
+					if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
+						$allowedKeys = Config::get('statistics.tracked');
 
-                            $success[$key] = $value;
+						if(in_array($key, $allowedKeys)){
+							$value = $keys[$key];
 
-                            DB::table('server_statistics')->insert(array(
-                                'server' => $server,
-                                'key' => $key,
-                                'value' => $value,
-                                'inserted_on' => $time
-                            ));
-                        }else{
-                            $error[$key] = 'invalid';
-                        }
-                    }else{
-                        $error[$key] = 'duplicate';
-                    }
-                }else{
-                    $error[$key] = 'exists';
-                }
-            }
-        }
+							$success[$key] = $value;
 
-        return Response::json(array('updated', $success, $error));
-    }
+							DB::table('server_statistics')->insert(array(
+								'server'      => $server,
+								'key'         => $key,
+								'value'       => $value,
+								'inserted_on' => $time
+							));
+						}else{
+							$error[$key] = 'invalid';
+						}
+					}else{
+						$error[$key] = 'duplicate';
+					}
+				}else{
+					$error[$key] = 'exists';
+				}
+			}
+		}
 
-    public function get($column, $key, $server=null){
-        if(!in_array($column, array('server','key','value','inserted_on'))){
-            $column = '*';
-        }
+		return Response::json($success);
+	}
 
-        if($server == null){
-            $query = DB::table('server_statistics')->where('key', $key)->
-                select($column)->get();
-        }else{
-            $query = DB::table('server_statistics')->where('server', $server)->where('key', $key)->
-                select($column)->get();
-        }
-        return Response::json($query);
-    }
+	public function get($column, $key, $server = null){
+		if(!in_array($column, array('server', 'key', 'value', 'inserted_on'))){
+			$column = '*';
+		}
 
-    public function getTotalServers(){
-        $table =  DB::table('server_statistics')->
-            where('key', 'bPlayersOnline')->
-            select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-                DB::raw('sum(value) as players'))->
-            groupBy('inserted_on')->
-            get();
+		if($server == null){
+			$query = DB::table('server_statistics')->where('key', $key)->
+				select($column)->get();
+		}else{
+			$query = DB::table('server_statistics')->where('server', $server)->where('key', $key)->
+				select($column)->get();
+		}
 
-        return Response::json($table);
-    }
+		return Response::json($query);
+	}
+
+	public function getTotalServers(){
+		$table = DB::table('server_statistics')->
+			where('key', 'bPlayersOnline')->
+			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+				DB::raw('sum(value) as players'))->
+			groupBy('inserted_on')->
+			get();
+
+		return Response::json($table);
+	}
 }

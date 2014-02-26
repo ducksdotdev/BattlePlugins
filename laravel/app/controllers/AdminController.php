@@ -247,4 +247,44 @@ class AdminController extends BaseController {
 
         return Response::json(array('result'=>'success'));
     }
+
+	public function getStatistics(){
+		$vars['title'] = 'Statistics';
+		$vars['apiRequests'] = DB::table('api_requests')->
+			select('*', DB::raw('count(*) as total'))->
+			groupBy('route','ip')->
+			orderBy('total', 'desc')->
+			get();
+
+		$vars['statisticRequests'] =  DB::table('statistic_requests')->
+			select('*', DB::raw('count(*) as total'))->
+			groupBy('server','route')->
+			orderBy('total', 'desc')->
+			get();
+
+		$usernames = array();
+
+		foreach($vars['apiRequests'] as $request){
+			$usernames[$request->user_id] = UserSettings::getUsernameFromId($request->user_id);
+		}
+
+		$vars['usernames'] = $usernames;
+
+		return View::make('admin.statistics', $vars);
+	}
+
+	public function clearAPIRequests(){
+		DB::table('api_requests')->delete();
+		return Redirect::to('/administrator/statistics');
+	}
+
+	public function clearStatisticRequests(){
+		$plugins = DB::table('plugin_statistics')->get();
+		$servers = DB::table('server_statistics')->get();
+		if(count($servers) == 0 && count($plugins) == 0){
+			DB::table('statistic_requests')->delete();
+		}
+
+		return Redirect::to('/administrator/statistics');
+	}
 }

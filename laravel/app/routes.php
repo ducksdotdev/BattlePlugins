@@ -14,7 +14,8 @@
 Route::get('/', 'PageController@getIndex');
 Route::get('/w', 'PageController@getWiki');
 Route::get('/ci', 'PageController@getCI');
-Route::get('/plugins', 'PageController@getPlugins');
+Route::get('/plugins', 'PluginController@getPlugins');
+Route::get('/plugins/manage', 'PluginController@managePlugins');
 Route::get('/register', 'UserController@getRegistrationPage')->before('guest');
 Route::get('/tos', 'PageController@tos');
 Route::get('/privacy', 'PageController@privacy');
@@ -43,7 +44,6 @@ Route::group(array('before' => 'guest'), function () {
 
         Route::post('/register', 'UserController@register');
     });
-
 });
 
 Route::group(array('before' => 'auth'), function(){
@@ -59,11 +59,9 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::get('/admin/manageUsers', 'AdminController@manageUsers');
 
-    Route::get('/developer/statistics', 'DeveloperController@getStatistics');
-    Route::get('/developer/statistics/clear/apiRequests', 'DeveloperController@clearAPIRequests');
-    Route::get('/developer/statistics/clear/statisticRequests', 'DeveloperController@clearStatisticRequests');
-
-    Route::get('/plugins/help', 'PageController@getPluginsHelp');
+    Route::get('/administrator/statistics', 'AdminController@getStatistics');
+    Route::get('/administrator/statistics/clear/apiRequests', 'AdminController@clearAPIRequests');
+    Route::get('/administrator/statistics/clear/statisticRequests', 'AdminController@clearStatisticRequests');
 
     Route::group(array('before'=>'csrf'), function(){
         Route::post("/user/settings", "UserController@changeSettings");

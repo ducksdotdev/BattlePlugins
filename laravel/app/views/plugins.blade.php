@@ -9,7 +9,7 @@
             </div>
             <div class="col-lg-5 col-lg-offset-1">
                 <h3>Want to create plugins with us?</h3>
-                <p>We are always looking for like minded developers who would be interested in helping out. If you would like to help us with making extensions, improvements, or additions to our plugins, please <a href="http://wiki.battleplugins.com/w/index.php?title=BA_API_Tutorial">click here</a>.</p>
+                <p>We are always looking for like minded developers who would be interested in helping out. If you would like to help us with making extensions, improvements, or additions to our plugins, please <a href="/plugins/manage">click here</a>.</p>
             </div>
         </div>
     </div>

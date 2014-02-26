@@ -25,9 +25,12 @@ $(function () {
     ];
 
     $.get('/statistics/getTotalServers', function(data){
-        var data = [];
+        var players = [];
+        var servers = [];
         $.each(data, function(i, item){
-            data.push([item.plugin, item.count]);
+            var timestamp = Date.toTimestamp(item.timestamp);
+            players.push([timestamp, parseInt(item.players)]);
+            servers.push([timestamp, parseInt(item.servers)]);
         });
 
         $('#serversGraph').highcharts({
@@ -87,12 +90,9 @@ $(function () {
     }, 'json');
 
     $.get('/statistics/getPluginCount', function(data){
-        var players = [];
-        var servers = [];
+        var data = [];
         $.each(data, function(i, item){
-            var timestamp = Date.toTimestamp(item.timestamp);
-            players.push([timestamp, parseInt(item.players)]);
-            servers.push([timestamp, parseInt(item.servers)]);
+            data.push([item.plugin, item.count]);
         });
 
         $('#pluginsGraph').highcharts({

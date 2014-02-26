@@ -171,7 +171,6 @@ class StatisticsController extends BaseController{
 			where('inserted_on', self::getTime()->subMinutes(30))->
 			select('plugin','version')->
 			groupBy('inserted_on','plugin')->
-			orderBy('timestamp', 'desc')->
 			get();
 
 		return Response::json($table);

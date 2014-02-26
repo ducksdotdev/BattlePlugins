@@ -150,7 +150,18 @@ class StatisticsController extends BaseController{
 			groupBy('inserted_on')->
 			get();
 
-		array_pop($table);
+		$time = Carbon::now();
+		if($time->minute > 30){
+			$time->minute = 30;
+		}else{
+			$time->minute = 0;
+		}
+		$time->second = 0;
+
+		$last = count($table) - 1;
+		if($time == $table[$last]->inserted_on){
+			array_pop($table);
+		}
 
 		return Response::json($table);
 	}

@@ -1,10 +1,9 @@
 <?php
 
+use BattleTools\Util\DateUtil;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
-class UpdateStatistics extends Command {
+class UpdateStatistics extends Command{
 
 	/**
 	 * The console command name.
@@ -25,8 +24,7 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 	}
 
@@ -35,12 +33,11 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
-	{
+	public function fire(){
 
 		$cache = Cache::get('statistics');
 
-		$time = self::getTime();
+		$time = DateUtil::getTime();
 
 		$success = array();
 		$error = array();
@@ -49,61 +46,64 @@ class UpdateStatistics extends Command {
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
 
-			foreach(array_keys($keys) as $key){
-				if(ListSentence::startsWith($key, 'p')){
-					$plugin = substr($key, 1);
+			$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+			if(!(!$minecraft->Online && Config::get('statistics.check-minecraft'))){
+				foreach(array_keys($keys) as $key){
+					if(ListSentence::startsWith($key, 'p')){
+						$plugin = substr($key, 1);
 
-					$plugins = DB::table('plugins')->where('name', $plugin)->get();
+						$plugins = DB::table('plugins')->where('name', $plugin)->get();
 
-					$count = DB::table('plugin_statistics')
-						->where('inserted_on', $time)
-						->where('server', $server)
-						->where('plugin', $plugin)
-						->get();
+						$count = DB::table('plugin_statistics')
+							->where('inserted_on', $time)
+							->where('server', $server)
+							->where('plugin', $plugin)
+							->get();
 
-					if(count($count) == 0 && count($plugins) > 0){
-						$value = $keys[$key];
+						if(count($count) == 0 && count($plugins) > 0){
+							$value = $keys[$key];
 
-						$success[$key] = $value;
+							$success[$key] = $value;
 
-						DB::table('plugin_statistics')->insert(array(
-							'server'      => $server,
-							'plugin'      => $plugin,
-							'version'     => $value,
-							'inserted_on' => $time
-						));
-					}
-				}else{
-					$count = DB::table('server_statistics')
-						->where('inserted_on', $time)
-						->where('server', $server)
-						->where('key', $key)
-						->select('key')
-						->get();
-
-					if(count($count) == 0){
-						if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
-							$allowedKeys = Config::get('statistics.tracked');
-
-							if(in_array($key, $allowedKeys)){
-								$value = $keys[$key];
-
-								$success[$key] = $value;
-
-								DB::table('server_statistics')->insert(array(
-									'server'      => $server,
-									'key'         => $key,
-									'value'       => $value,
-									'inserted_on' => $time
-								));
-							}else{
-								$error[$key] = 'invalid';
-							}
-						}else{
-							$error[$key] = 'duplicate';
+							DB::table('plugin_statistics')->insert(array(
+								'server'      => $server,
+								'plugin'      => $plugin,
+								'version'     => $value,
+								'inserted_on' => $time
+							));
 						}
 					}else{
-						$error[$key] = 'exists';
+						$count = DB::table('server_statistics')
+							->where('inserted_on', $time)
+							->where('server', $server)
+							->where('key', $key)
+							->select('key')
+							->get();
+
+						if(count($count) == 0){
+							if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
+								$allowedKeys = Config::get('statistics.tracked');
+
+								if(in_array($key, $allowedKeys)){
+									$value = $keys[$key];
+
+									$success[$key] = $value;
+
+									DB::table('server_statistics')->insert(array(
+										'server'      => $server,
+										'key'         => $key,
+										'value'       => $value,
+										'inserted_on' => $time
+									));
+								}else{
+									$error[$key] = 'invalid';
+								}
+							}else{
+								$error[$key] = 'duplicate';
+							}
+						}else{
+							$error[$key] = 'exists';
+						}
 					}
 				}
 			}
@@ -117,11 +117,8 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return array
 	 */
-	protected function getArguments()
-	{
-		return array(
-			array('example', InputArgument::REQUIRED, 'An example argument.'),
-		);
+	protected function getArguments(){
+		return array();
 	}
 
 	/**
@@ -129,11 +126,8 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return array
 	 */
-	protected function getOptions()
-	{
-		return array(
-			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+	protected function getOptions(){
+		return array();
 	}
 
 }

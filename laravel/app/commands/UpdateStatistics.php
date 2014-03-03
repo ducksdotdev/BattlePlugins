@@ -1,11 +1,8 @@
 <?php
 
-use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
-use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class UpdateStatistics extends Command{
 
@@ -45,7 +42,8 @@ class UpdateStatistics extends Command{
 		$success = array();
 		$error = array();
 
-		$plugins = DB::table('plugins')->select('name')->get();
+		$plugins = DB::table('plugins')->get();
+
 		Log::emergency(var_dump($plugins));
 
 		$limitedKeys = Config::get('statistics.limited-keys');

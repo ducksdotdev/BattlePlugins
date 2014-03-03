@@ -1,8 +1,6 @@
 <?php
 
 use BattleTools\Util\DateUtil;
-use BattleTools\Util\ListSentence;
-use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 
 class StatisticsController extends BaseController{
@@ -51,10 +49,10 @@ class StatisticsController extends BaseController{
 
 		$cache = Cache::get('statistics', array());
 		$cache[] = array(
-			'keys' => $keys,
+			'keys'   => $keys,
 			'server' => $server,
-			'port' => Session::get('serverPort'),
-			'time' => DateUtil::getTimeToThirty()
+			'port'   => Session::get('serverPort'),
+			'time'   => DateUtil::getTimeToThirty()
 		);
 
 		Cache::forever('statistics', $cache);
@@ -79,32 +77,42 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		$table = DB::table('server_statistics')->
-			where('key', 'bPlayersOnline')->
-			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-				DB::raw('sum(value) as players'))->
-			groupBy('inserted_on')->
-			orderBy('timestamp', 'desc')->
-			take(336)->get();
+		return Cache::get('getTotalServers', function (){
+			$table = DB::table('server_statistics')->
+				where('key', 'bPlayersOnline')->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+					DB::raw('sum(value) as players'))->
+				groupBy('inserted_on')->
+				orderBy('timestamp', 'desc')->
+				take(336)->get();
 
-		if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
-			array_shift($table);
-		}
+			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+				array_shift($table);
+			}
 
-		$table = array_reverse($table);
+			$table = array_reverse($table);
 
-		return Response::json($table);
+			$diff = DateUtil::getTimeToNextThirty();
+			Cache::put('getTotalServers', $table, $diff);
+
+			return Response::json($table);
+		});
 	}
 
 	public function getPluginCount(){
-		$table = DB::table('plugin_statistics')->
-			where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
-			select('plugin', DB::raw('count(*) as total'))->
-			groupBy('plugin')->
-			get();
+		return Cache::get('getPluginCount', function (){
+			$table = DB::table('plugin_statistics')->
+				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
+				select('plugin', DB::raw('count(*) as total'))->
+				groupBy('plugin')->
+				get();
 
-		DB::table('plugin_statistics')->where('inserted_on', '<>', DateUtil::getTimeToThirty()->subMinutes(30))->delete();
+			$diff = DateUtil::getTimeToNextThirty();
 
-		return Response::json($table);
+			DB::table('plugin_statistics')->where('inserted_on', '<>', DateUtil::getTimeToThirty()->subMinutes(30))->delete();
+			Cache::put('getPluginCount', $table, $diff);
+
+			return Response::json($table);
+		});
 	}
 }

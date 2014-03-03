@@ -33,4 +33,10 @@ class DateUtil {
 
 		return $time;
 	}
+
+	public static function getTimeToNextThirty(){
+		$nextTime = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = Carbon::now()->diffInMinutes($nextTime);
+		return $diff < 0 ? $diff*1 : $diff;
+	}
 }

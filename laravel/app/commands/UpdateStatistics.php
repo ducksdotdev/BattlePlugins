@@ -107,6 +107,8 @@ class UpdateStatistics extends Command{
 			}
 		}
 
+		Log::info('Statistics added');
+
 		Cache::forget('statistics');
 	}
 

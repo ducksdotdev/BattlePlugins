@@ -49,7 +49,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$cache = Cache::get('statistics');
+		$cache = Cache::get('statistics', array());
 		$cache[] = array(
 			'keys' => $keys,
 			'server' => $server,

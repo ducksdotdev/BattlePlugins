@@ -107,7 +107,7 @@ class UpdateStatistics extends Command{
 			}
 		}
 
-		Cache::forever('statistics', array());
+		Cache::forget('statistics');
 	}
 
 	/**

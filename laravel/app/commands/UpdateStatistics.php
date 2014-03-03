@@ -45,7 +45,7 @@ class UpdateStatistics extends Command{
 		$error = array();
 
 		$plugins = DB::table('plugins')->select('name')->get();
-
+		Log::emergency(print_r($plugins, true));
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
@@ -70,8 +70,6 @@ class UpdateStatistics extends Command{
 			foreach(array_keys($keys) as $key){
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
-
-					Log::emergency(!in_array($plugin, $pluginRequests).' && '.in_array($plugin, $plugins));
 
 					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $plugins)){
 						$value = $keys[$key];

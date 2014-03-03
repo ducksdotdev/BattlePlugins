@@ -85,6 +85,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
+				<small>{{ $now }}</small>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
 				<pre>{{ var_dump($statisticsCache) }}</pre>
 			</div>
 		</div>

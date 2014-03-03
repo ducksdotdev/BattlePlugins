@@ -271,6 +271,7 @@ class AdminController extends BaseController {
 		$vars['statisticsCache'] = Cache::get('statistics');
 
 		$vars['usernames'] = $usernames;
+		$vars['now'] = Carbon::now();
 
 		return View::make('admin.statistics', $vars);
 	}

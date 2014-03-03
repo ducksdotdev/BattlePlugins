@@ -1,6 +1,8 @@
 <?php
 
 use BattleTools\Util\DateUtil;
+use BattleTools\Util\ListSentence;
+use BattleTools\Util\MinecraftStatus;
 use Illuminate\Console\Command;
 
 class UpdateStatistics extends Command{

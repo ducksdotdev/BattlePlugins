@@ -149,42 +149,30 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		if(Cache::has('getTotalServers')){
-			return Response::json(Cache::get('getTotalServers'));
-		}else{
-			$table = DB::table('server_statistics')->
-				where('key', 'bPlayersOnline')->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-					DB::raw('sum(value) as players'))->
-				groupBy('inserted_on')->
-				orderBy('timestamp', 'desc')->
-				take(336)->get();
+		$table = DB::table('server_statistics')->
+			where('key', 'bPlayersOnline')->
+			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+				DB::raw('sum(value) as players'))->
+			groupBy('inserted_on')->
+			orderBy('timestamp', 'desc')->
+			take(336)->get();
 
-			if(self::getTime() == $table[0]->timestamp){
-				array_shift($table);
-			}
-
-			$table = array_reverse($table);
-
-			Cache::put('getTotalServers', $table, 30 - self::getTime()->diffInMinutes());
-
-			return Response::json($table);
+		if(self::getTime() == $table[0]->timestamp){
+			array_shift($table);
 		}
+
+		$table = array_reverse($table);
+
+		return Response::json($table);
 	}
 
 	public function getPluginCount(){
-		if(Cache::has('getPluginCount')){
-			return Response::json(Cache::get('getPluginCount'));
-		}else{
-			$table = DB::table('plugin_statistics')->
-				where('inserted_on', self::getTime()->subMinutes(30))->
-				select('plugin', DB::raw('count(*) as total'))->
-				groupBy('plugin')->
-				get();
+		$table = DB::table('plugin_statistics')->
+			where('inserted_on', self::getTime()->subMinutes(30))->
+			select('plugin', DB::raw('count(*) as total'))->
+			groupBy('plugin')->
+			get();
 
-			Cache::put('getPluginCount', $table, 30 - self::getTime()->diffInMinutes());
-
-			return Response::json($table);
-		}
+		return Response::json($table);
 	}
 }

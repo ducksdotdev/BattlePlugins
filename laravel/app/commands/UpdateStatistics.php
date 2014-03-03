@@ -44,9 +44,10 @@ class UpdateStatistics extends Command{
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
+			$port = $cacheItem['port'];
 			$time = $cacheItem['time'];
-			
-			$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
+
+			$minecraft = new MinecraftStatus($server, $port);
 			if(!(!$minecraft->Online && Config::get('statistics.check-minecraft'))){
 				foreach(array_keys($keys) as $key){
 					if(ListSentence::startsWith($key, 'p')){

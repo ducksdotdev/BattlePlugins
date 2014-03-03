@@ -36,18 +36,13 @@ class UpdateStatistics extends Command{
 	 */
 	public function fire(){
 		$start = Carbon::now();
-
 		$cache = Cache::get('statistics', array());
+		Log::info(count($cache).' new statistics this half hour. Processing..');
 
 		$success = array();
-		$error = array();
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
-
-		Log::info(count($cache).' new statistics this half hour. Processing..');
-
-		$pluginList = DB::table('plugins')->select('name')->get();
 
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
@@ -69,7 +64,9 @@ class UpdateStatistics extends Command{
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
-					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
+					$plugins = DB::table('plugins')->where('name', $key)->get();
+
+					if(!in_array($plugin, $pluginRequests) && count($plugins) > 0){
 						$value = $keys[$key];
 						$success[$key] = $value;
 
@@ -80,25 +77,17 @@ class UpdateStatistics extends Command{
 							'inserted_on' => $time
 						));
 					}
-				}else{
-					if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys)){
-						if(in_array($key, $allowedKeys)){
-							$value = $keys[$key];
+				}else if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
+					$value = $keys[$key];
 
-							$success[$key] = $value;
+					$success[$key] = $value;
 
-							DB::table('server_statistics')->insert(array(
-								'server'      => $server,
-								'key'         => $key,
-								'value'       => $value,
-								'inserted_on' => $time
-							));
-						}else{
-							$error[$key] = 'invalid';
-						}
-					}else{
-						$error[$key] = 'duplicate';
-					}
+					DB::table('server_statistics')->insert(array(
+						'server'      => $server,
+						'key'         => $key,
+						'value'       => $value,
+						'inserted_on' => $time
+					));
 				}
 			}
 		}

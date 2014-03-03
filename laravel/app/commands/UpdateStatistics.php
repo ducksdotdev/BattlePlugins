@@ -37,14 +37,12 @@ class UpdateStatistics extends Command{
 	 */
 	public function fire(){
 		$cache = Cache::get('statistics', array());
-		Cache::forget('statistics');
 
 		$success = array();
 		$error = array();
 
 		$plugins = DB::table('plugins')->select('name')->get();
 
-		$checkMinecraft = Config::get('statistics.check-minecraft');
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
@@ -102,12 +100,9 @@ class UpdateStatistics extends Command{
 					}
 				}
 			}
-
-			array_shift($cache);
-			$curCache = Cache::get('statistics', array());
-			Cache::forever('statistics', $cache+$curCache);
 		}
 
+		Cache::forget('statistics');
 		Log::info('Statistics added');
 	}
 

@@ -35,7 +35,11 @@ class UpdateStatistics extends Command{
 	 */
 	public function fire(){
 
-		$cache = Cache::get('statistics');
+		if(Cache::has('statistics')){
+			$cache = Cache::get('statistics');
+		}else{
+			$cache = array();
+		}
 
 		$time = DateUtil::getTimeToThirty();
 

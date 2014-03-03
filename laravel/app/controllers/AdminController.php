@@ -260,7 +260,7 @@ class AdminController extends BaseController {
 			select('*', DB::raw('count(*) as total'))->
 			groupBy('server')->
 			orderBy('total', 'desc')->
-			take(10);
+			take(10)->get()
 
 		$usernames = array();
 

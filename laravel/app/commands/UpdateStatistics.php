@@ -44,6 +44,13 @@ class UpdateStatistics extends Command{
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
+		$pluginList = DB::table('plugins')->select('name')->get();
+		$nameList = array();
+		foreach($pluginList as $pluginName){
+			$nameList[] = $pluginName->name;
+		}
+		$pluginList = $nameList;
+
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
@@ -64,9 +71,7 @@ class UpdateStatistics extends Command{
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
-					$plugins = DB::table('plugins')->where('name', $key)->get();
-
-					if(!in_array($plugin, $pluginRequests) && count($plugins) > 0){
+					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
 						$value = $keys[$key];
 						$success[$key] = $value;
 

@@ -258,9 +258,9 @@ class AdminController extends BaseController {
 
 		$vars['statisticRequests'] =  DB::table('statistic_requests')->
 			select('*', DB::raw('count(*) as total'))->
-			groupBy('server','route')->
+			groupBy('server')->
 			orderBy('total', 'desc')->
-			get();
+			take(10);
 
 		$usernames = array();
 

@@ -36,12 +36,7 @@ class UpdateStatistics extends Command{
 	 * @return mixed
 	 */
 	public function fire(){
-
-		if(Cache::has('statistics')){
-			$cache = Cache::get('statistics');
-		}else{
-			$cache = array();
-		}
+		$cache = Cache::get('statistics', array());
 
 		$success = array();
 		$error = array();

@@ -73,7 +73,7 @@ class UpdateStatistics extends Command{
 				->get();
 			$serverRList = array();
 			foreach($serverRequests as $request){
-				$serverRList[] = $request->plugin;
+				$serverRList[] = $request->key;
 			}
 			$serverRequests = $serverRList;
 

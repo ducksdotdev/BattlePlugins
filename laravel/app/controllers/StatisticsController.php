@@ -113,4 +113,20 @@ class StatisticsController extends BaseController{
 			return Response::json($table);
 		});
 	}
+
+	public function getAuthMode(){
+		return Cache::get('getAuthMode', function (){
+			$table = DB::table('server_statistics')->
+				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('key', 'bOnlineMode')->
+				select('value', DB::raw('count(*) as total'))->
+				groupBy('value')->
+				get();
+
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+			Cache::put('getAuthMode', $table, $diff);
+
+			return Response::json($table);
+		});
+	}
 }

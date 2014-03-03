@@ -1,8 +1,6 @@
 <?php
 
-use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
-use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -44,12 +42,12 @@ class UpdateStatistics extends Command{
 		$success = array();
 		$error = array();
 
-		$plugins = DB::table('plugins')->select('name')->get();
-
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
-		Log::info(count($cache).' new statistics this half hour.');
+		Log::info(count($cache).' new statistics this half hour. Processing..');
+
+		$pluginList = DB::table('plugins')->select('name')->get();
 
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
@@ -71,9 +69,7 @@ class UpdateStatistics extends Command{
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
-					Log::emergency(!in_array($plugin, $pluginRequests).' && '.in_array($plugin, $plugins));
-
-					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $plugins)){
+					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
 						$value = $keys[$key];
 						$success[$key] = $value;
 

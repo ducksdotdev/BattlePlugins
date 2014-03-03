@@ -37,7 +37,7 @@ class UpdateStatistics extends Command{
 	public function fire(){
 		$start = Carbon::now();
 		$cache = Cache::get('statistics', array());
-		Log::info(count($cache).' new statistics this half hour. Processing..');
+		Log::info(count($cache).' new statistics. Processing..');
 
 		$success = array();
 

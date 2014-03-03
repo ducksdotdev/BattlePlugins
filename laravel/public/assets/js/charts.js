@@ -107,7 +107,7 @@ $(function () {
                 text: null
             },
             tooltip: {
-                pointFormat: '<b>{point.y}%</b>'
+                pointFormat: '<b>{point.y} servers</b>'
             },
             plotOptions: {
                 pie: {
@@ -147,7 +147,7 @@ $(function () {
                 text: null
             },
             tooltip: {
-                pointFormat: '<b>{point.y}%</b>'
+                pointFormat: '<b>{point.y} servers</b>'
             },
             plotOptions: {
                 pie: {

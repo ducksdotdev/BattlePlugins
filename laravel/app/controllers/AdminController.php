@@ -274,7 +274,13 @@ class AdminController extends BaseController {
 		$vars['usernames'] = $usernames;
 		$vars['now'] = Carbon::now();
 		$vars['diff'] = DateUtil::getTimeToNextThirty();
-		$vars['lastUpdate'] = Cache::get('lastUpdate')->diffForHumans();
+		$lastUpdate = Cache::get('lastUpdate', 'never');
+
+		if($lastUpdate != 'never'){
+			$lastUpdate = $lastUpdate->diffForhumans();
+		}
+
+		$vars['lastUpdate'] = $lastUpdate;
 
 		return View::make('admin.statistics', $vars);
 	}

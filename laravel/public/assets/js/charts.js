@@ -131,7 +131,7 @@ $(function () {
     $.get('/statistics/getAuthMode', function(data){
         var cdata = [];
         $.each(data, function(i, item){
-            cdata.push([item.mode, parseInt(item.total)]);
+            cdata.push([item.value, parseInt(item.total)]);
         });
 
         console.log(cdata);

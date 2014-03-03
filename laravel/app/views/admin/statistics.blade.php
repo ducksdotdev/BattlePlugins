@@ -85,7 +85,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<small>{{ $now }}</small>
+				<small>Next update in {{ $diff }} minutes.</small>
 			</div>
 		</div>
 		<div class="row">

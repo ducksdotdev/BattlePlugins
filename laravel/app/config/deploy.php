@@ -36,7 +36,6 @@ return array(
 	// Use {branch} to specify a specific branch name
 	'pre-commands'         => array(
 		'php laravel/artisan down',
-		'php laravel/artisan battle:savestats',
 		'git stash',
 		'git pull origin {branch}'
 	),

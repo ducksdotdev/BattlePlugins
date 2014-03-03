@@ -105,7 +105,6 @@ class UpdateStatistics extends Command{
 			}
 
 			unset($cache[$cacheKey]);
-			Log::info($cacheKey.' handled.');
 			$curCache = Cache::get('statistics', array());
 			Cache::forever('statistics', $cache+$curCache);
 		}

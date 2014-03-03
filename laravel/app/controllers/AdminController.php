@@ -258,15 +258,17 @@ class AdminController extends BaseController {
 
 		$vars['statisticRequests'] =  DB::table('statistic_requests')->
 			select('*', DB::raw('count(*) as total'))->
-			groupBy('server','route')->
+			groupBy('server')->
 			orderBy('total', 'desc')->
-			get();
+			take(10)->get();
 
 		$usernames = array();
 
 		foreach($vars['apiRequests'] as $request){
 			$usernames[$request->user_id] = UserSettings::getUsernameFromId($request->user_id);
 		}
+
+		$vars['statisticsCache'] = Cache::get('statistics');
 
 		$vars['usernames'] = $usernames;
 

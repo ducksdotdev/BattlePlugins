@@ -81,4 +81,13 @@
         </div>
     </div>
 </div>
+<div class="content-section-a">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<pre>{{ var_dump($statisticsCache) }}</pre>
+			</div>
+		</div>
+	</div>
+</div>
 @stop

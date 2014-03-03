@@ -86,10 +86,7 @@ class StatisticsController extends BaseController{
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 
-			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
-				array_shift($table);
-			}
-
+			array_shift($table);
 			$table = array_reverse($table);
 
 			$diff = DateUtil::getTimeToNextThirty();

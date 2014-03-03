@@ -71,6 +71,8 @@ class UpdateStatistics extends Command{
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
+					Log::emergency(!in_array($plugin, $pluginRequests).' && '.in_array($plugin, $plugins));
+
 					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $plugins)){
 						$value = $keys[$key];
 						$success[$key] = $value;

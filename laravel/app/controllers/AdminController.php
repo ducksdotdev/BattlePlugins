@@ -316,8 +316,6 @@ class AdminController extends BaseController{
 		while($process->isRunning()){
 		}
 
-		Cache::put('lastUpdate', Carbon::now(), DateUtil::getTimeToNextThirty());
-
 		return Redirect::to('/administrator/statistics');
 
 	}

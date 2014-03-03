@@ -108,7 +108,7 @@ class UpdateStatistics extends Command{
 		Cache::forget('statistics');
 		Log::info('Statistics added. This took '.Carbon::now()->diffInSeconds($start).' seconds to completed.');
 
-		Cache::put('lastUpdate', Carbon::now(), DateUtil::getTimeToNextThirty());
+		Cache::forever('lastUpdate', Carbon::now());
 	}
 
 	/**

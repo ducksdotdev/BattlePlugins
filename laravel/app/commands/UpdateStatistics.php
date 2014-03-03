@@ -48,12 +48,11 @@ class UpdateStatistics extends Command{
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
-		Log::info(count($cache).' new statistics this half hour ('.DateUtil::getTimeToThirty().')');
+		Log::info(count($cache).' new statistics this half hour.');
 
-		foreach($cache as $cacheKey => $cacheItem){
+		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
-			$port = $cacheItem['port'];
 			$time = $cacheItem['time'];
 
 			$pluginRequests = DB::table('plugin_statistics')
@@ -104,7 +103,7 @@ class UpdateStatistics extends Command{
 				}
 			}
 
-			unset($cache[$cacheKey]);
+			array_shift($cache);
 			$curCache = Cache::get('statistics', array());
 			Cache::forever('statistics', $cache+$curCache);
 		}

@@ -3,7 +3,9 @@
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\DateUtil;
+use BattleTools\Util\Deploy;
 use Carbon\Carbon;
+use Symfony\Component\Process\Process;
 
 class AdminController extends BaseController {
 
@@ -298,5 +300,19 @@ class AdminController extends BaseController {
 		}
 
 		return Redirect::to('/administrator/statistics');
+	}
+
+	public function forceStatisticsUpdate(){
+
+		$branch = Deploy::isDeveloperMode() ? 'dev' : 'master';
+
+		$cd = Config::get('deploy.path-to-branch');
+		$cd = str_replace('{branch}', $branch, $cd);
+
+		$process = new Process('php laravel/artisan battle:savestats', $cd);
+		$process->start();
+		while($process->isRunning()){}
+
+		Cache::put('lastUpdate', Carbon::now(), DateUtil::getTimeToNextThirty());
 	}
 }

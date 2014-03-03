@@ -43,15 +43,14 @@ class UpdateStatistics extends Command{
 			$cache = array();
 		}
 
-		$time = DateUtil::getTimeToThirty();
-
 		$success = array();
 		$error = array();
 
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
-
+			$time = $cacheItem['time'];
+			
 			$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
 			if(!(!$minecraft->Online && Config::get('statistics.check-minecraft'))){
 				foreach(array_keys($keys) as $key){

@@ -53,7 +53,8 @@ class StatisticsController extends BaseController{
 		$cache[] = array(
 			'keys' => $keys,
 			'server' => $server,
-			'port' => Session::get('serverPort')
+			'port' => Session::get('serverPort'),
+			'time' => DateUtil::getTimeToThirty()
 		);
 
 		Cache::forever('statistics', $cache);

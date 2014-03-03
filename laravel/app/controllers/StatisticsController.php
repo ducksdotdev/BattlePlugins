@@ -86,7 +86,10 @@ class StatisticsController extends BaseController{
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 
-			array_shift($table);
+			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+				array_shift($table);
+			}
+
 			$table = array_reverse($table);
 
 			$diff = DateUtil::getTimeToNextThirty();
@@ -105,8 +108,6 @@ class StatisticsController extends BaseController{
 				get();
 
 			$diff = DateUtil::getTimeToNextThirty();
-
-			DB::table('plugin_statistics')->where('inserted_on', '<>', DateUtil::getTimeToThirty()->subMinutes(30))->delete();
 			Cache::put('getPluginCount', $table, $diff);
 
 			return Response::json($table);

@@ -131,7 +131,8 @@ $(function () {
     $.get('/statistics/getAuthMode', function(data){
         var cdata = [];
         $.each(data, function(i, item){
-            cdata.push([item.value, parseInt(item.total)]);
+            var name = item.value ? 'Online' : 'Offline';
+            cdata.push([name, parseInt(item.total)]);
         });
 
         console.log(cdata);

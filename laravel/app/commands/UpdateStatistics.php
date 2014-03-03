@@ -5,6 +5,7 @@ use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class UpdateStatistics extends Command{
 
@@ -45,7 +46,7 @@ class UpdateStatistics extends Command{
 		$error = array();
 
 		$plugins = DB::table('plugins')->select('name')->get();
-		Log::emergency(var_dump($plugins));
+
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 

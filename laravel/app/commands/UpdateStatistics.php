@@ -60,12 +60,22 @@ class UpdateStatistics extends Command{
 				->where('inserted_on', $time)
 				->where('server', $server)
 				->select('plugin')->get();
+			$pluginRList = array();
+			foreach($pluginRequests as $request){
+				$pluginRList[] = $request->plugin;
+			}
+			$pluginRequests = $pluginRList;
 
 			$serverRequests = DB::table('server_statistics')
 				->where('inserted_on', $time)
 				->where('server', $server)
 				->select('key')
 				->get();
+			$serverRList = array();
+			foreach($serverRequests as $request){
+				$serverRList[] = $request->plugin;
+			}
+			$serverRequests = $serverRList;
 
 			foreach(array_keys($keys) as $key){
 				if(ListSentence::startsWith($key, 'p')){

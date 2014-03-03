@@ -1,6 +1,5 @@
 <?php
 
-use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use Illuminate\Console\Command;
@@ -41,29 +40,37 @@ class UpdateStatistics extends Command{
 		$success = array();
 		$error = array();
 
+		$plugins = DB::table('plugins')->select('name')->get();
+
+		$checkMinecraft = Config::get('statistics.check-minecraft');
+		$limitedKeys = Config::get('statistics.limited-keys');
+		$allowedKeys = Config::get('statistics.tracked');
+
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
 			$port = $cacheItem['port'];
 			$time = $cacheItem['time'];
 
+			$pluginRequests = DB::table('plugin_statistics')
+				->where('inserted_on', $time)
+				->where('server', $server)
+				->select('plugin')->get();
+
+			$serverRequests = DB::table('server_statistics')
+				->where('inserted_on', $time)
+				->where('server', $server)
+				->select('key')
+				->get();
+
 			$minecraft = new MinecraftStatus($server, $port);
-			if(!(!$minecraft->Online && Config::get('statistics.check-minecraft'))){
+			if(!(!$minecraft->Online && $checkMinecraft)){
 				foreach(array_keys($keys) as $key){
 					if(ListSentence::startsWith($key, 'p')){
 						$plugin = substr($key, 1);
 
-						$plugins = DB::table('plugins')->where('name', $plugin)->get();
-
-						$count = DB::table('plugin_statistics')
-							->where('inserted_on', $time)
-							->where('server', $server)
-							->where('plugin', $plugin)
-							->get();
-
-						if(count($count) == 0 && count($plugins) > 0){
+						if(!in_array($plugin, $pluginRequests) && !in_array($plugin, $plugins)){
 							$value = $keys[$key];
-
 							$success[$key] = $value;
 
 							DB::table('plugin_statistics')->insert(array(
@@ -74,36 +81,23 @@ class UpdateStatistics extends Command{
 							));
 						}
 					}else{
-						$count = DB::table('server_statistics')
-							->where('inserted_on', $time)
-							->where('server', $server)
-							->where('key', $key)
-							->select('key')
-							->get();
+						if(!(in_array($key, $serverRequests) && in_array($key, $limitedKeys))){
+							if(in_array($key, $allowedKeys)){
+								$value = $keys[$key];
 
-						if(count($count) == 0){
-							if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
-								$allowedKeys = Config::get('statistics.tracked');
+								$success[$key] = $value;
 
-								if(in_array($key, $allowedKeys)){
-									$value = $keys[$key];
-
-									$success[$key] = $value;
-
-									DB::table('server_statistics')->insert(array(
-										'server'      => $server,
-										'key'         => $key,
-										'value'       => $value,
-										'inserted_on' => $time
-									));
-								}else{
-									$error[$key] = 'invalid';
-								}
+								DB::table('server_statistics')->insert(array(
+									'server'      => $server,
+									'key'         => $key,
+									'value'       => $value,
+									'inserted_on' => $time
+								));
 							}else{
-								$error[$key] = 'duplicate';
+								$error[$key] = 'invalid';
 							}
 						}else{
-							$error[$key] = 'exists';
+							$error[$key] = 'duplicate';
 						}
 					}
 				}

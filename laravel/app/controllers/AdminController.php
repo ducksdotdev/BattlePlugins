@@ -276,7 +276,7 @@ class AdminController extends BaseController{
 
 		$vars['usernames'] = $usernames;
 		$vars['now'] = Carbon::now();
-		$vars['diff'] = DateUtil::getTimeToNextThirty();
+		$vars['diff'] = DateUtil::getTimeToNextThirty(false);
 		$lastUpdate = Cache::get('lastUpdate', 'never');
 
 		if($lastUpdate != 'never'){

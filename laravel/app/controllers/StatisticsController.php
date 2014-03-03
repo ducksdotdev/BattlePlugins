@@ -92,7 +92,7 @@ class StatisticsController extends BaseController{
 
 			$table = array_reverse($table);
 
-			$diff = DateUtil::getTimeToNextThirty();
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 			Cache::put('getTotalServers', $table, $diff);
 
 			return Response::json($table);
@@ -107,7 +107,7 @@ class StatisticsController extends BaseController{
 				groupBy('plugin')->
 				get();
 
-			$diff = DateUtil::getTimeToNextThirty();
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 			Cache::put('getPluginCount', $table, $diff);
 
 			return Response::json($table);

@@ -103,6 +103,8 @@ class StatisticsController extends BaseController{
 			groupBy('plugin')->
 			get();
 
+		DB::table('plugin_statistics')->where('inserted_on', '<>', DateUtil::getTimeToThirty()->subMinutes(30))->delete();
+
 		return Response::json($table);
 	}
 }

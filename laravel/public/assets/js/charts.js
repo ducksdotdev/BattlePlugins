@@ -107,7 +107,7 @@ $(function () {
                 text: null
             },
             tooltip: {
-                pointFormat: '<b>{point.percentage:.1f}%: '+this.y+'</b>'
+                pointFormat: '<b>{point.y:.1f}%</b>'
             },
             plotOptions: {
                 pie: {

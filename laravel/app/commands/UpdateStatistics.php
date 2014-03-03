@@ -67,48 +67,45 @@ class UpdateStatistics extends Command{
 				->select('key')
 				->get();
 
-			$minecraft = new MinecraftStatus($server, $port);
-			if(!(!$minecraft->Online && $checkMinecraft)){
-				foreach(array_keys($keys) as $key){
-					if(ListSentence::startsWith($key, 'p')){
-						$plugin = substr($key, 1);
+			foreach(array_keys($keys) as $key){
+				if(ListSentence::startsWith($key, 'p')){
+					$plugin = substr($key, 1);
 
-						if(!in_array($plugin, $pluginRequests) && !in_array($plugin, $plugins)){
+					if(!in_array($plugin, $pluginRequests) && !in_array($plugin, $plugins)){
+						$value = $keys[$key];
+						$success[$key] = $value;
+
+						DB::table('plugin_statistics')->insert(array(
+							'server'      => $server,
+							'plugin'      => $plugin,
+							'version'     => $value,
+							'inserted_on' => $time
+						));
+					}
+				}else{
+					if(!(in_array($key, $serverRequests) && in_array($key, $limitedKeys))){
+						if(in_array($key, $allowedKeys)){
 							$value = $keys[$key];
+
 							$success[$key] = $value;
 
-							DB::table('plugin_statistics')->insert(array(
+							DB::table('server_statistics')->insert(array(
 								'server'      => $server,
-								'plugin'      => $plugin,
-								'version'     => $value,
+								'key'         => $key,
+								'value'       => $value,
 								'inserted_on' => $time
 							));
+						}else{
+							$error[$key] = 'invalid';
 						}
 					}else{
-						if(!(in_array($key, $serverRequests) && in_array($key, $limitedKeys))){
-							if(in_array($key, $allowedKeys)){
-								$value = $keys[$key];
-
-								$success[$key] = $value;
-
-								DB::table('server_statistics')->insert(array(
-									'server'      => $server,
-									'key'         => $key,
-									'value'       => $value,
-									'inserted_on' => $time
-								));
-							}else{
-								$error[$key] = 'invalid';
-							}
-						}else{
-							$error[$key] = 'duplicate';
-						}
+						$error[$key] = 'duplicate';
 					}
 				}
 			}
 
 			unset($cache[$cacheKey]);
-			Log::info($cacheKey.' added.');
+			Log::info($cacheKey.' handled.');
 			$curCache = Cache::get('statistics', array());
 			Cache::forever('statistics', $cache+$curCache);
 		}

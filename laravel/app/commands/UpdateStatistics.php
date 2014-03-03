@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class UpdateStatistics extends Command {
 
@@ -40,7 +38,7 @@ class UpdateStatistics extends Command {
 
 		$cache = Cache::get('statistics');
 
-		$time = self::getTime();
+		$time = StatisticsController::getTime();
 
 		$success = array();
 		$error = array();

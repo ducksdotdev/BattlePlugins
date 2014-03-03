@@ -64,7 +64,7 @@ class StatisticsController extends BaseController{
 		return Response::json('success');
 	}
 
-	private function getTime(){
+	public function getTime(){
 		$time = Carbon::now();
 		if($time->minute > 30){
 			$time->minute = 30;

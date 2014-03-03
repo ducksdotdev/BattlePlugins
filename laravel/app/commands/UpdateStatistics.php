@@ -42,6 +42,10 @@ class UpdateStatistics extends Command{
 
 		$plugins = DB::table('plugins')->select('name')->get();
 
+		$checkMinecraft = Config::get('statistics.check-minecraft');
+		$limitedKeys = Config::get('statistics.limited-keys');
+		$allowedKeys = Config::get('statistics.tracked');
+
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
@@ -60,7 +64,7 @@ class UpdateStatistics extends Command{
 				->get();
 
 			$minecraft = new MinecraftStatus($server, $port);
-			if(!(!$minecraft->Online && Config::get('statistics.check-minecraft'))){
+			if(!(!$minecraft->Online && $checkMinecraft)){
 				foreach(array_keys($keys) as $key){
 					if(ListSentence::startsWith($key, 'p')){
 						$plugin = substr($key, 1);
@@ -77,9 +81,7 @@ class UpdateStatistics extends Command{
 							));
 						}
 					}else{
-						if(!(in_array($key, $serverRequests) && in_array($key, Config::get('statistics.limited-keys')))){
-							$allowedKeys = Config::get('statistics.tracked');
-
+						if(!(in_array($key, $serverRequests) && in_array($key, $limitedKeys))){
 							if(in_array($key, $allowedKeys)){
 								$value = $keys[$key];
 

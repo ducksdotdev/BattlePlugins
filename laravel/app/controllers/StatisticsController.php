@@ -86,7 +86,7 @@ class StatisticsController extends BaseController{
 			orderBy('timestamp', 'desc')->
 			take(336)->get();
 
-		if(DateUtil::getTime() == $table[0]->timestamp){
+		if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
 			array_shift($table);
 		}
 
@@ -97,7 +97,7 @@ class StatisticsController extends BaseController{
 
 	public function getPluginCount(){
 		$table = DB::table('plugin_statistics')->
-			where('inserted_on', DateUtil::getTime()->subMinutes(30))->
+			where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
 			select('plugin', DB::raw('count(*) as total'))->
 			groupBy('plugin')->
 			get();

@@ -37,7 +37,7 @@ class UpdateStatistics extends Command{
 
 		$cache = Cache::get('statistics');
 
-		$time = DateUtil::getTime();
+		$time = DateUtil::getTimeToThirty();
 
 		$success = array();
 		$error = array();

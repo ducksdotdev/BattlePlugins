@@ -46,6 +46,7 @@ class UpdateStatistics extends Command{
 		$error = array();
 
 		$plugins = DB::table('plugins')->select('name')->get();
+		Log::emergency(var_dump($plugins));
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');

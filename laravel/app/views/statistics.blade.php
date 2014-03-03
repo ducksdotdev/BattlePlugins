@@ -30,6 +30,14 @@
 					<div class="panel-body" id="pluginsGraph"></div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Authentication Modes</div>
+					</div>
+					<div class="panel-body" id="authGraph"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

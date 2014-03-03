@@ -68,7 +68,7 @@ class UpdateStatistics extends Command{
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
-					if(!in_array($plugin, $pluginRequests) && !in_array($plugin, $plugins)){
+					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $plugins)){
 						$value = $keys[$key];
 						$success[$key] = $value;
 
@@ -80,7 +80,7 @@ class UpdateStatistics extends Command{
 						));
 					}
 				}else{
-					if(!(in_array($key, $serverRequests) && in_array($key, $limitedKeys))){
+					if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys)){
 						if(in_array($key, $allowedKeys)){
 							$value = $keys[$key];
 

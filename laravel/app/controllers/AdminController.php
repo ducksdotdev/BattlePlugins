@@ -2,6 +2,7 @@
 
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
+use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 
 class AdminController extends BaseController {
@@ -272,6 +273,7 @@ class AdminController extends BaseController {
 
 		$vars['usernames'] = $usernames;
 		$vars['now'] = Carbon::now();
+		$vars['diff'] = DateUtil::getTimeToNextThirty();
 
 		return View::make('admin.statistics', $vars);
 	}

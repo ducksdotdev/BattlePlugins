@@ -1,5 +1,6 @@
 <?php
 
+use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use Carbon\Carbon;
@@ -64,18 +65,6 @@ class StatisticsController extends BaseController{
 		return Response::json('success');
 	}
 
-	public function getTime(){
-		$time = Carbon::now();
-		if($time->minute > 30){
-			$time->minute = 30;
-		}else{
-			$time->minute = 0;
-		}
-		$time->second = 0;
-
-		return $time;
-	}
-
 	public function get($column, $key, $server = null){
 		if(!in_array($column, array('server', 'key', 'value', 'inserted_on'))){
 			$column = '*';
@@ -101,7 +90,7 @@ class StatisticsController extends BaseController{
 			orderBy('timestamp', 'desc')->
 			take(336)->get();
 
-		if(self::getTime() == $table[0]->timestamp){
+		if(DateUtil::getTime() == $table[0]->timestamp){
 			array_shift($table);
 		}
 
@@ -112,7 +101,7 @@ class StatisticsController extends BaseController{
 
 	public function getPluginCount(){
 		$table = DB::table('plugin_statistics')->
-			where('inserted_on', self::getTime()->subMinutes(30))->
+			where('inserted_on', DateUtil::getTime()->subMinutes(30))->
 			select('plugin', DB::raw('count(*) as total'))->
 			groupBy('plugin')->
 			get();

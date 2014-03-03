@@ -1,8 +1,9 @@
 <?php
 
+use BattleTools\Util\DateUtil;
 use Illuminate\Console\Command;
 
-class UpdateStatistics extends Command {
+class UpdateStatistics extends Command{
 
 	/**
 	 * The console command name.
@@ -23,8 +24,7 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(){
 		parent::__construct();
 	}
 
@@ -33,12 +33,11 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
-	{
+	public function fire(){
 
 		$cache = Cache::get('statistics');
 
-		$time = StatisticsController::getTime();
+		$time = DateUtil::getTime();
 
 		$success = array();
 		$error = array();
@@ -115,8 +114,7 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return array
 	 */
-	protected function getArguments()
-	{
+	protected function getArguments(){
 		return array();
 	}
 
@@ -125,8 +123,7 @@ class UpdateStatistics extends Command {
 	 *
 	 * @return array
 	 */
-	protected function getOptions()
-	{
+	protected function getOptions(){
 		return array();
 	}
 

@@ -47,17 +47,13 @@ class StatisticsController extends BaseController{
 	public function set(){
 		$keys = Input::all();
 
-		$minecraft = new MinecraftStatus(Session::get('serverIp'), Session::get('serverPort'));
-		if(!$minecraft->Online && Config::get('statistics.check-minecraft')){
-			return Response::json(array('errors' => "Not a Minecraft server"));
-		}
-
 		$server = Session::get('serverIp');
 
 		$cache = Cache::get('statistics');
 		$cache[] = array(
 			'keys' => $keys,
-			'server' => $server
+			'server' => $server,
+			'port' => Session::get('serverPort')
 		);
 
 		Cache::forever('statistics', $cache);

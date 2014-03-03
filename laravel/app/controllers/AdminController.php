@@ -3,261 +3,264 @@
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\DateUtil;
+use BattleTools\Util\Deploy;
 use Carbon\Carbon;
+use Symfony\Component\Process\Process;
 
-class AdminController extends BaseController {
+class AdminController extends BaseController{
 
-    public function __construct() {
-        parent::setActive("Administration");
-        $this->beforeFilter('auth.administrator');
-    }
+	public function __construct(){
+		parent::setActive("Administration");
+		$this->beforeFilter('auth.administrator');
+	}
 
-    public function getBlog(){
-        $vars['title'] = 'Blog Administration';
+	public function getBlog(){
+		$vars['title'] = 'Blog Administration';
 
-        return View::make('admin.blog', $vars);
-    }
+		return View::make('admin.blog', $vars);
+	}
 
-    public function saveBlog(){
-        $title = Input::get('title');
-        $content = Input::get('content');
+	public function saveBlog(){
+		$title = Input::get('title');
+		$content = Input::get('content');
 
-        $input = array(
-            'title' => $title,
-            'content' => $content
-        );
+		$input = array(
+			'title'   => $title,
+			'content' => $content
+		);
 
-        $rules = array(
-            'title' => 'required|max:132',
-            'content' => 'required'
-        );
+		$rules = array(
+			'title'   => 'required|max:132',
+			'content' => 'required'
+		);
 
-        $messages = array(
-            'title.required' => "Title is blank",
-            'title.max' => "Title is too long",
-            'content.required' => "Content is blank"
-        );
+		$messages = array(
+			'title.required'   => "Title is blank",
+			'title.max'        => "Title is too long",
+			'content.required' => "Content is blank"
+		);
 
-        $validator = Validator::make($input,$rules,$messages);
-        if($validator->fails()){
-            $reason = "<p>We couldn't create your blog post! This is because:</p><p><ul>";
+		$validator = Validator::make($input, $rules, $messages);
+		if($validator->fails()){
+			$reason = "<p>We couldn't create your blog post! This is because:</p><p><ul>";
 
-            foreach($validator->messages()->all() as $message){
-                $reason .= "<li>$message</li>";
-            }
+			foreach($validator->messages()->all() as $message){
+				$reason .= "<li>$message</li>";
+			}
 
-            $reason .= "</ul></p>";
+			$reason .= "</ul></p>";
 
-            return Response::json(array("result"=>"failure","reason"=>$reason));
-        }
+			return Response::json(array("result" => "failure", "reason" => $reason));
+		}
 
-        $content = str_replace('<a ', '<a target="_blank" ', $content);
-        $id = DB::table('blog')->insertGetId(array(
-            'title' => $title,
-            'author' => Auth::user()->id,
-            'content' => $content,
-            'created_at' => Carbon::now()
-        ));
+		$content = str_replace('<a ', '<a target="_blank" ', $content);
+		$id = DB::table('blog')->insertGetId(array(
+			'title'      => $title,
+			'author'     => Auth::user()->id,
+			'content'    => $content,
+			'created_at' => Carbon::now()
+		));
 
-        return Response::json(array('result'=>'success','reason'=>'/blog/'.$id));
+		return Response::json(array('result' => 'success', 'reason' => '/blog/'.$id));
 
-    }
+	}
 
-    public function editBlog(){
-        $title = Input::get('title');
-        $content = Input::get('content');
+	public function editBlog(){
+		$title = Input::get('title');
+		$content = Input::get('content');
 
-        $input = array(
-            'title' => $title,
-            'content' => $content
-        );
+		$input = array(
+			'title'   => $title,
+			'content' => $content
+		);
 
-        $rules = array(
-            'title' => 'required|max:132',
-            'content' => 'required'
-        );
+		$rules = array(
+			'title'   => 'required|max:132',
+			'content' => 'required'
+		);
 
-        $messages = array(
-            'title.required' => "Title is blank",
-            'title.max' => "Title is too long",
-            'content.required' => "Content is blank"
-        );
+		$messages = array(
+			'title.required'   => "Title is blank",
+			'title.max'        => "Title is too long",
+			'content.required' => "Content is blank"
+		);
 
-        $validator = Validator::make($input,$rules,$messages);
-        if($validator->fails()){
-            $reason = "<p>We couldn't create your blog post! This is because:</p><p><ul>";
+		$validator = Validator::make($input, $rules, $messages);
+		if($validator->fails()){
+			$reason = "<p>We couldn't create your blog post! This is because:</p><p><ul>";
 
-            foreach($validator->messages()->all() as $message){
-                $reason .= "<li>$message</li>";
-            }
+			foreach($validator->messages()->all() as $message){
+				$reason .= "<li>$message</li>";
+			}
 
-            $reason .= "</ul></p>";
+			$reason .= "</ul></p>";
 
-            return Response::json(array("result"=>"failure","reason"=>$reason));
-        }
+			return Response::json(array("result" => "failure", "reason" => $reason));
+		}
 
-        $id = Input::get('id');
-        $content = str_replace('<a ', '<a target="_blank" ', $content);
-        DB::table('blog')->where('id', $id)->update(array(
-            'title' => $title,
-            'content' => $content,
-        ));
+		$id = Input::get('id');
+		$content = str_replace('<a ', '<a target="_blank" ', $content);
+		DB::table('blog')->where('id', $id)->update(array(
+			'title'   => $title,
+			'content' => $content,
+		));
 
-        return Response::json(array('result'=>'success'));
-    }
+		return Response::json(array('result' => 'success'));
+	}
 
-    public function deleteBlog(){
-        $id = Input::get('id');
-        return DB::table('blog')->where('id', $id)->delete();
-    }
+	public function deleteBlog(){
+		$id = Input::get('id');
 
-    public function manageUsers(){
-        $vars['title'] = 'Manage Users';
+		return DB::table('blog')->where('id', $id)->delete();
+	}
 
-        return View::make('admin.manageUsers', $vars);
-    }
+	public function manageUsers(){
+		$vars['title'] = 'Manage Users';
 
-    public function getUserGroupsForm(){
-        $username = Input::get('username');
-        $uid = UserSettings::getIdFromUsername($username);
-        if(count($uid) == 0){
-            return Response::json(array("result"=>"failure"));
-        }
+		return View::make('admin.manageUsers', $vars);
+	}
 
-        $vars['has'] = UserGroups::getGroups($uid);
-        $vars['groups'] = UserGroups::getAll();
+	public function getUserGroupsForm(){
+		$username = Input::get('username');
+		$uid = UserSettings::getIdFromUsername($username);
+		if(count($uid) == 0){
+			return Response::json(array("result" => "failure"));
+		}
 
-        foreach($vars['groups'] as $group){
-            $groupNames[$group] = UserGroups::getGroupName($group);
-        }
+		$vars['has'] = UserGroups::getGroups($uid);
+		$vars['groups'] = UserGroups::getAll();
 
-        $vars['groupNames'] = $groupNames;
+		foreach($vars['groups'] as $group){
+			$groupNames[$group] = UserGroups::getGroupName($group);
+		}
 
-        return View::make('ajax.userGroupsForm', $vars);
-    }
+		$vars['groupNames'] = $groupNames;
 
-    public function changeUserGroups(){
-        $username = Input::get('username');
-        $id = UserSettings::getIdFromUsername($username);
-        if(count($id) == 0){
-            return Response::json(array("result"=>"failure",'reason'=>'That user doesn\'t exist!'));
-        }
+		return View::make('ajax.userGroupsForm', $vars);
+	}
 
-        $currentGroups = UserGroups::getGroups($id);
-        foreach (UserGroups::getAll() as $group) {
-            $str = "group-" . $group;
-            if (Input::has($str)) {
-                if (!in_array($group, $currentGroups)) {
-                    UserGroups::addGroup($id, $group);
-                }
-            } else {
-                if (in_array($group, $currentGroups)) {
-                    UserGroups::removeGroup($id, $group);
-                }
-            }
-        }
+	public function changeUserGroups(){
+		$username = Input::get('username');
+		$id = UserSettings::getIdFromUsername($username);
+		if(count($id) == 0){
+			return Response::json(array("result" => "failure", 'reason' => 'That user doesn\'t exist!'));
+		}
 
-        return Response::json(array('result'=>'success'));
-    }
+		$currentGroups = UserGroups::getGroups($id);
+		foreach(UserGroups::getAll() as $group){
+			$str = "group-".$group;
+			if(Input::has($str)){
+				if(!in_array($group, $currentGroups)){
+					UserGroups::addGroup($id, $group);
+				}
+			}else{
+				if(in_array($group, $currentGroups)){
+					UserGroups::removeGroup($id, $group);
+				}
+			}
+		}
 
-    public function getSetting(){
-        $username = Input::get('username');
-        $setting = Input::get('setting');
+		return Response::json(array('result' => 'success'));
+	}
 
-        $input = array(
-            'username' => $username,
-            'setting' => $setting
-        );
+	public function getSetting(){
+		$username = Input::get('username');
+		$setting = Input::get('setting');
 
-        $rules = array(
-            'username' => 'required|max:16',
-            'setting' => 'required'
-        );
+		$input = array(
+			'username' => $username,
+			'setting'  => $setting
+		);
 
-        $messages = array(
-            'username.required' => "Username field is blank",
-            'username.max' => "Username is too long",
-            'setting.required' => "Setting field is blank"
-        );
+		$rules = array(
+			'username' => 'required|max:16',
+			'setting'  => 'required'
+		);
 
-        $validator = Validator::make($input,$rules,$messages);
-        if($validator->fails()){
-            $reason = "<p>We couldn't modify that setting! This is because:</p><p><ul>";
+		$messages = array(
+			'username.required' => "Username field is blank",
+			'username.max'      => "Username is too long",
+			'setting.required'  => "Setting field is blank"
+		);
 
-            foreach($validator->messages()->all() as $message){
-                $reason .= "<li>$message</li>";
-            }
+		$validator = Validator::make($input, $rules, $messages);
+		if($validator->fails()){
+			$reason = "<p>We couldn't modify that setting! This is because:</p><p><ul>";
 
-            $reason .= "</ul></p>";
+			foreach($validator->messages()->all() as $message){
+				$reason .= "<li>$message</li>";
+			}
 
-            return Response::json(array("result"=>"failure","reason"=>$reason));
-        }
+			$reason .= "</ul></p>";
 
-        $uid = UserSettings::getIdFromUsername($username);
-        if(count($uid) == 0){
-            return Response::json(array("result"=>"failure","reason"=>"A user with that name doesn't exist."));
-        }
+			return Response::json(array("result" => "failure", "reason" => $reason));
+		}
 
-        return Response::json(array('result'=>'success','setting'=>UserSettings::get($uid, $setting)));
-    }
+		$uid = UserSettings::getIdFromUsername($username);
+		if(count($uid) == 0){
+			return Response::json(array("result" => "failure", "reason" => "A user with that name doesn't exist."));
+		}
 
-    public function setSetting(){
-        $username = Input::get('username');
-        $setting = Input::get('setting');
+		return Response::json(array('result' => 'success', 'setting' => UserSettings::get($uid, $setting)));
+	}
 
-        $input = array(
-            'username' => $username,
-            'setting' => $setting
-        );
+	public function setSetting(){
+		$username = Input::get('username');
+		$setting = Input::get('setting');
 
-        $rules = array(
-            'username' => 'required|max:16',
-            'setting' => 'required'
-        );
+		$input = array(
+			'username' => $username,
+			'setting'  => $setting
+		);
 
-        $messages = array(
-            'username.required' => "Username field is blank",
-            'username.max' => "Username is too long",
-            'setting.required' => "Setting field is blank"
-        );
+		$rules = array(
+			'username' => 'required|max:16',
+			'setting'  => 'required'
+		);
 
-        $validator = Validator::make($input,$rules,$messages);
-        if($validator->fails()){
-            $reason = "<p>We couldn't modify that setting! This is because:</p><p><ul>";
+		$messages = array(
+			'username.required' => "Username field is blank",
+			'username.max'      => "Username is too long",
+			'setting.required'  => "Setting field is blank"
+		);
 
-            foreach($validator->messages()->all() as $message){
-                $reason .= "<li>$message</li>";
-            }
+		$validator = Validator::make($input, $rules, $messages);
+		if($validator->fails()){
+			$reason = "<p>We couldn't modify that setting! This is because:</p><p><ul>";
 
-            $reason .= "</ul></p>";
+			foreach($validator->messages()->all() as $message){
+				$reason .= "<li>$message</li>";
+			}
 
-            return Response::json(array("result"=>"failure","reason"=>$reason));
-        }
+			$reason .= "</ul></p>";
 
-        $uid = UserSettings::getIdFromUsername($username);
-        if(count($uid) == 0){
-            return Response::json(array("result"=>"failure","reason"=>"A user with that name doesn't exist."));
-        }
+			return Response::json(array("result" => "failure", "reason" => $reason));
+		}
 
-        $value = Input::get('value');
-        if(empty($value)){
-            UserSettings::delete($uid, $setting);
-        }else{
-            UserSettings::set($uid, $setting, $value);
-        }
+		$uid = UserSettings::getIdFromUsername($username);
+		if(count($uid) == 0){
+			return Response::json(array("result" => "failure", "reason" => "A user with that name doesn't exist."));
+		}
 
-        return Response::json(array('result'=>'success'));
-    }
+		$value = Input::get('value');
+		if(empty($value)){
+			UserSettings::delete($uid, $setting);
+		}else{
+			UserSettings::set($uid, $setting, $value);
+		}
+
+		return Response::json(array('result' => 'success'));
+	}
 
 	public function getStatistics(){
 		$vars['title'] = 'Statistics';
 		$vars['apiRequests'] = DB::table('api_requests')->
 			select('*', DB::raw('count(*) as total'))->
-			groupBy('route','ip')->
+			groupBy('route', 'ip')->
 			orderBy('total', 'desc')->
 			get();
 
-		$vars['statisticRequests'] =  DB::table('statistic_requests')->
+		$vars['statisticRequests'] = DB::table('statistic_requests')->
 			select('*', DB::raw('count(*) as total'))->
 			groupBy('server')->
 			orderBy('total', 'desc')->
@@ -274,12 +277,20 @@ class AdminController extends BaseController {
 		$vars['usernames'] = $usernames;
 		$vars['now'] = Carbon::now();
 		$vars['diff'] = DateUtil::getTimeToNextThirty();
+		$lastUpdate = Cache::get('lastUpdate', 'never');
+
+		if($lastUpdate != 'never'){
+			$lastUpdate = $lastUpdate->diffForhumans();
+		}
+
+		$vars['lastUpdate'] = $lastUpdate;
 
 		return View::make('admin.statistics', $vars);
 	}
 
 	public function clearAPIRequests(){
 		DB::table('api_requests')->delete();
+
 		return Redirect::to('/administrator/statistics');
 	}
 
@@ -291,5 +302,23 @@ class AdminController extends BaseController {
 		}
 
 		return Redirect::to('/administrator/statistics');
+	}
+
+	public function forceStatisticsUpdate(){
+
+		$branch = Deploy::isDeveloperMode() ? 'dev' : 'master';
+
+		$cd = Config::get('deploy.path-to-branch');
+		$cd = str_replace('{branch}', $branch, $cd);
+
+		$process = new Process('php laravel/artisan battle:savestats', $cd);
+		$process->start();
+		while($process->isRunning()){
+		}
+
+		Cache::put('lastUpdate', Carbon::now(), DateUtil::getTimeToNextThirty());
+
+		return Redirect::to('/administrator/statistics');
+
 	}
 }

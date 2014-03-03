@@ -1,7 +1,6 @@
 <?php
 
 return array(
-
     // What statistics are tracked?
     'tracked' => array(
         // Bukkit Statistics
@@ -24,5 +23,5 @@ return array(
     ),
 
     // Check if the request is coming from a MineCraft server
-    'check-minecraft' => true
+    'check-minecraft' => false
 );

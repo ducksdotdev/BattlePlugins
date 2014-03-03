@@ -268,6 +268,8 @@ class AdminController extends BaseController {
 			$usernames[$request->user_id] = UserSettings::getUsernameFromId($request->user_id);
 		}
 
+		$vars['statisticsCache'] = Cache::get('statistics');
+
 		$vars['usernames'] = $usernames;
 
 		return View::make('admin.statistics', $vars);

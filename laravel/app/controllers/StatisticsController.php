@@ -53,71 +53,15 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$time = self::getTime();
+		$cache = Cache::get('statistics');
+		$cache[] = array(
+			'keys' => $keys,
+			'server' => $server
+		);
 
-		$success = array();
-		$error = array();
+		Cache::forever('statistics', $cache);
 
-		foreach(array_keys($keys) as $key){
-			if(ListSentence::startsWith($key, 'p')){
-				$plugin = substr($key, 1);
-
-				$plugins = DB::table('plugins')->where('name', $plugin)->get();
-
-				$count = DB::table('plugin_statistics')
-					->where('inserted_on', $time)
-					->where('server', $server)
-					->where('plugin', $plugin)
-					->get();
-
-				if(count($count) == 0 && count($plugins) > 0){
-					$value = $keys[$key];
-
-					$success[$key] = $value;
-
-					DB::table('plugin_statistics')->insert(array(
-						'server'      => $server,
-						'plugin'      => $plugin,
-						'version'     => $value,
-						'inserted_on' => $time
-					));
-				}
-			}else{
-				$count = DB::table('server_statistics')
-					->where('inserted_on', $time)
-					->where('server', $server)
-					->where('key', $key)
-					->select('key')
-					->get();
-
-				if(count($count) == 0){
-					if(!(in_array($key, $count) && in_array($key, Config::get('statistics.limited-keys')))){
-						$allowedKeys = Config::get('statistics.tracked');
-
-						if(in_array($key, $allowedKeys)){
-							$value = $keys[$key];
-
-							$success[$key] = $value;
-
-							DB::table('server_statistics')->insert(array(
-								'server'      => $server,
-								'key'         => $key,
-								'value'       => $value,
-								'inserted_on' => $time
-							));
-						}else{
-							$error[$key] = 'invalid';
-						}
-					}else{
-						$error[$key] = 'duplicate';
-					}
-				}else{
-					$error[$key] = 'exists';
-				}
-			}
-		}
-
-		return Response::json($success);
+		return Response::json('success');
 	}
 
 	private function getTime(){

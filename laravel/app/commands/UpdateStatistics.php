@@ -3,6 +3,7 @@
 use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class UpdateStatistics extends Command{
@@ -36,6 +37,8 @@ class UpdateStatistics extends Command{
 	 * @return mixed
 	 */
 	public function fire(){
+		$start = Carbon::now();
+
 		$cache = Cache::get('statistics', array());
 
 		$success = array();
@@ -103,7 +106,7 @@ class UpdateStatistics extends Command{
 		}
 
 		Cache::forget('statistics');
-		Log::info('Statistics added');
+		Log::info('Statistics added. This took '.Carbon::now()->diffInSeconds($start).' seconds to completed.');
 	}
 
 	/**

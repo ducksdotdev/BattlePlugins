@@ -1,5 +1,6 @@
 <?php
 
+use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use BattleTools\Util\MinecraftStatus;
 use Illuminate\Console\Command;
@@ -45,6 +46,8 @@ class UpdateStatistics extends Command{
 		$checkMinecraft = Config::get('statistics.check-minecraft');
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
+
+		Log::info(count($cache).' new statistics this half hour ('.DateUtil::getTimeToThirty().')');
 
 		foreach($cache as $cacheItem){
 			$keys = $cacheItem['keys'];

@@ -37,6 +37,7 @@ class UpdateStatistics extends Command{
 	 */
 	public function fire(){
 		$cache = Cache::get('statistics', array());
+		Cache::forget('statistics');
 
 		$success = array();
 		$error = array();
@@ -49,7 +50,7 @@ class UpdateStatistics extends Command{
 
 		Log::info(count($cache).' new statistics this half hour ('.DateUtil::getTimeToThirty().')');
 
-		foreach($cache as $cacheItem){
+		foreach($cache as $cacheKey => $cacheItem){
 			$keys = $cacheItem['keys'];
 			$server = $cacheItem['server'];
 			$port = $cacheItem['port'];
@@ -105,11 +106,13 @@ class UpdateStatistics extends Command{
 					}
 				}
 			}
+
+			unset($cache[$cacheKey]);
+			$curCache = Cache::get('statistics', array());
+			Cache::forever('statistics', $cache+$curCache);
 		}
 
 		Log::info('Statistics added');
-
-		Cache::forget('statistics');
 	}
 
 	/**

@@ -25,15 +25,6 @@ class UpdateStatistics{
 		$server = $data['server'];
 		$time = Carbon::now();
 
-		$pluginList = DB::table('plugins')->select('name')->get();
-
-		$nameList = array();
-		foreach($pluginList as $pluginName){
-			$nameList[] = $pluginName->name;
-		}
-		$pluginList = $nameList;
-
-
 		foreach(array_keys($keys) as $key){
 			$value = $keys[$key];
 
@@ -45,7 +36,9 @@ class UpdateStatistics{
 					->where('server', $server)
 					->where('plugin', $plugin)->get();
 
-				if(count($pluginRequests) == 0 && in_array($plugin, $pluginList)){
+				$plugins = DB::table('plugins')->select('name')->where('name',$plugin)->get();
+
+				if(count($pluginRequests) == 0 && count($plugins) > 0){
 					DB::table('plugin_statistics')->insert(array(
 						'server'      => $server,
 						'plugin'      => $plugin,

@@ -52,7 +52,7 @@ class StatisticsController extends BaseController{
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
-			'time'   => Carbon::now()
+			'time'   => DateUtil::getTimeToThirty()
 		);
 
 		Cache::forever('statistics', $cache);
@@ -80,15 +80,16 @@ class StatisticsController extends BaseController{
 		return Cache::get('getTotalServers', function (){
 			$table = DB::table('server_statistics')->
 				where('key', 'bPlayersOnline')->
-				select(DB::raw('Round(Convert(substring(inserted_on, 14, 2), UNSIGNED) / (30*60)) as timestamp'), DB::raw('count(*) as servers'),
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
 					DB::raw('sum(value) as players'))->
-				groupBy('timestamp')->
+				groupBy('inserted_on')->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 
 			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
 				array_shift($table);
 			}
+
 			$table = array_reverse($table);
 
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
@@ -101,8 +102,8 @@ class StatisticsController extends BaseController{
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
 			$table = DB::table('plugin_statistics')->
-				select('plugin', DB::raw('count(*) as total'), 'Round(Convert(substring(inserted_on, 14, 2), UNSIGNED) / (30*60)) as timestamp')->
-				where('timestamp', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
+				select('plugin', DB::raw('count(*) as total'))->
 				groupBy('plugin')->
 				get();
 
@@ -116,9 +117,9 @@ class StatisticsController extends BaseController{
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
 			$table = DB::table('server_statistics')->
-				select('Round(Convert(substring(inserted_on, 14, 2), UNSIGNED) / (30*60)) as timestamp', 'value', DB::raw('count(*) as total'))->
-				where('timestamp', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
 				where('key', 'bOnlineMode')->
+				select('value', DB::raw('count(*) as total'))->
 				groupBy('value')->
 				get();
 

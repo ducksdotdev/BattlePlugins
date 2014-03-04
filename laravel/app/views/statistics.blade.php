@@ -15,7 +15,7 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Servers and Players</div>
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Servers and Players<a href="/statistics/reload/getTotalServers"><i class="fa fa-refresh pull-right panel-icon"></i></a></div>
 					</div>
 					<div id="serversGraph" class="panel-body"></div>
 				</div>
@@ -25,7 +25,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Plugin Usage</div>
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Plugin Usage<a href="/statistics/reload/getPluginCount"><i class="fa fa-refresh pull-right panel-icon"></i></a></div>
 					</div>
 					<div class="panel-body" id="pluginsGraph"></div>
 				</div>
@@ -33,7 +33,7 @@
 			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Authentication Modes</div>
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Authentication Modes<a href="/statistics/reload/getAuthMode"><i class="fa fa-refresh pull-right panel-icon"></i></a></div>
 					</div>
 					<div class="panel-body" id="authGraph"></div>
 				</div>

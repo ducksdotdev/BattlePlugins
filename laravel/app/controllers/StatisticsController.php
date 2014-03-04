@@ -137,4 +137,12 @@ class StatisticsController extends BaseController{
 			return $json;
 		});
 	}
+
+	public function reload($method){
+		$charts = Config::get('statistics.charts');
+		if(in_array($method,$charts)){
+			Cache::forget($method);
+		}
+		return Redirect::to('/statistics');
+	}
 }

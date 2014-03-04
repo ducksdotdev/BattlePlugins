@@ -13,13 +13,10 @@ class UpdateStatistics{
 
 	public function fire($job, $data){
 
-		if ($job->attempts() > 3)
-		{
-			Log::error(Response::json($data));
+		if($job->attempts() > 3){
+			Log::error(json_encode($data));
 			$job->delete();
 		}
-
-		$start = Carbon::now();
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
@@ -29,6 +26,7 @@ class UpdateStatistics{
 		$time = Carbon::now();
 
 		$pluginList = DB::table('plugins')->select('name')->get();
+
 		$nameList = array();
 		foreach($pluginList as $pluginName){
 			$nameList[] = $pluginName->name;
@@ -82,7 +80,7 @@ class UpdateStatistics{
 			}
 		}
 
-		Log::notice(Response::json($data));
+		Log::notice(json_encode($data));
 		$job->delete();
 	}
 }

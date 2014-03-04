@@ -93,5 +93,4 @@ class UpdateStatistics{
 
 		$job->delete();
 	}
-
 }

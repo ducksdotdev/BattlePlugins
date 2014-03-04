@@ -24,16 +24,6 @@ class DateUtil{
 		return new Carbon($date);
 	}
 
-	public static function getTimeToNextThirty($minutes=true){
-		$nextTime = self::getTimeToThirty()->addMinutes(30);
-		if($minutes){
-			$diff = Carbon::now()->diffInMinutes($nextTime);
-			return $diff < 0 ? $diff * 1 : $diff;
-		}else{
-			return $nextTime->diffForHumans();
-		}
-	}
-
 	public static function getTimeToThirty(){
 		$time = Carbon::now();
 		if($time->minute > 30){

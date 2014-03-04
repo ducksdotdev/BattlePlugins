@@ -33,26 +33,6 @@ class UpdateStatistics{
 		}
 		$pluginList = $nameList;
 
-		$pluginRequests = DB::table('plugin_statistics')
-			->where('inserted_on', '>', DateUtil::getTimeToThirty())
-			->where('server', $server)
-			->select('plugin')->get();
-		$pluginRList = array();
-		foreach($pluginRequests as $request){
-			$pluginRList[] = $request->plugin;
-		}
-		$pluginRequests = $pluginRList;
-
-		$serverRequests = DB::table('server_statistics')
-			->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinute())
-			->where('server', $server)
-			->select('key')
-			->get();
-		$serverRList = array();
-		foreach($serverRequests as $request){
-			$serverRList[] = $request->key;
-		}
-		$serverRequests = $serverRList;
 
 		foreach(array_keys($keys) as $key){
 			$value = $keys[$key];
@@ -60,7 +40,12 @@ class UpdateStatistics{
 			if(ListSentence::startsWith($key, 'p')){
 				$plugin = substr($key, 1);
 
-				if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
+				$pluginRequests = DB::table('plugin_statistics')
+					->where('inserted_on', '>', DateUtil::getTimeToThirty())
+					->where('server', $server)
+					->where('plugin', $plugin)->get();
+
+				if(count($pluginRequests) == 0 && in_array($plugin, $pluginList)){
 					DB::table('plugin_statistics')->insert(array(
 						'server'      => $server,
 						'plugin'      => $plugin,
@@ -68,13 +53,21 @@ class UpdateStatistics{
 						'inserted_on' => $time
 					));
 				}
-			}else if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
-				DB::table('server_statistics')->insert(array(
-					'server'      => $server,
-					'key'         => $key,
-					'value'       => $value,
-					'inserted_on' => $time
-				));
+			}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
+				$serverRequests = DB::table('server_statistics')
+					->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinute())
+					->where('server', $server)
+					->where('key', $key)
+					->get();
+
+				if(count($serverRequests) == 0){
+					DB::table('server_statistics')->insert(array(
+						'server'      => $server,
+						'key'         => $key,
+						'value'       => $value,
+						'inserted_on' => $time
+					));
+				}
 			}
 		}
 

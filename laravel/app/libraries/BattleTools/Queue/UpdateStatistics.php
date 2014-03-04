@@ -15,12 +15,11 @@ class UpdateStatistics{
 
 		if ($job->attempts() > 3)
 		{
-			Log::error('Error adding data. <br />'.Response::json($data));
+			Log::error(Response::json($data));
 			$job->delete();
 		}
 
 		$start = Carbon::now();
-		Log::info(Response::json($data));
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
@@ -83,8 +82,7 @@ class UpdateStatistics{
 			}
 		}
 
-		Log::info('Statistics added. This took '.Carbon::now()->diffInSeconds($start).' seconds to complete.');
-
+		Log::notice(Response::json($data));
 		$job->delete();
 	}
 }

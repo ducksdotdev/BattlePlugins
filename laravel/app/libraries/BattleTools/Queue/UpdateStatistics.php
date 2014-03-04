@@ -34,7 +34,7 @@ class UpdateStatistics{
 		$pluginList = $nameList;
 
 		$pluginRequests = DB::table('plugin_statistics')
-			->where('inserted_on', '<', DateUtil::getTimeToThirty())
+			->where('inserted_on', '>', DateUtil::getTimeToThirty())
 			->where('server', $server)
 			->select('plugin')->get();
 		$pluginRList = array();
@@ -44,7 +44,7 @@ class UpdateStatistics{
 		$pluginRequests = $pluginRList;
 
 		$serverRequests = DB::table('server_statistics')
-			->where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
+			->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinute())
 			->where('server', $server)
 			->select('key')
 			->get();

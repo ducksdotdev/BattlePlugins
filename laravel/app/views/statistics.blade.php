@@ -5,6 +5,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h2>BattlePlugins Statistics</h2>
+				<p>Statistics update on a half-hourly basis. This is to ensure that the data we're displaying is as accurate as possible. Each graph is also cached every half hour in order to speed up the loading of this page. By hitting the refresh button for a graph you will only be clearing the cache, not updating the data.</p>
 			</div>
 		</div>
 	</div>

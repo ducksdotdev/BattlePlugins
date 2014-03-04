@@ -52,7 +52,7 @@ class StatisticsController extends BaseController{
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
-			'time'   => DateUtil::getTimeToThirty()
+			'time'   => Carbon::now()
 		);
 
 		Cache::forever('statistics', $cache);
@@ -102,7 +102,8 @@ class StatisticsController extends BaseController{
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
 			$table = DB::table('plugin_statistics')->
-				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				select('plugin', DB::raw('count(*) as total'))->
 				groupBy('plugin')->
 				get();
@@ -117,7 +118,8 @@ class StatisticsController extends BaseController{
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
 			$table = DB::table('server_statistics')->
-				where('inserted_on', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				where('key', 'bOnlineMode')->
 				select('value', DB::raw('count(*) as total'))->
 				groupBy('value')->

@@ -93,9 +93,12 @@ class StatisticsController extends BaseController{
 			$table = array_reverse($table);
 
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			Cache::put('getTotalServers', $table, $diff);
 
-			return Response::json($table);
+			$json = Response::json($table);
+
+			Cache::put('getTotalServers', $json, $diff);
+
+			return $json;
 		});
 	}
 
@@ -109,9 +112,11 @@ class StatisticsController extends BaseController{
 				get();
 
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			Cache::put('getPluginCount', $table, $diff);
 
-			return Response::json($table);
+			$json = Response::json($table);
+			Cache::put('getPluginCount', $json, $diff);
+
+			return $json;
 		});
 	}
 
@@ -126,9 +131,11 @@ class StatisticsController extends BaseController{
 				get();
 
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			Cache::put('getAuthMode', $table, $diff);
 
-			return Response::json($table);
+			$json = Response::json($table);
+			Cache::put('getAuthMode', $json, $diff);
+
+			return $json;
 		});
 	}
 }

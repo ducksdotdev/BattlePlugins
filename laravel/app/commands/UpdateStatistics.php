@@ -56,11 +56,34 @@ class UpdateStatistics extends Command{
 			$server = $cacheItem['server'];
 			$time = $cacheItem['time'];
 
+			$pluginRequests = DB::table('plugin_statistics')->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
+				->where('server', $server)
+				->select('plugin')->get();
+			$pluginRList = array();
+			foreach($pluginRequests as $request){
+				$pluginRList[] = $request->plugin;
+			}
+			$pluginRequests = $pluginRList;
+
+			$serverRequests = DB::table('server_statistics')->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
+				->where('server', $server)
+				->select('key')
+				->get();
+			$serverRList = array();
+			foreach($serverRequests as $request){
+				$serverRList[] = $request->key;
+			}
+			$serverRequests = $serverRList;
+
 			foreach(array_keys($keys) as $key){
 				if(ListSentence::startsWith($key, 'p')){
 					$plugin = substr($key, 1);
 
-					if(in_array($plugin, $pluginList)){
+					if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
 						$value = $keys[$key];
 						$success[$key] = $value;
 
@@ -71,7 +94,7 @@ class UpdateStatistics extends Command{
 							'inserted_on' => $time
 						));
 					}
-				}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
+				}else if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 					$value = $keys[$key];
 
 					$success[$key] = $value;

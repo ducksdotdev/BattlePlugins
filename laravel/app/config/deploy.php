@@ -42,4 +42,7 @@ return array(
 
 	// What commands should we run after branch specific commands?
 	// Use {branch} to specify a specific branch name
-	'post-commands'        => array('php laravel/artisan up',));
+	'post-commands'        => array(
+		'laravel/composer update',
+		'php laravel/artisan up'
+	));

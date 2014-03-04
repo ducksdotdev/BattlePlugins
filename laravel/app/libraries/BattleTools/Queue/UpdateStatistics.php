@@ -1,6 +1,8 @@
 <?php
 namespace BattleTools\Queue;
 
+use BattleTools\Util\DateUtil;
+use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
 
 class UpdateStatistics{

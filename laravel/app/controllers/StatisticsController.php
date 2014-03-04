@@ -89,7 +89,6 @@ class StatisticsController extends BaseController{
 			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
 				array_shift($table);
 			}
-
 			$table = array_reverse($table);
 
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);

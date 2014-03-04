@@ -61,8 +61,6 @@ class Deploy {
             if(in_array('laravel/composer.json', $files) && Config::get('deploy.update-composer')){
                 $command = 'composer update';
                 $output[$command] = self::runProcess($command, $cd.'/laravel');
-                $command = 'composer install';
-                $output[$command] = self::runProcess($command, $cd.'/laravel');
             }
         }
 

@@ -4,6 +4,10 @@ namespace BattleTools\Queue;
 use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UpdateStatistics{
 

@@ -95,8 +95,6 @@ $(function () {
             cdata.push([item.plugin, parseInt(item.total)]);
         });
 
-        console.log(cdata);
-
         $('#pluginsGraph').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -134,8 +132,6 @@ $(function () {
             var name = item.value == 'true' ? 'Online' : 'Offline';
             cdata.push([name, parseInt(item.total)]);
         });
-
-        console.log(cdata);
 
         $('#authGraph').highcharts({
             chart: {

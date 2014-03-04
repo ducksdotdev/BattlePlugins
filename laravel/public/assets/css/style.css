@@ -328,4 +328,5 @@ i.panel-icon {
 i.fa-refresh.panel-icon {
     border-width: 0;
     font-size: 17px;
+    margin: 0px -7px 0px 0px;
 }

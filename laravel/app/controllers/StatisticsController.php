@@ -85,19 +85,21 @@ class StatisticsController extends BaseController{
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 
-			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
-				array_shift($table);
+			if(count($table) > 0){
+				if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+					array_shift($table);
+				}
+
+				$table = array_reverse($table);
+
+				$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+
+				$json = Response::json($table);
+
+				Cache::put('getTotalServers', $json, $diff);
+
+				return $json;
 			}
-
-			$table = array_reverse($table);
-
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
-			$json = Response::json($table);
-
-			Cache::put('getTotalServers', $json, $diff);
-
-			return $json;
 		});
 	}
 

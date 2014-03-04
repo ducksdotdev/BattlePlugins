@@ -14,7 +14,7 @@ class UpdateStatistics{
 	public function fire($job, $data){
 
 		if($job->attempts() > 3){
-			Log::error(json_encode($data));
+			Log::emergency(json_encode($data));
 			$job->delete();
 		}
 
@@ -33,9 +33,8 @@ class UpdateStatistics{
 		}
 		$pluginList = $nameList;
 
-		$pluginRequests = DB::table('plugin_statistics')->
-			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
+		$pluginRequests = DB::table('plugin_statistics')
+			->where('inserted_on', '<', DateUtil::getTimeToThirty())
 			->where('server', $server)
 			->select('plugin')->get();
 		$pluginRList = array();
@@ -44,9 +43,8 @@ class UpdateStatistics{
 		}
 		$pluginRequests = $pluginRList;
 
-		$serverRequests = DB::table('server_statistics')->
-			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
+		$serverRequests = DB::table('server_statistics')
+			->where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())
 			->where('server', $server)
 			->select('key')
 			->get();

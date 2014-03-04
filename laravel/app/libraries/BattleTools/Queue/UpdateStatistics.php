@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+
+		if ($job->attempts() > 3)
+		{
+			Log::error(Response::json($data));
+			$job->delete();
+		}
+
 		$start = Carbon::now();
 		Log::info('We got a new statistics. Processing..');
 

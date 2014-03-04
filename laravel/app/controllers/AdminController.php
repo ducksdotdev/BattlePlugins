@@ -305,16 +305,7 @@ class AdminController extends BaseController{
 
 	public function forceStatisticsUpdate(){
 
-		$branch = Deploy::isDeveloperMode() ? 'dev' : 'master';
-
-		$cd = Config::get('deploy.path-to-branch');
-		$cd = str_replace('{branch}', $branch, $cd);
-
-		$process = new Process('php laravel/artisan battle:savestats', $cd);
-		$process->start();
-		while($process->isRunning()){
-		}
-
+		Artisan::call('battle:savestats');
 		return Redirect::to('/administrator/statistics');
 
 	}

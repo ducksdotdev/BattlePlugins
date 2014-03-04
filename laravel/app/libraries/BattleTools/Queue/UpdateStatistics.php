@@ -90,6 +90,8 @@ class UpdateStatistics{
 		Log::info('Statistics added. This took '.Carbon::now()->diffInSeconds($start).' seconds to complete.');
 
 		Cache::forever('lastUpdate', Carbon::now());
+
+		$job->delete();
 	}
 
 }

@@ -21,7 +21,7 @@ class PasteController extends BaseController {
             $query->where('hidden_on', '0000-00-00 00:00:00')
                 ->orWhere('hidden_on', '>', Carbon::now());
 
-        }))->orderBy('created_on', 'desc')->take(6);
+        }))->orderBy('created_on', 'desc')->take(6)->get(0);
 
         $prettyTime = array();
         foreach($vars['pastes'] as $paste){

@@ -81,18 +81,4 @@
 		</div>
 	</div>
 </div>
-<div class="content-section-a">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<small>Last successful update was {{ $lastUpdate }}. Next update will be in {{ $diff }}. <a href="/administrator/statistics/forceStatisticsUpdate">Force update?</a></small>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-12">
-				<pre>{{ var_dump($statisticsCache) }}</pre>
-			</div>
-		</div>
-	</div>
-</div>
 @stop

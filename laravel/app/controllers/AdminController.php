@@ -272,17 +272,7 @@ class AdminController extends BaseController{
 			$usernames[$request->user_id] = UserSettings::getUsernameFromId($request->user_id);
 		}
 
-		$vars['statisticsCache'] = Cache::get('statistics');
-
 		$vars['usernames'] = $usernames;
-		$vars['diff'] = DateUtil::getTimeToThirty()->addMinutes(30)->diffForHumans();
-		$lastUpdate = Cache::get('lastUpdate', 'never');
-
-		if($lastUpdate != 'never'){
-			$lastUpdate = $lastUpdate->diffForhumans();
-		}
-
-		$vars['lastUpdate'] = $lastUpdate;
 
 		return View::make('admin.statistics', $vars);
 	}

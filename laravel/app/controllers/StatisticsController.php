@@ -47,15 +47,14 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$cache = Cache::get('statistics', function(){ return array(); });
-		$cache[] = array(
+		$data = array(
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
 			'time'   => Carbon::now()
 		);
 
-		Cache::forever('statistics', $cache);
+		Queue::push('BattleTools\Queue\UpdateStatistics', $data);
 
 		return Response::json('success');
 	}

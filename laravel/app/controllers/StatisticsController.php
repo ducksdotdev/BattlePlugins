@@ -102,8 +102,8 @@ class StatisticsController extends BaseController{
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
 			$table = DB::table('plugin_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+//				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+//				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
 				select('plugin', DB::raw('count(*) as total'))->
 				groupBy('plugin')->
 				get();
@@ -118,8 +118,8 @@ class StatisticsController extends BaseController{
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
 			$table = DB::table('server_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+//				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+//				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
 				where('key', 'bOnlineMode')->
 				select('value', DB::raw('count(*) as total'))->
 				groupBy('value')->

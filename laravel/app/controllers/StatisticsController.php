@@ -51,7 +51,6 @@ class StatisticsController extends BaseController{
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
-			'time'   => Carbon::now()
 		);
 
 		Queue::push('BattleTools\Queue\UpdateStatistics', $data);

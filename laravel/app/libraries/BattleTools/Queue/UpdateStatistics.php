@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response;
 
 class UpdateStatistics{
 
@@ -15,21 +15,19 @@ class UpdateStatistics{
 
 		if ($job->attempts() > 3)
 		{
-			Log::error(Response::json($data));
+			Log::error('Error adding data. <br />'.Response::json($data));
 			$job->delete();
 		}
 
 		$start = Carbon::now();
-		Log::info('We got a new statistics. Processing..');
-
-		$success = array();
+		Log::info(Response::json($data));
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
 		$keys = $data['keys'];
 		$server = $data['server'];
-		$time = $data['time'];
+		$time = Carbon::now();
 
 		$pluginList = DB::table('plugins')->select('name')->get();
 		$nameList = array();
@@ -62,13 +60,12 @@ class UpdateStatistics{
 		$serverRequests = $serverRList;
 
 		foreach(array_keys($keys) as $key){
+			$value = $keys[$key];
+
 			if(ListSentence::startsWith($key, 'p')){
 				$plugin = substr($key, 1);
 
 				if(!in_array($plugin, $pluginRequests) && in_array($plugin, $pluginList)){
-					$value = $keys[$key];
-					$success[$key] = $value;
-
 					DB::table('plugin_statistics')->insert(array(
 						'server'      => $server,
 						'plugin'      => $plugin,
@@ -77,10 +74,6 @@ class UpdateStatistics{
 					));
 				}
 			}else if(!in_array($key, $serverRequests) && !in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
-				$value = $keys[$key];
-
-				$success[$key] = $value;
-
 				DB::table('server_statistics')->insert(array(
 					'server'      => $server,
 					'key'         => $key,

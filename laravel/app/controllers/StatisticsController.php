@@ -52,7 +52,7 @@ class StatisticsController extends BaseController{
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
-			'time'   => DateUtil::getTimeToThirty()
+			'time'   => Carbon::now()
 		);
 
 		Cache::forever('statistics', $cache);
@@ -80,9 +80,9 @@ class StatisticsController extends BaseController{
 		return Cache::get('getTotalServers', function (){
 			$table = DB::table('server_statistics')->
 				where('key', 'bPlayersOnline')->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+				select(DB::raw('Round(Convert(substring(inserted_on, 14, 2), UNSIGNED) / (30*60)) as timestamp'), DB::raw('count(*) as servers'),
 					DB::raw('sum(value) as players'))->
-				groupBy('inserted_on')->
+				groupBy('timestamp')->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 

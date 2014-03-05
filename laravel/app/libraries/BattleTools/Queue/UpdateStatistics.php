@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+		Log::notice(count($data).' stats being processed.');
+
 		if($job->attempts() > 1){
 			Log::emergency(json_encode($data));
 			$job->delete();

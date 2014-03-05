@@ -17,6 +17,7 @@ class UpdateStatistics{
 
 		if($job->attempts() > 1){
 			Log::emergency(json_encode($data));
+			Cache::forever('newStatistics', $data);
 			$job->delete();
 		}
 

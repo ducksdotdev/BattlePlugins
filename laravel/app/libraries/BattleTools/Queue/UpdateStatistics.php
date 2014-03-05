@@ -18,8 +18,19 @@ class UpdateStatistics{
 			$job->delete();
 		}
 
-		$limitedKeys = Config::get('statistics.limited-keys');
-		$allowedKeys = Config::get('statistics.tracked');
+		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+
+		$limitedKeys = Cache::get('limitedKeys', function() use ($diff){
+			$keys = Config::get('statistics.limited-keys');
+			Cache::put('limitedKeys', $keys, $diff);
+			return $keys;
+		});
+
+		$allowedKeys = Cache::get('allowedKeys', function() use ($diff){
+			$keys = Config::get('statistics.tracked');
+			Cache::put('alloweddKeys', $keys, $diff);
+			return $keys;
+		});
 
 		$keys = $data['keys'];
 		$server = $data['server'];

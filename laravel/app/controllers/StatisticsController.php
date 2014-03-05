@@ -120,14 +120,21 @@ class StatisticsController extends BaseController{
 				where('plugin', $plugin)->
 				select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
 				groupBy('version', DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
-				get();
+				orderBy('timestamp', 'desc')->
+				take(336)->get();
 
-			$json = Response::json($table);
+			if(count($table) > 0){
+				if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+					array_shift($table);
+				}
 
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			Cache::put('get'.$plugin.'Information', $table, $diff);
+				$json = Response::json($table);
 
-			return $json;
+				$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+				Cache::put('get'.$plugin.'Information', $table, $diff);
+
+				return $json;
+			}
 		});
 	}
 

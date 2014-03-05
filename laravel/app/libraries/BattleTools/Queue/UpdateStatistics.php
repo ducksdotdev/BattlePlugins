@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+		$start = Carbon::now();
 		Log::notice(count($data).' stats being processed.');
 
 		if($job->attempts() > 1){
@@ -82,6 +83,8 @@ class UpdateStatistics{
 				}
 			}
 		}
+
+		Cache::forever('lastUpdate', $start->diffInSeconds(Carbon::now()));
 		$job->delete();
 	}
 }

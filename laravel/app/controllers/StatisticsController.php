@@ -146,7 +146,7 @@ class StatisticsController extends BaseController{
 		return Cache::get('get'.$plugin.'Information', function () use ($plugin){
 			$table = DB::table('plugin_statistics')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				where('plugin', 'p'.$plugin)->
+				where('plugin', $plugin)->
 				select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
 				groupBy('version', 'timestamp')->
 				get();

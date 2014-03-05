@@ -7,12 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Response;
 
 class UpdateStatistics{
 
 	public function fire($job, $data){
-
 		if($job->attempts() > 1){
 			Log::emergency(json_encode($data));
 			$job->delete();
@@ -20,15 +18,17 @@ class UpdateStatistics{
 
 		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-		$limitedKeys = Cache::get('limitedKeys', function() use ($diff){
+		$limitedKeys = Cache::get('limitedKeys', function () use ($diff){
 			$keys = Config::get('statistics.limited-keys');
 			Cache::put('limitedKeys', $keys, $diff);
+
 			return $keys;
 		});
 
-		$allowedKeys = Cache::get('allowedKeys', function() use ($diff){
+		$allowedKeys = Cache::get('allowedKeys', function () use ($diff){
 			$keys = Config::get('statistics.tracked');
 			Cache::put('alloweddKeys', $keys, $diff);
+
 			return $keys;
 		});
 
@@ -47,7 +47,7 @@ class UpdateStatistics{
 					->where('server', $server)
 					->where('plugin', $plugin)->get();
 
-				$plugins = DB::table('plugins')->select('name')->where('name',$plugin)->get();
+				$plugins = DB::table('plugins')->select('name')->where('name', $plugin)->get();
 
 				if(count($pluginRequests) == 0 && count($plugins) > 0){
 					DB::table('plugin_statistics')->insert(array(

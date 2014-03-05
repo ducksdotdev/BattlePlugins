@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
-		$start = Carbon::now();
+		$start = time();
 		$server = $data['server'];
 		$banned_server = DB::table('banned_server')->where('server', $server)->get();
 		if(count($banned_server) > 0){
@@ -81,9 +81,9 @@ class UpdateStatistics{
 				}
 			}
 
-			$length = $start->diffInSeconds(Carbon::now());
+			$length = time() - $start;
 			if($length > 0){
-				Log::notice('Statistic took a while to add! '.$length.' seconds.');
+				Log::notice('Statistic added! '.$length.'ms');
 			}
 
 			$job->delete();

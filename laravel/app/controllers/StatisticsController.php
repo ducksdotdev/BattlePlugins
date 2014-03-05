@@ -89,20 +89,12 @@ class StatisticsController extends BaseController{
 
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
-			$table = DB::table('server_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				where('key', 'bOnlineMode')->
-				select('value', DB::raw('count(*) as total'))->
-				groupBy('value')->
-				get();
+			$running = Cache::get('getAuthModeRunning');
+			if(!$running){
+				Queue::push('BattleTools\Queue\UpdateAuthChart');
+			}
 
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
-			$json = Response::json($table);
-			Cache::put('getAuthMode', $json, $diff);
-
-			return $json;
+			return Cache::get('getAuthMemory');
 		});
 	}
 

@@ -44,7 +44,7 @@ class StatisticsController extends BaseController{
 			'port'   => Session::get('serverPort'),
 		);
 
-		Queue::push('BattleTools\Queue\UpdateStatistics', $data);
+		Queue::later(DateUtil::getTimeToThirty()->addMinutes(30), 'BattleTools\Queue\UpdateStatistics', $data);
 
 		return Response::json('success');
 	}

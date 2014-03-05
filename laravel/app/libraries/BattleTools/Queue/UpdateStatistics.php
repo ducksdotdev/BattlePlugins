@@ -80,7 +80,12 @@ class UpdateStatistics{
 					}
 				}
 			}
-			Log::notice('New statistic added in '.$start->diffInSeconds(Carbon::now()).' seconds.');
+
+			$length = $start->diffInSeconds(Carbon::now());
+			if($length > 0){
+				Log::notice('Statistic took a while to add! '.$length.' seconds.');
+			}
+
 			$job->delete();
 		}
 	}

@@ -78,19 +78,12 @@ class StatisticsController extends BaseController{
 
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
-			$table = DB::table('plugin_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				select('plugin', DB::raw('count(*) as total'))->
-				groupBy('plugin')->
-				get();
+			$running = Cache::get('getPluginCountRunning');
+			if(!$running){
+				Queue::push('BattleTools\Queue\UpdatePluginChart');
+			}
 
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
-			$json = Response::json($table);
-			Cache::put('getPluginCount', $json, $diff);
-
-			return $json;
+			return Cache::get('getPluginCountMemory');
 		});
 	}
 

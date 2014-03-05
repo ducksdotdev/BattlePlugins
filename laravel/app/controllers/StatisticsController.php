@@ -38,17 +38,20 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = array(
+		$data = Cache::get('newStatistics');
+		$data[] = array(
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
 			'time'   => Carbon::now()->toDateTimeString()
 		);
 
-		$update = Carbon::now()->addMinutes(5);
-		$update->second = 0;
-
-		Queue::later($update, 'BattleTools\Queue\UpdateStatistics', $data);
+		if(count($data) > 500){
+			Cache::forget('newStatistics');
+			Queue::push('BattleTools\Queue\UpdateStatistics', $data);
+		}else{
+			Cache::forever('newStatistics', $data);
+		}
 
 		return Response::json('success');
 	}

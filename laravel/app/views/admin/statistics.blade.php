@@ -47,4 +47,13 @@
 		</div>
 	</div>
 </div>
+<div class="content-section-a">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<pre>{{ $newStatistics }}</pre>
+			</div>
+		</div>
+	</div>
+</div>
 @stop

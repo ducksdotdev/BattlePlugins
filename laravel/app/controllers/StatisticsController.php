@@ -46,7 +46,7 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		);
 
-		if(count($data) > 500){
+		if(count($data) >= 500){
 			Cache::forget('newStatistics');
 			Queue::push('BattleTools\Queue\UpdateStatistics', $data);
 		}else{

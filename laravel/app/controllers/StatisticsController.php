@@ -94,7 +94,7 @@ class StatisticsController extends BaseController{
 				Queue::push('BattleTools\Queue\UpdateAuthChart');
 			}
 
-			return Cache::get('getAuthMemory');
+			return Cache::get('getAuthModeMemory');
 		});
 	}
 

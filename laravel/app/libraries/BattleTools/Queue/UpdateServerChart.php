@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Response;
 class UpdateServerChart{
 
 	public function fire($job, $data){
+		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		Cache::put('totalServersRunning', true, $diff);
+
 		$table = DB::table('server_statistics')->
 			where('key', 'bPlayersOnline')->
 			where('inserted_on', '<', DateUtil::getTimeToThirty())->
@@ -25,15 +28,14 @@ class UpdateServerChart{
 
 			$table = array_reverse($table);
 
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
 			$json = Response::json($table);
 
 			Cache::put('getTotalServers', $json, $diff);
 			Cache::forever('getTotalServersMemory', $json);
-
-			return $json;
 		}
+
+		Cache::put('totalServersRunning', false, $diff);
+
 		$job->delete();
 	}
 }

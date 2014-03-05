@@ -148,8 +148,8 @@ class StatisticsController extends BaseController{
 			$table = DB::table('plugin_statistics')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				where('plugin', 'p'.$plugin)->
-				select('version', DB::raw('count(*) as total'))->
-				groupBy('version')->
+				select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
+				groupBy('version', 'timestamp')->
 				get();
 
 			$json = Response::json($table);

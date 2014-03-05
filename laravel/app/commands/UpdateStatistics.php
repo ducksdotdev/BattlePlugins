@@ -33,7 +33,7 @@ class UpdateStatistics extends Command{
 	 * @return mixed
 	 */
 	public function fire(){
-		Queue::push('BattleTools\Queue\UpdateStatistics', Cache::get('newStatistics'));
+		Queue::push('BattleTools\Queue\UpdateStatistics', array());
 	}
 
 	/**

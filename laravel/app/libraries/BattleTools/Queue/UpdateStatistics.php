@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+		$data = Cache::get('newStatistics');
+
 		$start = Carbon::now();
 		Log::notice(count($data).' stats being processed.');
 		Cache::forget('newStatistics');

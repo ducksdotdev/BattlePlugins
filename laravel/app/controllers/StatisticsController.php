@@ -119,7 +119,7 @@ class StatisticsController extends BaseController{
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				where('plugin', $plugin)->
 				select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
-				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'), 'version')->
+				groupBy('version', DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
 				get();
 
 			$json = Response::json($table);

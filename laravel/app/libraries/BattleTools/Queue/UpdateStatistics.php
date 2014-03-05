@@ -64,7 +64,6 @@ class UpdateStatistics{
 			}
 		}
 
-		Log::notice(json_encode($data));
 		$job->delete();
 	}
 }

@@ -51,7 +51,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
+				@if($lastUpdate != null)
 				<p>Last update took {{ $lastUpdate }} seconds to complete.</p>
+				@endif
 				{{ var_dump($newStatistics) }}
 			</div>
 		</div>

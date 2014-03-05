@@ -14,6 +14,7 @@ class UpdateStatistics{
 	public function fire($job, $data){
 		$start = Carbon::now();
 		Log::notice(count($data).' stats being processed.');
+		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');

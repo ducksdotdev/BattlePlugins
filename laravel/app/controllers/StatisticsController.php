@@ -50,7 +50,6 @@ class StatisticsController extends BaseController{
 		));
 
 		if(count($data) >= Config::get('statistics.max-cached')){
-			Cache::forget('newStatistics');
 			Queue::push('BattleTools\Queue\UpdateStatistics', $data);
 		}else{
 			Cache::forever('newStatistics', $data);

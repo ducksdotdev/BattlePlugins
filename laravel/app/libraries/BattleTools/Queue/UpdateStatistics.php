@@ -84,7 +84,7 @@ class UpdateStatistics{
 			}
 		}
 
-		Cache::forever('lastUpdate', $start->diffInSeconds(Carbon::now()));
+		Cache::forever('lastUpdate', Carbon::now()->diffInSeconds($start));
 		$job->delete();
 	}
 }

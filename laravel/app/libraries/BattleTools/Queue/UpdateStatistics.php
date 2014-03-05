@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+		$start = Carbon::now();
+
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			$newData = Cache::get('newStatistics', function(){return array();});
@@ -21,7 +23,6 @@ class UpdateStatistics{
 
 		$data = Cache::get('newStatistics');
 
-		$start = Carbon::now();
 		Log::notice(count($data).' stats being processed.');
 		Cache::forget('newStatistics');
 

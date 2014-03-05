@@ -1,7 +1,9 @@
 <?php
 
 use BattleTools\Util\DateUtil;
+use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 
 class StatisticsController extends BaseController{
 
@@ -141,11 +143,30 @@ class StatisticsController extends BaseController{
 		});
 	}
 
+	public function getPluginInformation($plugin){
+		return Cache::get('get'.$plugin.'Information', function () use ($plugin){
+			$table = DB::table('plugin_statistics')->
+				where('inserted_on', '<', DateUtil::getTimeToThirty())->
+				where('plugin', 'p'.$plugin)->
+				select('version', DB::raw('count(*) as total'))->
+				groupBy('version')->
+				get();
+
+			$json = Response::json($table);
+
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+			Cache::put('get'.$plugin.'Information', $table, $diff);
+
+			return $json;
+		});
+	}
+
 	public function reload($method){
 		$charts = Config::get('statistics.charts');
-		if(in_array($method,$charts)){
+		if(in_array($method, $charts) || (ListSentence::startsWith($method, "get") && ListSentence::endsWith($method, "Information"))){
 			Cache::forget($method);
 		}
+
 		return Redirect::to('/statistics');
 	}
 }

@@ -80,7 +80,7 @@ class UpdateStatistics{
 					}
 				}
 			}
-			Log::notice('New statistic added in '.$start->diffInSeconds(Carbon::now).' seconds.');
+			Log::notice('New statistic added in '.$start->diffInSeconds(Carbon::now()).' seconds.');
 			$job->delete();
 		}
 	}

@@ -48,7 +48,7 @@ class UpdateStatistics{
 					$plugin = substr($key, 1);
 
 					$pluginRequests = DB::table('plugin_statistics')
-						->where('inserted_on', '>', DateUtil::getTimeToThirty())
+						->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))
 						->where('server', $server)
 						->where('plugin', $plugin)->get();
 
@@ -64,7 +64,7 @@ class UpdateStatistics{
 					}
 				}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 					$serverRequests = DB::table('server_statistics')
-						->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinute())
+						->where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))
 						->where('server', $server)
 						->where('key', $key)
 						->get();

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
+		$start = Carbon::now();
 		$server = $data['server'];
 		$banned_server = DB::table('banned_server')->where('server', $server)->get();
 		if(count($banned_server) > 0){
@@ -79,6 +80,7 @@ class UpdateStatistics{
 					}
 				}
 			}
+			Log::notice('New statistic added in '.$start->diffInSeconds(Carbon::now).' seconds.');
 			$job->delete();
 		}
 	}

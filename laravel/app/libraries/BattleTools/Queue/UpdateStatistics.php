@@ -35,7 +35,7 @@ class UpdateStatistics{
 
 				$allowedKeys = Cache::get('allowedKeys', function () use ($diff){
 					$keys = Config::get('statistics.tracked');
-					Cache::put('alloweddKeys', $keys, $diff);
+					Cache::put('allowedKeys', $keys, $diff);
 
 					return $keys;
 				});

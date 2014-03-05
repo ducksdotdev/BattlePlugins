@@ -26,22 +26,8 @@ class UpdateStatistics{
 			$server = $dataObject['server'];
 			$banned_server = DB::table('banned_server')->where('server', $server)->get();
 			if(count($banned_server) > 0){
-				$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
-				$limitedKeys = Cache::get('limitedKeys', function () use ($diff){
-					$keys = Config::get('statistics.limited-keys');
-					Cache::put('limitedKeys', $keys, $diff);
-
-					return $keys;
-				});
-
-				$allowedKeys = Cache::get('allowedKeys', function () use ($diff){
-					$keys = Config::get('statistics.tracked');
-					Cache::put('allowedKeys', $keys, $diff);
-
-					return $keys;
-				});
-
+				$limitedKeys = Config::get('statistics.limited-keys');
+				$allowedKeys = Config::get('statistics.tracked');
 				$keys = $dataObject['keys'];
 				$time = $dataObject['time'];
 

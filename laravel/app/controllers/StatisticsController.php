@@ -13,11 +13,6 @@ class StatisticsController extends BaseController{
 			$ip = $request->getClientIp();
 			$port = $request->getPort();
 
-			$banned_server = DB::table('banned_server')->where('server', $ip)->get();
-			if(count($banned_server) > 0){
-				return Response::json(array('errors' => "Your IP ($ip) is blocked from making requests"));
-			}
-
 			Session::put("serverIp", $ip);
 			Session::put("serverPort", $port);
 

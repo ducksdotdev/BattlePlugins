@@ -72,8 +72,9 @@ class UpdateStatistics{
 			}
 		}
 
-		Log::notice('Stats have finished processing.');
-		Cache::forever('lastUpdate', Carbon::now()->diffInSeconds($start));
+		$stop = Carbon::now()->diffInSeconds($start);
+		Log::notice('Stats have finished processing. This took '.$stop.' seconds.');
+		Cache::forever('lastUpdate', $stop);
 		$job->delete();
 	}
 }

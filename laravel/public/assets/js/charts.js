@@ -25,12 +25,10 @@ $(function () {
     ];
 
     $.get('/statistics/getTotalServers', function(data){
-        var players = [];
-        var servers = [];
+        var cdata = [];
         $.each(data, function(i, item){
             var timestamp = Date.toTimestamp(item.timestamp);
-            players.push([timestamp, parseInt(item.players)]);
-            servers.push([timestamp, parseInt(item.servers)]);
+            cdata.push([timestamp, parseInt(item.total)]);
         });
 
         $('#serversGraph').highcharts({
@@ -161,6 +159,65 @@ $(function () {
                 type: 'pie',
                 data: cdata
             }]
+        });
+    }, 'json');
+
+    $.get('/statistics/getTotalServers', function(data){
+        var players = [];
+        var servers = [];
+        $.each(data, function(i, item){
+            var timestamp = Date.toTimestamp(item.timestamp);
+            players.push([timestamp, parseInt(item.players)]);
+            servers.push([timestamp, parseInt(item.servers)]);
+        });
+
+        $('#serversGraph').highcharts({
+            chart: {
+                type: 'area',
+                zoomType: 'x'
+            },
+            title: {
+                text: null
+            },
+            subtitle: {
+                text: null
+            },
+            xAxis: {
+                type: 'datetime',
+                tickWidth: 0,
+                labels: {
+                    align: 'left',
+                    x: 3,
+                    y: -3
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: null
+                }
+            },
+            tooltip: {
+                crosshairs: true,
+                shared: true
+            },
+            plotOptions: {
+                area: {
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            colors: colors,
+            series: cdata
         });
     }, 'json');
 });

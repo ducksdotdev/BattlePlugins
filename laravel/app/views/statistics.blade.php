@@ -41,6 +41,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>BattleArena Version Usage<a href="/statistics/reload/getBattleArenaInformation"><i class="fa fa-refresh pull-right panel-icon"></i></a></div>
+					</div>
+					<div class="panel-body" id="battlearenaGraph"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 @stop

@@ -42,6 +42,7 @@ class StatisticsController extends BaseController{
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
+			'time'   => Carbon::now()->toDateTimeString()
 		);
 
 		Queue::later(DateUtil::getTimeToThirty()->addMinutes(30), 'BattleTools\Queue\UpdateStatistics', $data);

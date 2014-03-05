@@ -39,7 +39,7 @@ class UpdateStatistics{
 			});
 
 			$keys = $data['keys'];
-			$time = Carbon::now();
+			$time = $data['time'];
 
 			foreach(array_keys($keys) as $key){
 				$value = $keys[$key];

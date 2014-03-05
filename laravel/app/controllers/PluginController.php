@@ -37,8 +37,13 @@ class PluginController extends BaseController{
 	}
 
 	public function managePlugins(){
-		$groups = UserGroups::getGroups(Auth::user()->id);
-		if(in_array(UserGroups::DEVELOPER, $groups)){
+		if(Auth::check()){
+			$groups = UserGroups::getGroups(Auth::user()->id);
+			$check = true;
+		}else{
+			$check = false;
+		}
+		if($check && in_array(UserGroups::DEVELOPER, $groups)){
 			$vars['title'] = 'Manage Plugins';
 			parent::setActive('Plugins');
 

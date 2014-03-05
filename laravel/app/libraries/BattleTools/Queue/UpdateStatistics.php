@@ -13,7 +13,7 @@ class UpdateStatistics{
 
 	public function fire($job, $data){
 
-		if($job->attempts() > 3){
+		if($job->attempts() > 1){
 			Log::emergency(json_encode($data));
 			$job->delete();
 		}

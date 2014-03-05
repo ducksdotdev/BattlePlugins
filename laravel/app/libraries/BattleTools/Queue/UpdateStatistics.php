@@ -12,18 +12,18 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
-		$data = Cache::get('newStatistics');
-
-		$start = Carbon::now();
-		Log::notice(count($data).' stats being processed.');
-		Cache::forget('newStatistics');
-
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			$newData = Cache::get('newStatistics', function(){return array();});
 			Cache::forever('newStatistics', $newData+$data);
 			$job->delete();
 		}
+
+		$data = Cache::get('newStatistics');
+
+		$start = Carbon::now();
+		Log::notice(count($data).' stats being processed.');
+		Cache::forget('newStatistics');
 
 		foreach($data as $dataObject){
 			$server = $dataObject['server'];
@@ -75,6 +75,7 @@ class UpdateStatistics{
 			}
 		}
 
+		Cache::forget('newStatistics');
 		$stop = Carbon::now()->diffInSeconds($start);
 		Log::notice('Stats have finished processing. This took '.$stop.' seconds.');
 		Cache::forever('lastUpdate', $stop);

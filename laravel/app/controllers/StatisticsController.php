@@ -3,7 +3,6 @@
 use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
-use Illuminate\Http\Response;
 
 class StatisticsController extends BaseController{
 

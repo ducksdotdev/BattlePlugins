@@ -42,12 +42,12 @@ class StatisticsController extends BaseController{
 			return array();
 		});
 
-		$data = $data + array(
-				'keys'   => $keys,
-				'server' => $server,
-				'port'   => Session::get('serverPort'),
-				'time'   => Carbon::now()->toDateTimeString()
-			);
+		array_push($data, array(
+			'keys'   => $keys,
+			'server' => $server,
+			'port'   => Session::get('serverPort'),
+			'time'   => Carbon::now()->toDateTimeString()
+		));
 
 		if(count($data) >= Config::get('statistics.max-cached')){
 			Cache::forget('newStatistics');

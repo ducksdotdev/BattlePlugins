@@ -45,7 +45,10 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		);
 
-		Queue::later(DateUtil::getTimeToThirty()->addMinutes(30), 'BattleTools\Queue\UpdateStatistics', $data);
+		$update = Carbon::now()->addMinutes(5);
+		$update->second = 0;
+
+		Queue::later($update, 'BattleTools\Queue\UpdateStatistics', $data);
 
 		return Response::json('success');
 	}

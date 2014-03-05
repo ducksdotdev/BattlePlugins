@@ -25,7 +25,7 @@ class UpdateStatistics{
 		foreach($data as $dataObject){
 			$server = $dataObject['server'];
 			$banned_server = DB::table('banned_server')->where('server', $server)->get();
-			if(count($banned_server) > 0){
+			if(count($banned_server) == 0){
 				$limitedKeys = Config::get('statistics.limited-keys');
 				$allowedKeys = Config::get('statistics.tracked');
 				$keys = $dataObject['keys'];

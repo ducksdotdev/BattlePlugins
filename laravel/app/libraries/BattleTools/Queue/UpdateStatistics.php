@@ -80,10 +80,6 @@ class UpdateStatistics{
 					}
 				}
 			}
-
-			$length = time() - $start;
-			Log::notice('Statistic added! '.$length.'ms');
-
 			$job->delete();
 		}
 	}

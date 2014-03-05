@@ -18,12 +18,6 @@ class StatisticsController extends BaseController{
 				return Response::json(array('errors' => "Your IP ($ip) is blocked from making requests"));
 			}
 
-			DB::table('statistic_requests')->insert(array(
-				'server'       => $ip,
-				'requested_on' => Carbon::now(),
-				'route'        => '/'.$route->getPath(),
-			));
-
 			Session::put("serverIp", $ip);
 			Session::put("serverPort", $port);
 
@@ -79,7 +73,6 @@ class StatisticsController extends BaseController{
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
 			$running = Cache::get('totalServersRunning');
-
 			if(!$running){
 				Queue::push('BattleTools\Queue\UpdateServerChart');
 			}

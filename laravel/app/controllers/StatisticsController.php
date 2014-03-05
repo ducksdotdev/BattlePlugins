@@ -128,6 +128,8 @@ class StatisticsController extends BaseController{
 					array_shift($table);
 				}
 
+				array_reverse($table);
+
 				$json = Response::json($table);
 
 				$diff = DateUtil::getTimeToThirty()->addMinutes(30);

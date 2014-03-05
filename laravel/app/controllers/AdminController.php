@@ -260,12 +260,6 @@ class AdminController extends BaseController{
 			orderBy('total', 'desc')->
 			get();
 
-		$vars['statisticRequests'] = DB::table('statistic_requests')->
-			select('*', DB::raw('count(*) as total'))->
-			groupBy('server')->
-			orderBy('total', 'desc')->
-			take(10)->get();
-
 		$usernames = array();
 
 		foreach($vars['apiRequests'] as $request){
@@ -279,16 +273,6 @@ class AdminController extends BaseController{
 
 	public function clearAPIRequests(){
 		DB::table('api_requests')->delete();
-
-		return Redirect::to('/administrator/statistics');
-	}
-
-	public function clearStatisticRequests(){
-		$plugins = DB::table('plugin_statistics')->get();
-		$servers = DB::table('server_statistics')->get();
-		if(count($servers) == 0 && count($plugins) == 0){
-			DB::table('statistic_requests')->delete();
-		}
 
 		return Redirect::to('/administrator/statistics');
 	}

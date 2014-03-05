@@ -82,9 +82,7 @@ class UpdateStatistics{
 			}
 
 			$length = time() - $start;
-			if($length > 0){
-				Log::notice('Statistic added! '.$length.'ms');
-			}
+			Log::notice('Statistic added! '.$length.'ms');
 
 			$job->delete();
 		}

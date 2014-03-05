@@ -25,10 +25,12 @@ $(function () {
     ];
 
     $.get('/statistics/getTotalServers', function(data){
-        var cdata = [];
+        var players = [];
+        var servers = [];
         $.each(data, function(i, item){
             var timestamp = Date.toTimestamp(item.timestamp);
-            cdata.push([timestamp, parseInt(item.total)]);
+            players.push([timestamp, parseInt(item.players)]);
+            servers.push([timestamp, parseInt(item.servers)]);
         });
 
         $('#serversGraph').highcharts({
@@ -162,16 +164,14 @@ $(function () {
         });
     }, 'json');
 
-    $.get('/statistics/getTotalServers', function(data){
-        var players = [];
-        var servers = [];
+    $.get('/statistics/getPluginInformation/BattleArena', function(data){
+        var cdata = [];
         $.each(data, function(i, item){
             var timestamp = Date.toTimestamp(item.timestamp);
-            players.push([timestamp, parseInt(item.players)]);
-            servers.push([timestamp, parseInt(item.servers)]);
+            cdata[item.version].push([timestamp, parseInt(item.total)]);
         });
 
-        $('#serversGraph').highcharts({
+        $('#battlearenaGraph').highcharts({
             chart: {
                 type: 'area',
                 zoomType: 'x'

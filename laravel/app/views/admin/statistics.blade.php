@@ -51,7 +51,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<pre>{{ var_dump($newStatistics) }}</pre>
+				{{ var_dump($newStatistics) }}
 			</div>
 		</div>
 	</div>

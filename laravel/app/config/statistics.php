@@ -25,5 +25,8 @@ return array(
 		'getTotalServers',
 		'getPluginCount',
 		'getAuthMode'
-	)
+	),
+
+	// Amount of items to cache before pushing to DB
+	'max-cached' => 200
 );

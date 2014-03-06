@@ -278,4 +278,9 @@ class AdminController extends BaseController{
 
 		return Redirect::to('/administrator/statistics');
 	}
+
+	public function forceStatisticsUpdate(){
+		Artisan::call('battle:forcesave');
+		return Redirect::to('/administrator/statistics');
+	}
 }

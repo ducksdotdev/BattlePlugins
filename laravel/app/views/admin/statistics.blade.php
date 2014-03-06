@@ -51,9 +51,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				@if($lastUpdate != null)
-				<p>Last update took {{ $lastUpdate }} seconds to complete.</p>
-				@endif
+				<p><small>
+						@if($lastUpdate != null)
+						Last update took {{ $lastUpdate }} seconds to complete.
+						@endif <a href="/administrator/statistics/forceUpdate">Force update?</a>
+					</small></p>
 				{{ var_dump($newStatistics) }}
 			</div>
 		</div>

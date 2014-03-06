@@ -49,7 +49,7 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		));
 
-		Cache::forever('newStatistics', $data);
+		Cache::put('newStatistics', $data, 30);
 		if(count($data) >= Config::get('statistics.max-cached')){
 			Queue::push('BattleTools\Queue\UpdateStatistics', array());
 		}

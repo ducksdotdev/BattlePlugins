@@ -21,7 +21,7 @@ class UpdateStatistics{
 		}else if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			$newData = Cache::get('newStatistics', function(){return array();});
-			Cache::forever('newStatistics', $newData+$data);
+			Cache::put('newStatistics', $newData+$data, 30);
 			$job->delete();
 			return;
 		}
@@ -30,7 +30,6 @@ class UpdateStatistics{
 		$pInserts = array();
 
 		Log::notice(count($data).' stats being processed.');
-		Cache::forget('newStatistics');
 
 		foreach($data as $dataObject){
 			$server = $dataObject['server'];

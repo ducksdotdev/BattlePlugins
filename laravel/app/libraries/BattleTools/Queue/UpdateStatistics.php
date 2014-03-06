@@ -25,14 +25,17 @@ class UpdateStatistics{
 			$job->delete();
 
 			return;
-		}else if($dataCount == 0){
+		}
+
+		$data = json_decode($data, true);
+		$dataCount = count($data);
+
+		if($dataCount == 0){
 			Log::warning('No data, process stopped.');
 			$job->delete();
 
 			return;
 		}
-		$data = json_decode($data, true);
-		$dataCount = count($data);
 
 		$sInserts = array();
 		$pInserts = array();
@@ -44,7 +47,6 @@ class UpdateStatistics{
 			$server = $dataObject['server'];
 			$banned_server = DB::table('banned_server')->where('server', $server)->get();
 			if(count($banned_server) == 0){
-				;
 				$keys = $dataObject['keys'];
 				$time = $dataObject['time'];
 
@@ -74,6 +76,8 @@ class UpdateStatistics{
 					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 						$count++;
 						$pairs[$key] = $value;
+					}else{
+						$drop++;
 					}
 				}
 			}
@@ -90,7 +94,7 @@ class UpdateStatistics{
 		}
 
 		$stop = Carbon::now()->diffInSeconds($start);
-		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.' seconds to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' dropped.');
+		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.' seconds to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
 		$job->delete();
 	}
 }

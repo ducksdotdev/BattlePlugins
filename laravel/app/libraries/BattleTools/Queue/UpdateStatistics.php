@@ -17,6 +17,7 @@ class UpdateStatistics{
 		$drop = 0;
 
 		$data = Cache::get('newStatistics', '[]');
+		$dataCount = count($data);
 		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){
@@ -25,7 +26,7 @@ class UpdateStatistics{
 			$job->delete();
 
 			return;
-		}else if(count($data) == 0){
+		}else if($dataCount == 0){
 			Log::warning('No data, process stopped.');
 			$job->delete();
 
@@ -38,8 +39,6 @@ class UpdateStatistics{
 
 		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
-
-		Log::notice(count($data).' stats being processed.');
 
 		foreach($data as $dataObject){
 			$server = $dataObject['server'];
@@ -91,7 +90,7 @@ class UpdateStatistics{
 		}
 
 		$stop = Carbon::now()->diffInSeconds($start);
-		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' dropped.');
+		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.' seconds to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' dropped.');
 		$job->delete();
 	}
 }

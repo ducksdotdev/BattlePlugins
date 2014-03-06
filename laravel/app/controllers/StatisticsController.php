@@ -74,29 +74,31 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-		$table = DB::table('server_statistics')->
-			where('key', 'bPlayersOnline')->
-			where('inserted_on', '<', DateUtil::getTimeToThirty())->
-			select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-				DB::raw('sum(value) as players'))->
-			groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
-			orderBy('timestamp', 'desc')->
-			take(336)->get();
+		return Cache::get('getTotalServers', function (){
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+			$table = DB::table('server_statistics')->
+				where('key', 'bPlayersOnline')->
+				where('inserted_on', '<', DateUtil::getTimeToThirty())->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
+					DB::raw('sum(value) as players'))->
+				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
+				orderBy('timestamp', 'desc')->
+				take(336)->get();
 
-		if(count($table) > 0){
-			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
-				array_shift($table);
+			if(count($table) > 0){
+				if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+					array_shift($table);
+				}
+
+				$table = array_reverse($table);
+
+				$json = Response::json($table);
+
+				Cache::put('getTotalServers', $json, $diff);
+				Cache::forever('getTotalServersMemory', $json);
+				return $json;
 			}
-
-			$table = array_reverse($table);
-
-			$json = Response::json($table);
-
-			Cache::put('getTotalServers', $json, $diff);
-			Cache::forever('getTotalServersMemory', $json);
-			return $json;
-		}
+		});
 	}
 
 	public function getPluginCount(){

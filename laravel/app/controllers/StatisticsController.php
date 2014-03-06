@@ -84,7 +84,7 @@ class StatisticsController extends BaseController{
 				take(336)->get();
 
 			if(count($table) > 0){
-				if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+				if(DateUtil::getTimeToThirty() <= $table[0]->timestamp){
 					array_shift($table);
 				}
 

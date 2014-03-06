@@ -14,6 +14,9 @@ class UpdateStatistics{
 	public function fire($job, $data){
 		$start = Carbon::now();
 
+		$count = 0;
+		$drop = 0;
+
 		$data = Cache::get('newStatistics');
 		Cache::forget('newStatistics');
 
@@ -56,12 +59,15 @@ class UpdateStatistics{
 						$plugins = DB::table('plugins')->select('name')->where('name', $plugin)->get();
 
 						if(count($pluginRequests) == 0 && count($plugins) > 0){
+							$count++;
 							array_push($pInserts, array(
 								'server'      => $server,
 								'plugin'      => $plugin,
 								'version'     => $value,
 								'inserted_on' => $time
 							));
+						}else{
+							$drop++;
 						}
 					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 						$serverRequests = DB::table('server_statistics')
@@ -71,12 +77,15 @@ class UpdateStatistics{
 							->get();
 
 						if(count($serverRequests) == 0){
+							$count++;
 							array_push($sInserts, array(
 								'server'      => $server,
 								'key'         => $key,
 								'value'       => $value,
 								'inserted_on' => $time
 							));
+						}else{
+							$drop++;
 						}
 					}
 				}
@@ -92,8 +101,7 @@ class UpdateStatistics{
 		}
 
 		$stop = Carbon::now()->diffInSeconds($start);
-		Log::notice('Stats have finished processing. This took '.$stop.' seconds.');
-		Cache::forever('lastUpdate', $stop);
+		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered. '.$drop.' dropped.');
 
 		$job->delete();
 	}

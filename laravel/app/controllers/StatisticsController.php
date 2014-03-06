@@ -50,8 +50,9 @@ class StatisticsController extends BaseController{
 		Cache::put('newStatistics', $data, 30);
 		if(count($data) >= Config::get('statistics.max-cached')){
 			$lastUpdate = Cache::get('lastStatisticsUpdate', function(){
-				Cache::put('lastStatisticsUpdate', Carbon::now(), 1);
-				return Carbon::now()->subSeconds(30);
+				$now = Carbon::now();
+				Cache::put('lastStatisticsUpdate', $now, 1);
+				return $now->subSeconds(30);
 			});
 
 			if(Carbon::now()->diffInSeconds($lastUpdate) > 30){

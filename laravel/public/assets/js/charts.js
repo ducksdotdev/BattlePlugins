@@ -28,7 +28,7 @@ $(function () {
         var players = [];
         var servers = [];
         $.each(data, function(i, item){
-            var timestamp = Date.toTimestamp(item.timestamp);
+            var timestamp = Date.toTimestamp(item.time);
             players.push([timestamp, parseInt(item.nPlayers)]);
             servers.push([timestamp, parseInt(item.nServer)]);
         });

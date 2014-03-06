@@ -38,9 +38,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = Cache::get('newStatistics', function (){
-			return array();
-		});
+		$data = Cache::get('newStatistics', array());
 
 		array_push($data, array(
 			'keys'   => $keys,
@@ -95,6 +93,7 @@ class StatisticsController extends BaseController{
 				$json = Response::json($table);
 
 				Cache::put('getTotalServers', $json, $diff);
+
 				return $json;
 			}
 		});
@@ -114,6 +113,7 @@ class StatisticsController extends BaseController{
 			$json = Response::json($table);
 
 			Cache::put('getPluginCount', $json, $diff);
+
 			return $json;
 		});
 	}

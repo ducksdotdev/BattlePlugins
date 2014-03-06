@@ -10,7 +10,6 @@ class UpdatePluginChart{
 
 	public function fire($job, $data){
 		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-		Cache::put('getPluginCountRunning', true, $diff);
 
 		$table = DB::table('plugin_statistics')->
 			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
@@ -23,8 +22,6 @@ class UpdatePluginChart{
 
 		Cache::put('getPluginCount', $json, $diff);
 		Cache::forever('getPluginCountMemory', $json);
-
-		Cache::put('getPluginCountRunning', false, $diff);
 
 		$job->delete();
 	}

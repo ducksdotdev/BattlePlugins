@@ -10,7 +10,6 @@ class UpdateAuthChart{
 
 	public function fire($job, $data){
 		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-		Cache::put('getAuthModeRunning', true, $diff);
 
 		$table = DB::table('server_statistics')->
 			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
@@ -24,8 +23,6 @@ class UpdateAuthChart{
 
 		Cache::put('getAuthMode', $json, $diff);
 		Cache::forever('getAuthModeMemory', $json);
-
-		Cache::put('getAuthModeRunning', false, $diff);
 
 		$job->delete();
 	}

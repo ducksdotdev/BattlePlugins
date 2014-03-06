@@ -10,8 +10,6 @@ class UpdateServerChart{
 
 	public function fire($job, $data){
 		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-		Cache::put('totalServersRunning', true, $diff);
-
 		$table = DB::table('server_statistics')->
 			where('key', 'bPlayersOnline')->
 			where('inserted_on', '<', DateUtil::getTimeToThirty())->
@@ -33,9 +31,6 @@ class UpdateServerChart{
 			Cache::put('getTotalServers', $json, $diff);
 			Cache::forever('getTotalServersMemory', $json);
 		}
-
-		Cache::put('totalServersRunning', false, $diff);
-
 		$job->delete();
 	}
 }

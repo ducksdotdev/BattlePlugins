@@ -75,33 +75,18 @@ class StatisticsController extends BaseController{
 
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
-			$running = Cache::get('totalServersRunning');
-			if(!$running){
-				Queue::push('BattleTools\Queue\UpdateServerChart');
-			}
-
 			return Cache::get('getTotalServersMemory');
 		});
 	}
 
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
-			$running = Cache::get('getPluginCountRunning');
-			if(!$running){
-				Queue::push('BattleTools\Queue\UpdatePluginChart');
-			}
-
 			return Cache::get('getPluginCountMemory');
 		});
 	}
 
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
-			$running = Cache::get('getAuthModeRunning');
-			if(!$running){
-				Queue::push('BattleTools\Queue\UpdateAuthChart');
-			}
-
 			return Cache::get('getAuthModeMemory');
 		});
 	}

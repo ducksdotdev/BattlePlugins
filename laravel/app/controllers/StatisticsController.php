@@ -87,28 +87,16 @@ class StatisticsController extends BaseController{
 		return Cache::get('getTotalServers', function (){
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-			$players = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,avg(value) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'"  group by server, newTime) as st1 group by newTime');
+			$table = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,avg(value) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'"  group by server, newTime) as st1 group by newTime');
 
-			$servers =  DB::table('server_statistics')->
-				where('key', 'bPlayersOnline')->
-				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'))->
-				groupBy(DB::raw('2 * HOUR( timestamp ) + FLOOR( MINUTE( timestamp ) / 30 )'))->
-				orderBy('timestamp', 'desc')->
-				take(336)->get();
-
-			if(count($players) > 0 && count($servers) > 0){
-				if(DateUtil::getTimeToThirty() <= $players[0]->time){
-					array_shift($players);
-				}
-				if(DateUtil::getTimeToThirty() <= $servers[0]->timestamp){
-					array_shift($servers);
+			if(count($table) > 0){
+				if(DateUtil::getTimeToThirty() <= $table[0]->time){
+					array_shift($table);
 				}
 
-				$players = array_reverse($players);
-				$servers = array_reverse($servers);
+				$table = array_reverse($table);
 
-				$json = Response::json(array('players'=>$players,'servers'=>$servers));
+				$json = Response::json($table);
 
 				Cache::put('getTotalServers', $json, $diff);
 

@@ -92,8 +92,8 @@ class StatisticsController extends BaseController{
 			$servers =  DB::table('server_statistics')->
 				where('key', '')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'))->
-				groupBy(DB::raw(''))->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'), DB::raw('(FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as timestamp'))->
+				groupBy('timestamp')->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 

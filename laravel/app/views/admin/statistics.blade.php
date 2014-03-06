@@ -56,7 +56,7 @@
 						Last update took {{ $lastUpdate }} seconds to complete.
 						@endif <a href="/administrator/statistics/forceUpdate">Force update?</a>
 					</small></p>
-				{{ var_dump($newStatistics) }}
+				<pre>{{ var_dump($newStatistics) }}</pre>
 			</div>
 		</div>
 	</div>

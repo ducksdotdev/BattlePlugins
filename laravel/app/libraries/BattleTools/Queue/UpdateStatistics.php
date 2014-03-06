@@ -17,8 +17,8 @@ class UpdateStatistics{
 		$drop = 0;
 
 		$data = Cache::get('newStatistics', '[]');
-		$dataCount = count($data);
 		Cache::forget('newStatistics');
+		$dataCount = count($data);
 
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');

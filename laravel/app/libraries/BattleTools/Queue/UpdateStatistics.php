@@ -74,13 +74,12 @@ class UpdateStatistics{
 						}
 					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 						$count++;
-						array_push($pairs, array($key => $value));
+						$pairs[$key] = $value;
 					}
 				}
 			}
 
 			array_push($sInserts, $pairs);
-			Log::info($pairs);
 		}
 
 		if(count($pInserts) > 0){

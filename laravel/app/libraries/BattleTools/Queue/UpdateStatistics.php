@@ -21,6 +21,9 @@ class UpdateStatistics{
 			$job->delete();
 		}
 
+		$sInserts = array();
+		$pInserts = array();
+
 		$data = Cache::get('newStatistics');
 
 		Log::notice(count($data).' stats being processed.');
@@ -49,7 +52,7 @@ class UpdateStatistics{
 						$plugins = DB::table('plugins')->select('name')->where('name', $plugin)->get();
 
 						if(count($pluginRequests) == 0 && count($plugins) > 0){
-							DB::table('plugin_statistics')->insert(array(
+							array_push($pInserts, array(
 								'server'      => $server,
 								'plugin'      => $plugin,
 								'version'     => $value,
@@ -64,7 +67,7 @@ class UpdateStatistics{
 							->get();
 
 						if(count($serverRequests) == 0){
-							DB::table('server_statistics')->insert(array(
+							array_push($sInserts, array(
 								'server'      => $server,
 								'key'         => $key,
 								'value'       => $value,
@@ -74,6 +77,14 @@ class UpdateStatistics{
 					}
 				}
 			}
+		}
+
+		if(count($pInserts) > 0){
+			DB::table('player_statistics')->insert($pInserts);
+		}
+
+		if(count($sInserts) > 0){
+			DB::table('server_statistics')->insert($sInserts);
 		}
 
 		Cache::forget('newStatistics');

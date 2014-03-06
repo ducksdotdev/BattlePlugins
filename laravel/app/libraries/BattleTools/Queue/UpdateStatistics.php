@@ -14,14 +14,14 @@ class UpdateStatistics{
 	public function fire($job, $data){
 		$start = Carbon::now();
 		$data = Cache::get('newStatistics');
-		if(count($data) == 0){
-			Log::warning('No data, process stopped.');
-			$job->delete();
-			return;
-		}else if($job->attempts() > 1){
+		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			$newData = Cache::get('newStatistics', function(){return array();});
 			Cache::put('newStatistics', $newData+$data, 30);
+			$job->delete();
+			return;
+		}else if(count($data) == 0){
+			Log::warning('No data, process stopped.');
 			$job->delete();
 			return;
 		}

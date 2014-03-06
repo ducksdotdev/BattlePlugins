@@ -1,7 +1,6 @@
 <?php
 namespace BattleTools\Queue;
 
-use BattleTools\Util\DateUtil;
 use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -25,15 +24,20 @@ class UpdateStatistics{
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			Cache::put('newStatistics', $data, 30);
 			$job->delete();
+
 			return;
 		}else if(count($data) == 0){
 			Log::warning('No data, process stopped.');
 			$job->delete();
+
 			return;
 		}
 
 		$sInserts = array();
 		$pInserts = array();
+
+		$limitedKeys = Config::get('statistics.limited-keys');
+		$allowedKeys = Config::get('statistics.tracked');
 
 		Log::notice(count($data).' stats being processed.');
 
@@ -41,8 +45,7 @@ class UpdateStatistics{
 			$server = $dataObject['server'];
 			$banned_server = DB::table('banned_server')->where('server', $server)->get();
 			if(count($banned_server) == 0){
-				$limitedKeys = Config::get('statistics.limited-keys');
-				$allowedKeys = Config::get('statistics.tracked');
+				;
 				$keys = $dataObject['keys'];
 				$time = $dataObject['time'];
 
@@ -88,6 +91,5 @@ class UpdateStatistics{
 		$stop = Carbon::now()->diffInSeconds($start);
 		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered. '.$drop.' dropped.');
 		$job->delete();
-		return;
 	}
 }

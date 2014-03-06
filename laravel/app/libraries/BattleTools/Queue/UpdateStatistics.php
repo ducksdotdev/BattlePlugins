@@ -17,13 +17,13 @@ class UpdateStatistics{
 		if(count($data) == 0){
 			Log::warning('No data, process stopped.');
 			$job->delete();
-		}
-
-		if($job->attempts() > 1){
+			return;
+		}else if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
 			$newData = Cache::get('newStatistics', function(){return array();});
 			Cache::forever('newStatistics', $newData+$data);
 			$job->delete();
+			return;
 		}
 
 		$sInserts = array();

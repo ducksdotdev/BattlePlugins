@@ -49,7 +49,14 @@ class StatisticsController extends BaseController{
 
 		Cache::put('newStatistics', $data, 30);
 		if(count($data) >= Config::get('statistics.max-cached')){
-			Queue::push('BattleTools\Queue\UpdateStatistics', array());
+			$lastUpdate = Cache::get('lastStatisticsUpdate', function(){
+				Cache::put('lastStatisticsUpdate', Carbon::now(), 1);
+				return Carbon::now()->subSeconds(30);
+			});
+
+			if(Carbon::now()->diffInSeconds($lastUpdate) > 30){
+				Queue::push('BattleTools\Queue\UpdateStatistics', array());
+			}
 		}
 
 		return Response::json('success');

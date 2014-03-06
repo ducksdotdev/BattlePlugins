@@ -47,9 +47,7 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		));
 
-		$data = json_encode($data);
-
-		Cache::put('newStatistics', $data, 30);
+		Cache::put('newStatistics', json_encode($data), 30);
 		if(count($data) >= Config::get('statistics.max-cached')){
 			$lastUpdate = Cache::get('lastStatisticsUpdate', function (){
 				$now = Carbon::now();

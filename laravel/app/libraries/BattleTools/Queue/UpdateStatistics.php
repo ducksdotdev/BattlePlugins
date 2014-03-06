@@ -17,7 +17,6 @@ class UpdateStatistics{
 		$drop = 0;
 
 		$data = Cache::get('newStatistics', '[]');
-		$data = json_decode($data, true);
 		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){
@@ -32,6 +31,7 @@ class UpdateStatistics{
 
 			return;
 		}
+		$data = json_decode($data, true);
 
 		$sInserts = array();
 		$pInserts = array();
@@ -80,6 +80,7 @@ class UpdateStatistics{
 			}
 
 			array_push($sInserts, $pairs);
+			Log::info($pairs);
 		}
 
 		if(count($pInserts) > 0){

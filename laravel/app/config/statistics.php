@@ -28,5 +28,5 @@ return array(
 	),
 
 	// Amount of items to cache before pushing to DB
-	'max-cached' => 200
+	'max-cached' => 350
 );

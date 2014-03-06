@@ -87,7 +87,7 @@ class StatisticsController extends BaseController{
 		return Cache::get('getTotalServers', function (){
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-			$players = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,avg(value) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'"  group by server, newTime       ) as st1 group by newTime');
+			$players = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,avg(value) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'"  group by server, newTime) as st1 group by newTime');
 
 			$servers =  DB::table('server_statistics')->
 				where('key', '')->

@@ -87,7 +87,7 @@ class UpdateStatistics{
 
 		$stop = Carbon::now()->diffInSeconds($start);
 		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered. '.$drop.' dropped.');
-
 		$job->delete();
+		return;
 	}
 }

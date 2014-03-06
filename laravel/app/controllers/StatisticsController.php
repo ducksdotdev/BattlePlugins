@@ -86,23 +86,34 @@ class StatisticsController extends BaseController{
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			$table = DB::table('server_statistics')->
+			$players = DB::table('server_statistics')->
 				where('key', 'bPlayersOnline')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'),
-					DB::raw('max(value) as players'))->
-				groupBy('server', DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('avg(value) as players'))->
+				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 
-			if(count($table) > 0){
-				if(DateUtil::getTimeToThirty() <= $table[0]->timestamp){
-					array_shift($table);
+			$servers =  DB::table('server_statistics')->
+				where('key', 'bPlayersOnline')->
+				where('inserted_on', '<', DateUtil::getTimeToThirty())->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'))->
+				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
+				orderBy('timestamp', 'desc')->
+				take(336)->get();
+
+			if(count($players) > 0 && count($servers) > 0){
+				if(DateUtil::getTimeToThirty() <= $players[0]->timestamp){
+					array_shift($players);
+				}
+				if(DateUtil::getTimeToThirty() <= $servers[0]->timestamp){
+					array_shift($servers);
 				}
 
-				$table = array_reverse($table);
+				$players = array_reverse($players);
+				$servers = array_reverse($servers);
 
-				$json = Response::json($table);
+				$json = Response::json(array('players'=>$players,'servers'=>$servers));
 
 				Cache::put('getTotalServers', $json, $diff);
 

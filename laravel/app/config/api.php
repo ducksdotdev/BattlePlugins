@@ -216,20 +216,6 @@ return array(
                 'description' => 'Sets a statistic for a plugin and server. This does not impact limitations and does not require an API key. Requests must come from a Minecraft server.',
                 'params' => array('key (VARCHAR 16) REQUIRED', 'value (VARCHAR 256) REQUIRED'),
                 'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
-            ),
-            array(
-                'title' => 'Get Statistic',
-                'url' => '/statistics/get/{column|all}/{key}/{server?}',
-                'methods' => array(
-                    array(
-                        'name'=>'get',
-                        'color'=>'info'
-                    ),
-                ),
-                'example' => '[{"server":"100.2.26.123","key":"plugin","value":"BattleArena","inserted_on":"0000-00-00 00:00:00"},{"server":"100.2.26.123","key":"plugin","value":"BattleTracker","inserted_on":"0000-00-00 00:00:00"}]',
-                'description' => 'Gets statistics about a key/server.',
-                'params' => '',
-                'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
             )
         )
     )

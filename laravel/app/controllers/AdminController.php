@@ -268,7 +268,7 @@ class AdminController extends BaseController{
 
 		$vars['usernames'] = $usernames;
 		$vars['newStatistics'] = json_decode(Cache::get('newStatistics', '[]'), true);
-		$vars['lastUpdate'] = Cache::get('lastUpdate', function(){return null;});
+		$vars['lastUpdate'] = Cache::get('lastUpdate', null);
 
 		return View::make('admin.statistics', $vars);
 	}

@@ -49,6 +49,11 @@ class UpdateStatistics{
 				$keys = $dataObject['keys'];
 				$time = $dataObject['time'];
 
+				$pairs = array(
+					'server'      => $server,
+					'inserted_on' => $time
+				);
+
 				foreach(array_keys($keys) as $key){
 					$value = $keys[$key];
 
@@ -69,15 +74,12 @@ class UpdateStatistics{
 						}
 					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
 						$count++;
-						array_push($sInserts, array(
-							'server'      => $server,
-							'key'         => $key,
-							'value'       => $value,
-							'inserted_on' => $time
-						));
+						array_push($pairs, array($key => $value));
 					}
 				}
 			}
+
+			array_push($sInserts, $pairs);
 		}
 
 		if(count($pInserts) > 0){

@@ -38,8 +38,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = Cache::get('newStatistics', '[]');
-		$data = json_decode($data, true);
+		$data = json_decode(Cache::get('newStatistics', '[]'), true);
 
 		array_push($data, array(
 			'keys'   => $keys,
@@ -67,27 +66,11 @@ class StatisticsController extends BaseController{
 		return Response::json('success');
 	}
 
-	public function get($column, $key, $server = null){
-		if(!in_array($column, array('server', 'key', 'value', 'inserted_on'))){
-			$column = '*';
-		}
-
-		if($server == null){
-			$query = DB::table('server_statistics')->where('key', $key)->
-				select($column)->get();
-		}else{
-			$query = DB::table('server_statistics')->where('server', $server)->where('key', $key)->
-				select($column)->get();
-		}
-
-		return Response::json($query);
-	}
-
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-			$table = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,round(avg(value)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
+			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
 
 			if(count($table) > 0){
 				if(DateUtil::getTimeToThirty() <= $table[0]->time){
@@ -131,9 +114,8 @@ class StatisticsController extends BaseController{
 			$table = DB::table('server_statistics')->
 				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
 				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				where('key', 'bOnlineMode')->
-				select('value', DB::raw('count(*) as total'))->
-				groupBy('value')->
+				select('bOnlineMode', DB::raw('count(distinct server) as total'))->
+				groupBy('bOnlineMode')->
 				get();
 
 			$json = Response::json($table);

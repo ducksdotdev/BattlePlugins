@@ -98,7 +98,7 @@ class StatisticsController extends BaseController{
 				take(336)->get();
 
 			if(count($players) > 0 && count($servers) > 0){
-				if(DateUtil::getTimeToThirty() <= $players[0]->timestamp){
+				if(DateUtil::getTimeToThirty() <= $players[0]->time){
 					array_shift($players);
 				}
 				if(DateUtil::getTimeToThirty() <= $servers[0]->timestamp){

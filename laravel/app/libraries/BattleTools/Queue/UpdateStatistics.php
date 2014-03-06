@@ -40,7 +40,6 @@ class UpdateStatistics{
 		$sInserts = array();
 		$pInserts = array();
 
-		$limitedKeys = Config::get('statistics.limited-keys');
 		$allowedKeys = Config::get('statistics.tracked');
 
 		foreach($data as $dataObject){
@@ -73,7 +72,7 @@ class UpdateStatistics{
 						}else{
 							$drop++;
 						}
-					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
+					}else if(in_array($key, $allowedKeys)){
 						$count++;
 						$pairs[$key] = $value;
 					}else{

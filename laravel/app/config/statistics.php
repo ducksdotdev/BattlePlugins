@@ -17,9 +17,6 @@ return array(
         'nCores'
     ),
 
-    // These keys will only be allowed to be modified by a server once.
-    'limited-keys' => array(),
-
 	// These are the names of the chart JSON methods
 	'charts' => array(
 		'getTotalServers',

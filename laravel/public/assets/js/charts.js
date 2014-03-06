@@ -27,13 +27,10 @@ $(function () {
     $.get('/statistics/getTotalServers', function(data){
         var players = [];
         var servers = [];
-        $.each(data['players'], function(i, item){
+        $.each(data, function(i, item){
             var timestamp = Date.toTimestamp(item.timestamp);
-            players.push([timestamp, parseInt(item.players)]);
-        });
-        $.each(data['servers'], function(i, item){
-            var timestamp = Date.toTimestamp(item.timestamp);
-            servers.push([timestamp, parseInt(item.servers)]);
+            players.push([timestamp, parseInt(item.nPlayers)]);
+            servers.push([timestamp, parseInt(item.nServer)]);
         });
 
         $('#serversGraph').highcharts({

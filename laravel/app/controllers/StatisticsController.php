@@ -95,7 +95,6 @@ class StatisticsController extends BaseController{
 				$json = Response::json($table);
 
 				Cache::put('getTotalServers', $json, $diff);
-				Cache::forever('getTotalServersMemory', $json);
 				return $json;
 			}
 		});
@@ -103,13 +102,39 @@ class StatisticsController extends BaseController{
 
 	public function getPluginCount(){
 		return Cache::get('getPluginCount', function (){
-			return Cache::get('getPluginCountMemory');
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+
+			$table = DB::table('plugin_statistics')->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+				select('plugin', DB::raw('count(*) as total'))->
+				groupBy('plugin')->
+				get();
+
+			$json = Response::json($table);
+
+			Cache::put('getPluginCount', $json, $diff);
+			return $json;
 		});
 	}
 
 	public function getAuthMode(){
 		return Cache::get('getAuthMode', function (){
-			return Cache::get('getAuthModeMemory');
+			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+
+			$table = DB::table('server_statistics')->
+				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+				where('key', 'bOnlineMode')->
+				select('value', DB::raw('count(*) as total'))->
+				groupBy('value')->
+				get();
+
+			$json = Response::json($table);
+
+			Cache::put('getAuthMode', $json, $diff);
+
+			return $json;
 		});
 	}
 

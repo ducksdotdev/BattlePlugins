@@ -80,7 +80,7 @@ class UpdateStatistics{
 		}
 
 		if(count($pInserts) > 0){
-			DB::table('player_statistics')->insert($pInserts);
+			DB::table('plugin_statistics')->insert($pInserts);
 		}
 
 		if(count($sInserts) > 0){

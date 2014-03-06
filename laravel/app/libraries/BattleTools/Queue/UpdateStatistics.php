@@ -13,11 +13,13 @@ class UpdateStatistics{
 
 	public function fire($job, $data){
 		$start = Carbon::now();
+
 		$data = Cache::get('newStatistics');
+		Cache::forget('newStatistics');
+
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
-			$newData = Cache::get('newStatistics', function(){return array();});
-			Cache::put('newStatistics', $newData+$data, 30);
+			Cache::put('newStatistics', $data, 30);
 			$job->delete();
 			return;
 		}else if(count($data) == 0){
@@ -89,7 +91,6 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-		Cache::forget('newStatistics');
 		$stop = Carbon::now()->diffInSeconds($start);
 		Log::notice('Stats have finished processing. This took '.$stop.' seconds.');
 		Cache::forever('lastUpdate', $stop);

@@ -38,10 +38,8 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = Cache::get('newStatistics');
-		if(!is_array($data)){
-			$data = array();
-		}
+		$data = Cache::get('newStatistics', array());
+		$data = json_decode($data, true);
 
 		array_push($data, array(
 			'keys'   => $keys,
@@ -49,6 +47,8 @@ class StatisticsController extends BaseController{
 			'port'   => Session::get('serverPort'),
 			'time'   => Carbon::now()->toDateTimeString()
 		));
+
+		$data = json_encode($data);
 
 		Cache::put('newStatistics', $data, 30);
 		if(count($data) >= Config::get('statistics.max-cached')){

@@ -16,7 +16,7 @@ class UpdateStatistics{
 		$count = 0;
 		$drop = 0;
 
-		$data = Cache::get('newStatistics');
+		$data = Cache::get('newStatistics', '[]');
 		$data = json_decode($data, true);
 		Cache::forget('newStatistics');
 

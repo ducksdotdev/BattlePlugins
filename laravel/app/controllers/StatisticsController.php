@@ -86,19 +86,13 @@ class StatisticsController extends BaseController{
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
 			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-			$players = DB::table('server_statistics')->
-				where('key', 'bPlayersOnline')->
-				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('round(avg(value)) as players'))->
-				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
-				orderBy('timestamp', 'desc')->
-				take(336)->get();
+			$players = DB::select("select sum(avg_players), timestamp as players from(select avg(value) as avg_players, inserted_on as timestamp where inserted_on < '".DateUtil::getTimeToThirty()."' and key = 'bPlayersOnline' group by server) group by (2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )) order by timestamp DESC limit 336");
 
 			$servers =  DB::table('server_statistics')->
-				where('key', 'bPlayersOnline')->
+				where('key', '')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'))->
-				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
+				groupBy(DB::raw(''))->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();
 

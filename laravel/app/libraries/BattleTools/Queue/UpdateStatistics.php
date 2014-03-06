@@ -91,7 +91,7 @@ class UpdateStatistics{
 		}
 
 		$stop = Carbon::now()->diffInSeconds($start);
-		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered. '.$drop.' dropped.');
+		Log::notice('Stats have finished processing. This took '.$stop.' seconds. '.$count.' new pieces of data have been entered ('.count($sInserts),' new plugin records, '.count($pInserts).' new server records). '.$drop.' dropped.');
 		$job->delete();
 	}
 }

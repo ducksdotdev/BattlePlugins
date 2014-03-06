@@ -93,7 +93,7 @@ class StatisticsController extends BaseController{
 			$table = DB::table('plugin_statistics')->
 				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
 				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				select('plugin', DB::raw('count(*) as total'))->
+				select('plugin', DB::raw('count(distinct server) as total'))->
 				groupBy('plugin')->
 				get();
 

@@ -89,7 +89,6 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-		Cache::put('newStatistics', array(), 1);
 		Cache::forget('newStatistics');
 		$stop = Carbon::now()->diffInSeconds($start);
 		Log::notice('Stats have finished processing. This took '.$stop.' seconds.');

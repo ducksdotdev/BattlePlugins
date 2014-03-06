@@ -50,15 +50,9 @@ class UpdateStatistics{
 
 					if(ListSentence::startsWith($key, 'p')){
 						$plugin = substr($key, 1);
-
-						$pluginRequests = DB::table('plugin_statistics')
-							->where('inserted_on', '>', DateUtil::getTimeToThirty())
-							->where('server', $server)
-							->where('plugin', $plugin)->get();
-
 						$plugins = DB::table('plugins')->select('name')->where('name', $plugin)->get();
 
-						if(count($pluginRequests) == 0 && count($plugins) > 0){
+						if(count($plugins) > 0){
 							$count++;
 							array_push($pInserts, array(
 								'server'      => $server,
@@ -70,23 +64,13 @@ class UpdateStatistics{
 							$drop++;
 						}
 					}else if(!in_array($key, $limitedKeys) && in_array($key, $allowedKeys)){
-						$serverRequests = DB::table('server_statistics')
-							->where('inserted_on', '>', DateUtil::getTimeToThirty())
-							->where('server', $server)
-							->where('key', $key)
-							->get();
-
-						if(count($serverRequests) == 0){
-							$count++;
-							array_push($sInserts, array(
-								'server'      => $server,
-								'key'         => $key,
-								'value'       => $value,
-								'inserted_on' => $time
-							));
-						}else{
-							$drop++;
-						}
+						$count++;
+						array_push($sInserts, array(
+							'server'      => $server,
+							'key'         => $key,
+							'value'       => $value,
+							'inserted_on' => $time
+						));
 					}
 				}
 			}

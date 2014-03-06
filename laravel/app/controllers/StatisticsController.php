@@ -89,8 +89,8 @@ class StatisticsController extends BaseController{
 			$table = DB::table('server_statistics')->
 				where('key', 'bPlayersOnline')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				select(DB::raw('inserted_on as timestamp'), DB::raw('count(*) as servers'),
-					DB::raw('sum(value) as players'))->
+				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'),
+					DB::raw('avg(value) as players'))->
 				groupBy(DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
 				orderBy('timestamp', 'desc')->
 				take(336)->get();

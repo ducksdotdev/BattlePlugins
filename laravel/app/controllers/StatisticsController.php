@@ -90,7 +90,7 @@ class StatisticsController extends BaseController{
 			$players = DB::select('select count(value) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select value,avg(value) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.key="bPlayersOnline" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'"  group by server, newTime) as st1 group by newTime');
 
 			$servers =  DB::table('server_statistics')->
-				where('key', '')->
+				where('key', 'bPlayersOnline')->
 				where('inserted_on', '<', DateUtil::getTimeToThirty())->
 				select(DB::raw('inserted_on as timestamp'), DB::raw('count(distinct server) as servers'))->
 				groupBy(DB::raw('2 * HOUR( timestamp ) + FLOOR( MINUTE( timestamp ) / 30 )'))->

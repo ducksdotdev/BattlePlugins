@@ -5,7 +5,6 @@ use BattleTools\Util\DateUtil;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateServerGraph{
 
@@ -32,7 +31,7 @@ class UpdateServerGraph{
 
 		$table = array_reverse($table);
 
-		$json = Response::json($table);
+		$json = json_encode($table);
 
 		Cache::put('getTotalServers', $json, $diff);
 		Cache::forever('getTotalServersHold', $json);

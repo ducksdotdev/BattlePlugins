@@ -20,6 +20,8 @@ class Deploy{
 			$branch = $force;
 		}
 
+		Log::info('Starting deploy');
+
 		$cd = Config::get('deploy.path-to-branch');
 		$cd = str_replace('{branch}', $branch, $cd);
 

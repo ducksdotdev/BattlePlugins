@@ -36,7 +36,7 @@ class UpdateStatistics extends Command{
 	 * @return mixed
 	 */
 	public function fire(){
-		$data = json_decode(Cache::get('newStatistics', json_encode(array())), true);
+		$data = Cache::get('newStatistics', array());
 		if(count($data) >= Config::get('statistics.max-cached')){
 			Queue::push('BattleTools\Queue\UpdateStatistics', array());
 		}

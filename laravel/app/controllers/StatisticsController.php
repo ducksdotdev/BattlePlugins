@@ -38,10 +38,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = json_decode(Cache::get('newStatistics', json_encode(array())), true);
-		if(!is_array($data)){
-			$data = array();
-		}
+		$data = Cache::get('newStatistics', array());
 
 		array_push($data, array(
 			'keys'   => $keys,
@@ -50,7 +47,7 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		));
 
-		Cache::put('newStatistics', Response::json($data), 30);
+		Cache::put('newStatistics', $data, 30);
 
 		return Response::json('success');
 	}

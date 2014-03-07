@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
-		$start = time();
+		$start = round(microtime(true) * 1000);
 
 		$count = 0;
 		$drop = 0;
@@ -92,8 +92,8 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-		$stop = time() - $start;
-		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
+		$stop = round(microtime(true) * 1000) - $start;
+		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'s to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
 		$job->delete();
 	}
 }

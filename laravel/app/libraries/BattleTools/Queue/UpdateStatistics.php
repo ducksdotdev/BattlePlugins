@@ -93,7 +93,7 @@ class UpdateStatistics{
 		}
 
 		$stop = round(microtime(true) * 1000) - $start;
-		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'s to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
+		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
 		$job->delete();
 	}
 }

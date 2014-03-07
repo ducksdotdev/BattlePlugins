@@ -42,6 +42,7 @@ class Deploy{
 
 				foreach($files as $file){
 					if(in_array($file, $doMinify)){
+						Log::info($file);
 						$method = self::minify($file, $cd, $timeout);
 						$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
 					}

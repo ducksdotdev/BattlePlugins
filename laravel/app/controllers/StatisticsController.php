@@ -58,7 +58,7 @@ class StatisticsController extends BaseController{
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
 			Queue::push('BattleTools\Queue\UpdateServerGraph');
-			return Response::json(Cache::get('getTotalServersHold'));
+			return Cache::get('getTotalServersHold');
 		});
 	}
 

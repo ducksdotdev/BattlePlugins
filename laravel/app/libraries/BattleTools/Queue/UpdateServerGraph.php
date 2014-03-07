@@ -32,8 +32,10 @@ class UpdateStatistics{
 
 		$table = array_reverse($table);
 
-		Cache::put('getTotalServers', $table, $diff);
-		Cache::forever('getTotalServersHold', $table);
+		$json = Response::json($table);
+
+		Cache::put('getTotalServers', $json, $diff);
+		Cache::forever('getTotalServersHold', $json);
 		Log::notice('Server statistics graph has been updated. This took '.round(microtime(true) * 1000) - $start.'ms.');
 
 		$job->delete();

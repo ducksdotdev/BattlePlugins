@@ -280,7 +280,7 @@ class AdminController extends BaseController{
 	}
 
 	public function forceStatisticsUpdate(){
-		Artisan::call('battle:forcesave');
+		Queue::push('BattleTools\Queue\UpdateStatistics', array());
 		return Redirect::to('/administrator/statistics');
 	}
 }

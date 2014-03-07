@@ -20,7 +20,7 @@ class UpdateStatistics{
 		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){
-			Log::emergency('Adding statistics failed after '.Carbon::now()->diffInSeconds($start).' seconds.');
+			Log::emergency('Adding statistics failed after '.round(microtime(true) * 1000) - $start.'ms.');
 			Cache::put('newStatistics', $data, 30);
 			$job->delete();
 
@@ -92,8 +92,9 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
+		$waste = round(($drop / ($drop+$count)) * 100, 2);
 		$stop = round(microtime(true) * 1000) - $start;
-		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
+		Log::notice(count($sInserts)+count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
 		$job->delete();
 	}
 }

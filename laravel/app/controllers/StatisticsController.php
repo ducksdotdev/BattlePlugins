@@ -160,7 +160,6 @@ class StatisticsController extends BaseController{
 	}
 
 	public function reload($method){
-		Artisan::call('battle:forcesave');
 		$charts = Config::get('statistics.charts');
 		if(in_array($method, $charts) || (ListSentence::startsWith($method, "get") && ListSentence::endsWith($method, "Information"))){
 			Cache::forget($method);

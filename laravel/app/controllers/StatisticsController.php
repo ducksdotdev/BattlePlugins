@@ -50,7 +50,7 @@ class StatisticsController extends BaseController{
 			'time'   => Carbon::now()->toDateTimeString()
 		));
 
-		Cache::put('newStatistics', json_encode($data), 30);
+		Cache::put('newStatistics', Response::json($data), 30);
 
 		return Response::json('success');
 	}

@@ -1,9 +1,11 @@
 <?php
 namespace BattleTools\Queue;
 
+use BattleTools\Util\DateUtil;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateStatistics{
 
@@ -35,10 +37,6 @@ class UpdateStatistics{
 			Cache::forever('getTotalServersHold', $json);
 
 			Log::notice('Server statistics graph has been updated. This took '.round(microtime(true) * 1000) - $start.'ms.');
-
-			$job->delete();
-
-			return $json;
 		}
 		$job->delete();
 	}

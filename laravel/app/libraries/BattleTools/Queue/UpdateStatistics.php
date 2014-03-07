@@ -16,7 +16,7 @@ class UpdateStatistics{
 		$count = 0;
 		$drop = 0;
 
-		$data = Cache::get('newStatistics', '[]');
+		$data = Cache::get('newStatistics', json_encode(array()));
 		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){

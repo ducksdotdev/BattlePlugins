@@ -38,7 +38,7 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = json_decode(Cache::get('newStatistics', '[]'), true);
+		$data = json_decode(Cache::get('newStatistics', json_encode(array())), true);
 
 		array_push($data, array(
 			'keys'   => $keys,

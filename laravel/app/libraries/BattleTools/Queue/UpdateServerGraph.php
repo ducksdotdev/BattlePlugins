@@ -12,7 +12,7 @@ class UpdateServerGraph{
 		$start = round(microtime(true) * 1000);
 
 		if($job->attempts() > 1){
-			Log::emergency('Updating server graph failed after '.round(microtime(true) * 1000) - $start.'ms.');
+			Log::emergency('Updating server graph failed.');
 			Cache::put('newStatistics', $data, 30);
 			$job->delete();
 
@@ -35,7 +35,9 @@ class UpdateServerGraph{
 
 		Cache::put('getTotalServers', $json, $diff);
 		Cache::forever('getTotalServersHold', $json);
-		Log::notice('Server statistics graph has been updated. This took '.round(microtime(true) * 1000) - $start.'ms.');
+
+		$time = round(microtime(true) * 1000) - $start;
+		Log::notice('Server statistics graph has been updated. This took '.$time.'ms.');
 
 		$job->delete();
 	}

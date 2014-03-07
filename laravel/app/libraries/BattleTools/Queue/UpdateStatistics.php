@@ -19,7 +19,7 @@ class UpdateStatistics{
 		Cache::forget('newStatistics');
 
 		if($job->attempts() > 1){
-			Log::emergency('Adding statistics failed after '.round(microtime(true) * 1000) - $start.'ms.');
+			Log::emergency('Adding statistics failed.');
 			Cache::put('newStatistics', $data, 30);
 			$job->delete();
 

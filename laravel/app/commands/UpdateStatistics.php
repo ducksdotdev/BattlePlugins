@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Queue;
 
 class UpdateStatistics extends Command{
 
@@ -33,7 +36,10 @@ class UpdateStatistics extends Command{
 	 * @return mixed
 	 */
 	public function fire(){
-		Queue::push('BattleTools\Queue\UpdateStatistics', array());
+		$data = json_decode(Cache::get('newStatistics', json_encode(array())), true);
+		if(count($data) >= Config::get('statistics.max-cached')){
+			Queue::push('BattleTools\Queue\UpdateStatistics', array());
+		}
 	}
 
 	/**

@@ -26,7 +26,4 @@ return array(
 
 	// Amount of items to cache before pushing to DB
 	'max-cached'  => 375,
-
-	// Time, in minutes, to wait before pushing to DB. The DB must wait this time before checking the amount cached (above).
-	'update-wait' => 2
 );

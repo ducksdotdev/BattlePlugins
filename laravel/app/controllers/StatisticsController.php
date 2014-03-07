@@ -52,19 +52,6 @@ class StatisticsController extends BaseController{
 		));
 
 		Cache::put('newStatistics', json_encode($data), 30);
-		if(count($data) >= Config::get('statistics.max-cached')){
-			$mincheck = Config::get('statistics.update-wait');
-			$lastUpdate = Cache::get('lastStatisticsUpdate', function () use ($mincheck){
-				$now = Carbon::now();
-				Cache::put('lastStatisticsUpdate', $now, 1);
-
-				return $now->subMinutes($mincheck);
-			});
-
-			if(Carbon::now()->diffInMinutes($lastUpdate) > $mincheck){
-				Artisan::call('battle:forcesave');
-			}
-		}
 
 		return Response::json('success');
 	}

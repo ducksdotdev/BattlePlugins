@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateStatistics{
+class UpdateServerGraph{
 
 	public function fire($job, $data){
 		$start = round(microtime(true) * 1000);

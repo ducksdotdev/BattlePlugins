@@ -93,79 +93,49 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getPluginCount(){
-		return Cache::get('getPluginCount', function (){
-			Artisan::call('battle:forcesave');
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-			$table = DB::table('plugin_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				select('plugin', DB::raw('count(distinct server) as total'))->
-				groupBy('plugin')->
-				get();
+		$table = DB::table('plugin_statistics')->
+			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+			select('plugin', DB::raw('count(distinct server) as total'))->
+			groupBy('plugin')->
+			remember($diff)->get();
 
-			$json = Response::json($table);
-
-			Cache::put('getPluginCount', $json, $diff);
-
-			return $json;
-		});
+		return Response::json($table);
 	}
 
 	public function getAuthMode(){
-		return Cache::get('getAuthMode', function (){
-			Artisan::call('battle:forcesave');
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
 
-			$table = DB::table('server_statistics')->
-				where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
-				where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-				select('bOnlineMode', DB::raw('count(distinct server) as total'))->
-				groupBy('bOnlineMode')->
-				get();
+		$table = DB::table('server_statistics')->
+			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
+			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+			select('bOnlineMode', DB::raw('count(distinct server) as total'))->
+			groupBy('bOnlineMode')->
+			remember($diff)->get();
 
-			$json = Response::json($table);
-
-			Cache::put('getAuthMode', $json, $diff);
-
-			return $json;
-		});
+		return Response::json($table);
 	}
 
 	public function getPluginInformation($plugin){
-		return Cache::get('get'.$plugin.'Information', function () use ($plugin){
-			Artisan::call('battle:forcesave');
-			$table = DB::table('plugin_statistics')->
-				where('inserted_on', '<', DateUtil::getTimeToThirty())->
-				where('plugin', $plugin)->
-				select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
-				groupBy('version', DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
-				orderBy('timestamp', 'desc')->
-				take(336)->get();
+		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$table = DB::table('plugin_statistics')->
+			where('inserted_on', '<', DateUtil::getTimeToThirty())->
+			where('plugin', $plugin)->
+			select('version', 'inserted_on as timestamp', DB::raw('count(*) as total'))->
+			groupBy('version', DB::raw('2 * HOUR( inserted_on ) + FLOOR( MINUTE( inserted_on ) / 30 )'))->
+			orderBy('timestamp', 'desc')->
+			take(336)->remember($diff)->get();
 
-			if(count($table) > 0){
-				if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
-					array_shift($table);
-				}
-
-				array_reverse($table);
-
-				$json = Response::json($table);
-
-				$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-				Cache::put('get'.$plugin.'Information', $table, $diff);
-
-				return $json;
+		if(count($table) > 0){
+			if(DateUtil::getTimeToThirty() == $table[0]->timestamp){
+				array_shift($table);
 			}
-		});
-	}
 
-	public function reload($method){
-		$charts = Config::get('statistics.charts');
-		if(in_array($method, $charts) || (ListSentence::startsWith($method, "get") && ListSentence::endsWith($method, "Information"))){
-			Cache::forget($method);
+			array_reverse($table);
+
+			return Response::json($table);
 		}
-
-		return Redirect::to('/statistics');
 	}
 }

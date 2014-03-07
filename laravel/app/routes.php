@@ -111,5 +111,3 @@ Route::get("/statistics/getTotalServers", 'StatisticsController@getTotalServers'
 Route::get("/statistics/getPluginCount", 'StatisticsController@getPluginCount');
 Route::get("/statistics/getAuthMode", 'StatisticsController@getAuthMode');
 Route::get("/statistics/getPluginInformation/{plugin}", 'StatisticsController@getPluginInformation');
-
-Route::get("/statistics/reload/{method}", 'StatisticsController@reload');

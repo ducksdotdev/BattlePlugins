@@ -13,7 +13,6 @@ class UpdateServerGraph{
 
 		if($job->attempts() > 1){
 			Log::emergency('Updating server graph failed.');
-			Cache::put('newStatistics', $data, 30);
 			$job->delete();
 
 			return;

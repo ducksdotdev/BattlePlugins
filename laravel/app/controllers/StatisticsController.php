@@ -57,24 +57,8 @@ class StatisticsController extends BaseController{
 
 	public function getTotalServers(){
 		return Cache::get('getTotalServers', function (){
-			Artisan::call('battle:forcesave');
-			$diff = DateUtil::getTimeToThirty()->addMinutes(30);
-
-			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (      select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
-
-			if(count($table) > 0){
-				if(DateUtil::getTimeToThirty() <= $table[0]->time){
-					array_shift($table);
-				}
-
-				$table = array_reverse($table);
-
-				$json = Response::json($table);
-
-				Cache::put('getTotalServers', $json, $diff);
-
-				return $json;
-			}
+			Queue::push('BattleTools\Queue\UpdateServerGraph');
+			return Response::json(Cache::get('getTotalServersHold'));
 		});
 	}
 

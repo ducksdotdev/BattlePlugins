@@ -2,12 +2,10 @@
 namespace BattleTools\Queue;
 
 use BattleTools\Util\ListSentence;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateStatistics{
 
@@ -96,9 +94,9 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-		$waste = round($drop / ($drop+$count) * 100, 2);
+		$waste = round($drop / ($drop + $count) * 100, 2);
 		$stop = round(microtime(true) * 1000) - $start;
-		Log::notice(count($sInserts)+count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
+		Log::notice(count($sInserts) + count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
 		$job->delete();
 	}
 }

@@ -21,8 +21,6 @@ class Deploy{
 			$branch = $force;
 		}
 
-		Log::info('Starting deploy');
-
 		$cd = Config::get('deploy.path-to-branch');
 		$cd = str_replace('{branch}', $branch, $cd);
 
@@ -45,7 +43,6 @@ class Deploy{
 
 				foreach($files as $file){
 					if(in_array($file, $doMinify)){
-						Log::info($file);
 						$method = self::minify($file, $cd, $timeout);
 						$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
 					}
@@ -76,10 +73,8 @@ class Deploy{
 		$fileMin = $appendMin['newFile'];
 
 		if($type == 'css'){
-			Log::info('Running minify CSS');
 			$process = 'java -jar '.Config::get('deploy.compiler-stylesheets').' '.$cd.'/'.$file.' > '.$cd.'/'.$fileMin;
 		}else if($type == 'js'){
-			Log::info('Running minify JS');
 			$process = 'java -jar '.Config::get('deploy.compiler').' --js '.$cd.'/'.$file.' --js_output_file '.$cd.'/'.$fileMin;
 		}else{
 			throw new InvalidArgumentException;

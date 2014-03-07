@@ -1,7 +1,6 @@
 <?php
 
 use BattleTools\Util\DateUtil;
-use BattleTools\Util\ListSentence;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Artisan;
 
@@ -80,7 +79,7 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getPluginCount(){
-		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
 
 		$table = DB::table('plugin_statistics')->
 			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
@@ -93,7 +92,7 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getAuthMode(){
-		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
 
 		$table = DB::table('server_statistics')->
 			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes(30))->
@@ -106,7 +105,8 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getPluginInformation($plugin){
-		$diff = DateUtil::getTimeToThirty()->addMinutes(30);
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
+
 		$table = DB::table('plugin_statistics')->
 			where('inserted_on', '<', DateUtil::getTimeToThirty())->
 			where('plugin', $plugin)->

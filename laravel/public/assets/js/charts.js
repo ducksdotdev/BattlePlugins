@@ -24,10 +24,10 @@ $(function () {
         '#B5CA92'
     ];
 
-    $.get('/statistics/getTotalServers', function(data){
+    $.get('/statistics/getTotalServers', function (data) {
         var players = [];
         var servers = [];
-        $.each(data, function(i, item){
+        $.each(data, function (i, item) {
             var timestamp = Date.toTimestamp(item.time);
             players.push([timestamp, parseInt(item.nPlayers)]);
             servers.push([timestamp, parseInt(item.nServers)]);
@@ -79,19 +79,22 @@ $(function () {
                 }
             },
             colors: colors,
-            series: [{
-                name: 'Players',
-                data: players
-            },{
-                name: 'Servers',
-                data: servers
-            }]
+            series: [
+                {
+                    name: 'Players',
+                    data: players
+                },
+                {
+                    name: 'Servers',
+                    data: servers
+                }
+            ]
         });
     }, 'json');
 
-    $.get('/statistics/getPluginCount', function(data){
+    $.get('/statistics/getPluginCount', function (data) {
         var cdata = [];
-        $.each(data, function(i, item){
+        $.each(data, function (i, item) {
             cdata.push([item.plugin, parseInt(item.total)]);
         });
 
@@ -119,16 +122,18 @@ $(function () {
                     }
                 }
             },
-            series: [{
-                type: 'pie',
-                data: cdata
-            }]
+            series: [
+                {
+                    type: 'pie',
+                    data: cdata
+                }
+            ]
         });
     }, 'json');
 
-    $.get('/statistics/getAuthMode', function(data){
+    $.get('/statistics/getAuthMode', function (data) {
         var cdata = [];
-        $.each(data, function(i, item){
+        $.each(data, function (i, item) {
             var name = item.bOnlineMode == 'true' ? 'Online' : 'Offline';
             cdata.push([name, parseInt(item.total)]);
         });
@@ -157,16 +162,17 @@ $(function () {
                     }
                 }
             },
-            series: [{
-                type: 'pie',
-                data: cdata
-            }]
+            series: [
+                {
+                    type: 'pie',
+                    data: cdata
+                }
+            ]
         });
     }, 'json');
 });
 
-Date.toTimestamp = function(s)
-{
+Date.toTimestamp = function (s) {
     s = s.split(/[-A-Z :\.]/i);
     var d = new Date(Date.UTC(s[0], --s[1], s[2], s[3], s[4], s[5]));
     return Math.round(d.getTime());

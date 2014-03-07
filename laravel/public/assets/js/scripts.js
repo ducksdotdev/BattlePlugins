@@ -1,45 +1,45 @@
-$(function(){
-    if($("#summernote").length > 0){
-        jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/summernote/0.5.0/summernote.min.js", function(){
+$(function () {
+    if ($("#summernote").length > 0) {
+        jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/summernote/0.5.0/summernote.min.js", function () {
             $('head').append('<link type="text/css" rel="stylesheet" href="/assets/css/summernote.min.css">');
             $('#summernote').summernote();
         });
     }
 
-    $("#retrieveWithUsername").submit(function(e){
+    $("#retrieveWithUsername").submit(function (e) {
         e.preventDefault();
         var formData = $("#retrieveWithUsername :input").serialize();
-        $.post("/login/help/username", formData, function(data){
+        $.post("/login/help/username", formData, function (data) {
             var type;
-            if(data.result === 'success')
+            if (data.result === 'success')
                 type = 'success'
             else
                 type = 'danger'
 
-            $("#alert").createAlert(type,  data.reason);
+            $("#alert").createAlert(type, data.reason);
 
         }, 'json');
     });
 
-    $("#retrieveWithEmail").submit(function(e){
+    $("#retrieveWithEmail").submit(function (e) {
         e.preventDefault();
         var formData = $("#retrieveWithEmail :input").serialize();
-        $.post("/login/help/email", formData, function(data){
+        $.post("/login/help/email", formData, function (data) {
             var type;
-            if(data.result === 'success')
+            if (data.result === 'success')
                 type = 'success'
             else
                 type = 'danger'
 
-            $("#alert").createAlert(type,  data.reason);
+            $("#alert").createAlert(type, data.reason);
 
         }, 'json');
 
-        $("#resetPassword").submit(function(e){
+        $("#resetPassword").submit(function (e) {
             e.preventDefault();
             var formData = $("#resetPassword :input").serialize();
-            $.post('/login/help/reset', formData, function(data){
-                if(data.result == 'success')
+            $.post('/login/help/reset', formData, function (data) {
+                if (data.result == 'success')
                     window.location = '/login';
                 else
                     $("#alert").createAlert("danger", data.reason);
@@ -53,110 +53,111 @@ $(function(){
 
     $('head').append('<link type="text/css" rel="stylesheet" href="/assets/css/datetimepicker.css">');
 
-    if($("textarea").length > 0){
-        jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.1/jquery.autosize.min.js", function(){
+    if ($("textarea").length > 0) {
+        jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.1/jquery.autosize.min.js", function () {
             $("textarea").autosize();
         });
     }
 
-    if($(".prettyprint").length > 0){
-        $.getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function(){
+    if ($(".prettyprint").length > 0) {
+        $.getScript('//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js', function () {
             $('head').append('<link type="text/css" rel="stylesheet" href="/assets/css/prettify.css">');
             prettyPrint();
         });
     }
 
-    $("#login").submit(function(e){
+    $("#login").submit(function (e) {
         e.preventDefault();
         var formData = $("#login :input").serialize();
-        $.post("/login", formData, function(data){
-            if(data.result === "success"){
+        $.post("/login", formData, function (data) {
+            if (data.result === "success") {
                 window.location = '/';
-            }else{
+            } else {
                 $("#alert").createAlert('danger', data.reason);
             }
         }, 'json');
     });
 
-    $("#generatepassword").click(function(){
+    $("#generatepassword").click(function () {
         var password = $.password(12, true);
         $("#password").val(password);
         $("#password2").val(password);
     });
 
-    $("#register").submit(function(e){
+    $("#register").submit(function (e) {
         e.preventDefault();
         var formData = $("#register :input").serialize();
-        $.post("/register", formData, function(data){
-            if(data.result == "failure"){
+        $.post("/register", formData, function (data) {
+            if (data.result == "failure") {
                 $("#alert").createAlert("danger", data.reason);
                 $("#recaptcha_reload").click();
                 $("#recaptcha_response_field").val("");
-            }else
+            } else
                 window.location = "/login";
         }, "json");
     });
 
-    $("#changeSettings").submit(function(e){
+    $("#changeSettings").submit(function (e) {
         e.preventDefault();
         var formData = $("#changeSettings :input").serialize();
-        $.post("/user/settings", formData, function(data){
-            if(data.result == 'success')
+        $.post("/user/settings", formData, function (data) {
+            if (data.result == 'success')
                 window.location.reload();
             else
                 $("#alert").createAlert("danger", data.reason);
         }, "json");
     });
 
-    $("#createPaste").submit(function(e){
+    $("#createPaste").submit(function (e) {
         e.preventDefault();
         var formData = $("#createPaste :input").serialize();
-        $.post("/paste/create", formData, function(data){
-            if(data.result == 'success')
+        $.post("/paste/create", formData, function (data) {
+            if (data.result == 'success')
                 window.location = data.reason;
             else
                 $("#alert").createAlert("danger", data.reason);
         }, 'json');
     });
 
-    $("#deletePaste").click(function(){
+    $("#deletePaste").click(function () {
         var id = $("#paste").data('id');
         var _token = $("input[name='_token']").val();
-        $.post('/paste/delete', {id:id,_token:_token}, function(data){
-            if(data.result == 'success')
+        $.post('/paste/delete', {id: id, _token: _token}, function (data) {
+            if (data.result == 'success')
                 window.location = '/paste/create'
         }, 'json');
     });
 
-    $("#editPaste").click(function(){
+    $("#editPaste").click(function () {
         var id = $("#paste").data('id');
         var _token = $("input[name='_token']").val();
-        $.post('/paste/edit/getForm', {id:id,_token:_token}, function(data){
+        $.post('/paste/edit/getForm', {id: id, _token: _token}, function (data) {
             $("#box").empty().append(data);
             $("#editPaste").remove();
-            jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.1/jquery.autosize.min.js", function(){
+            jQuery.getScript("//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.1/jquery.autosize.min.js", function () {
                 $("textarea").autosize();
             });
-            $("#editPasteForm").submit(function(e){
+            $("#editPasteForm").submit(function (e) {
                 e.preventDefault();
                 var formData = $("#editPasteForm :input").serialize();
-                $.post('/paste/edit', formData, function(data){
-                    if(data.result == 'success')
+                $.post('/paste/edit', formData, function (data) {
+                    if (data.result == 'success')
                         window.location.reload();
                     else
                         $("#alert").createAlert("danger", data.reason);
                 }, 'json')
             });
-            $("#cancel").one('click', function(){
+            $("#cancel").one('click', function () {
                 window.location.reload();
             });
         });
     });
 
-    (function(d, s, id) {
+    (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s);
+        js.id = id;
         js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=130750536973814";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -167,16 +168,24 @@ $.extend({
         var iteration = 0;
         var password = "";
         var randomNumber;
-        if(special == undefined){
+        if (special == undefined) {
             var special = false;
         }
-        while(iteration < length){
+        while (iteration < length) {
             randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-            if(!special){
-                if ((randomNumber >=33) && (randomNumber <=47)) { continue; }
-                if ((randomNumber >=58) && (randomNumber <=64)) { continue; }
-                if ((randomNumber >=91) && (randomNumber <=96)) { continue; }
-                if ((randomNumber >=123) && (randomNumber <=126)) { continue; }
+            if (!special) {
+                if ((randomNumber >= 33) && (randomNumber <= 47)) {
+                    continue;
+                }
+                if ((randomNumber >= 58) && (randomNumber <= 64)) {
+                    continue;
+                }
+                if ((randomNumber >= 91) && (randomNumber <= 96)) {
+                    continue;
+                }
+                if ((randomNumber >= 123) && (randomNumber <= 126)) {
+                    continue;
+                }
             }
             iteration++;
             password += String.fromCharCode(randomNumber);
@@ -186,8 +195,8 @@ $.extend({
 });
 
 $.fn.extend({
-    createAlert: function(type,reason){
-        $(this).empty().append("<div class='alert alert-"+type+"'>"+reason+"</div>");
+    createAlert: function (type, reason) {
+        $(this).empty().append("<div class='alert alert-" + type + "'>" + reason + "</div>");
     }
 });
 /**
@@ -209,7 +218,7 @@ $.fn.extend({
         // Browser globals
         factory(root);
     }
-} (this, function (exports) {
+}(this, function (exports) {
     //Default config/variables
     var VERSION = '0.1.0';
 
@@ -306,14 +315,14 @@ $.fn.extend({
         if (this._options.overlayMode && targetElement.tagName.toLowerCase() === 'body') {
             //if we have `body` for target element and also overlay mode is enable, we should use a different
             //position for progress bar container element
-            progressElementContainer.style.left   = 0;
-            progressElementContainer.style.right  = 0;
-            progressElementContainer.style.top    = 0;
+            progressElementContainer.style.left = 0;
+            progressElementContainer.style.right = 0;
+            progressElementContainer.style.top = 0;
             progressElementContainer.style.bottom = 0;
         } else {
             //set progress bar container size and offset
-            progressElementContainer.style.left  = targetElementOffset.left + 'px';
-            progressElementContainer.style.top   = targetElementOffset.top + 'px';
+            progressElementContainer.style.left = targetElementOffset.left + 'px';
+            progressElementContainer.style.top = targetElementOffset.top + 'px';
             progressElementContainer.style.width = targetElementOffset.width + 'px';
 
             if (this._options.overlayMode) {
@@ -363,7 +372,7 @@ $.fn.extend({
 
         if (targetElement.hasAttribute("data-progressjs")) {
             //setTimeout for better CSS3 animation applying in some cases
-            setTimeout(function() {
+            setTimeout(function () {
 
                 //call the onprogress callback
                 if (typeof self._onProgressCallback != 'undefined') {
@@ -373,11 +382,11 @@ $.fn.extend({
                 var percentElement = _getPercentElement(targetElement);
                 percentElement.style.width = parseInt(percent) + '%';
 
-                var percentElement  = percentElement.querySelector(".progressjs-percent");
+                var percentElement = percentElement.querySelector(".progressjs-percent");
                 var existingPercent = parseInt(percentElement.innerHTML.replace('%', ''));
 
                 //start increase/decrease the percent element with animation
-                (function(percentElement, existingPercent, currentPercent) {
+                (function (percentElement, existingPercent, currentPercent) {
 
                     var increasement = true;
                     if (existingPercent > currentPercent) {
@@ -385,6 +394,7 @@ $.fn.extend({
                     }
 
                     var intervalIn = 10;
+
                     function changePercentTimer(percentElement, existingPercent, currentPercent) {
                         //calculate the distance between two percents
                         var distance = Math.abs(existingPercent - currentPercent);
@@ -399,7 +409,9 @@ $.fn.extend({
                         if ((existingPercent - currentPercent) != 0) {
                             //set the percent
                             percentElement.innerHTML = (increasement ? (++existingPercent) : (--existingPercent)) + '%';
-                            setTimeout(function() { changePercentTimer(percentElement, existingPercent, currentPercent); }, intervalIn);
+                            setTimeout(function () {
+                                changePercentTimer(percentElement, existingPercent, currentPercent);
+                            }, intervalIn);
                         }
                     }
 
@@ -439,7 +451,7 @@ $.fn.extend({
         if (typeof window._progressjsIntervals[progressjsId] != 'undefined') {
             clearInterval(window._progressjsIntervals[progressjsId]);
         }
-        window._progressjsIntervals[progressjsId] = setInterval(function() {
+        window._progressjsIntervals[progressjsId] = setInterval(function () {
             _increasePercent.call(self, size);
         }, millisecond);
     }
@@ -455,7 +467,7 @@ $.fn.extend({
         for (var i = 0, elmsLength = this._targetElement.length; i < elmsLength; i++) {
             var currentElement = this._targetElement[i];
             if (currentElement.hasAttribute('data-progressjs')) {
-                var percentElement  = _getPercentElement(currentElement);
+                var percentElement = _getPercentElement(currentElement);
                 var existingPercent = parseInt(percentElement.style.width.replace('%', ''));
                 if (existingPercent) {
                     _setPercentFor.call(this, currentElement, existingPercent + (size || 1));
@@ -501,11 +513,11 @@ $.fn.extend({
 
             //I believe I should handle this situation with eventListener and `transitionend` event but I'm not sure
             //about compatibility with IEs. Should be fixed in further versions.
-            (function(percentElement, currentElement) {
-                setTimeout(function() {
+            (function (percentElement, currentElement) {
+                setTimeout(function () {
                     percentElement.parentNode.className += " progressjs-end";
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         //remove the percent element from page
                         percentElement.parentNode.parentNode.removeChild(percentElement.parentNode);
                         //and remove the attribute
@@ -522,7 +534,8 @@ $.fn.extend({
                 clearInterval(window._progressjsIntervals[progressjsId]);
                 window._progressjsIntervals[progressjsId] = null;
                 delete window._progressjsIntervals[progressjsId];
-            } catch(ex) { }
+            } catch (ex) {
+            }
         }
     }
 
@@ -591,8 +604,12 @@ $.fn.extend({
      */
     function _mergeOptions(obj1, obj2) {
         var obj3 = {};
-        for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-        for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+        for (var attrname in obj1) {
+            obj3[attrname] = obj1[attrname];
+        }
+        for (var attrname in obj2) {
+            obj3[attrname] = obj2[attrname];
+        }
         return obj3;
     }
 
@@ -651,35 +668,35 @@ $.fn.extend({
         clone: function () {
             return new ProgressJs(this);
         },
-        setOption: function(option, value) {
+        setOption: function (option, value) {
             this._options[option] = value;
             return this;
         },
-        setOptions: function(options) {
+        setOptions: function (options) {
             this._options = _mergeOptions(this._options, options);
             return this;
         },
-        start: function() {
+        start: function () {
             _startProgress.call(this);
             return this;
         },
-        set: function(percent) {
+        set: function (percent) {
             _setPercent.call(this, percent);
             return this;
         },
-        increase: function(size) {
+        increase: function (size) {
             _increasePercent.call(this, size);
             return this;
         },
-        autoIncrease: function(size, millisecond) {
+        autoIncrease: function (size, millisecond) {
             _autoIncrease.call(this, size, millisecond);
             return this;
         },
-        end: function() {
+        end: function () {
             _end.call(this);
             return this;
         },
-        onbeforeend: function(providedCallback) {
+        onbeforeend: function (providedCallback) {
             if (typeof (providedCallback) === 'function') {
                 this._onBeforeEndCallback = providedCallback;
             } else {
@@ -687,7 +704,7 @@ $.fn.extend({
             }
             return this;
         },
-        onbeforestart: function(providedCallback) {
+        onbeforestart: function (providedCallback) {
             if (typeof (providedCallback) === 'function') {
                 this._onBeforeStartCallback = providedCallback;
             } else {
@@ -695,7 +712,7 @@ $.fn.extend({
             }
             return this;
         },
-        onprogress: function(providedCallback) {
+        onprogress: function (providedCallback) {
             if (typeof (providedCallback) === 'function') {
                 this._onProgressCallback = providedCallback;
             } else {

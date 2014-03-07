@@ -42,27 +42,19 @@ class Deploy{
 
 				foreach($files as $file){
 					if(in_array($file, $doMinify)){
-						$method = self::minify($file, $branch, $cd, $timeout);
+						$method = self::minify($file, $cd, $timeout);
 						$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
 					}
 				}
 			}else{
 				foreach($doMinify as $file){
-					$method = self::minify($file, $branch, $cd, $timeout);
+					$method = self::minify($file, $cd, $timeout);
 					$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
 				}
 			}
 
 			$command = 'git stash pop';
 			$output[$command] = self::runProcess($command, $cd);
-		}
-
-		if($payload != null){
-			$files = $payload['head_commit']['modified'];
-			if(in_array('laravel/composer.json', $files) && Config::get('deploy.update-composer')){
-				$command = 'composer update';
-				$output[$command] = self::runProcess($command, $cd.'/laravel');
-			}
 		}
 
 		foreach(Config::get('deploy.post-commands') as $command){
@@ -73,7 +65,7 @@ class Deploy{
 		return $output;
 	}
 
-	public static function minify($file, $branch, $cd, $timeout = 180){
+	public static function minify($file, $cd, $timeout = 180){
 		$appendMin = self::appendMin($file);
 
 		$type = $appendMin['type'];

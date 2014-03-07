@@ -6,7 +6,8 @@ return array(
 	'path-to-branch'       => '/home/battleplugins/{branch}/BattlePlugins',
 
 	// Branch names
-	'master-branch'        => 'master', 'development-branch' => 'dev',
+	'master-branch'        => 'master',
+	'development-branch'   => 'dev',
 
 	// Update composer when changes are made?
 	'update-composer'      => true,

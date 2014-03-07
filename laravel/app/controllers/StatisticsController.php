@@ -39,16 +39,12 @@ class StatisticsController extends BaseController{
 		$server = Session::get('serverIp');
 
 		$data = Cache::get('newStatistics', array());
-		if(!is_array($data)){
-			$data = array();
-		}
-
-		array_push($data, array(
+		$data[] = array(
 			'keys'   => $keys,
 			'server' => $server,
 			'port'   => Session::get('serverPort'),
 			'time'   => Carbon::now()->toDateTimeString()
-		));
+		);
 
 		Cache::put('newStatistics', $data, 30);
 

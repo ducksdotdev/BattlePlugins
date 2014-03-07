@@ -39,6 +39,7 @@ class UpdateStatistics{
 
 		$sInserts = array();
 		$pInserts = array();
+		$dropped = array();
 
 		$allowedKeys = Config::get('statistics.tracked');
 
@@ -71,12 +72,14 @@ class UpdateStatistics{
 							));
 						}else{
 							$drop++;
+							$dropped[] = $key;
 						}
 					}else if(in_array($key, $allowedKeys)){
 						$count++;
 						$pairs[$key] = $value;
 					}else{
 						$drop++;
+						$dropped[] = $key;
 					}
 				}
 			}
@@ -94,7 +97,7 @@ class UpdateStatistics{
 
 		$waste = round(($drop / ($drop+$count)) * 100, 2);
 		$stop = round(microtime(true) * 1000) - $start;
-		Log::notice(count($sInserts)+count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
+		Log::notice(count($sInserts)+count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.'.json_encode($data));
 		$job->delete();
 	}
 }

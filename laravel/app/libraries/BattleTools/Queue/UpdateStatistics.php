@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
-		$start = Carbon::now();
+		$start = time();
 
 		$count = 0;
 		$drop = 0;
@@ -92,8 +92,8 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-		$stop = Carbon::now()->diffInSeconds($start);
-		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.' seconds to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
+		$stop = time() - $start;
+		Log::notice($dataCount.' new statistic requests handled. This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). '.$drop.' pieces of data have been dropped.');
 		$job->delete();
 	}
 }

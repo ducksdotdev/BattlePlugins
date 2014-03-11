@@ -36,7 +36,7 @@ class UpdateServerGraph{
 		Cache::forever('getTotalServersHold', $json);
 
 		$time = round(microtime(true) * 1000) - $start;
-		Log::notice('Server statistics graph has been updated. This took '.$time.'ms.');
+		Log::notice('Server statistics graph has been updated. This took '.$time.'ms. It will update automatically at '.$diff);
 
 		$job->delete();
 	}

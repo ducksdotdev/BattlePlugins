@@ -52,7 +52,7 @@ class StatisticsController extends BaseController{
 
 		Cache::put('newStatistics', $data, 30);
 
-		return Response::json('success');
+		return Response::make('', 204);
 	}
 
 	public function getTotalServers(){

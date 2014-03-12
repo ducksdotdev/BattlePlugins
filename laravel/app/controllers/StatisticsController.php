@@ -37,8 +37,9 @@ class StatisticsController extends BaseController{
 
 		$server = Session::get('serverIp');
 
-		$data = Cache::get('newStatistics', array());
-		if(!is_array($data)){
+		if(Cache::has('newStatistics')){
+			$data = Cache::get('newStatistics');
+		}else{
 			$data = array();
 		}
 

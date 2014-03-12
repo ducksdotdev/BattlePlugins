@@ -55,19 +55,24 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
+		return Cache::get('getTotalServers', function(){
+			$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
 
-		$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336')->remember($diff);
+			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*1800) as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/1800)) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
 
-		if(count($table) > 0){
-			if(DateUtil::getTimeToThirty() <= $table[0]->time){
-				array_shift($table);
+			if(count($table) > 0){
+				if(DateUtil::getTimeToThirty() <= $table[0]->time){
+					array_shift($table);
+				}
 			}
-		}
 
-		$table = array_reverse($table);
+			$table = array_reverse($table);
+			$json = Response::json($table);
 
-		return Response::json($table);
+			Cache::put('getTotalServers', $json, $diff);
+
+			return $json;
+		});
 	}
 
 	public function getPluginCount(){

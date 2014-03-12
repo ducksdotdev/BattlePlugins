@@ -68,6 +68,8 @@ class StatisticsController extends BaseController{
 			$table = array_reverse($table);
 			$json = Response::json($table);
 
+
+			Log::notice('Updated the server totals graph. It will update again in '.$diff.' minutes.');
 			Cache::put('getTotalServers', $json, $diff);
 
 			return $json;

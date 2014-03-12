@@ -281,6 +281,7 @@ class AdminController extends BaseController{
 
 	public function forceStatisticsUpdate(){
 		Queue::push('BattleTools\Queue\UpdateStatistics', array());
+		Cache::forget('getTotalServers');
 		return Redirect::to('/administrator/statistics');
 	}
 }

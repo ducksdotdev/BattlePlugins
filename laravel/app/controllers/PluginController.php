@@ -54,6 +54,12 @@ class PluginController extends BaseController{
 	}
 
 	public function getPluginProfile($name){
-
+		$plugin = DB::table('plugins')->where('name', $name)->first();
+		if(count($plugin) > 0){
+			$vars['title'] = $name;
+			return View::make('plugin-profile');
+		}else{
+			return Redirect::to('/plugins');
+		}
 	}
 }

@@ -21,7 +21,7 @@
             <div class="col-md-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <span class="panel-title"><a href="/plugins/profile/{{ $build['name'] }}">{{ $build['name'] }}</a></span> <a href="{{ $build['bukkit'] }}"><i class="fa fa-external-link"></i></a>
+                        <span class="panel-title"><a href="/plugins/profile/{{ $build['name'] }}">{{ $build['name'] }}</a></span> <a href="{{ $build['bukkit'] }}"><i class="fa fa-external-link pull-right"></i></a>
                     </div>
                     <div class="panel-body">
                         Created by: {{ $authors[$build['author']] }}<br />

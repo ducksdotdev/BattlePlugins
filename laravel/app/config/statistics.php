@@ -2,7 +2,7 @@
 
 return array(
 	// What statistics are tracked?
-	'tracked'     => array(
+	'tracked'    => array(
 		// Bukkit Statistics
 		// 'bServerName',
 		'bVersion',
@@ -18,12 +18,15 @@ return array(
 	),
 
 	// These are the names of the chart JSON methods
-	'charts'      => array(
+	'charts'     => array(
 		'getTotalServers',
 		'getPluginCount',
 		'getAuthMode'
 	),
 
 	// Amount of items to cache before pushing to DB
-	'max-cached'  => 250,
+	'max-cached' => 250,
+
+	// How often (in seconds) stats are collected from a server
+	'interval'   => 1800
 );

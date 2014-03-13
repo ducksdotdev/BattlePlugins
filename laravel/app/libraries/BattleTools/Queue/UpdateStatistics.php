@@ -11,6 +11,7 @@ class UpdateStatistics{
 
 	public function fire($job, $data){
 		$start = round(microtime(true) * 1000);
+		$interval = Config::get('statistics.interval');
 
 		$count = 0;
 		$drop = 0;
@@ -20,7 +21,7 @@ class UpdateStatistics{
 
 		if($job->attempts() > 1){
 			Log::emergency('Adding statistics failed.');
-			Cache::put('newStatistics', $data, 30);
+			Cache::put('newStatistics', $data, $interval);
 			$job->delete();
 
 			return;

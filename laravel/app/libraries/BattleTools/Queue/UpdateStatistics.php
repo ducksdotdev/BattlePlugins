@@ -31,7 +31,7 @@ class UpdateStatistics{
 
 		if($dataCount == 0){
 			$timewaste = round(microtime(true) * 1000) - $start;
-			Log::warning('No data, process stopped. This wasted '.$timewaste.'ms.');
+			// Log::warning('No data, process stopped. This wasted '.$timewaste.'ms.');
 			$job->delete();
 
 			return;

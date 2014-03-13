@@ -52,4 +52,8 @@ class PluginController extends BaseController{
 			return Redirect::to("http://wiki.battleplugins.com/w/index.php?title=BA_API_Tutorial");
 		}
 	}
+
+	public function getPluginProfile($name){
+
+	}
 }

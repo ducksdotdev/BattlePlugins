@@ -16,6 +16,7 @@ Route::get('/w', 'PageController@getWiki');
 Route::get('/ci', 'PageController@getCI');
 Route::get('/plugins', 'PluginController@getPlugins');
 Route::get('/plugins/manage', 'PluginController@managePlugins');
+Route::get('/plugins/profile/{name}', 'PluginController@getPluginProfile');
 Route::get('/register', 'UserController@getRegistrationPage')->before('guest');
 Route::get('/tos', 'PageController@tos');
 Route::get('/privacy', 'PageController@privacy');

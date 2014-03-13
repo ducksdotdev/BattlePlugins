@@ -2,6 +2,7 @@
 
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
+use BattleTools\Util\Deploy;
 use BattleTools\Util\Jenkins;
 
 class PluginController extends BaseController{
@@ -58,6 +59,7 @@ class PluginController extends BaseController{
 		if(count($plugin) > 0){
 			$vars['title'] = $plugin->name;
 			$vars['plugin'] = $plugin;
+			$vars['dev'] = Deploy::isDeveloperMode();
 
 			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
 			$vars['lastBuild'] = array('ci' => $ci, 'name' => $plugin->name, 'author' => $plugin->author, 'bukkit' => $plugin->bukkit);

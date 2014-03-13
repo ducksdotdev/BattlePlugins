@@ -8,8 +8,8 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<a href="{{ $build['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link pull-right"></i></a><br />
-					Last Successful Build: <a href="{{ $build['ci']['url'] }}">{{ $build['ci']['build'] }}</a><br />
+					<a href="{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link pull-right"></i></a><br />
+					Last Successful Build: <a href="{{ $lastBuild['ci']['url'] }}">{{ $lastBuild['ci']['build'] }}</a><br />
 				</div>
 			</div>
 		</div>

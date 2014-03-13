@@ -27,6 +27,6 @@ return array(
 	// Amount of items to cache before pushing to DB
 	'max-cached' => 250,
 
-	// How often (in seconds) stats are collected from a server
-	'interval'   => 1800
+	// How often (in minutes) stats are collected from a server
+	'interval'   => 30
 );

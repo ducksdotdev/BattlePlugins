@@ -2,9 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="lDucks">
 @if($dev)
-<title>BattlePlugins-DEV :: {{ $title }}</title>
+<title>{{ $title }} :: BattlePlugins-DEV</title>
 @else
-<title>BattlePlugins :: {{ $title }}</title>
+<title>{{ $title }} :: BattlePlugins</title>
 @endif
 <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
 

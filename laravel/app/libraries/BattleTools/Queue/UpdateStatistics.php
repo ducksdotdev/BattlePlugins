@@ -31,7 +31,7 @@ class UpdateStatistics{
 
 		if($dataCount == 0){
 			$timewaste = round(microtime(true) * 1000) - $start;
-			// Log::warning('No data, process stopped. This wasted '.$timewaste.'ms.');
+			//			Log::warning('No data, process stopped. This wasted '.$timewaste.'ms.');
 			$job->delete();
 
 			return;
@@ -64,10 +64,16 @@ class UpdateStatistics{
 
 						if(count($plugins) > 0){
 							$count++;
+							$value = explode(',', $value);
+
+							$version = $value[0];
+							$played = count($value) > 1 ? $value[1] : 0;
+
 							array_push($pInserts, array(
 								'server'      => $server,
 								'plugin'      => $plugin,
-								'version'     => $value,
+								'version'     => $version,
+								'played'      => $played,
 								'inserted_on' => $time
 							));
 						}else{
@@ -83,7 +89,6 @@ class UpdateStatistics{
 					}
 				}
 			}
-
 			array_push($sInserts, $pairs);
 		}
 
@@ -95,9 +100,9 @@ class UpdateStatistics{
 			DB::table('server_statistics')->insert($sInserts);
 		}
 
-//		$waste = round($drop / ($drop + $count) * 100, 2);
-//		$stop = round(microtime(true) * 1000) - $start;
-//		Log::notice(count($sInserts) + count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
+		//		$waste = round($drop / ($drop + $count) * 100, 2);
+		//		$stop = round(microtime(true) * 1000) - $start;
+		//		Log::notice(count($sInserts) + count($pInserts).' new statistic requests handled ('.count($sInserts).' new plugin records, '.count($pInserts).' new server records). This took '.$stop.'ms to process. '.$count.' new pieces of data have been entered, '.$drop.' pieces of data have been dropped. '.$waste.'% of this request was dropped data.');
 		$job->delete();
 	}
 }

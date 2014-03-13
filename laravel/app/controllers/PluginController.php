@@ -57,6 +57,11 @@ class PluginController extends BaseController{
 		$plugin = DB::table('plugins')->where('name', $name)->first();
 		if(count($plugin) > 0){
 			$vars['title'] = $plugin->name;
+			$vars['plugin'] = $plugin;
+
+			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
+			$vars['lastBuild'] = array('ci' => $ci, 'name' => $plugin->name, 'author' => $plugin->author, 'bukkit' => $plugin->bukkit);
+
 			return View::make('plugin-profile', $vars);
 		}else{
 			return Redirect::to('/plugins');

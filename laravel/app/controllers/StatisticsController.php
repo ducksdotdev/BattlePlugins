@@ -101,7 +101,7 @@ class StatisticsController extends BaseController{
 
 	public function getPluginInformation($plugin, $type){
 		$interval = Config::get('statistics.interval');
-		$plugins = DB::table('plugins')->where('plugin', $plugin)->get();
+		$plugins = DB::table('plugins')->where('name', $plugin)->get();
 		if(count($plugins) > 0){
 			switch($type){
 				case 'version':

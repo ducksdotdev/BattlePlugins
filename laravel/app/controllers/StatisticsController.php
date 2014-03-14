@@ -132,7 +132,7 @@ class StatisticsController extends BaseController{
 					$sendData[] = array('name' => key($piece), 'data'=>$thisdata);
 				}
 
-				return Response::json($data);
+				return Response::json($sendData);
 				break;
 			default:
 				Response::make('', 204);

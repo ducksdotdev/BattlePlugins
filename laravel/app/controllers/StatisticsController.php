@@ -118,7 +118,9 @@ class StatisticsController extends BaseController{
 					foreach($times as $time){
 						foreach($pluginStatistics as $stat){
 							$value = $stat->time == $time ? $stat->count : null;
-							$data[$stat->version][] = array($time, $value);
+							if(!in_array(array($time, $value), $data[$stat->version])){
+								$data[$stat->version][] = array($time, $value);
+							}
 						}
 					}
 

@@ -129,7 +129,7 @@ class StatisticsController extends BaseController{
 					foreach($piece as $part){
 						$thisdatap[] = $part;
 					}
-					$sendData[] = array('name' => $piece['version'], 'data'=>$thisdata);
+					$sendData[] = array('name' => key($piece), 'data'=>$thisdata);
 				}
 
 				return Response::json($sendData);

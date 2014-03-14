@@ -107,10 +107,14 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getPluginInformation($plugin, $type){
+		$interval = Config::get('statistics.interval') * 60;
 		$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin);
 		switch($type){
 			case 'version':
-				$pluginStatistics = $pluginStatistics->select(DB::raw('count(distinct server) as count'), 'version')->groupBy('version')->get();
+				$pluginStatistics = $pluginStatistics->select(
+					DB::raw('count(distinct server) as count'),
+					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp))'),
+					'version')->groupBy('timestamp')->get();
 				return Response::json($pluginStatistics);
 				break;
 			default:

@@ -114,7 +114,7 @@ class StatisticsController extends BaseController{
 					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
 					'version')->groupBy('timestamp')->orderBy('timestamp', 'desc')->take(336)->get();
 
-				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->timestamp * $interval){
+				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->timestamp){
 					array_shift($pluginStatistics);
 				}
 

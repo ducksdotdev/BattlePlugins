@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h2>{{ $plugin->name }} <small>Created by {{ $plugin->author }}</small></h2>
+				<h2>{{ $plugin->name }} <small>Created by <a href="/profile/{{ $author }}">{{ $author }}</a></small></h2>
 			</div>
 		</div>
 		<div class="row">

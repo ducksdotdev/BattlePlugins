@@ -59,6 +59,7 @@ class PluginController extends BaseController{
 		if(count($plugin) > 0){
 			$vars['title'] = $plugin->name;
 			$vars['plugin'] = $plugin;
+			$vars['author'] = UserSettings::getUsernameFromId($plugin->author);
 			$vars['dev'] = Deploy::isDeveloperMode();
 
 			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);

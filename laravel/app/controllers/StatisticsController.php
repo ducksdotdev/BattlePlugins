@@ -119,10 +119,20 @@ class StatisticsController extends BaseController{
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
-					$data[$stat->version]['data'][] = array($stat->timestamp, $stat->count);
+					$dateTime = new Carbon($stat->timestamp);
+					$data[$stat->version]['data'][] = array($dateTime->toDateTimeString(), $stat->count);
 				}
 
-				return Response::json($data);
+				$sendData = array();
+				foreach($data as $piece){
+					$thisdata = array();
+					foreach($piece as $part){
+						$thisdatap[] = $part;
+					}
+					$sendData[] = array('name' => $piece['version'], 'data'=>$thisdata);
+				}
+
+				return Response::json($sendData);
 				break;
 			default:
 				Response::make('', 204);

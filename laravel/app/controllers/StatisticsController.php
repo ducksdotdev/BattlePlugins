@@ -109,27 +109,19 @@ class StatisticsController extends BaseController{
 
 					$inData = array();
 					$times = array();
-					$updated = array();
 					foreach($pluginStatistics as $stat){
 						$times[] = $stat->time;
 						$inData[$stat->version] = $stat->time;
-						$updated[] = $stat->version;
+						$data[$stat->version][] = array($stat->time, intval($stat->count));
 					}
 
 					$times = array_unique($times);
-					$updated = array_unique($updated);
 
 					$data = array();
 					foreach($times as $time){
 						foreach($pluginStatistics as $stat){
-							if(!in_array($time, $updated[$stat->version])){
-								if(!in_array($time, $inData[$stat->version])){
-									$data[$stat->version][] = array($time, null);
-								}else{
-									$data[$stat->version][] = array($time, intval($stat->count));
-								}
-
-								$updated[$stat->version][] = $time;
+							if(!in_array($time, $inData[$stat->version])){
+								$data[$stat->version][] = array($time, null);
 							}
 						}
 					}

@@ -209,6 +209,7 @@ $(function () {
                 },
                 plotOptions: {
                     area: {
+                        stacking: 'normal',
                         lineWidth: 1,
                         marker: {
                             enabled: false

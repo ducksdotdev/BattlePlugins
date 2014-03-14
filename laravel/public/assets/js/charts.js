@@ -167,6 +167,11 @@ $(function () {
             ]
         });
     }, 'json');
+
+    if($('#versionStatistics').length > 0){
+        var plugin = $('#versionStatistics').data('plugin');
+        $.get('/statistics/plugin/BattleArena/version')
+    }
 });
 
 Date.toTimestamp = function (s) {

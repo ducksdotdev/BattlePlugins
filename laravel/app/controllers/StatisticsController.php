@@ -71,7 +71,7 @@ class StatisticsController extends BaseController{
 			$json = Response::json($table);
 
 
-//			Log::notice('Updated the server totals graph. It will update again in '.$diff.' minutes.');
+			//			Log::notice('Updated the server totals graph. It will update again in '.$diff.' minutes.');
 			Cache::put('getTotalServers', $json, $diff);
 
 			return $json;
@@ -104,5 +104,17 @@ class StatisticsController extends BaseController{
 			remember($diff)->get();
 
 		return Response::json($table);
+	}
+
+	public function getPluginInformation($plugin, $type){
+		$pluginStatistics = DB::table('plugin_statistics')->where('name', $plugin);
+		switch($type){
+			case 'version':
+				$pluginStatistics = $pluginStatistics->select('count(version) as version')->groupBy('version')->get();
+				return Response::json($pluginStatistics);
+				break;
+			default:
+				Response::make('', 204);
+		}
 	}
 }

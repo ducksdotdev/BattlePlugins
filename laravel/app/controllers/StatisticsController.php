@@ -111,8 +111,7 @@ class StatisticsController extends BaseController{
 			case 'version':
 				$pluginStatistics = $pluginStatistics->select(
 					DB::raw('count(distinct server) as count'),
-					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as newTime'),
-					DB::raw('FROM_UNIXTIME(newTime*'.$interval.') as timestamp'),
+					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
 					'version')->groupBy('timestamp')->orderBy('timestamp', 'desc')->take(336)->get();
 
 				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->timestamp){
@@ -123,7 +122,7 @@ class StatisticsController extends BaseController{
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
-					$dateTime = Carbon::createFromTimestamp($stat->timestamp);
+					$dateTime = Carbon::createFromTimestamp($stat->timestamp * $interval);
 					$data[$stat->version][] = array($dateTime->toDateTimeString(), intval($stat->count));
 				}
 

@@ -56,7 +56,7 @@ class StatisticsController extends BaseController{
 	}
 
 	public function getTotalServers(){
-		return Cache::get('getTotalServers', function(){
+		return Cache::get('getTotalServers', function (){
 			$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
 
 			$interval = Config::get('statistics.interval') * 60;
@@ -105,24 +105,29 @@ class StatisticsController extends BaseController{
 		if(count($plugins) > 0){
 			switch($type){
 				case 'version':
-					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
+					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
 
 					$data = array();
+					$times = array();
 					foreach($pluginStatistics as $stat){
+						$times[$stat->version][] = $stat->time;
 						$data[$stat->version][] = array($stat->time, intval($stat->count));
+					}
+
+					foreach(array_keys($times) as $time){
+						$sendData[] = array('name' => $time, 'data' => array($times[$time], null));
 					}
 
 					$sendData = array();
 					foreach($data as $piece){
-						$thisdata = array();
+						$thisData = array();
 						foreach($piece as $part){
-							$thisdata[] = $part;
+							$thisData[] = $part;
 						}
-						$sendData[] = array('name' => array_search($piece, $data), 'data'=>$thisdata);
+						$sendData[] = array('name' => array_search($piece, $data), 'data' => $thisData);
 					}
 
 					return Response::json($sendData);
-					break;
 				default:
 					return Response::make('', 204);
 			}

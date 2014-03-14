@@ -126,9 +126,9 @@ class StatisticsController extends BaseController{
 								}else{
 									$data[$stat->version][] = array($time, intval($stat->count));
 								}
-							}
 
-							$updated[$stat->version][] = $time;
+								$updated[$stat->version][] = $time;
+							}
 						}
 					}
 

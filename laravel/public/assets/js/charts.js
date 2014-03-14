@@ -169,6 +169,7 @@ $(function () {
     }, 'json');
 
     if($('#versionStatistics').length > 0){
+        console.log('Running');
         var plugin = $('#versionStatistics').data('plugin');
         $.get('/statistics/plugin/BattleArena/version', function(data){
             data = data.replace(/"(\w+)"\s*:/g, '$1:');

@@ -171,6 +171,8 @@ $(function () {
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
         $.get('/statistics/plugin/BattleArena/version', function(data){
+            data = data.replace(/"(\w+)"\s*:/g, '$1:');
+            console.log(data);
             $('#serversGraph').highcharts({
                 chart: {
                     type: 'area',
@@ -217,7 +219,7 @@ $(function () {
                     }
                 },
                 colors: colors,
-                series: data.replace(/"(\w+)"\s*:/g, '$1:')
+                series: data
             });
         }, 'json');
     }

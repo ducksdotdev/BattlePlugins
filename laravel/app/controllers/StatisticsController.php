@@ -122,6 +122,7 @@ class StatisticsController extends BaseController{
 						foreach($pluginStatistics as $stat){
 							if(!in_array($time, $inData[$stat->version])){
 								$data[$stat->version][] = array($time, null);
+								$inData[$stat->version][] = $time;
 							}
 						}
 					}

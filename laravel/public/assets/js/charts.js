@@ -171,8 +171,8 @@ $(function () {
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
+            data = json.stringify(data);
             data = data.replace(/"(\w+)"\s*:/g, '$1:');
-            console.log(data);
             $('#versionStatistics').highcharts({
                 chart: {
                     type: 'area',
@@ -221,7 +221,7 @@ $(function () {
                 colors: colors,
                 series: data
             });
-        });
+        }, 'json');
     }
 });
 

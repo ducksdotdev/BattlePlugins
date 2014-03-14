@@ -110,7 +110,7 @@ class StatisticsController extends BaseController{
 		$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin);
 		switch($type){
 			case 'version':
-				$pluginStatistics = $pluginStatistics->select(DB::raw('count(version) as version'), 'version')->groupBy('version')->get();
+				$pluginStatistics = $pluginStatistics->select(DB::raw('count(version) as count'), 'version')->groupBy('version')->get();
 				return Response::json($pluginStatistics);
 				break;
 			default:

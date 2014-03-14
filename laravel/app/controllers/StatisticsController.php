@@ -117,12 +117,12 @@ class StatisticsController extends BaseController{
 					$times = array_unique($times);
 
 					$sendData = array();
-					foreach($data as $piece){
+					foreach(array_keys($data) as $key){
 						$thisData = array();
-						foreach($piece as $part){
+						foreach($data[$key] as $part){
 							$thisData[] = $part;
 						}
-						$sendData[] = array('name' => array_search($piece, $data), 'data' => $thisData);
+						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 					}
 
 					return Response::json($sendData);

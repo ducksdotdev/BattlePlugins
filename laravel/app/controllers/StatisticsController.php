@@ -112,7 +112,7 @@ class StatisticsController extends BaseController{
 				$pluginStatistics = $pluginStatistics->select(
 					DB::raw('count(distinct server) as count'),
 					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
-					'version')->groupBy('timestamp')->orderBy('timestamp')->take(336)->get();
+					'version')->groupBy('timestamp')->orderBy('timestamp', 'desc')->take(336)->get();
 
 				$data = array();
 				foreach($pluginStatistics as $stat){

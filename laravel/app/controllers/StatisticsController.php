@@ -70,8 +70,6 @@ class StatisticsController extends BaseController{
 			$table = array_reverse($table);
 			$json = Response::json($table);
 
-
-			//			Log::notice('Updated the server totals graph. It will update again in '.$diff.' minutes.');
 			Cache::put('getTotalServers', $json, $diff);
 
 			return $json;
@@ -114,13 +112,18 @@ class StatisticsController extends BaseController{
 				$pluginStatistics = $pluginStatistics->select(
 					DB::raw('count(distinct server) as count'),
 					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
-					'version')->groupBy('timestamp')->orderBy('timestamp')->take(336)->get();
+					'version')->groupBy('timestamp')->orderBy('timestamp', 'desc')->take(336)->get();
 
+				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->timestamp){
+					array_shift($pluginStatistics);
+				}
+
+				$pluginStatistics = array_reverse($pluginStatistics);
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
 					$dateTime = Carbon::createFromTimestamp($stat->timestamp);
-					$data[$stat->version][] = array($dateTime->toDateTimeString(), $stat->count);
+					$data[$stat->version][] = array($dateTime->toDateTimeString(), intval($stat->count));
 				}
 
 				$sendData = array();

@@ -21,152 +21,158 @@ $(function () {
         '#B5CA92'
     ];
 
-    $.get('/statistics/getTotalServers', function (data) {
-        var players = [];
-        var servers = [];
-        $.each(data, function (i, item) {
-            var timestamp = Date.toTimestamp(item.time);
-            players.push([timestamp, parseInt(item.nPlayers)]);
-            servers.push([timestamp, parseInt(item.nServers)]);
-        });
+    if($("#serversGraph").length > 0){
+        $.get('/statistics/getTotalServers', function (data) {
+            var players = [];
+            var servers = [];
+            $.each(data, function (i, item) {
+                var timestamp = Date.toTimestamp(item.time);
+                players.push([timestamp, parseInt(item.nPlayers)]);
+                servers.push([timestamp, parseInt(item.nServers)]);
+            });
 
-        $('#serversGraph').highcharts({
-            chart: {
-                type: 'area',
-                zoomType: 'x'
-            },
-            title: {
-                text: null
-            },
-            subtitle: {
-                text: null
-            },
-            xAxis: {
-                type: 'datetime',
-                tickWidth: 0,
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: -3
-                }
-            },
-            yAxis: {
-                min: 0,
+            $('#serversGraph').highcharts({
+                chart: {
+                    type: 'area',
+                    zoomType: 'x'
+                },
                 title: {
                     text: null
-                }
-            },
-            tooltip: {
-                crosshairs: true,
-                shared: true
-            },
-            plotOptions: {
-                area: {
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false
-                    },
-                    shadow: false,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-            colors: colors,
-            series: [
-                {
-                    name: 'Players',
-                    data: players
                 },
-                {
-                    name: 'Servers',
-                    data: servers
-                }
-            ]
-        });
-    }, 'json');
-
-    $.get('/statistics/getPluginCount', function (data) {
-        var cdata = [];
-        $.each(data, function (i, item) {
-            cdata.push([item.plugin, parseInt(item.total)]);
-        });
-
-        $('#pluginsGraph').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: null
-            },
-            tooltip: {
-                pointFormat: '<b>{point.y} servers</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                subtitle: {
+                    text: null
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickWidth: 0,
+                    labels: {
+                        align: 'left',
+                        x: 3,
+                        y: -3
                     }
-                }
-            },
-            series: [
-                {
-                    type: 'pie',
-                    data: cdata
-                }
-            ]
-        });
-    }, 'json');
-
-    $.get('/statistics/getAuthMode', function (data) {
-        var cdata = [];
-        $.each(data, function (i, item) {
-            var name = item.bOnlineMode == 'true' ? 'Online' : 'Offline';
-            cdata.push([name, parseInt(item.total)]);
-        });
-
-        $('#authGraph').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: null
-            },
-            tooltip: {
-                pointFormat: '<b>{point.y} servers</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: null
                     }
-                }
-            },
-            series: [
-                {
-                    type: 'pie',
-                    data: cdata
-                }
-            ]
-        });
-    }, 'json');
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    area: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+                colors: colors,
+                series: [
+                    {
+                        name: 'Players',
+                        data: players
+                    },
+                    {
+                        name: 'Servers',
+                        data: servers
+                    }
+                ]
+            });
+        }, 'json');
+    }
+
+    if($("#pluginsGraph").length > 0){
+        $.get('/statistics/getPluginCount', function (data) {
+            var cdata = [];
+            $.each(data, function (i, item) {
+                cdata.push([item.plugin, parseInt(item.total)]);
+            });
+
+            $('#pluginsGraph').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: null
+                },
+                tooltip: {
+                    pointFormat: '<b>{point.y} servers</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        data: cdata
+                    }
+                ]
+            });
+        }, 'json');
+    }
+
+    if($("#authGraph").length > 0){
+        $.get('/statistics/getAuthMode', function (data) {
+            var cdata = [];
+            $.each(data, function (i, item) {
+                var name = item.bOnlineMode == 'true' ? 'Online' : 'Offline';
+                cdata.push([name, parseInt(item.total)]);
+            });
+
+            $('#authGraph').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: null
+                },
+                tooltip: {
+                    pointFormat: '<b>{point.y} servers</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        data: cdata
+                    }
+                ]
+            });
+        }, 'json');
+    }
 
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');

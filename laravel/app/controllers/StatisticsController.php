@@ -114,10 +114,6 @@ class StatisticsController extends BaseController{
 						$data[$stat->version][] = array($stat->time, intval($stat->count));
 					}
 
-					foreach(array_keys($times) as $time){
-						$sendData[] = array('name' => $time, 'data' => array($times[$time], null));
-					}
-
 					$sendData = array();
 					foreach($data as $piece){
 						$thisData = array();

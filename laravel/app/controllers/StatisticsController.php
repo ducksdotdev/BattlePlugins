@@ -109,14 +109,22 @@ class StatisticsController extends BaseController{
 		$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin);
 		switch($type){
 			case 'version':
-				$pluginStatistics = $pluginStatistics->select(
-					DB::raw('count(distinct server) as count'),
-					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
-					'version')->groupBy('timestamp')->orderBy('timestamp', 'desc')->take(336)->get();
+				$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from plugin_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
+
+				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->time){
+					array_shift($pluginStatistics);
+				}
+
+				$pluginStatistics = array_reverse($pluginStatistics);
+
+//				$pluginStatistics = $pluginStatistics->select(
+//					DB::raw('count(distinct server) as count'),
+//					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
+//					'version')->groupBy('timestamp')->orderBy('timestamp')->take(336)->get();
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
-					$dateTime = Carbon::createFromTimestampUTC($stat->timestamp * $interval);
+					$dateTime = Carbon::createFromTimestampUTC($stat->time);
 					$data[$stat->version][] = array($dateTime->toDateTimeString(), intval($stat->count));
 				}
 

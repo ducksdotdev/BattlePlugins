@@ -119,7 +119,7 @@ class StatisticsController extends BaseController{
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
-					$dateTime = new Carbon($stat->timestamp);
+					$dateTime = Carbon::createFromTimestampUTC($stat->timestamp);
 					$data[$stat->version]['data'][] = array($dateTime->toDateTimeString(), $stat->count);
 				}
 

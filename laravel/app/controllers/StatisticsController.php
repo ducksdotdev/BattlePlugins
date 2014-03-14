@@ -118,16 +118,9 @@ class StatisticsController extends BaseController{
 					$sendData = array();
 					foreach($data as $piece){
 						$thisData = array();
-						$needs = $times;
 						foreach($piece as $part){
 							$thisData[] = $part;
-							unset($needs[$part[0]]);
 						}
-
-						foreach($needs as $need){
-							$thisData[] = array($need, null);
-						}
-
 						$sendData[] = array('name' => array_search($piece, $data), 'data' => $thisData);
 					}
 

@@ -115,7 +115,14 @@ class StatisticsController extends BaseController{
 					DB::raw('count(distinct server) as count'),
 					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as timestamp'),
 					'version')->groupBy('timestamp')->get();
-				return Response::json($pluginStatistics);
+
+
+				$data = array();
+				foreach($pluginStatistics as $stat){
+					$data[$stat->version] = array($stat->timestamp, $stat->count);
+				}
+
+				return Response::json($data);
 				break;
 			default:
 				Response::make('', 204);

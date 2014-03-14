@@ -170,7 +170,56 @@ $(function () {
 
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
-        $.get('/statistics/plugin/BattleArena/version')
+        $.get('/statistics/plugin/BattleArena/version', function(data){
+            $('#serversGraph').highcharts({
+                chart: {
+                    type: 'area',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: null
+                },
+                subtitle: {
+                    text: null
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickWidth: 0,
+                    labels: {
+                        align: 'left',
+                        x: 3,
+                        y: -3
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: null
+                    }
+                },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true
+                },
+                plotOptions: {
+                    area: {
+                        lineWidth: 1,
+                        marker: {
+                            enabled: false
+                        },
+                        shadow: false,
+                        states: {
+                            hover: {
+                                lineWidth: 1
+                            }
+                        },
+                        threshold: null
+                    }
+                },
+                colors: colors,
+                series: data
+            });
+        }, 'json');
     }
 });
 

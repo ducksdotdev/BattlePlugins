@@ -112,7 +112,7 @@ class StatisticsController extends BaseController{
 					$times = array();
 					foreach($pluginStatistics as $stat){
 						$times[] = $stat->time;
-						$unsetData[$stat->version][] = array($stat->time, $stat->count);
+						$data[$stat->version][] = array($stat->time, $stat->count);
 						$inData[$stat->version][] = $stat->time;
 					}
 

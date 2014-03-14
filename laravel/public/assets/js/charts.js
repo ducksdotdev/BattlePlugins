@@ -169,9 +169,8 @@ $(function () {
     }, 'json');
 
     if($('#versionStatistics').length > 0){
-        console.log('Running');
         var plugin = $('#versionStatistics').data('plugin');
-        $.get('/statistics/'+plugin+'/BattleArena/version', function(data){
+        $.get('/statistics/plugin/'+plugin+'/version', function(data){
             data = data.replace(/"(\w+)"\s*:/g, '$1:');
             console.log(data);
             $('#serversGraph').highcharts({

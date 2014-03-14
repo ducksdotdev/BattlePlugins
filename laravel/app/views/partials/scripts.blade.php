@@ -14,4 +14,5 @@
 <script src="/assets/js/admin.min.js"></script>
 @endif
 @endif
+
 @yield('extraScripts')

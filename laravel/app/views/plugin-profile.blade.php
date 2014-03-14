@@ -37,3 +37,4 @@
 @else
 <script src="/assets/js/charts.min.js"></script>
 @endif
+@stop

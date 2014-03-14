@@ -117,6 +117,7 @@ class StatisticsController extends BaseController{
 					}
 
 					$times = array_unique($times);
+					$updated = array_unique($updated);
 
 					$data = array();
 					foreach($times as $time){

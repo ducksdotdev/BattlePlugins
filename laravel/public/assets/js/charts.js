@@ -209,7 +209,6 @@ $(function () {
                 },
                 plotOptions: {
                     area: {
-                        connectNulls: false,
                         lineWidth: 1,
                         marker: {
                             enabled: false

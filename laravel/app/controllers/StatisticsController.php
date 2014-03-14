@@ -61,13 +61,8 @@ class StatisticsController extends BaseController{
 
 			$interval = Config::get('statistics.interval') * 60;
 
-			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
+			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
 
-			if(count($table) > 0 && DateUtil::getTimeToThirty() <= $table[0]->time){
-				array_shift($table);
-			}
-
-			$table = array_reverse($table);
 			$json = Response::json($table);
 
 			Cache::put('getTotalServers', $json, $diff);
@@ -109,13 +104,7 @@ class StatisticsController extends BaseController{
 		$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin);
 		switch($type){
 			case 'version':
-				$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from plugin_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time desc limit 336');
-
-				if(count($pluginStatistics) > 0 && DateUtil::getTimeToThirty() <= $pluginStatistics[0]->time){
-					array_shift($pluginStatistics);
-				}
-
-				$pluginStatistics = array_reverse($pluginStatistics);
+				$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from plugin_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
 
 				$data = array();
 				foreach($pluginStatistics as $stat){

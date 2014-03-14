@@ -218,8 +218,7 @@ $(function () {
                             hover: {
                                 lineWidth: 1
                             }
-                        },
-                        threshold: null
+                        }
                     }
                 },
                 colors: colors,

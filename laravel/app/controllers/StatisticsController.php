@@ -123,7 +123,7 @@ class StatisticsController extends BaseController{
 					$data[$stat->version][] = array($dateTime->toDateTimeString(), $stat->count);
 				}
 
-//				$sendData = array();
+				$sendData = array();
 				foreach($data as $piece){
 					$thisdata = array();
 					foreach($piece as $part){

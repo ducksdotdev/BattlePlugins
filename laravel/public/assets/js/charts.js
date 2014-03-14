@@ -179,7 +179,7 @@ $(function () {
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts({
                 chart: {
-                    type: 'area',
+                    type: 'spline',
                     zoomType: 'x'
                 },
                 title: {
@@ -208,7 +208,7 @@ $(function () {
                     shared: true
                 },
                 plotOptions: {
-                    area: {
+                    spline: {
                         lineWidth: 1,
                         marker: {
                             enabled: false

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 class UpdateStatistics{
 
 	public function fire($job, $data){
-		$start = round(microtime(true) * 1000);
+//		$start = round(microtime(true) * 1000);
 		$interval = Config::get('statistics.interval');
 
 		$count = 0;
@@ -30,8 +30,6 @@ class UpdateStatistics{
 		$dataCount = count($data);
 
 		if($dataCount == 0){
-			$timewaste = round(microtime(true) * 1000) - $start;
-			//			Log::warning('No data, process stopped. This wasted '.$timewaste.'ms.');
 			$job->delete();
 
 			return;

@@ -173,7 +173,6 @@ $(function () {
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             data = JSON.stringify(data);
             data = data.replace(/"(\w+)"\s*:/g, '$1:');
-            console.log(data);
             $('#versionStatistics').highcharts({
                 chart: {
                     type: 'area',

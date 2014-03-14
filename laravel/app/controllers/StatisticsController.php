@@ -123,16 +123,16 @@ class StatisticsController extends BaseController{
 					$data[$stat->version][] = array($dateTime->toDateTimeString(), $stat->count);
 				}
 
-				$sendData = array();
-				foreach($data as $piece){
-					$thisdata = array();
-					foreach($piece as $part){
-						$thisdatap[] = $part;
-					}
-					$sendData[] = array('name' => key($piece), 'data'=>$thisdata);
-				}
+//				$sendData = array();
+//				foreach($data as $piece){
+//					$thisdata = array();
+//					foreach($piece as $part){
+//						$thisdatap[] = $part;
+//					}
+//					$sendData[] = array('name' => key($piece), 'data'=>$thisdata);
+//				}
 
-				return Response::json($sendData);
+				return Response::json($data);
 				break;
 			default:
 				Response::make('', 204);

@@ -217,7 +217,7 @@ $(function () {
                     }
                 },
                 colors: colors,
-                series: data
+                series: data.replace(/"(\w+)"\s*:/g, '$1:')
             });
         }, 'json');
     }

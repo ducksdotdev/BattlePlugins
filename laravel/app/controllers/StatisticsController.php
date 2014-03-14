@@ -110,8 +110,13 @@ class StatisticsController extends BaseController{
 					$data = array();
 					$times = array();
 					foreach($pluginStatistics as $stat){
-						$times[$stat->version][] = $stat->time;
-						$data[$stat->version][] = array($stat->time, intval($stat->count));
+						$times[] = $stat->time;
+					}
+
+					foreach($times as $time){
+						foreach($pluginStatistics as $stat){
+							$data[$stat->version][] = array($time, null);
+						}
 					}
 
 					$sendData = array();

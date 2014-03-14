@@ -113,6 +113,8 @@ class StatisticsController extends BaseController{
 						$times[] = $stat->time;
 					}
 
+					$times = array_unique($times);
+
 					foreach($times as $time){
 						foreach($pluginStatistics as $stat){
 							$time = $stat->time == $time ? $stat->time : null;

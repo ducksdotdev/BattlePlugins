@@ -119,7 +119,7 @@ class StatisticsController extends BaseController{
 
 				$data = array();
 				foreach($pluginStatistics as $stat){
-					$data[$stat->version][] = array($stat->timestamp, $stat->count);
+					$data[] = array('name'=>$stat->version, 'data'=>$stat->timestamp, $stat->count);
 				}
 
 				return Response::json($data);

@@ -62,7 +62,7 @@ class StatisticsController extends BaseController{
 		switch($type){
 			case 'totals':
 				return Cache::get('getTotalServers', function () use ($interval, $diff){
-					$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
+					$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time');
 
 					$json = Response::json($table);
 
@@ -107,7 +107,6 @@ class StatisticsController extends BaseController{
 						DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'),
 						'version')
 					->where('plugin', $plugin)
-					->where('inserted_on', '>', Carbon::now()->subWeek())
 					->where('inserted_on', '<', DateUtil::getTimeToThirty())
 					->groupBy('version', 'time')
 					->remember($diff)->get();

@@ -190,21 +190,15 @@ $(function () {
                 },
                 xAxis: {
                     type: 'datetime',
-                    tickWidth: 0,
-                    labels: {
-                        align: 'left',
-                        x: 3,
-                        y: -3
-                    }
                 },
                 yAxis: {
-                    min: 0,
                     title: {
-                        text: null
-                    }
+                        text: 'null'
+                    },
+                    min: 0
                 },
                 tooltip: {
-                    crosshairs: true,
+                    crosshairs: true
                 },
                 plotOptions: {
                     area: {
@@ -221,7 +215,6 @@ $(function () {
                         threshold: null
                     }
                 },
-                colors: colors,
                 series: data
             });
         }, 'json');

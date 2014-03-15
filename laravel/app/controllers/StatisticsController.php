@@ -115,12 +115,14 @@ class StatisticsController extends BaseController{
 
 					$times = array_unique($times);
 
+					$hasTimes = array();
 					foreach($pluginStatistics as $stat){
 						$data[$stat->version][] = array(strtotime($stat->time)*1000, intval($stat->count));
+						$hasTimes[$stat->version][] = $stat->time;
 					}
 
 					foreach($pluginStatistics as $stat){
-						$array = array_diff($times, $data[$stat->version]);
+						$array = array_diff($times, $hasTimes[$stat->version]);
 						foreach($array as $time){
 							$data[$stat->version][] = array(strtotime($time)*1000, null);
 						}

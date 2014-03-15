@@ -103,10 +103,16 @@ class StatisticsController extends BaseController{
 		$interval = Config::get('statistics.interval');
 		switch($type){
 			case 'version':
-				$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin)->select(
-					DB::raw('count(distinct server) as count'),
-					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'),
-					'version')->groupBy('time')->get();
+				$pluginStatistics = DB::table('plugin_statistics')
+					->select(
+						DB::raw('count(distinct server) as count'),
+						DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'),
+						'version')
+					->where('plugin', $plugin)
+					->where('inserted_on', '>', Carbon::now()->subWeek())
+					->where('inserted_on', '<', DateUtil::getTimeToThirty())
+					->groupBy('time')
+					->get();
 
 				$times = array();
 				$data = array();

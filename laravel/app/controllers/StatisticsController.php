@@ -111,11 +111,7 @@ class StatisticsController extends BaseController{
 					->where('plugin', $plugin)
 					->where('inserted_on', '>', Carbon::now()->subWeek())
 					->where('inserted_on', '<', DateUtil::getTimeToThirty())
-					->groupBy('version', 'time');
-
-				Log::info($pluginStatistics->toSql());
-
-				$pluginStatistics = $pluginStatistics->get();
+					->groupBy('version', 'time')->get();
 
 				$times = array();
 				$data = array();

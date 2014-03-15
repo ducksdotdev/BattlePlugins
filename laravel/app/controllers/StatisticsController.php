@@ -109,7 +109,7 @@ class StatisticsController extends BaseController{
 
 					$data = array();
 					foreach($pluginStatistics as $stat){
-						$data[][$stat->version] = $stat->time;
+						$data[$stat->version][] = array($stat->time, intval($stat->count));
 					}
 
 					$sendData = array();

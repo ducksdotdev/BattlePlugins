@@ -42,6 +42,10 @@ $(function () {
         count: 1,
         text: '1m'
     }, {
+        type: 'year',
+        count: 1,
+        text: '1y'
+    }, {
         type: 'all',
         text: 'All'
     }];
@@ -64,42 +68,10 @@ $(function () {
                 title: {
                     text: null
                 },
-                subtitle: {
-                    text: null
-                },
-                xAxis: {
-                    type: 'datetime',
-                    tickWidth: 0,
-                    labels: {
-                        align: 'left',
-                        x: 3,
-                        y: -3
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: null
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true
-                },
-                plotOptions: {
-                    area: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
-                    }
+                rangeSelector : {
+                    selected : 0,
+                    inputEnabled: true,
+                    buttons: buttons
                 },
                 colors: colors,
                 series: [
@@ -147,6 +119,7 @@ $(function () {
                         }
                     }
                 },
+                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -189,6 +162,7 @@ $(function () {
                         }
                     }
                 },
+                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -215,6 +189,7 @@ $(function () {
                     inputEnabled: true,
                     buttons: buttons
                 },
+                colors: colors,
                 series: data
             });
         }, 'json');

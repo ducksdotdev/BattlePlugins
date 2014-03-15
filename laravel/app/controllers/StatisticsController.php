@@ -123,6 +123,7 @@ class StatisticsController extends BaseController{
 
 					foreach($pluginStatistics as $stat){
 						$array = array_diff($times, $hasTimes[$stat->version]);
+						$array = array_unique($array);
 						foreach($array as $time){
 							$data[$stat->version][] = array(strtotime($time)*1000, null);
 						}

@@ -193,7 +193,7 @@ $(function () {
                 },
                 plotOptions: {
                     area: {
-                        stacking: 'normal',
+                        stacking: 'percent',
                         marker: {
                             lineWidth: 1,
                             lineColor: '#ffffff'

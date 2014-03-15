@@ -127,6 +127,8 @@ class StatisticsController extends BaseController{
 						foreach($array as $time){
 							$data[$stat->version][] = array(strtotime($time)*1000, null);
 						}
+
+						$data[$stat->version][] = array_unique($data[$stat->version][]);
 					}
 
 					$sendData = array();

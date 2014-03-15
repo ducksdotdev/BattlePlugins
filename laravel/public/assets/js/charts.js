@@ -31,7 +31,7 @@ $(function () {
                 servers.push([timestamp, parseInt(item.nServers)]);
             });
 
-            $('#serversGraph').highcharts({
+            $('#serversGraph').highcharts('StockChart', {
                 chart: {
                     type: 'area',
                     zoomType: 'x'

@@ -52,7 +52,7 @@ $(function () {
     };
 
     if($("#serversGraph").length > 0){
-        $.get('/statistics/servers/totals', function (data) {
+        $.getJSON('/statistics/servers/totals', function (data) {
             var players = [];
             var servers = [];
             $.each(data, function (i, item) {
@@ -85,11 +85,11 @@ $(function () {
                     }
                 ]
             });
-        }, 'json');
+        });
     }
 
     if($("#pluginsGraph").length > 0){
-        $.get('/statistics/servers/plugins', function (data) {
+        $.getJSON('/statistics/servers/plugins', function (data) {
             var cdata = [];
             $.each(data, function (i, item) {
                 cdata.push([item.plugin, parseInt(item.total)]);
@@ -127,11 +127,11 @@ $(function () {
                     }
                 ]
             });
-        }, 'json');
+        });
     }
 
     if($("#authGraph").length > 0){
-        $.get('/statistics/servers/auth', function (data) {
+        $.getJSON('/statistics/servers/auth', function (data) {
             var cdata = [];
             $.each(data, function (i, item) {
                 var name = item.bOnlineMode == 'true' ? 'Online' : 'Offline';
@@ -170,12 +170,12 @@ $(function () {
                     }
                 ]
             });
-        }, 'json');
+        });
     }
 
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
-        $.get('/statistics/plugin/'+plugin+'/version', function(data){
+        $.getJSON('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
                     type: 'area',
@@ -191,7 +191,7 @@ $(function () {
                 colors: colors,
                 series: data
             });
-        }, 'json');
+        });
     }
 });
 

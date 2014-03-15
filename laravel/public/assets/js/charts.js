@@ -179,14 +179,10 @@ $(function () {
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
-                    type: 'area',
+                    type: 'area'
                 },
                 title: {
                     text: null
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true
                 },
                 rangeSelector : {
                     selected : 1,

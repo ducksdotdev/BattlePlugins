@@ -140,7 +140,7 @@ class StatisticsController extends BaseController{
 						foreach($data[$key] as $part){
 							$thisData[] = $part;
 						}
-						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => array(strtotime($thisData[0])*1000, $thisData[1]));
+						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 					}
 
 					return Response::json($sendData);

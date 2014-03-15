@@ -180,26 +180,17 @@ $(function () {
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
                     type: 'area',
-                    zoomType: 'x'
                 },
                 title: {
                     text: null
                 },
-                subtitle: {
-                    text: null
-                },
-                xAxis: {
-                    type: 'datetime'
-                },
-                yAxis: {
-                    title: {
-                        text: null
-                    },
-                    min: 0
-                },
                 tooltip: {
                     crosshairs: true,
                     shared: true
+                },
+                rangeSelector : {
+                    selected : 1,
+                    inputEnabled: true
                 },
                 plotOptions: {
                     area: {

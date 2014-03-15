@@ -223,7 +223,10 @@ $(function () {
                     }
                 },
                 colors: colors,
-                series: data
+                series: {
+                    pointInterval: 30 * 24 * 3600 * 1000 * 24 * 60 / 30,
+                    data: data
+                }
             });
         }, 'json');
     }

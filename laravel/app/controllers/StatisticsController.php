@@ -137,7 +137,7 @@ class StatisticsController extends BaseController{
 				foreach(array_keys($data) as $key){
 					$thisData = array();
 					foreach($data[$key] as $part){
-						$thisData[] = array($part[0]*$interval*60*1000, $part[1]);
+						$thisData[] = array(Carbon::createFromTimestampUTC($part[0]*$interval*60)->getTimestamp()*1000, $part[1]);
 					}
 					$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 				}

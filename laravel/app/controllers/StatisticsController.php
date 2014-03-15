@@ -101,52 +101,50 @@ class StatisticsController extends BaseController{
 
 	public function getPluginInformation($plugin, $type){
 		$interval = Config::get('statistics.interval');
-		$plugins = DB::table('plugins')->where('name', $plugin)->first();
-		if(count($plugins) > 0){
-			switch($type){
-				case 'version':
-					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'") as st1 group by version order by time');
+		switch($type){
+			case 'version':
+				$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin)->select(
+					DB::raw('count(distinct server) as count'),
+					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.$interval.')) as time'),
+					'version')->groupBy('timestamp')->get();
 
-					$times = array();
-					$data = array();
-					$versions = array();
-					$counts = array();
-					foreach($pluginStatistics as $stat){
-						$times[] = $stat->time;
-						$versions[] = $stat->version;
-						$counts[$stat->version][$stat->time] = $stat->count;
-					}
+				$times = array();
+				$data = array();
+				$versions = array();
+				$counts = array();
+				foreach($pluginStatistics as $stat){
+					$times[] = $stat->time;
+					$versions[] = $stat->version;
+					$counts[$stat->version][$stat->time] = $stat->count;
+				}
 
-					Log::info(json_encode($versions));
+				Log::info(json_encode($versions));
 
-					$times = array_unique($times);
-					$versions = array_unique($versions);
+				$times = array_unique($times);
+				$versions = array_unique($versions);
 
-					foreach($versions as $version){ // Check every statistic
-						foreach($times as $time){ // Loop through every time
-							if(!in_array($time, $counts[$version])){ // If statistic doesn't already have data from the database
-								$data[$version][] = array($time, null); // Set the statistic to null
-							}else{
-								$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
-							}
+				foreach($versions as $version){ // Check every statistic
+					foreach($times as $time){ // Loop through every time
+						if(!in_array($time, $counts[$version])){ // If statistic doesn't already have data from the database
+							$data[$version][] = array($time, null); // Set the statistic to null
+						}else{
+							$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
 						}
 					}
+				}
 
-					$sendData = array();
-					foreach(array_keys($data) as $key){
-						$thisData = array();
-						foreach($data[$key] as $part){
-							$thisData[] = array((new Carbon($part[0]))->getTimestamp() * 1000, $part[1]);
-						}
-						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
+				$sendData = array();
+				foreach(array_keys($data) as $key){
+					$thisData = array();
+					foreach($data[$key] as $part){
+						$thisData[] = array((new Carbon($part[0]))->getTimestamp()*1000*60, $part[1]);
 					}
+					$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
+				}
 
-					return Response::json($sendData);
-				default:
-					return Response::make('', 204);
-			}
-		}else{
-			return Response::make('', 204);
+				return Response::json($sendData);
+			default:
+				return Response::make('', 204);
 		}
 	}
 }

@@ -118,7 +118,7 @@ class StatisticsController extends BaseController{
 					$counts[$stat->version][$stat->time] = $stat->count;
 				}
 
-				Log::info(json_encode($times));
+				Log::info(json_encode($counts));
 
 				$times = array_unique($times);
 				$versions = array_unique($versions);

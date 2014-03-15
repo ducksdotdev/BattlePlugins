@@ -191,6 +191,11 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
+                plotOptions: {
+                    area: {
+                        stacking: 'normal'
+                    }
+                },
                 colors: colors,
                 series: data
             });

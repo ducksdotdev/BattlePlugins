@@ -21,6 +21,31 @@ $(function () {
         '#B5CA92'
     ];
 
+    var buttons = [{
+        type: 'day',
+        count: 1,
+        text: '1d'
+    }, {
+        type: 'day',
+        count: 3,
+        text: '3d'
+    }, {
+        type: 'week',
+        count: 1,
+        text: '1w'
+    }, {
+        type: 'week',
+        count: 3,
+        text: '3w'
+    }, {
+        type: 'month',
+        count: 1,
+        text: '1m'
+    }, {
+        type: 'all',
+        text: 'All'
+    }];
+
     if($("#serversGraph").length > 0){
         $.get('/statistics/servers/totals', function (data) {
             var players = [];
@@ -187,32 +212,9 @@ $(function () {
                 },
                 rangeSelector : {
                     selected : 0,
-                    inputEnabled: true
+                    inputEnabled: true,
+                    buttons: buttons
                 },
-                buttons: [{
-                    type: 'day',
-                    count: 1,
-                    text: '1d'
-                }, {
-                    type: 'day',
-                    count: 3,
-                    text: '3d'
-                }, {
-                    type: 'week',
-                    count: 1,
-                    text: '1w'
-                }, {
-                    type: 'week',
-                    count: 3,
-                    text: '3w'
-                }, {
-                    type: 'month',
-                    count: 1,
-                    text: '1m'
-                }, {
-                    type: 'all',
-                    text: 'All'
-                }],
                 series: data
             });
         }, 'json');

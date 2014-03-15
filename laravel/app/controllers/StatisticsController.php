@@ -105,7 +105,8 @@ class StatisticsController extends BaseController{
 			case 'version':
 				$pluginStatistics = DB::table('plugin_statistics')->where('plugin', $plugin)->select(
 					DB::raw('count(distinct server) as count'),
-					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'),
+					DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as newTime'),
+					DB::raw('FROM_UNIXTIME(newTime*'.($interval*60).') as time'),
 					'version')->groupBy('time')->get();
 
 				$times = array();
@@ -137,7 +138,7 @@ class StatisticsController extends BaseController{
 				foreach(array_keys($data) as $key){
 					$thisData = array();
 					foreach($data[$key] as $part){
-						$thisData[] = array($part[0]*60*1000, $part[1]);
+						$thisData[] = array($part[0]*1000, $part[1]);
 					}
 					$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 				}

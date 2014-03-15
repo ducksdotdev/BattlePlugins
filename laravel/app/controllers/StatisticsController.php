@@ -121,7 +121,6 @@ class StatisticsController extends BaseController{
 						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 					}
 
-					$sendData['pointInterval'] = 30 * 24 * 3600 * 1000 * 24 * 60 / 30;
 					return Response::json($sendData);
 				default:
 					return Response::make('', 204);

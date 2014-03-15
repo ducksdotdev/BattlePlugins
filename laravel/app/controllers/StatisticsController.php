@@ -124,9 +124,9 @@ class StatisticsController extends BaseController{
 					foreach($versions as $version){ // Check every statistic
 						foreach($times as $time){ // Loop through every time
 							if(!in_array($time, $hasData[$version])){ // If statistic doesn't already have data from the database
-								$data[$stat->version][] = array($time, null); // Set the statistic to null
+								$data[$version][] = array($time, null); // Set the statistic to null
 							}else{
-								$data[$stat->version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
+								$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
 							}
 						}
 					}

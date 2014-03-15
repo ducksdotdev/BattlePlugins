@@ -73,6 +73,9 @@ $(function () {
                     inputEnabled: true,
                     buttons: buttons
                 },
+                scrollbar : {
+                    enabled : false
+                },
                 colors: colors,
                 series: [
                     {
@@ -188,6 +191,9 @@ $(function () {
                     selected : 0,
                     inputEnabled: true,
                     buttons: buttons
+                },
+                scrollbar : {
+                    enabled : false
                 },
                 colors: colors,
                 series: data

@@ -189,16 +189,17 @@ $(function () {
                     text: null
                 },
                 xAxis: {
-                    type: 'datetime',
+                    type: 'datetime'
                 },
                 yAxis: {
                     title: {
-                        text: 'null'
+                        text: null
                     },
                     min: 0
                 },
                 tooltip: {
-                    crosshairs: true
+                    crosshairs: true,
+                    shared: true
                 },
                 plotOptions: {
                     area: {

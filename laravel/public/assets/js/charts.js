@@ -181,7 +181,7 @@ $(function () {
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
-                    type: 'areaspline',
+                    type: 'area',
                     zoomType: 'x'
                 },
                 title: {
@@ -193,7 +193,11 @@ $(function () {
                 },
                 plotOptions: {
                     area: {
-                        stacking: 'percent'
+                        stacking: 'normal',
+                        marker: {
+                            lineWidth: 1,
+                            lineColor: '#ffffff'
+                        }
                     }
                 },
                 colors: colors,

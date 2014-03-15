@@ -30,6 +30,7 @@
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Plugin Usage</div>
 					</div>
 					<div class="panel-body" id="pluginsGraph"></div>
+					<div class="panel-footer"><small>Individual plugin statistics can be found on the <a href="/plugins">plugin's profile</a>.</small></div>
 				</div>
 			</div>
 			<div class="col-lg-6">

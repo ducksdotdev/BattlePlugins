@@ -177,7 +177,7 @@ $(function () {
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
-            $('#versionStatistics').highcharts({
+            $('#versionStatistics').highcharts('StockChart', {
                 chart: {
                     type: 'area',
                     zoomType: 'x'

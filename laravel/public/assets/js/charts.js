@@ -186,9 +186,33 @@ $(function () {
                     text: null
                 },
                 rangeSelector : {
-                    selected : 1,
+                    selected : 0,
                     inputEnabled: true
                 },
+                buttons: [{
+                    type: 'day',
+                    count: 1,
+                    text: '1d'
+                }, {
+                    type: 'day',
+                    count: 3,
+                    text: '3d'
+                }, {
+                    type: 'week',
+                    count: 1,
+                    text: '1w'
+                }, {
+                    type: 'week',
+                    count: 3,
+                    text: '3w'
+                }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                }, {
+                    type: 'all',
+                    text: 'All'
+                }],
                 series: data
             });
         }, 'json');

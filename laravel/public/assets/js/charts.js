@@ -191,15 +191,15 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
-                plotOptions: {
-                    area: {
-                        stacking: 'normal',
-                        marker: {
-                            lineWidth: 1,
-                            lineColor: '#ffffff'
-                        }
-                    }
-                },
+//                plotOptions: {
+//                    area: {
+//                        stacking: 'normal',
+//                        marker: {
+//                            lineWidth: 1,
+//                            lineColor: '#ffffff'
+//                        }
+//                    }
+//                },
                 colors: colors,
                 series: data
             });

@@ -192,21 +192,6 @@ $(function () {
                     selected : 1,
                     inputEnabled: true
                 },
-                plotOptions: {
-                    area: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
-                    }
-                },
                 series: data
             });
         }, 'json');

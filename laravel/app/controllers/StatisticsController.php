@@ -101,6 +101,7 @@ class StatisticsController extends BaseController{
 
 	public function getPluginInformation($plugin, $type){
 		$interval = Config::get('statistics.interval');
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 		switch($type){
 			case 'version':
 				$pluginStatistics = DB::table('plugin_statistics')
@@ -111,7 +112,8 @@ class StatisticsController extends BaseController{
 					->where('plugin', $plugin)
 					->where('inserted_on', '>', Carbon::now()->subWeek())
 					->where('inserted_on', '<', DateUtil::getTimeToThirty())
-					->groupBy('version', 'time')->get();
+					->groupBy('version', 'time')
+					->remember($diff)->get();
 
 				$times = array();
 				$data = array();

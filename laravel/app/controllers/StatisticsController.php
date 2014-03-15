@@ -117,8 +117,11 @@ class StatisticsController extends BaseController{
 						$counts[$stat->version][$stat->time] = $stat->count;
 					}
 
+					Log::info(json_encode($versions));
+
 					$times = array_unique($times);
 					$versions = array_unique($versions);
+
 					foreach($versions as $version){ // Check every statistic
 						foreach($times as $time){ // Loop through every time
 							if(!in_array($time, $counts[$version])){ // If statistic doesn't already have data from the database

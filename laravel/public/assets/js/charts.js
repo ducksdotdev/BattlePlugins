@@ -179,7 +179,7 @@ $(function () {
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
-                    type: 'area',
+                    type: 'areaspline',
                     zoomType: 'x'
                 },
                 title: {

@@ -118,8 +118,8 @@ class StatisticsController extends BaseController{
 
 					$times = array_unique($times);
 
-					$set = array();
 					foreach($times as $time){ // Loop through every time
+						$set = array();
 						foreach($pluginStatistics as $stat){ // For every time, check every statistic
 							if(!in_array($stat->version.$stat->time, $set)){ // If that statistic does not have something set for time
 								if(!in_array($time, $hasData[$stat->version])){ // If statistic doesn't already have data from the database

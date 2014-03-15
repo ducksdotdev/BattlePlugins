@@ -55,48 +55,45 @@ class StatisticsController extends BaseController{
 		return Response::make('', 204);
 	}
 
-	public function getTotalServers(){
-		return Cache::get('getTotalServers', function (){
-			$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes(30));
-
-			$interval = Config::get('statistics.interval') * 60;
-
-			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.$interval.') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.$interval.')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
-
-			$json = Response::json($table);
-
-			Cache::put('getTotalServers', $json, $diff);
-
-			return $json;
-		});
-	}
-
-	public function getPluginCount(){
+	public function getServerInformation($type){
 		$interval = Config::get('statistics.interval');
 		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
-		$table = DB::table('plugin_statistics')->
-			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
-			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-			select('plugin', DB::raw('count(distinct server) as total'))->
-			groupBy('plugin')->
-			remember($diff)->get();
+		switch($type){
+			case 'totals':
+				return Cache::get('getTotalServers', function () use ($interval, $diff){
+					$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
 
-		return Response::json($table);
-	}
+					$json = Response::json($table);
 
-	public function getAuthMode(){
-		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
+					Cache::put('getTotalServers', $json, $diff);
 
-		$table = DB::table('server_statistics')->
-			where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
-			where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-			select('bOnlineMode', DB::raw('count(distinct server) as total'))->
-			groupBy('bOnlineMode')->
-			remember($diff)->get();
+					return $json;
+				});
+				break;
+			case 'plugins':
+				$table = DB::table('plugin_statistics')->
+					where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
+					where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+					select('plugin', DB::raw('count(distinct server) as total'))->
+					groupBy('plugin')->
+					remember($diff)->get();
 
-		return Response::json($table);
+				return Response::json($table);
+				break;
+			case 'auth':
+				$table = DB::table('server_statistics')->
+					where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
+					where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+					select('bOnlineMode', DB::raw('count(distinct server) as total'))->
+					groupBy('bOnlineMode')->
+					remember($diff)->get();
+
+				return Response::json($table);
+				break;
+			default:
+				return Response::make('', 204);
+		}
 	}
 
 	public function getPluginInformation($plugin, $type){

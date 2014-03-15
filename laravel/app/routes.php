@@ -108,7 +108,5 @@ Route::get("/api/minecraft/face/{name?}/{size?}", 'APIController@getMinecraftFac
 Route::get("/api/minecraft/server/{ip}/{port?}", 'APIController@getServerInfo');
 
 Route::post("/statistics/set", 'StatisticsController@set');
-Route::get("/statistics/getTotalServers", 'StatisticsController@getTotalServers');
-Route::get("/statistics/getPluginCount", 'StatisticsController@getPluginCount');
-Route::get("/statistics/getAuthMode", 'StatisticsController@getAuthMode');
+Route::get("/statistics/servers/{type}", 'StatisticsController@getServerInformation');
 Route::get('/statistics/plugin/{plugin}/{query}', 'StatisticsController@getPluginInformation');

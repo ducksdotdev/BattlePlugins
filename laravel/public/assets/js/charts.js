@@ -22,7 +22,7 @@ $(function () {
     ];
 
     if($("#serversGraph").length > 0){
-        $.get('/statistics/getTotalServers', function (data) {
+        $.get('/statistics/servers/totals', function (data) {
             var players = [];
             var servers = [];
             $.each(data, function (i, item) {
@@ -92,7 +92,7 @@ $(function () {
     }
 
     if($("#pluginsGraph").length > 0){
-        $.get('/statistics/getPluginCount', function (data) {
+        $.get('/statistics/servers/plugins', function (data) {
             var cdata = [];
             $.each(data, function (i, item) {
                 cdata.push([item.plugin, parseInt(item.total)]);
@@ -133,7 +133,7 @@ $(function () {
     }
 
     if($("#authGraph").length > 0){
-        $.get('/statistics/getAuthMode', function (data) {
+        $.get('/statistics/servers/auth', function (data) {
             var cdata = [];
             $.each(data, function (i, item) {
                 var name = item.bOnlineMode == 'true' ? 'Online' : 'Offline';

@@ -110,11 +110,9 @@ class StatisticsController extends BaseController{
 					$hasData = array();
 					$times = array();
 					$data = array();
-					$counts = array();
 					foreach($pluginStatistics as $stat){
 						$times[] = $stat->time;
 						$hasData[$stat->version][] = $stat->time;
-						$counts[$stat->version.$stat->time] = intval($stat->count);
 					}
 
 					$times = array_unique($times);
@@ -126,7 +124,7 @@ class StatisticsController extends BaseController{
 								if(!in_array($time, $hasData[$stat->version])){ // If statistic doesn't already have data from the database
 									$data[$stat->version][] = array($time, null); // Set the statistic to null
 								}else{
-									$data[$stat->version][] = array($time, $counts[$stat->version.$time]); // Or else set the statistic to the database value
+									$data[$stat->version][] = array($time, $stat->count); // Or else set the statistic to the database value
 								}
 
 								$set[] = $stat->version.$time; // State that there is something set

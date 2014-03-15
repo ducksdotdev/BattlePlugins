@@ -107,31 +107,9 @@ class StatisticsController extends BaseController{
 				case 'version':
 					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, inserted_on as timestamp, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by server, newTime) as st1 group by newTime order by time');
 
-					$hasData = array();
-					$times = array();
 					$data = array();
-
 					foreach($pluginStatistics as $stat){
-						$times[] = $stat->time;
-						$hasData[$stat->version][] = $stat->time;
-					}
-
-					$times = array_unique($times);
-
-					$set = array();
-					foreach($times as $time){
-						foreach($pluginStatistics as $stat){
-							if(!in_array($stat->version.$time, $set)){
-								if(!in_array($time, $hasData[$stat->version])){
-									$data[$stat->version][] = array($time, null);
-								}else{
-									$data[$stat->version][] = array($time, intval($stat->count));
-								}
-
-								$inData[$stat->version][] = $time;
-								$set[] = $stat->version.$time;
-							}
-						}
+						$data[$stat->version][] = array(strtotime($stat->time)*1000, intval($stat->count));
 					}
 
 					$sendData = array();

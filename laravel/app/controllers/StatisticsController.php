@@ -123,9 +123,9 @@ class StatisticsController extends BaseController{
 						foreach($pluginStatistics as $stat){
 							if(!in_array($stat->version.$time, $set)){
 								if(!in_array($time, $hasData[$stat->version])){
-									$data[$stat->version][] = array(strtotime($stat->time)*1000, null);
+									$data[$stat->version][] = array($time, null);
 								}else{
-									$data[$stat->version][] = array(strtotime($stat->time)*1000, intval($stat->count));
+									$data[$stat->version][] = array($time, intval($stat->count));
 								}
 
 								$inData[$stat->version][] = $time;
@@ -140,7 +140,7 @@ class StatisticsController extends BaseController{
 						foreach($data[$key] as $part){
 							$thisData[] = $part;
 						}
-						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
+						$sendData[] = array('name' => array_search($data[$key], $data), 'data' => array(strtotime($thisData[0])*1000, $thisData[1]));
 					}
 
 					return Response::json($sendData);

@@ -207,21 +207,21 @@ $(function () {
                     crosshairs: true,
                     shared: true
                 },
-                plotOptions: {
-                    area: {
-                        lineWidth: 1,
-                        marker: {
-                            enabled: false
-                        },
-                        shadow: false,
-                        states: {
-                            hover: {
-                                lineWidth: 1
-                            }
-                        },
-                        threshold: null
-                    }
-                },
+//                plotOptions: {
+//                    area: {
+//                        lineWidth: 1,
+//                        marker: {
+//                            enabled: false
+//                        },
+//                        shadow: false,
+//                        states: {
+//                            hover: {
+//                                lineWidth: 1
+//                            }
+//                        },
+//                        threshold: null
+//                    }
+//                },
                 colors: colors,
                 series: data
             });

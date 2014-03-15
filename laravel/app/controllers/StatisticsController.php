@@ -128,7 +128,7 @@ class StatisticsController extends BaseController{
 									$data[$stat->version][] = array($stat->time, intval($stat->count)); // Or else set the statistic to the database value
 								}
 
-								$set[] = $stat->version.$stat->time; // State that there is something set
+								$set[] = $stat->version.$time; // State that there is something set
 							}
 						}
 					}

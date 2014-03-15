@@ -107,14 +107,12 @@ class StatisticsController extends BaseController{
 				case 'version':
 					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'" group by version, server) as st1 group by newTime order by time');
 
-					$hasData = array();
 					$times = array();
 					$data = array();
 					$versions = array();
 					$counts = array();
 					foreach($pluginStatistics as $stat){
 						$times[] = $stat->time;
-						$hasData[$stat->version][] = $stat->time;
 						$versions[] = $stat->version;
 						$counts[$stat->version][$stat->time] = $stat->count;
 					}
@@ -123,7 +121,7 @@ class StatisticsController extends BaseController{
 					$versions = array_unique($versions);
 					foreach($versions as $version){ // Check every statistic
 						foreach($times as $time){ // Loop through every time
-							if(!in_array($time, $hasData[$version])){ // If statistic doesn't already have data from the database
+							if(!in_array($time, $counts[$version])){ // If statistic doesn't already have data from the database
 								$data[$version][] = array($time, null); // Set the statistic to null
 							}else{
 								$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value

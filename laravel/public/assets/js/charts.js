@@ -205,7 +205,6 @@ $(function () {
                 },
                 tooltip: {
                     crosshairs: true,
-                    shared: true
                 },
                 plotOptions: {
                     area: {

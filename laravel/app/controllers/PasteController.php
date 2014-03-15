@@ -99,12 +99,12 @@ class PasteController extends BaseController {
         $paste = DB::table('pastes')->where('id', $id)->first();
 
         if(count($paste) == 0){
-            return Redirect::to('/');
+            return Redirect::to('/paste/create');
         }
         $own = Auth::check() && Auth::user()->id == $paste->author;
 
         if(($paste->private && !$own) || (Carbon::now() > $paste->hidden_on && $paste->hidden_on != '0000-00-00 00:00:00')){
-            return Redirect::to('/');
+            return Redirect::to('/paste/create');
         }
 
         if($paste->title == null){
@@ -134,12 +134,12 @@ class PasteController extends BaseController {
         $paste = DB::table('pastes')->where('id', $id)->first();
 
         if(count($paste) == 0){
-            return Redirect::to('/');
+            return Redirect::to('/paste/create');
         }
         $own = Auth::check() && Auth::user()->id == $paste->author;
 
         if(($paste->private && !$own) || (Carbon::now() > $paste->hidden_on && $paste->hidden_on != '0000-00-00 00:00:00')){
-            return Redirect::to('/');
+            return Redirect::to('/paste/create');
         }
 
         if($paste->title == null){

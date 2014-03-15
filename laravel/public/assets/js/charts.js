@@ -5,7 +5,6 @@ $(function () {
         '#D13434',
         '#492970',
         '#f28f43',
-        '#77a1e5',
         '#c42525',
         '#a6c96a',
         '#4572A7',
@@ -189,15 +188,6 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
-//                plotOptions: {
-//                    area: {
-//                        stacking: 'normal',
-//                        marker: {
-//                            lineWidth: 1,
-//                            lineColor: '#ffffff'
-//                        }
-//                    }
-//                },
                 colors: colors,
                 series: data
             });

@@ -105,7 +105,7 @@ class StatisticsController extends BaseController{
 		if(count($plugins) > 0){
 			switch($type){
 				case 'version':
-					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'") as st1 group by version, newTime order by time');
+					$pluginStatistics = DB::select('select count(distinct server) as count, version, FROM_UNIXTIME(newTime*'.($interval * 60).') as time from (select server, version, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval * 60).')) as newTime, plugin from plugin_statistics as innerTable where innerTable.plugin="'.$plugins->name.'" and innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" and innerTable.inserted_on>"'.Carbon::now()->subWeek().'") as st1 group by version order by time');
 
 					$times = array();
 					$data = array();

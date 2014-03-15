@@ -118,7 +118,7 @@ $(function () {
                             enabled: true,
                             color: '#000000',
                             connectorColor: '#000000',
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            format: '<a href="/plugins/profile/{point.name}"><b>{point.name}</b></a>: {point.percentage:.1f} %'
                         }
                     }
                 },

@@ -86,6 +86,11 @@ class UpdateStatistics{
 						$dropped[] = $value;
 					}
 				}
+
+				$leftOver = array_diff($allowedKeys, array_keys($pairs));
+				foreach($leftOver as $pair){
+					$pairs[$pairs] = '';
+				}
 			}
 			array_push($sInserts, $pairs);
 		}

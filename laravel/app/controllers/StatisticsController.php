@@ -126,7 +126,7 @@ class StatisticsController extends BaseController{
 								if(!in_array($time, $hasData[$stat->version])){ // If statistic doesn't already have data from the database
 									$data[$stat->version][] = array($time, null); // Set the statistic to null
 								}else{
-									$data[$stat->version][] = array($time, $hasData[$stat->version.$time]); // Or else set the statistic to the database value
+									$data[$stat->version][] = array($time, $counts[$stat->version.$time]); // Or else set the statistic to the database value
 								}
 
 								$set[] = $stat->version.$time; // State that there is something set

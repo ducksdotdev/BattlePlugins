@@ -114,6 +114,8 @@ class StatisticsController extends BaseController{
 					->groupBy('time')
 					->get();
 
+				Log::info($pluginStatistics->toSql());
+
 				$times = array();
 				$data = array();
 				$versions = array();

@@ -178,9 +178,6 @@ $(function () {
         var plugin = $('#versionStatistics').data('plugin');
         $.get('/statistics/plugin/'+plugin+'/version', function(data){
             $('#versionStatistics').highcharts('StockChart', {
-                chart: {
-                    type: 'area'
-                },
                 title: {
                     text: null
                 },

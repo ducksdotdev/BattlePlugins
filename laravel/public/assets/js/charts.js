@@ -21,34 +21,38 @@ $(function () {
         '#B5CA92'
     ];
 
-    var buttons = [{
-        type: 'day',
-        count: 1,
-        text: '1d'
-    }, {
-        type: 'day',
-        count: 3,
-        text: '3d'
-    }, {
-        type: 'week',
-        count: 1,
-        text: '1w'
-    }, {
-        type: 'week',
-        count: 3,
-        text: '3w'
-    }, {
-        type: 'month',
-        count: 1,
-        text: '1m'
-    }, {
-        type: 'year',
-        count: 1,
-        text: '1y'
-    }, {
-        type: 'all',
-        text: 'All'
-    }];
+    var rangeSettings = {
+        selected : 3,
+        inputEnabled: true,
+        buttons: [{
+            type: 'day',
+            count: 1,
+            text: '1d'
+        }, {
+            type: 'day',
+            count: 3,
+            text: '3d'
+        }, {
+            type: 'week',
+            count: 1,
+            text: '1w'
+        }, {
+            type: 'week',
+            count: 3,
+            text: '3w'
+        }, {
+            type: 'month',
+            count: 1,
+            text: '1m'
+        }, {
+            type: 'year',
+            count: 1,
+            text: '1y'
+        }, {
+            type: 'all',
+            text: 'All'
+        }]
+    };
 
     if($("#serversGraph").length > 0){
         $.get('/statistics/servers/totals', function (data) {
@@ -68,11 +72,7 @@ $(function () {
                 title: {
                     text: null
                 },
-                rangeSelector : {
-                    selected : 0,
-                    inputEnabled: true,
-                    buttons: buttons
-                },
+                rangeSelector : rangeSettings,
                 scrollbar : {
                     enabled : false
                 },
@@ -187,11 +187,7 @@ $(function () {
                 title: {
                     text: null
                 },
-                rangeSelector : {
-                    selected : 0,
-                    inputEnabled: true,
-                    buttons: buttons
-                },
+                rangeSelector : rangeSettings,
                 scrollbar : {
                     enabled : false
                 },

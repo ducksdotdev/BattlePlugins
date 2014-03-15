@@ -115,7 +115,7 @@ class StatisticsController extends BaseController{
 				foreach($pluginStatistics as $stat){
 					$times[] = $stat->time;
 					$versions[] = $stat->version;
-					$counts[$stat->version][$stat->time] = $stat->count;
+					$counts[$stat->version][$stat->time] = intval($stat->count);
 				}
 
 				$times = array_unique($times);

@@ -233,5 +233,6 @@ Date.toTimestamp = function (s) {
     s = s.split(/[-A-Z :\.]/i);
     var d = new Date(Date.UTC(s[0], --s[1], s[2], s[3], s[4], s[5]));
     var value = Math.round(d.getTime());
+    console.log(value);
     return value;
 }

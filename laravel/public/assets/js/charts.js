@@ -62,9 +62,8 @@ $(function () {
             var players = [];
             var servers = [];
             $.each(data, function (i, item) {
-                var timestamp = Date.toTimestamp(item.time);
-                players.push([timestamp, parseInt(item.nPlayers)]);
-                servers.push([timestamp, parseInt(item.nServers)]);
+                players.push([item.time, parseInt(item.nPlayers)]);
+                servers.push([item.time, parseInt(item.nServers)]);
             });
 
             $('#serversGraph').highcharts('StockChart', {
@@ -200,10 +199,3 @@ $(function () {
         });
     }
 });
-
-Date.toTimestamp = function (s) {
-    s = s.split(/[-A-Z :\.]/i);
-    var d = new Date(Date.UTC(s[0], --s[1], s[2], s[3], s[4], s[5]));
-    var value = Math.round(d.getTime());
-    return value;
-}

@@ -21,8 +21,7 @@ $(function () {
     Highcharts.setOptions({
         global: {
             useUTC: false
-        },
-        color: colors
+        }
     });
 
     var rangeSettings = {
@@ -80,6 +79,7 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
+                colors: colors,
                 series: [
                     {
                         name: 'Players',
@@ -125,6 +125,7 @@ $(function () {
                         }
                     }
                 },
+                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -167,6 +168,7 @@ $(function () {
                         }
                     }
                 },
+                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -192,6 +194,7 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
+                colors: colors,
                 series: data
             });
         });

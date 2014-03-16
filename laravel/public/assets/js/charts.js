@@ -20,9 +20,9 @@ $(function () {
 
     Highcharts.setOptions({
         global: {
-            useUTC: false,
-            color: colors
-        }
+            useUTC: false
+        },
+        color: colors
     });
 
     var rangeSettings = {

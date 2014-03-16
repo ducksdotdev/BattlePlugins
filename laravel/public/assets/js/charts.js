@@ -199,6 +199,27 @@ $(function () {
             });
         });
     }
+
+    if($('#usageStatistics').length > 0){
+        var plugin = $('#versionStatistics').data('plugin');
+        $.getJSON('/statistics/plugin/'+plugin+'/usage', function(data){
+            $('#usageStatistics').highcharts('StockChart', {
+                chart: {
+                    type: 'area',
+                    zoomType: 'x'
+                },
+                title: {
+                    text: null
+                },
+                rangeSelector : rangeSettings,
+                scrollbar : {
+                    enabled : false
+                },
+                colors: colors,
+                series: data
+            });
+        });
+    }
 });
 
 Date.toTimestamp = function (s) {

@@ -21,6 +21,16 @@
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
+						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Usage Statistics</div>
+					</div>
+					<div id="usageStatistics" data-plugin="{{ $plugin->name }}" class="panel-body"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Version Statistics</div>
 					</div>
 					<div id="versionStatistics" data-plugin="{{ $plugin->name }}" class="panel-body"></div>

@@ -143,6 +143,36 @@ class StatisticsController extends BaseController{
 				}
 
 				return Response::json($sendData);
+			case "usage":
+				$pluginStatistics = DB::table('plugin_statistics')
+					->select(
+						DB::raw('count(distinct server) as count'),
+						DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'))
+					->where('plugin', $plugin)
+					->where('inserted_on', '<', DateUtil::getTimeToThirty())
+					->groupBy('time')
+					->remember($diff)->get();
+
+				$times = array();
+				$data = array();
+				$counts = array();
+				foreach($pluginStatistics as $stat){
+					$times[] = $stat->time;
+					$counts[$stat->time] = intval($stat->count);
+				}
+
+				$times = array_unique($times);
+
+				foreach($times as $time){ // Loop through every time
+					if(!array_key_exists($time, $counts)){ // If statistic doesn't already have data from the database
+						$data[] = array($time, null); // Set the statistic to null
+					}else{
+						$data[] = array($time, $counts[$time]); // Or else set the statistic to the database value
+					}
+				}
+
+				return Response::json($data);
+				break;
 			default:
 				return Response::make('', 204);
 		}

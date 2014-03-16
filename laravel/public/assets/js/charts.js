@@ -18,6 +18,13 @@ $(function () {
         '#B5CA92'
     ];
 
+    Highcharts.setOptions({
+        global: {
+            useUTC: false,
+            color: colors
+        }
+    });
+
     var rangeSettings = {
         selected : 3,
         inputEnabled: true,
@@ -73,7 +80,6 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
-                colors: colors,
                 series: [
                     {
                         name: 'Players',
@@ -119,7 +125,6 @@ $(function () {
                         }
                     }
                 },
-                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -162,7 +167,6 @@ $(function () {
                         }
                     }
                 },
-                colors: colors,
                 series: [
                     {
                         type: 'pie',
@@ -188,7 +192,6 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
-                colors: colors,
                 series: data
             });
         });

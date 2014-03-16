@@ -27,7 +27,6 @@ class StatisticsController extends BaseController{
 		parent::setActive('Resources');
 
 		$vars['title'] = 'Statistics';
-		$vars['curTime'] = Carbon::now();
 
 		return View::make('statistics', $vars);
 	}

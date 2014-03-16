@@ -45,6 +45,6 @@
 @stop
 @if($paste->lang != null && $paste->lang != 'plain')
 @section('extraStyles')
-<link type="text/css" rel="stylesheet" href="/assets/css/prettify/lang-{{ $paste->lang }}.css" />
+<script src="/assets/js/prettify/lang-{{ $paste->lang }}.js"></script>
 @stop
 @endif

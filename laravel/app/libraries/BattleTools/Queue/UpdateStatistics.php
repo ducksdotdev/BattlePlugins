@@ -89,7 +89,7 @@ class UpdateStatistics{
 
 				$leftOver = array_diff($allowedKeys, array_keys($pairs));
 				foreach($leftOver as $pair){
-					$pairs[$pair] = '';
+					$pairs[$pair] = null;
 				}
 			}
 			array_push($sInserts, $pairs);

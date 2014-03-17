@@ -84,6 +84,7 @@ class StatisticsController extends BaseController{
 				$table = DB::table('server_statistics')->
 					where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
 					where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+					whereNotNull('bOnlineMode')->
 					select('bOnlineMode', DB::raw('count(distinct server) as total'))->
 					groupBy('bOnlineMode')->
 					remember($diff)->get();

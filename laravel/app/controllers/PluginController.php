@@ -77,4 +77,8 @@ class PluginController extends BaseController{
 			DB::table('plugins')->where('name', $plugin->name)->delete();
 		}
 	}
+
+	public function getAddPluginForm(){
+		return View::make('ajax.addPluginForm');
+	}
 }

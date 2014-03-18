@@ -20,7 +20,7 @@
 	</div>
 </div>
 <div class="content-section-b">
-	<div class="container">
+	<div class="container" id="plugins">
 		@foreach($plugins as $plugin)
 		<div class="row" id="{{ $plugin->name }}">
 			<div class="col-lg-12">

@@ -153,6 +153,15 @@ $(function () {
         });
     });
 
+    $("#addPlugin").click(function(e){
+        e.preventDefault();
+        if($("#addPluginForm").length == 0){
+            $.get("/ajax/plugins/addPluginForm", function(data){
+                $("#plugins").prepend(data);
+            })
+        }
+    })
+
     $("a[href='#deletePlugin']").click(function(){
         var plugin = $(this).data('plugin');
         if(confirm("Are you sure you want to delete this? This cannot be undone.")){
@@ -160,13 +169,6 @@ $(function () {
                 $("#"+plugin).fadeOut(500, function() { $(this).remove(); });
             });
         }
-    });
-
-    $("#pluginBukkitSlug").blur(function(){
-        var slug = $(this).val();
-        $.getJSON("https://api.curseforge.com/servermods/projects?search="+slug, function(data){
-
-        });
     });
 
     (function (d, s, id) {

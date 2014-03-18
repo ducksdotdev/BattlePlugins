@@ -158,6 +158,8 @@ $(function () {
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keyup(function(){
+                    $("#alert").removeAlert();
+                    
                     var slug = $(this).val();
                     if(slug.length > 0 && /^[a-zA-Z0-9- ]*$/.test(slug) !== false){
                         $.getJSON("/api/curse/project/"+slug, function(data){
@@ -249,6 +251,9 @@ $.extend({
 $.fn.extend({
     createAlert: function (type, reason) {
         $(this).empty().append("<div class='alert alert-" + type + "'>" + reason + "</div>");
+    },
+    removeAlert: function(){
+        $(this).empty();
     }
 });
 /**

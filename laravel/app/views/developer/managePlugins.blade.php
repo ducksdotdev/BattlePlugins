@@ -25,7 +25,7 @@
 						<div class="row">
 							<div class="col-lg-4"><h1>{{ $plugin->name }}</h1></div>
 							<div class="col-lg-7"><input type="text" class="form-control input-xl" placeholder="Bukkit Slug" value="{{ $plugin->bukkit }}" disabled /></div>
-							<div class="col-lg-1"><a href="#deletePlugin" class="btn btn-danger" data-plugin="{{ $plugin->name }}"><i class="fa fa-times-circle fa-5x"></i></a></div>
+							<div class="col-lg-1"><a href="#deletePlugin" class="btn btn-danger" data-plugin="{{ $plugin->name }}"><i class="fa fa-times-circle fa-3x"></i></a></div>
 						</div>
 					</div>
 				</div>

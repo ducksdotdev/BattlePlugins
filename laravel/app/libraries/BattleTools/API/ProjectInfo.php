@@ -1,6 +1,9 @@
 <?php
 namespace BattleTools\API;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+
 class ProjectInfo{
 	public static function getProjectInfo($slug){
 		$key = "project.".$slug;

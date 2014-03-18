@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-lg-11 col-offset-lg-1">
 				<p>
-					<h3>Download the latest version of {{ $plugin->name }} <a href="{{ $lastFile->url }}">here</a>.</h3>
+					<h3>Download {{ $lastFile->name }} for Minecraft v{{ $lastFile->gameVersion }} <a href="{{ $lastFile->downloadUrl }}">here</a>.</h3>
 				</p>
 				<p>
 					<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a>

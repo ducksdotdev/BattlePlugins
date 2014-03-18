@@ -451,6 +451,8 @@ class APIController extends BaseController{
 		$project = json_decode($project);
 		if(count($project) > 0){
 			$project = $project[0];
+		}else{
+			$project = array("result"=>"error");
 		}
 
 		return Response::json($project);

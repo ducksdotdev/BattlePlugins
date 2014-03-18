@@ -442,6 +442,6 @@ class APIController extends BaseController{
 
 	public function getProjectInfo($slug){
 		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
-		return $project;
+		return Response::json(json_decode($project));
 	}
 }

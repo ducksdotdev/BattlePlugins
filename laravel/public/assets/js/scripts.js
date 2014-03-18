@@ -163,15 +163,17 @@ $(function () {
                     $.getJSON("/api/curse/project/"+slug, function(data){
                         if(data.length > 0){
                             $("#pluginName").empty().append(data.name);
+                            $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
                             $("#addPluginForm button").prop("disabled", false);
                         }else{
+                            $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
                             $("#addPluginForm button").prop("disabled", true);
                         }
                     });
                 });
             })
         }
-    })
+    });
 
     $("a[href='#deletePlugin']").click(function(){
         var plugin = $(this).data('plugin');

@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="panel panel-primary">
+	<div class="panel panel-primary" id="addPluginPanel">
 		<div class="panel-body">
 			<div id="alert"></div>
 			<div class="row">

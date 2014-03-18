@@ -159,7 +159,7 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keyup(function(){
                     $("#alert").removeAlert();
-                    
+
                     var slug = $(this).val();
                     if(slug.length > 0 && /^[a-zA-Z0-9- ]*$/.test(slug) !== false){
                         $.getJSON("/api/curse/project/"+slug, function(data){
@@ -177,18 +177,21 @@ $(function () {
                     }
                 });
 
-                $("#addPluginForm").submit(function(e){
-                    e.preventDefault();
-                    var formData = $("#addPluginForm :input").serialize();
-                    $.post("/plugins/manage/add", formData, function(data){
-                        if(data.result == "failure"){
-                            $("#alert").createAlert('danger', data.reason);
-                        }else if(data.result == "success"){
-                            window.location.reload();
-                        }
+                var slug = $("#pluginSlug").val();
+                if(slug.length > 0){
+                    $("#addPluginForm").submit(function(e){
+                        e.preventDefault();
+                        var formData = $("#addPluginForm :input").serialize();
+                        $.post("/plugins/manage/add", formData, function(data){
+                            if(data.result == "failure"){
+                                $("#alert").createAlert('danger', data.reason);
+                            }else if(data.result == "success"){
+                                window.location.reload();
+                            }
+                        });
                     });
-                });
-            })
+                }
+            });
         }
     });
 

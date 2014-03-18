@@ -155,7 +155,8 @@ $(function () {
 
     $("#deletePlugin").click(function(){
         var plugin = $(this).data('plugin');
-        if(confirm("Are you sure you want to delete this? This cannot be undone.")){
+        var confirm = confirm("Are you sure you want to delete this? This cannot be undone.");
+        if(confirm){
             $.get("/plugins/manage/delete/"+plugin, function(){
                 $("#"+plugin).remove();
             });

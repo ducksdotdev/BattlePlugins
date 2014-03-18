@@ -109,7 +109,7 @@ class StatisticsController extends BaseController{
 					->where('plugin', $plugin)
 					->where('inserted_on', '<', DateUtil::getTimeToThirty())
 					->groupBy('version', 'time')
-					->orderBy('time', 'desc')
+					->orderBy('time')
 					->remember($diff)->get();
 
 				$times = array();

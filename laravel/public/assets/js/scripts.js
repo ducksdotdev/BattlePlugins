@@ -160,7 +160,7 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").blur(function(){
                     var slug = $(this).val();
-                    $.getJSON("/api/curse/project/"+slug, function(data){
+                    $.getJSON("/plugins/getProjectInfo/"+slug, function(data){
                         $("#pluginName").empty().append(data.name);
                     });
                 });

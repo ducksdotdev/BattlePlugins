@@ -439,8 +439,4 @@ class APIController extends BaseController{
 
 		return Response::json($minecraft->Info());
 	}
-
-	public function getProjectInfo($slug){
-		return $slug;
-	}
 }

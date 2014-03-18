@@ -158,7 +158,7 @@ $(function () {
         if($("#addPluginForm").length == 0){
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
-                $("#pluginSlug").keypress(function(){
+                $("#pluginSlug").keyup(function(){
                     var slug = $(this).val();
                     console.log(slug);
 

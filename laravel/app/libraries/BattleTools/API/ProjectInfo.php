@@ -32,4 +32,15 @@ class ProjectInfo{
 			return $project;
 		});
 	}
+
+	public static function getFiles($slug){
+		$project = self::getProjectInfo($slug);
+		$files = @file_get_contents("https://api.curseforge.com/servermods/files?projectIds=".$project->id);
+
+		if($files === false){
+			return array();
+		}
+
+		return json_decode($files);
+	}
 }

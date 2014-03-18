@@ -84,14 +84,12 @@ Route::group(array('before' => 'auth'), function(){
 	});
 });
 
-Route::group(array('before' => 'auth.developer'), function(){
 	Route::get('/plugins/manage/delete/{plugin}' , 'PluginController@deletePlugin');
 	Route::get('/ajax/plugins/addPluginForm' , 'PluginController@getAddPluginForm');
 
 	Route::get("/api/curse/project/{slug}", 'APIController@getProjectInfo');
 
 		Route::post('/plugins/manage/add' , 'PluginController@addPlugin');
-});
 
 Route::get('/paste/{id}/raw', 'PasteController@getRawPaste');
 Route::get('/paste/{id}', 'PasteController@getPaste');

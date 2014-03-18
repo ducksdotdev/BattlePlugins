@@ -159,7 +159,7 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keyup(function(){
                     var slug = $(this).val();
-                    if(slug.length > 0){
+                    if(slug.length > 0 && /^[a-zA-Z0-9- ]*$/.test(str) !== false){
                         $.getJSON("/api/curse/project/"+slug, function(data){
                             if(data.result != "error"){
                                 $("#pluginName").empty().append('<a href="http://dev.bukkit.org/bukkit-plugins/'+data.slug+'" target="_blank">'+data.name+'</a>');

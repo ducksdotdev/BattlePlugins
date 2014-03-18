@@ -54,6 +54,7 @@ class PluginController extends BaseController{
 				$pluginStats = Plugins::getVersionStatistics($plugin->name);
 				if(count($pluginStats) == 0){
 					$untracked[] = $plugin->name;
+					Log::info($plugin->name);
 				}
 			}
 

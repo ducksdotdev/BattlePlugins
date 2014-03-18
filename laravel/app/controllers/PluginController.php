@@ -84,6 +84,7 @@ class PluginController extends BaseController{
 
 		DB::table("plugins")->insert(array(
 			"name" => $project->name,
+			"author" => Auth::user()->id,
 			"bukkit" => $project->slug
 		));
 		return Response::json(array("result"=>"success"));

@@ -161,7 +161,7 @@ $(function () {
                 $("#pluginSlug").blur(function(){
                     var slug = $(this).val();
                     $.getJSON("/api/curse/project/"+slug, function(data){
-                        if(data.name.length > 0){
+                        if(data.length > 0){
                             $("#pluginName").empty().append(data.name);
                             $("#addPluginForm button").prop("disabled", false);
                         }else{

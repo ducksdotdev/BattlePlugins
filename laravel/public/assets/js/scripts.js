@@ -170,8 +170,14 @@ $(function () {
                                 $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
                                 $("#inputGroup").addClass("has-error");
                                 $("#addPluginForm button").prop("disabled", true);
+                                $("#pluginName").empty();
                             }
                         });
+                    }else{
+                        $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
+                        $("#inputGroup").addClass("has-error");
+                        $("#addPluginForm button").prop("disabled", true);
+                        $("#pluginName").empty();
                     }
                 });
 

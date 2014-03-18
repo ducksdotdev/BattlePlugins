@@ -69,11 +69,6 @@ class PluginController extends BaseController{
 		}
 	}
 
-	public function getProjectInfo($slug){
-		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
-		return $project;
-	}
-
 	public function deletePlugin($plugin){
 		$plugin = DB::table('plugins')->where('name', $plugin)->first();
 		if(count($plugin) == 0 || $plugin->author != Auth::user()->id){

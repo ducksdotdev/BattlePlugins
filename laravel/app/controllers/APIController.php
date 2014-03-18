@@ -443,7 +443,10 @@ class APIController extends BaseController{
 	public function getProjectInfo($slug){
 		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
 		$project = json_decode($project);
-		$project = $project[0];
+		if(count($project) > 0){
+			$project = $project[0];
+		}
+
 		return Response::json($project);
 	}
 }

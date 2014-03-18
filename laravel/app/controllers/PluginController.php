@@ -60,7 +60,7 @@ class PluginController extends BaseController{
 			if(count($untracked) > 0){
 				$vars['hasUntracked'] = true;
 				$vars['untracked'] = ListSentence::toSentence($untracked);
-				$vars['join'] = count($untracked) > 1 ? 'are' ? 'is';
+				$vars['join'] = count($untracked) > 1 ? 'are' : 'is';
 			}else{
 				$vars['hasUntracked'] = false;
 			}

@@ -7,10 +7,6 @@ use BattleTools\Util\Jenkins;
 
 class PluginController extends BaseController{
 
-	public function __construct(){
-		$this->beforeFilter('auth.developer', array('except' => array('getPlugins', 'managePlugins', 'getPluginProfile')));
-	}
-
 	public function getPlugins(){
 		$vars['title'] = "Our Plugins";
 
@@ -44,9 +40,11 @@ class PluginController extends BaseController{
 		}else{
 			$check = false;
 		}
+
 		if($check && in_array(UserGroups::DEVELOPER, $groups)){
+			parent::setActive('Developer');
 			$vars['title'] = 'Manage Plugins';
-			parent::setActive('Plugins');
+			$vars['plugin'] = DB::table("plugins")->get();
 
 			return View::make('developer.managePlugins', $vars);
 		}else{

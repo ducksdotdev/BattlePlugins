@@ -1,7 +1,6 @@
 <?php
 
 use BattleTools\UserManagement\UserGroups;
-use Illuminate\Support\Facades\Auth;
 
 function checkGroup($group){
     if(!Auth::check()){
@@ -11,7 +10,6 @@ function checkGroup($group){
     $uid = Auth::user()->id;
     if(!UserGroups::hasGroup($uid, $group)){
         return Redirect::to("/login");
-        die();
     }
 }
 

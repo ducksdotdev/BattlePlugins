@@ -17,11 +17,21 @@
 </div>
 <div class="content-section-b">
 	<div class="container">
+		@foreach($plugins as $plugin)
 		<div class="row">
 			<div class="col-lg-12">
-
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-4"><h3>{{ $plugin->name }}</h3></div>
+							<div class="col-lg-4"><input type="text" value="{{ $plugin->bukkit }}" /></div>
+							<div class="col-lg-4"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+		@endforeach
 	</div>
 </div>
 @stop

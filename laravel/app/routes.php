@@ -32,56 +32,60 @@ Route::get('/donate/thanks', 'PageController@getDonateThanks');
 Route::get('/statistics', 'StatisticsController@displayStatistics');
 
 Route::group(array('before' => 'guest'), function () {
-    Route::get('/login', 'UserController@getLoginPage');
-    Route::get('/login/help', 'UserController@forgotPage');
-    Route::get('/login/help/reset', 'UserController@resetPasswordPage');
+	Route::get('/login', 'UserController@getLoginPage');
+	Route::get('/login/help', 'UserController@forgotPage');
+	Route::get('/login/help/reset', 'UserController@resetPasswordPage');
 
-    Route::group(array('before' => 'csrf'), function () {
-        Route::post('/login/help/username', 'UserController@retrieveWithUsername');
-        Route::post('/login/help/email', 'UserController@retrieveWithEmail');
-        Route::post('/login/help/reset', 'UserController@resetPassword');
+	Route::group(array('before' => 'csrf'), function () {
+		Route::post('/login/help/username', 'UserController@retrieveWithUsername');
+		Route::post('/login/help/email', 'UserController@retrieveWithEmail');
+		Route::post('/login/help/reset', 'UserController@resetPassword');
 
-        Route::post('/login', 'UserController@loginUser');
+		Route::post('/login', 'UserController@loginUser');
 
-        Route::post('/register', 'UserController@register');
-    });
+		Route::post('/register', 'UserController@register');
+	});
 });
 
 Route::group(array('before' => 'auth'), function(){
-    Route::get("/api", "APIController@getDocumentation");
-    Route::get('/api/generateKey', 'APIController@userGenerateKey');
+	Route::get("/api", "APIController@getDocumentation");
+	Route::get('/api/generateKey', 'APIController@userGenerateKey');
 
-    Route::get('/logout', 'UserController@logoutUser');
-    Route::get("/user/settings", "UserController@getSettingsPage");
+	Route::get('/logout', 'UserController@logoutUser');
+	Route::get("/user/settings", "UserController@getSettingsPage");
 
-    Route::get('/paste/create', 'PasteController@getCreatePage');
+	Route::get('/paste/create', 'PasteController@getCreatePage');
 
-    Route::get('/admin/blog', 'AdminController@getBlog');
+	Route::get('/admin/blog', 'AdminController@getBlog');
 
-    Route::get('/admin/manageUsers', 'AdminController@manageUsers');
+	Route::get('/admin/manageUsers', 'AdminController@manageUsers');
 
-    Route::get('/administrator/statistics', 'AdminController@getStatistics');
+	Route::get('/administrator/statistics', 'AdminController@getStatistics');
 	Route::get('/administrator/statistics/forceUpdate', 'AdminController@forceStatisticsUpdate');
 	Route::get('/administrator/statistics/clear/apiRequests', 'AdminController@clearAPIRequests');
 
-    Route::group(array('before'=>'csrf'), function(){
-        Route::post("/user/settings", "UserController@changeSettings");
+	Route::group(array('before'=>'csrf'), function(){
+		Route::post("/user/settings", "UserController@changeSettings");
 
-        Route::post('/paste/create', 'PasteController@createPaste');
-        Route::post('/paste/delete', 'PasteController@deletePaste');
-        Route::post('/paste/edit/getForm', 'PasteController@getEditForm');
-        Route::post('/paste/edit', 'PasteController@editPaste');
+		Route::post('/paste/create', 'PasteController@createPaste');
+		Route::post('/paste/delete', 'PasteController@deletePaste');
+		Route::post('/paste/edit/getForm', 'PasteController@getEditForm');
+		Route::post('/paste/edit', 'PasteController@editPaste');
 
-        Route::post('/admin/blog', 'AdminController@saveBlog');
-        Route::post('/admin/blog/edit', 'AdminController@editBlog');
-        Route::post('/admin/blog/delete', 'AdminController@deleteBlog');
+		Route::post('/admin/blog', 'AdminController@saveBlog');
+		Route::post('/admin/blog/edit', 'AdminController@editBlog');
+		Route::post('/admin/blog/delete', 'AdminController@deleteBlog');
 
-        Route::post('/admin/manageUsers/groups/get', 'AdminController@getUserGroupsForm');
-        Route::post('/admin/manageUsers/groups/change', 'AdminController@changeUserGroups');
+		Route::post('/admin/manageUsers/groups/get', 'AdminController@getUserGroupsForm');
+		Route::post('/admin/manageUsers/groups/change', 'AdminController@changeUserGroups');
 
-        Route::post('/admin/manageUsers/settings/get', 'AdminController@getSetting');
-        Route::post('/admin/manageUsers/settings/set', 'AdminController@setSetting');
-    });
+		Route::post('/admin/manageUsers/settings/get', 'AdminController@getSetting');
+		Route::post('/admin/manageUsers/settings/set', 'AdminController@setSetting');
+	});
+});
+
+Route::group(array('before' => 'auth.developer'), function(){
+
 });
 
 Route::get('/paste/{id}/raw', 'PasteController@getRawPaste');

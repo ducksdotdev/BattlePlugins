@@ -9,9 +9,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-11 col-offset-lg-1">
-				<p>
-				<h4>Download {{ $lastFile->name }} for Minecraft v{{ $lastFile->gameVersion }} <a href="{{ $lastFile->downloadUrl }}">here</a>.</h4>
-				</p>
+				<p><h4>Download {{ $lastFile->name }} for Minecraft v{{ $lastFile->gameVersion }} <a href="{{ $lastFile->downloadUrl }}">here</a>.</h4></p>
 				<p>
 					<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a><br/>
 					Last Successful Build: <a href="{{ $lastBuild['ci']['url'] }}">{{ $lastBuild['ci']['build'] }}</a>

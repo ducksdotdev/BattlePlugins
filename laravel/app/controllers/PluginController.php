@@ -87,6 +87,8 @@ class PluginController extends BaseController{
 			"author" => Auth::user()->id,
 			"bukkit" => $project->slug
 		));
+
+		Cache::forever("project.".$project->slug, array($project));
 		return Response::json(array("result"=>"success"));
 	}
 
@@ -96,6 +98,7 @@ class PluginController extends BaseController{
 			return App::abort(401);
 		}else{
 			DB::table('plugins')->where('name', $plugin->name)->delete();
+			Cache::forget("project.".$plugin->bukkit);
 		}
 	}
 

@@ -56,6 +56,7 @@ class PluginController extends BaseController{
 					$untracked[] = $plugin;
 				}
 			}
+
 			if(count($untracked) > 0){
 				$vars['hasUntracked'] = true;
 				$vars['untracked'] = ListSentence::toSentence($untracked);

@@ -4,7 +4,6 @@ namespace BattleTools\Statistics;
 use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +19,7 @@ class Plugins {
 			groupBy('plugin')->
 			remember($diff)->get();
 
-		return Response::json($table);
+		return $table;
 	}
 
 	public static function getVersionStatistics($plugin){
@@ -70,7 +69,7 @@ class Plugins {
 			$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 		}
 
-		return Response::json($sendData);
+		return $sendData;
 	}
 
 

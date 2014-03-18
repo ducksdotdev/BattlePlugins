@@ -59,10 +59,10 @@ class StatisticsController extends BaseController{
 	public function getServerInformation($type){
 		switch($type){
 			case 'totals':
-				return Servers::getTotals();
+				return Response::json(Servers::getTotals());
 				break;
 			case 'auth':
-				Servers::getAuthenticationModes();
+				return Response::json(Servers::getAuthenticationModes());
 				break;
 			default:
 				return Response::make('', 204);
@@ -72,10 +72,10 @@ class StatisticsController extends BaseController{
 	public function getPluginInformation($plugin, $type){
 		switch($type){
 			case 'totals':
-				return Plugins::getPluginUsage();
+				return Response::json(Plugins::getPluginUsage());
 				break;
 			case 'version':
-				return Plugins::getVersionStatistics($plugin);
+				return Response::json(Plugins::getVersionStatistics($plugin));
 				break;
 			default:
 				return Response::make('', 204);

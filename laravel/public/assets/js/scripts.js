@@ -160,6 +160,7 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keypress(function(){
                     var slug = $(this).val();
+                    console.log(slug);
 
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){

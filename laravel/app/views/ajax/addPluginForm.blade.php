@@ -1,4 +1,4 @@
-<div class="col-lg-12">
+<div class="col-lg-12" id="addPluginContent">
 	<div class="row">
 		<div class="panel panel-primary" id="addPluginPanel">
 			<div class="panel-body">

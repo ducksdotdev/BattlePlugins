@@ -159,7 +159,7 @@ $(function () {
                 $("#plugins").prepend(data);
 
                 $("button[type='reset']").click(function(){
-                    $("#addPluginForm").fadeOut(500, function() { $(this).remove(); });
+                    $("#addPluginContent").fadeOut(500, function() { $(this).remove(); });
                 });
 
                 $("#pluginSlug").keyup(function(){

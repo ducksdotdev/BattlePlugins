@@ -20,19 +20,15 @@
 		@foreach($plugins as $plugin)
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div class="row form-horizontal">
-							<form class="form-horizontal" role="form">
-								<div class="form-group">
-									<label for="{{ $plugin->name }}" class="col-lg-4 control-label"><h3>{{ $plugin->name }}</h3></label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control input-lg" id="{{ $plugin->name }}" placeholder="Bukkit URL">
-									</div>
-								</div>
-							</form>
+				<div class="row form-horizontal">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="{{ $plugin->name }}" class="col-lg-4 control-label"><h3>{{ $plugin->name }}</h3></label>
+							<div class="col-lg-8">
+								<input type="text" class="form-control input-lg" id="{{ $plugin->name }}" placeholder="Bukkit URL">
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>

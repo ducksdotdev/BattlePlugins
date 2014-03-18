@@ -153,7 +153,7 @@ $(function () {
         });
     });
 
-    $("#deletePlugin").click(function(){
+    $("a[href='#deletePlugin']").click(function(){
         var plugin = $(this).data('plugin');
         var confirm = confirm("Are you sure you want to delete this? This cannot be undone.");
         if(confirm){

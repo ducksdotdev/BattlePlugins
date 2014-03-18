@@ -82,7 +82,13 @@ class APIController extends BaseController{
 			Session::put("userId", $uid);
 			Session::put("userPort", $port);
 
-		}, array('except' => array('getDocumentation', 'getMinecraftFace', 'userGenerateKey')));
+		}, array(
+			'except' => array(
+				'getDocumentation',
+				'getMinecraftFace',
+				'userGenerateKey',
+				'getProjectInfo'
+			)));
 
 		$this->afterFilter(function () use ($controller){
 			Session::flush();

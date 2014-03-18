@@ -161,7 +161,7 @@ $(function () {
                     var slug = $(this).val();
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){
-                            if(data.result == "success"){
+                            if(data.result != "error"){
                                 $("#pluginName").empty().append(data.name);
                                 $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
                                 $("#addPluginForm button").prop("disabled", false);
@@ -181,7 +181,7 @@ $(function () {
                     $.post("/plugins/manage/add", formData, function(data){
                         if(data.result == "failure"){
                             $("#alert").createAlert('danger', data.reason);
-                        }else{
+                        }else if(data.result == "success"){
                             window.location.reload();
                         }
                     });

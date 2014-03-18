@@ -161,8 +161,11 @@ $(function () {
                 $("#pluginSlug").blur(function(){
                     var slug = $(this).val();
                     $.getJSON("/api/curse/project/"+slug, function(data){
-                        console.log(data);
-                        $("#pluginName").empty().append(data.name);
+                        if(data.name.length > 0){
+                            $("#pluginName").empty().append(data.name);
+                        }else{
+                            $("#alert").createAlert('danger', "Not a plugin!");
+                        }
                     });
                 });
             })

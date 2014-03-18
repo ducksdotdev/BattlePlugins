@@ -169,17 +169,17 @@ $(function () {
                                 $("#addPluginForm button").prop("disabled", false);
                                 $("#inputGroup").removeClass("has-error");
                             }else{
-                                cleanPluginBox();
+                                sendPluginAddError();
                             }
                         });
                     }else{
-                        cleanPluginBox();
+                        sendPluginAddError();
                     }
                 });
 
-                var slug = $("#pluginSlug").val();
-                if(slug.length > 0){
-                    $("#addPluginForm").submit(function(e){
+                $("#addPluginForm").submit(function(e){
+                    var slug = $("#pluginSlug").val();
+                    if(slug.length > 0){
                         e.preventDefault();
                         var formData = $("#addPluginForm :input").serialize();
                         $.post("/plugins/manage/add", formData, function(data){
@@ -189,8 +189,10 @@ $(function () {
                                 window.location.reload();
                             }
                         });
-                    });
-                }
+                    }else{
+                        sendPluginAddError();
+                    }
+                });
             });
         }
     });
@@ -214,7 +216,7 @@ $(function () {
     }(document, 'script', 'facebook-jssdk'));
 });
 
-function cleanPluginBox(){
+function sendPluginAddError(){
     $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
     $("#inputGroup").addClass("has-error");
     $("#addPluginForm button").prop("disabled", true);

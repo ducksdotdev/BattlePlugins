@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\DB;
 class ProjectInfo{
 	public static function getProjectInfo($slug){
 		$key = "project.".$slug;
+
 		return Cache::get($key, function () use ($key, $slug){
-			$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
+			$project = @file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
+
+			if($project === false){
+				return array();
+			}
+
 			$project = json_decode($project);
 
 			$plugins = DB::table("plugins")->where("bukkit", $slug)->first();

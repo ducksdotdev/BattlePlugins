@@ -125,6 +125,14 @@ hr.hr-dark {
     margin-top: 5px;
 }
 
+form.ugly {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 form {
     padding: 10px;
     background: rgb(221, 221, 221);

@@ -3,7 +3,7 @@
 <div class="content-section-a">
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-11">
+			<div class="col-lg-8">
 				<h2>Manage Plugins</h2>
 				<p>Add, edit, or delete plugins from this page. You may only add Battle<em>Plugins</em> to this list. Plugins will go through an approval process before being added to the list. Adding a plugin to the website enables the following features:</p>
 				<ul>
@@ -12,7 +12,8 @@
 					<li>Advertising of your plugin through BattlePlugins</li>
 				</ul>
 			</div>
-			<div class="col-lg-1">
+			<div class="col-lg-3 col-offset-lg-1">
+				<h3>Manage</h3>
 				<button class="btn btn-primary" id="addPlugin">Add Plugin</button>
 			</div>
 		</div>

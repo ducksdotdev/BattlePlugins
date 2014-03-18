@@ -5,6 +5,7 @@ use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class Plugins {
 	public static function getPluginUsage(){

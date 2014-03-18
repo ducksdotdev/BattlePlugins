@@ -21,6 +21,15 @@
 	</div>
 </div>
 <div class="content-section-b">
+	@if($hasUntracked)
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-info">It seems as though {{ $untracked }} are not sending any statistics! You know, you can track any of your Battle<em>Plugins</em> with BattlePluginsAPI.</div>
+			</div>
+		</div>
+	</div>
+	@endif
 	<div class="container" id="plugins">
 		@foreach($plugins as $plugin)
 		<div class="row" id="{{ $plugin->name }}">

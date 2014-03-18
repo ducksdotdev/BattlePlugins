@@ -157,6 +157,11 @@ $(function () {
         if($("#addPluginForm").length == 0){
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
+
+                $("button[type='reset']").click(function(){
+                    $("#addPluginForm").fadeOut(500, function() { $(this).remove(); });
+                });
+
                 $("#pluginSlug").keyup(function(){
                     $("#alert").removeAlert();
 

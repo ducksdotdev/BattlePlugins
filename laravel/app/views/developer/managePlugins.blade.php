@@ -25,7 +25,7 @@
 						<div class="row">
 							<div class="col-lg-4"><h1>{{ $plugin->name }}</h1></div>
 							<div class="col-lg-7"><input type="text" class="form-control input-xl" placeholder="Bukkit Slug" value="{{ $plugin->bukkit }}" disabled /></div>
-							<div class="col-lg-1"><i class="fa fa-times-circle"></i></div>
+							<div class="col-lg-1"><i class="fa fa-times-circle fa-5x"></i></div>
 						</div>
 					</div>
 				</div>

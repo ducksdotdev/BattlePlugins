@@ -74,12 +74,12 @@ class PluginController extends BaseController{
 		$slug = Input::get('pluginSlug');
 		$project = ProjectInfo::getProjectInfo($slug)[0];
 		if(count($project) == 0){
-			return Response::json(array("result"=>"error","reason"=>"That slug was not found."));
+			return Response::json(array("result"=>"failure","reason"=>"That slug was not found."));
 		}
 
 		$plugins = DB::table("plugins")->where("name", $project->name)->first();
 		if(count($plugins) > 0){
-			return Response::json(array("result"=>"error","reason"=>"That plugin already exists!"));
+			return Response::json(array("result"=>"failure","reason"=>"That plugin already exists!"));
 		}
 
 		DB::table("plugins")->insert(array(

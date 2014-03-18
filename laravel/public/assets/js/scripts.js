@@ -169,17 +169,11 @@ $(function () {
                                 $("#addPluginForm button").prop("disabled", false);
                                 $("#inputGroup").removeClass("has-error");
                             }else{
-                                $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
-                                $("#inputGroup").addClass("has-error");
-                                $("#addPluginForm button").prop("disabled", true);
-                                $("#pluginName").empty();
+                                cleanPluginBox();
                             }
                         });
                     }else{
-                        $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
-                        $("#inputGroup").addClass("has-error");
-                        $("#addPluginForm button").prop("disabled", true);
-                        $("#pluginName").empty();
+                        cleanPluginBox();
                     }
                 });
 
@@ -216,6 +210,13 @@ $(function () {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 });
+
+function cleanPluginBox(){
+    $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
+    $("#inputGroup").addClass("has-error");
+    $("#addPluginForm button").prop("disabled", true);
+    $("#pluginName").empty();
+}
 
 $.extend({
     password: function (length, special) {

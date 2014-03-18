@@ -9,7 +9,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-11 col-offset-lg-1">
-				<a href="{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a><br />
+				<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a><br />
 				Last Successful Build: <a href="{{ $lastBuild['ci']['url'] }}">{{ $lastBuild['ci']['build'] }}</a><br />
 			</div>
 		</div>

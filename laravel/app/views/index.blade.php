@@ -69,7 +69,7 @@
             <div class="col-md-3">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <a href="{{ $build['bukkit'] }}"><span class="panel-title">{{ $build['name'] }}</span> <i class="fa fa-external-link"></i></a>
+	                    <span class="panel-title"><a href="/plugins/profile/{{ $build['name'] }}">{{ $build['name'] }}</a></span> <a href="http://dev.bukkit.org/bukkit-plugins/{{ $build['bukkit'] }}"><i class="fa fa-external-link pull-right"></i></a>
                     </div>
                     <div class="panel-body">
                         Created by: <a href="/profile/{{ $authors[$build['author']] }}">{{ $authors[$build['author']] }}</a><br />

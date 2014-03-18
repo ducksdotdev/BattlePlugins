@@ -23,8 +23,8 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-lg-4"><h3>{{ $plugin->name }}</h3></div>
-							<div class="col-lg-8"><input type="text" class="form-control input-xl" placeholder="Bukkit URL" value="{{ $plugin->bukkit }}" /></div>
+							<div class="col-lg-4"><h1>{{ $plugin->name }}</h1></div>
+							<div class="col-lg-8"><input type="text" id="pluginBukkitURL" class="form-control input-xl" placeholder="Bukkit URL" value="{{ $plugin->bukkit }}" /></div>
 						</div>
 					</div>
 				</div>

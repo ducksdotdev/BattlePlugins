@@ -440,8 +440,8 @@ class APIController extends BaseController{
 		return Response::json($minecraft->Info());
 	}
 
-	public function getProjectInfo($project){
-		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$project);
+	public function getProjectInfo($slug){
+		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
 		return $project;
 	}
 }

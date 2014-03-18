@@ -90,9 +90,7 @@ Route::group(array('before' => 'auth.developer'), function(){
 
 	Route::get("/api/curse/project/{slug}", 'APIController@getProjectInfo');
 
-	Route::group(array('before'=>'csrf'), function(){
 		Route::post('/plugins/manage/add' , 'PluginController@addPlugin');
-	});
 });
 
 Route::get('/paste/{id}/raw', 'PasteController@getRawPaste');

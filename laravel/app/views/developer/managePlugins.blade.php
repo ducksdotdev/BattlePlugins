@@ -27,7 +27,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-lg-4"><h1><a href="/plugins/profile/{{ $plugin->name }}" target="_blank">{{ $plugin->name }}</a></h1><a href="http://dev.bukkit.org/bukkit-plugins/{{ $plugin->bukkit }}" target="_blank" class="text-right"><i class="fa fa-external-link pull-right"></i></a></div>
+							<div class="col-lg-4"><h1><a href="/plugins/profile/{{ $plugin->name }}" target="_blank">{{ $plugin->name }}</a></h1><a href="http://dev.bukkit.org/bukkit-plugins/{{ $plugin->bukkit }}" class="text-right"><i class="fa fa-external-link pull-right"></i></a></div>
 							<div class="col-lg-7"><input type="text" class="form-control input-xl" placeholder="Bukkit Slug" value="{{ $plugin->bukkit }}" disabled /></div>
 							<div class="col-lg-1 text-right"><a href="#deletePlugin" class="btn btn-danger btn-sm" data-plugin="{{ $plugin->name }}"><i class="fa fa-times-circle fa-lg"></i></a></div>
 						</div>

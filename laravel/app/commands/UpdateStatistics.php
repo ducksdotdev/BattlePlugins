@@ -12,7 +12,7 @@ class UpdateStatistics extends Command{
 	 *
 	 * @var string
 	 */
-	protected $name = 'battle:forcegraphcache';
+	protected $name = 'battle:forcesave';
 
 	/**
 	 * The console command description.

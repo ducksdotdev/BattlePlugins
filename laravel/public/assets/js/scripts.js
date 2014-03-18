@@ -161,7 +161,7 @@ $(function () {
                     var slug = $(this).val();
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){
-                            if(data.result != "error"){
+                            if(data.result == "success"){
                                 $("#pluginName").empty().append(data.name);
                                 $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
                                 $("#addPluginForm button").prop("disabled", false);

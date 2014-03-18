@@ -23,9 +23,9 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-lg-4"><h3>{{ $plugin->name }}</h3></div>
-							<div class="col-lg-4"><input type="text" value="{{ $plugin->bukkit }}" /></div>
-							<div class="col-lg-4"></div>
+							<div class="col-lg-4 text-center"><h3>{{ $plugin->name }}</h3></div>
+							<div class="col-lg-4 text-center"><input type="text" class="form-control" placeholder="Bukkit URL" value="{{ $plugin->bukkit }}" /></div>
+							<div class="col-lg-4 text-center"></div>
 						</div>
 					</div>
 				</div>

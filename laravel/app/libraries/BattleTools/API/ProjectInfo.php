@@ -3,6 +3,7 @@ namespace BattleTools\API;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class ProjectInfo{
 	public static function getProjectInfo($slug){

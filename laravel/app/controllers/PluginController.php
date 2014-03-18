@@ -1,10 +1,12 @@
 <?php
 
 use BattleTools\API\ProjectInfo;
+use BattleTools\Statistics\Plugins;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\Deploy;
 use BattleTools\Util\Jenkins;
+use BattleTools\Util\ListSentence;
 
 class PluginController extends BaseController{
 
@@ -46,6 +48,20 @@ class PluginController extends BaseController{
 			parent::setActive('Developer');
 			$vars['title'] = 'Manage Plugins';
 			$vars['plugins'] = DB::table("plugins")->where('author', Auth::user()->id)->get();
+
+			$untracked = array();
+			foreach($vars['plugins'] as $plugin){
+				$pluginStats = Plugins::getVersionStatistics($plugin);
+				if(count($pluginStats) == 0){
+					$untracked[] = $plugin;
+				}
+			}
+			if(count($untracked) > 0){
+				$vars['hasUntracked'] = true;
+				$vars['untracked'] = ListSentence::toSentence($untracked);
+			}else{
+				$vars['hasUntracked'] = false;
+			}
 
 			return View::make('developer.managePlugins', $vars);
 		}else{

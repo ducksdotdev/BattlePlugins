@@ -70,12 +70,8 @@ class PluginController extends BaseController{
 	}
 
 	public function getProjectInfo($slug){
-		return Cache::get("projectInfo.".$slug, function() use ($slug){
-			$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
-			Cache::forever("projectInfo.".$slug, $project);
-
-			return $project;
-		});
+		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
+		return $project;
 	}
 
 	public function deletePlugin($plugin){

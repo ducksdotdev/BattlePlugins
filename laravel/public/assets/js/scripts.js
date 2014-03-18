@@ -162,7 +162,7 @@ $(function () {
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){
                             if(data.result != "error"){
-                                $("#pluginName").empty().append(data.name);
+                                $("#pluginName").empty().append('<a href="http://dev.bukkit.org/bukkit-plugins/'+data.slug+'" target="_blank">'+data.name+'</a>');
                                 $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
                                 $("#addPluginForm button").prop("disabled", false);
                                 $("#inputGroup").removeClass("has-error");

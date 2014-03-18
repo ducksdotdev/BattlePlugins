@@ -6,6 +6,6 @@ class ProjectInfo {
 		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
 		$project = json_decode($project);
 
-		return $project[0];
+		return $project;
 	}
 }

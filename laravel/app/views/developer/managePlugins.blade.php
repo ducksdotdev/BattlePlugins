@@ -25,7 +25,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<div class="alert alert-info">It seems as though {{ $untracked }} {{ $join }} not sending any statistics! You can track your plugins using our <a href="https://github.com/alkarinv/BattlePluginsAPI/blob/master/src/java/mc/battleplugins/api/BattlePluginsAPI.java">BattlePluginsAPI</a>.</div>
+				<div class="alert alert-info">It seems as though {{ $untracked }} {{ $join }} not sending any statistics! You can track your plugins using <a href="https://github.com/alkarinv/BattlePluginsAPI/blob/master/src/java/mc/battleplugins/api/BattlePluginsAPI.java">BattlePluginsAPI</a>.</div>
 			</div>
 		</div>
 	</div>

@@ -77,7 +77,7 @@ class PluginController extends BaseController{
 			return Response::json(array("result"=>"error","reason"=>"That slug was not found."));
 		}
 
-		$plugins = DB::table("plugins")->where("name", $project['name'])->first();
+		$plugins = DB::table("plugins")->where("name", $project->name)->first();
 		if(count($plugins) > 0){
 			return Response::json(array("result"=>"error","reason"=>"That plugin already exists!"));
 		}

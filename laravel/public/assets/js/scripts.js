@@ -164,6 +164,7 @@ $(function () {
 
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){
+                            console.log(data);
                             if(data.length > 0){
                                 $("#pluginName").empty().append(data.name);
                                 $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");

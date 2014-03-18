@@ -8,7 +8,7 @@ use BattleTools\Util\Jenkins;
 class PluginController extends BaseController{
 
 	public function __construct(){
-		$this->beforeFilter('auth.developer', array('except' => array('getPlugins', 'managePlugins')));
+		$this->beforeFilter('auth.developer', array('except' => array('getPlugins', 'managePlugins', 'getPluginProfile')));
 	}
 
 	public function getPlugins(){

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProjectInfo{
 	public static function getProjectInfo($slug){
-		if(!preg_match("[a-zA-Z0-9]+", $slug)){
+		if(preg_match("/[^a-zA-Z0-9]+/", $slug)){
 			return array();
 		}
 

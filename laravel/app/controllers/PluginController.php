@@ -64,7 +64,7 @@ class PluginController extends BaseController{
 			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
 			$vars['lastBuild'] = array('ci' => $ci, 'name' => $plugin->name, 'author' => $plugin->author, 'bukkit' => $plugin->bukkit);
 
-			$lastFile = ProjectInfo::getFiles($plugin->slug);
+			$lastFile = ProjectInfo::getFiles($plugin->bukkit);
 			$vars['lastFile'] = $lastFile[count($lastFile)-1];
 
 			return View::make('plugin-profile', $vars);

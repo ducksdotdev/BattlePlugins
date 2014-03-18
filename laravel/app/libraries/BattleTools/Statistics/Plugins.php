@@ -26,16 +26,16 @@ class Plugins {
 		$interval = Config::get('statistics.interval');
 		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
-		$pluginStatistics = DB::table('plugin_statistics')
-			->select(
+		$pluginStatistics = DB::table('plugin_statistics')->
+			select(
 				DB::raw('count(distinct server) as count'),
 				DB::raw('(FLOOR(UNIX_TIMESTAMP(inserted_on)/'.($interval*60).')) as time'),
-				'version')
-			->where('plugin', $plugin)
-			->where('inserted_on', '<', DateUtil::getTimeToThirty())
-			->groupBy('version', 'time')
-			->orderBy('time')
-			->remember($diff)->get();
+				'version')->
+			where('plugin', $plugin)->
+			where('inserted_on', '<', DateUtil::getTimeToThirty())->
+			groupBy('version', 'time')->
+			orderBy('time')->
+			remember($diff)->get();
 
 		$times = array();
 		$data = array();

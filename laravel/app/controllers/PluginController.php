@@ -51,9 +51,9 @@ class PluginController extends BaseController{
 
 			$untracked = array();
 			foreach($vars['plugins'] as $plugin){
-				$pluginStats = Plugins::getVersionStatistics($plugin);
+				$pluginStats = Plugins::getVersionStatistics($plugin->name);
 				if(count($pluginStats) == 0){
-					$untracked[] = $plugin;
+					$untracked[] = $plugin->name;
 				}
 			}
 

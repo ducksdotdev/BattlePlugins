@@ -158,7 +158,7 @@ $(function () {
         if($("#addPluginForm").length == 0){
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
-                $("#pluginSlug").keyup(function(){
+                $("#pluginSlug").keypress(function(){
                     var slug = $(this).val();
                     $.getJSON("/api/curse/project/"+slug, function(data){
                         if(data.length > 0){

@@ -74,7 +74,7 @@ class PluginController extends BaseController{
 		if(count($plugin) == 0 || $plugin->author != Auth::user()->id){
 			return App::abort(401);
 		}else{
-			DB::table('plugins')->where('name', $plugin)->delete();
+			DB::table('plugins')->where('name', $plugin->name)->delete();
 		}
 	}
 }

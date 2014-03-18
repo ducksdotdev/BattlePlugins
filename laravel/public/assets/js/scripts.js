@@ -160,18 +160,21 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keypress(function(){
                     var slug = $(this).val();
-                    $.getJSON("/api/curse/project/"+slug, function(data){
-                        if(data.length > 0){
-                            $("#pluginName").empty().append(data.name);
-                            $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
-                            $("#addPluginForm button").prop("disabled", false);
-                            $("#inputGroup").removeClass("has-error");
-                        }else{
-                            $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
-                            $("#inputGroup").addClass("has-error");
-                            $("#addPluginForm button").prop("disabled", true);
-                        }
-                    });
+
+                    if(slug.length > 0){
+                        $.getJSON("/api/curse/project/"+slug, function(data){
+                            if(data.length > 0){
+                                $("#pluginName").empty().append(data.name);
+                                $("#addPluginPanel").removeClass("panel-danger").addClass("panel-primary");
+                                $("#addPluginForm button").prop("disabled", false);
+                                $("#inputGroup").removeClass("has-error");
+                            }else{
+                                $("#addPluginPanel").removeClass("panel-primary").addClass("panel-danger");
+                                $("#inputGroup").addClass("has-error");
+                                $("#addPluginForm button").prop("disabled", true);
+                            }
+                        });
+                    }
                 });
             })
         }

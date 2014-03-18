@@ -157,7 +157,7 @@ $(function () {
         var plugin = $(this).data('plugin');
         if(confirm("Are you sure you want to delete this? This cannot be undone.")){
             $.get("/plugins/manage/delete/"+plugin, function(){
-                $("#"+plugin).remove();
+                $("#"+plugin).fadeOut(500, function() { $(this).remove(); });
             });
         }
     });

@@ -163,8 +163,10 @@ $(function () {
                     $.getJSON("/api/curse/project/"+slug, function(data){
                         if(data.name.length > 0){
                             $("#pluginName").empty().append(data.name);
+                            $("#addPluginForm button").prop("disabled", false);
                         }else{
                             $("#alert").createAlert('danger', "Not a plugin!");
+                            $("#addPluginForm button").prop("disabled", true);
                         }
                     });
                 });

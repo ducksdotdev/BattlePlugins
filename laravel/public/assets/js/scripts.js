@@ -158,6 +158,12 @@ $(function () {
         if($("#addPluginForm").length == 0){
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
+                $("#pluginSlug").blur(function(){
+                    var slug = $(this).val();
+                    $.getJSON("https://api.curseforge.com/servermods/projects?search="+slug, function(data){
+                        $("#pluginName").empty().append(data.name);
+                    });
+                });
             })
         }
     })

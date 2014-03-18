@@ -44,7 +44,7 @@ class PluginController extends BaseController{
 		if($check && in_array(UserGroups::DEVELOPER, $groups)){
 			parent::setActive('Developer');
 			$vars['title'] = 'Manage Plugins';
-			$vars['plugins'] = DB::table("plugins")->get();
+			$vars['plugins'] = DB::table("plugins")->where('author', Auth::user()->id)->get();
 
 			return View::make('developer.managePlugins', $vars);
 		}else{

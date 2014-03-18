@@ -161,6 +161,7 @@ $(function () {
                 $("#pluginSlug").blur(function(){
                     var slug = $(this).val();
                     $.getJSON("/api/curse/project/"+slug, function(data){
+                        console.log(data);
                         $("#pluginName").empty().append(data.name);
                     });
                 });

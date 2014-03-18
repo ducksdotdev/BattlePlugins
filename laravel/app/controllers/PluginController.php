@@ -1,5 +1,6 @@
 <?php
 
+use BattleTools\API\ProjectInfo;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\Deploy;
@@ -67,6 +68,25 @@ class PluginController extends BaseController{
 		}else{
 			return Redirect::to('/plugins');
 		}
+	}
+
+	public function addPlugin(){
+		$slug = Input::get('pluginSlug');
+		$project = ProjectInfo::getProjectInfo($slug);
+		if(count($project) == 0){
+			return Response::json(array("result"=>"error","reason"=>"That slug was not found."));
+		}
+
+		$plugins = DB::table("plugins")->where("name", $project['name'])->first();
+		if(count($plugins) > 0){
+			return Response::json(array("result"=>"error","reason"=>"That plugin already exists!"));
+		}
+
+		DB::table("plugins")->insert(array(
+			"name" => $project['name'],
+			"bukkit" => $project['slug']
+		));
+		return Response::json(array("result"=>"success"));
 	}
 
 	public function deletePlugin($plugin){

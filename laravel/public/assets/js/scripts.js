@@ -154,14 +154,11 @@ $(function () {
     });
 
     $("#addPlugin").click(function(e){
-        e.preventDefault();
         if($("#addPluginForm").length == 0){
             $.get("/ajax/plugins/addPluginForm", function(data){
                 $("#plugins").prepend(data);
                 $("#pluginSlug").keyup(function(){
                     var slug = $(this).val();
-                    console.log(slug);
-
                     if(slug.length > 0){
                         $.getJSON("/api/curse/project/"+slug, function(data){
                             if(data.result != "error"){
@@ -176,6 +173,18 @@ $(function () {
                             }
                         });
                     }
+                });
+
+                $("#addPluginForm").submit(function(e){
+                    e.preventDefault();
+                    var formData = $("#addPluginForm :input").serialize();
+                    $.post("/plugins/manage/add", formData, function(data){
+                        if(data.result == "failure"){
+                            $("#alert").createAlert('danger', data.reason);
+                        }else{
+                            window.location.reload();
+                        }
+                    });
                 });
             })
         }

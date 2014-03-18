@@ -1,5 +1,6 @@
 <?php
 
+use BattleTools\API\ProjectInfo;
 use BattleTools\BattleTracker\Actions;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
@@ -447,8 +448,8 @@ class APIController extends BaseController{
 	}
 
 	public function getProjectInfo($slug){
-		$project = file_get_contents("https://api.curseforge.com/servermods/projects?search=".$slug);
-		$project = json_decode($project);
+		$project = ProjectInfo::getProjectInfo($slug);
+
 		if(count($project) > 0){
 			$project = $project[0];
 		}else{

@@ -18,7 +18,7 @@
 <div class="content-section-b">
 	<div class="container">
 		@foreach($plugins as $plugin)
-		<div class="row">
+		<div class="row" id="{{ $plugin->name }}">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">

@@ -68,4 +68,13 @@ class PluginController extends BaseController{
 			return Redirect::to('/plugins');
 		}
 	}
+
+	public function deletePlugin($plugin){
+		$plugin = DB::table('plugins')->where('name', $plugin)->get();
+		if($plugin->author != Auth::user()->id){
+			return App::abort(401);
+		}else{
+			DB::table('plugins')->where('name', $plugin)->delete();
+		}
+	}
 }

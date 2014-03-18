@@ -153,6 +153,15 @@ $(function () {
         });
     });
 
+    $("#deletePlugin").click(function(){
+        var plugin = $(this).data('plugin');
+        if(confirm("Are you sure you want to delete this? This cannot be undone.")){
+            $.get("/plugins/manage/delete/"+plugin, function(){
+                $("#"+plugin).remove();
+            });
+        }
+    });
+
     $("#pluginBukkitSlug").blur(function(){
         var slug = $(this).val();
         $.getJSON("https://api.curseforge.com/servermods/projects?search="+slug, function(data){

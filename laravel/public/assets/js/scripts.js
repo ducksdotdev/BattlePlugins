@@ -178,9 +178,10 @@ $(function () {
                 });
 
                 $("#addPluginForm").submit(function(e){
+                    e.preventDefault();
+
                     var slug = $("#pluginSlug").val();
                     if(slug.length > 0){
-                        e.preventDefault();
                         var formData = $("#addPluginForm :input").serialize();
                         $.post("/plugins/manage/add", formData, function(data){
                             if(data.result == "failure"){

@@ -95,7 +95,7 @@ $(function () {
     }
 
     if($("#pluginsGraph").length > 0){
-        $.getJSON('/statistics/plugins/totals', function (data) {
+        $.getJSON('/statistics/plugin/all/totals', function (data) {
             var cdata = [];
             $.each(data, function (i, item) {
                 cdata.push([item.plugin, parseInt(item.total)]);

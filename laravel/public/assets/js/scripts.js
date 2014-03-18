@@ -153,8 +153,11 @@ $(function () {
         });
     });
 
-    $("#pluginBukkitURL").blur(function(){
+    $("#pluginBukkitSlug").blur(function(){
+        var slug = $(this).val();
+        $.getJSON("https://api.curseforge.com/servermods/projects?search="+slug, function(data){
 
+        });
     });
 
     (function (d, s, id) {

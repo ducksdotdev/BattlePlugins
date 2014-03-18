@@ -72,7 +72,7 @@ class PluginController extends BaseController{
 
 	public function addPlugin(){
 		$slug = Input::get('pluginSlug');
-		$project = ProjectInfo::getProjectInfo($slug);
+		$project = ProjectInfo::getProjectInfo($slug)[0];
 		if(count($project) == 0){
 			return Response::json(array("result"=>"error","reason"=>"That slug was not found."));
 		}

@@ -12,3 +12,4 @@
 */
 
 Artisan::add(new UpdateStatistics());
+Artisan::add(new UpdateServersGraph());

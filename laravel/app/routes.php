@@ -87,6 +87,8 @@ Route::group(array('before' => 'auth'), function(){
 Route::group(array('before' => 'auth.developer'), function(){
 	Route::get('/plugins/manage/delete/{plugin}' , 'PluginController@deletePlugin');
 	Route::get('/ajax/plugins/addPluginForm' , 'PluginController@getAddPluginForm');
+
+	Route::get("/api/curse/project/{plugin}", 'APIController@getProjectInfo');
 });
 
 Route::get('/paste/{id}/raw', 'PasteController@getRawPaste');

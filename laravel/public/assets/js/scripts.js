@@ -160,7 +160,7 @@ $(function () {
                 $("#plugins").prepend(data);
                 $("#pluginSlug").blur(function(){
                     var slug = $(this).val();
-                    $.getJSON("https://api.curseforge.com/servermods/projects?search="+slug, function(data){
+                    $.getJSON("/api/curse/project/"+slug, function(data){
                         $("#pluginName").empty().append(data.name);
                     });
                 });

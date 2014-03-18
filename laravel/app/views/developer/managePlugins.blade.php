@@ -4,13 +4,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">
-				<h2>Manage Plugins</h2>
+				<h2>Manage Plugins <small>({{ count($plugins) }})</small></h2>
 				<p>Add, edit, or delete plugins from this page. You may only add Battle<em>Plugins</em> to this list. Plugins will go through an approval process before being added to the list. Adding a plugin to the website enables the following features:</p>
 				<ul>
 					<li><a href="http://ci.battleplugins.com/" target="_blank">Jenkins</a> tracking via the homepage and plugin list</li>
 					<li>Statistics tracking for plugins using <a href="https://github.com/alkarinv/BattlePluginsAPI" target="_blank">BattlePluginsAPI</a></li>
 					<li>Advertising of your plugin through BattlePlugins</li>
 				</ul>
+				<p><a href="http://wiki.battleplugins.com/w/index.php?title=BA_API_Tutorial">Check out our wiki page on how to create a BattleArena extension!</a></p>
 			</div>
 			<div class="col-lg-3 col-offset-lg-1">
 				<h3>Manage</h3>

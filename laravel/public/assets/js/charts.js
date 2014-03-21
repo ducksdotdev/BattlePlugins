@@ -25,7 +25,7 @@ $(function () {
     });
 
     var rangeSettings = {
-        selected : 3,
+        selected : 2,
         inputEnabled: true,
         buttons: [{
             type: 'day',

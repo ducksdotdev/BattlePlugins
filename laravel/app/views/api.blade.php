@@ -32,6 +32,11 @@
                 <pre>GET /api/web/blog/all?_key={{ $apiKey }} HTTP/1.1</pre>
             </div>
         </div>
+	    <div class="row">
+		    <div class="col-lg-12">
+			    <a href="https://github.com/alkarinv/BattlePluginsAPI/blob/master/src/java/mc/battleplugins/api/BattlePluginsAPI.java" target="_blank">You can also use our BattlePluginsAPI in your plugins in order to make post requests, pastes, and use our statistics for your plugins.</a>
+		    </div>
+	    </div>
     </div>
 </div>
 <div class="content-section-b">

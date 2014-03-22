@@ -6,6 +6,7 @@
             <div class="col-lg-12">
                 <h2>API Documentation</h2>
                 <p>Your API key is <strong>{{ $apiKey }}</strong>. Please do not share this key with anyone. It allows other users or servers to act on your behalf. If your key is compromised, you can <a href="/api/generateKey">generate a new one</a>.</p>
+	            <p><a href="https://github.com/alkarinv/BattlePluginsAPI/blob/master/src/java/mc/battleplugins/api/BattlePluginsAPI.java" target="_blank">You can also use our BattlePluginsAPI in your plugins in order to make post requests, pastes, and use our statistics for your plugins.</a></p>
             </div>
         </div>
         <div class="row">
@@ -32,11 +33,6 @@
                 <pre>GET /api/web/blog/all?_key={{ $apiKey }} HTTP/1.1</pre>
             </div>
         </div>
-	    <div class="row">
-		    <div class="col-lg-12">
-			    <a href="https://github.com/alkarinv/BattlePluginsAPI/blob/master/src/java/mc/battleplugins/api/BattlePluginsAPI.java" target="_blank">You can also use our BattlePluginsAPI in your plugins in order to make post requests, pastes, and use our statistics for your plugins.</a>
-		    </div>
-	    </div>
     </div>
 </div>
 <div class="content-section-b">

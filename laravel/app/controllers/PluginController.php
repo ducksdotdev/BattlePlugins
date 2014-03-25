@@ -83,9 +83,14 @@ class PluginController extends BaseController{
 			$vars['lastBuild'] = array('ci' => $ci, 'name' => $plugin->name, 'author' => $plugin->author, 'bukkit' => $plugin->bukkit);
 
 			$lastFile = ProjectInfo::getFiles($plugin->bukkit);
-			$lastCount = count($lastFile)-1 > 0 ? count($lastFile)-1 : 0;
 
-			$vars['lastFile'] = $lastFile[$lastCount];
+			if(count($lastFile) > 0){
+				$lastCount = count($lastFile)-1 > 0 ? count($lastFile)-1 : 0;
+				$vars['lastFile'] = $lastFile[$lastCount];
+				$vars['hasFiles'] = true;
+			}else{
+				$vars['hasFiles'] = false;
+			}
 
 			return View::make('plugin-profile', $vars);
 		}else{

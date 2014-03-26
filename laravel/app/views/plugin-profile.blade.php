@@ -28,7 +28,7 @@
 					<div class="panel-heading">
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Version Statistics</div>
 					</div>
-					<div id="versionStatistics" data-plugin="{{ $plugin->name }}" class="panel-body"></div>
+					<div id="versionStatistics" data-plugin="{{ $plugin->name }}" class="panel-body">Loading...</div>
 				</div>
 			</div>
 		</div>

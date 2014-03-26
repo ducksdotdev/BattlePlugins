@@ -18,7 +18,7 @@
 					<div class="panel-heading">
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Servers and Players</div>
 					</div>
-					<div id="serversGraph" class="panel-body"></div>
+					<div id="serversGraph" class="panel-body">Loading...</div>
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 					<div class="panel-heading">
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Total Plugin Usage</div>
 					</div>
-					<div class="panel-body" id="pluginsGraph"></div>
+					<div class="panel-body" id="pluginsGraph">Loading...</div>
 					<div class="panel-footer"><small>Individual plugin statistics can be found on the <a href="/plugins">plugin's profile</a>.</small></div>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 					<div class="panel-heading">
 						<div class="panel-title"><i class="fa fa-bar-chart-o panel-icon"></i>Authentication Modes</div>
 					</div>
-					<div class="panel-body" id="authGraph"></div>
+					<div class="panel-body" id="authGraph">Loading...</div>
 				</div>
 			</div>
 		</div>

@@ -21,6 +21,9 @@ class ProjectInfo{
 			}
 
 			$project = json_decode($project);
+			if(count($project) == 0){
+				return array();
+			}
 
 			$plugins = DB::table("plugins")->where("bukkit", $slug)->first();
 			if(count($plugins) > 0){

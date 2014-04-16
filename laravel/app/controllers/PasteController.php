@@ -82,6 +82,7 @@ class PasteController extends BaseController {
 	    }
 
 	    file_put_contents($path.'/'.$id, $content);
+	    Cache::forever('paste-'.$id, $content);
 
         $lang = Input::get('lang');
 
@@ -123,7 +124,7 @@ class PasteController extends BaseController {
             $title = $paste->title;
         }
 
-	    $vars['content'] = file_get_contents($path);
+	    $vars['content'] = Cache::get('paste-'.$paste->id, file_get_contents($path));
         $vars['author'] = UserSettings::getUsernameFromId($paste->author);
         $vars['ago'] = DateUtil::getDateHtml($paste->created_on);
         $vars['title'] = $title;
@@ -168,7 +169,7 @@ class PasteController extends BaseController {
 
         $vars['title'] = $title;
         $vars['paste'] = $paste;
-	    $vars['content'] = file_get_contents($path);
+	    $vars['content'] = Cache::get('paste-'.$paste->id, file_get_contents($path));
 
         return View::make('paste.raw', $vars);
     }
@@ -180,7 +181,7 @@ class PasteController extends BaseController {
             return Response::json(array('result'=>'failure'));
         }
 
-        DB::table('pastes')->where('id', $id)->update(array('hidden_on'=>Carbon::now()));
+        DB::table('pastes')->where('id', $id)->delete();
         return Response::json(array('result'=>'success'));
     }
 
@@ -197,7 +198,7 @@ class PasteController extends BaseController {
         $title = Input::get('title');
         $content = Input::get('content');
 
-        $input = array(
+	    $input = array(
             'title' => $title,
             'content' => $content,
         );
@@ -230,15 +231,26 @@ class PasteController extends BaseController {
         $id = Input::get('id');
 
         $paste = DB::table('pastes')->where('id', $id)->first();
+
+	    $path = Config::get('pastes.location');
+	    $path = $path.'/'.$paste->id;
+
+	    if(!file_exists($path)){
+		    return Redirect::to('/paste/'.$paste->id);
+	    }
+
         if(!Auth::check() || ($paste->author != Auth::user()->id && !UserGroups::hasGroup(Auth::user()->id, UserGroups::ADMINISTRATOR))){
             return Response::json(array('result'=>'failure','reason'=>'This isn\'t your paste!'));
         }
 
         DB::table('pastes')->where('id', $id)->update(array(
             'title' => $title,
-            'content' => $content,
             'private' => $private,
         ));
+
+	    file_put_contents($path, $content);
+
+	    Cache::forever('paste-'.$paste->id, $content);
 
         return Response::json(array('result'=>'success'));
     }

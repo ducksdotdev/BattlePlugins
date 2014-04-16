@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" class="form-control">{{ $paste->content }}</textarea>
+            <textarea name="content" id="content" class="form-control">{{ $content }}</textarea>
         </div>
         <div class="checkbox">
             <label>

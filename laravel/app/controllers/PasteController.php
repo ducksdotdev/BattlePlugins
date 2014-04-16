@@ -77,7 +77,15 @@ class PasteController extends BaseController {
         }
 
         $private = Input::has('private');
-        $id = str_random(6);
+
+	    $id = str_random(6);
+		$path = Config::get('pastes.location');
+
+	    while(file_exists($path.'/'.$id)){
+		    $id = str_random(6);
+	    }
+
+	    file_put_contents($path.'/'.$id, $content);
 
         $lang = Input::get('lang');
 
@@ -85,7 +93,6 @@ class PasteController extends BaseController {
             'id' => $id,
             'author' => Auth::user()->id,
             'title' => $title,
-            'content' => $content,
             'private' => $private,
             'lang' => $lang,
             'created_on' => Carbon::now(),
@@ -97,6 +104,13 @@ class PasteController extends BaseController {
 
     public function getPaste($id){
         $paste = DB::table('pastes')->where('id', $id)->first();
+
+	    $path = Config::get('pastes.location');
+		$path = $path.'/'.$paste->id;
+
+	    if(!file_exists($path)){
+		    return Redirect::to('/paste/create');
+	    }
 
         if(count($paste) == 0){
             return Redirect::to('/paste/create');
@@ -113,6 +127,7 @@ class PasteController extends BaseController {
             $title = $paste->title;
         }
 
+	    $vars['content'] = file_get_contents($path);
         $vars['author'] = UserSettings::getUsernameFromId($paste->author);
         $vars['ago'] = DateUtil::getDateHtml($paste->created_on);
         $vars['title'] = $title;
@@ -133,6 +148,13 @@ class PasteController extends BaseController {
     public function getRawPaste($id){
         $paste = DB::table('pastes')->where('id', $id)->first();
 
+	    $path = Config::get('pastes.location');
+	    $path = $path.'/'.$paste->id;
+
+	    if(!file_exists($path)){
+		    return Redirect::to('/paste/create');
+	    }
+
         if(count($paste) == 0){
             return Redirect::to('/paste/create');
         }
@@ -150,6 +172,7 @@ class PasteController extends BaseController {
 
         $vars['title'] = $title;
         $vars['paste'] = $paste;
+	    $vars['content'] = file_get_contents($path);
 
         return View::make('paste.raw', $vars);
     }

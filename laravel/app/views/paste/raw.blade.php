@@ -1,1 +1,1 @@
-<pre>{{{ $paste->content }}}</pre>
+<pre>{{{ $content }}}</pre>

@@ -24,7 +24,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <pre @if($paste->lang != 'plain') class="prettyprint linenums @if($paste->lang != null) lang-{{ $paste->lang }} @endif" @endif>{{{ $paste->content }}}</pre>
+                        <pre @if($paste->lang != 'plain') class="prettyprint linenums @if($paste->lang != null) lang-{{ $paste->lang }} @endif" @endif>{{{ $content }}}</pre>
                     </div>
                 </div>
             </div>

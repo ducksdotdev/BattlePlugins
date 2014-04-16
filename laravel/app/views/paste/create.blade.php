@@ -96,10 +96,6 @@
                         <input type="checkbox" id="private" name="private"> Click here to make this paste private <small>(Only you will be able to view it)</small>
                     </label>
                 </div>
-                <div class="form-group">
-                    <label for="recaptcha_response_field">Prove that you're human:</label>
-                    {{ Form::captcha(array('theme' => 'white')) }}
-                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 {{ Form::close() }}
             </div>

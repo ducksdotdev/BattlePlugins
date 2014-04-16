@@ -41,20 +41,16 @@ class PasteController extends BaseController {
         $input = array(
             'title' => $title,
             'content' => $content,
-            'recaptcha_response_field' => $recaptcha
         );
 
         $rules = array(
             'title' => "max:132",
             'content' => "required",
-            'recaptcha_response_field' => 'required|recaptcha',
         );
 
         $messages = array(
             "title.max" => "Your title exceeds 32 characters.",
             "content.required" => "You left the content field blank.",
-            "recaptcha_response_field.required" => "Human verification (reCAPTCHA) is blank.",
-            "recaptcha_response_field.recaptcha" => "Human verification (reCAPTCHA) is incorrect."
         );
 
         $validator = Validator::make($input,$rules,$messages);

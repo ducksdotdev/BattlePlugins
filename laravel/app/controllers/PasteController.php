@@ -44,7 +44,7 @@ class PasteController extends BaseController {
 
 		$rules = array(
 			'title' => "max:132",
-			'content' => "required|max:204800",
+			'content' => "required|max:200000",
 		);
 
 		$messages = array(

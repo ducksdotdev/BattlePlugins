@@ -36,7 +36,6 @@ class PasteController extends BaseController {
 	public function createPaste(){
 		$title = Input::get('title');
 		$content = Input::get('content');
-		$recaptcha = Input::get("recaptcha_response_field");
 
 		$input = array(
 			'title' => $title,
@@ -45,12 +44,13 @@ class PasteController extends BaseController {
 
 		$rules = array(
 			'title' => "max:132",
-			'content' => "required",
+			'content' => "required|max:204800",
 		);
 
 		$messages = array(
 			"title.max" => "Your title exceeds 32 characters.",
 			"content.required" => "You left the content field blank.",
+			"content.max" => "Your content is too long"
 		);
 
 		$validator = Validator::make($input,$rules,$messages);

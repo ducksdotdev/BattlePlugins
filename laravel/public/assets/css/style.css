@@ -26,6 +26,7 @@ html, body {
     height: auto !important;
     margin: 0 auto -105px; /* the bottom margin is the negative value of the footer's height */
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 footer, .push {

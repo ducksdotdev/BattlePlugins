@@ -71,6 +71,7 @@ footer, .push {
     color: #ffffff;
     font-size: 13px;
     border-bottom: 1px solid black;
+    overflow-x: hidden;
 }
 
 .content-section-a {

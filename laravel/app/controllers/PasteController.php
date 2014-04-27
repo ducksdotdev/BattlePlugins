@@ -102,10 +102,16 @@ class PasteController extends BaseController {
 	public function getPaste($id){
 		$paste = DB::table('pastes')->where('id', $id)->first();
 
+		if(count($paste) == 0){
+			return Redirect::to('/paste/create');
+		}
+
 		$path = Config::get('pastes.location');
 		$path = $path.'/'.$paste->id;
 
 		if(!file_exists($path)){
+			DB::table('pastes')->where('id', $id)->delete();
+
 			return Redirect::to('/paste/create');
 		}
 

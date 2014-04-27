@@ -45,4 +45,5 @@ return array(
 	// Use {branch} to specify a specific branch name
 	'post-commands'        => array(
 		'php laravel/artisan up'
-	));
+	)
+);

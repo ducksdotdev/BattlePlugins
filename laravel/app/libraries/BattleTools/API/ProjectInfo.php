@@ -37,7 +37,14 @@ class ProjectInfo{
 	}
 
 	public static function getFiles($slug){
-		$project = self::getProjectInfo($slug)[0];
+		$project = self::getProjectInfo($slug);
+
+		if(count($project) > 0){
+			$project = $project[0];
+		}else{
+			return array();
+		}
+
 		$files = @file_get_contents("https://api.curseforge.com/servermods/files?projectIds=".$project->id);
 
 		if($files === false){

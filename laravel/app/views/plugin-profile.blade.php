@@ -14,7 +14,7 @@
 				@endif
 				<p>
 					<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a><br/>
-					@if({{ $lastBuild['ci']['build'] }} != 'None')
+					@if($lastBuild['ci']['build'] != 'None')
 					Last Successful Build: <a href="{{ $lastBuild['ci']['url'] }}">{{ $lastBuild['ci']['build'] }}</a><br />
 					<a href="http://ci.battleplugins.com/job/{{ $plugin->name }}/javadoc/">{{ $plugin->name }} Javadoc</a>
 					@endif

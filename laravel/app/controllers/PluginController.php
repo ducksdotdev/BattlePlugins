@@ -92,6 +92,9 @@ class PluginController extends BaseController{
 				$vars['hasFiles'] = false;
 			}
 
+			$pluginStats = Plugins::getVersionStatistics($plugin->name);
+			$vars['hasStats'] = count($pluginStats) > 0;
+
 			return View::make('plugin-profile', $vars);
 		}else{
 			return Redirect::to('/plugins');

@@ -25,6 +25,7 @@
 </div>
 <div class="content-section-b">
 	<div class="container">
+		@if($hasStats)
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-default">
@@ -35,6 +36,7 @@
 				</div>
 			</div>
 		</div>
+		@endif
 	</div>
 </div>
 @stop

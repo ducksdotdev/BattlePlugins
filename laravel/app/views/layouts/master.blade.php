@@ -29,7 +29,7 @@
 <head>
     @include('partials.head')
 </head>
-<body data-grid-framework="b3" data-grid-opacity="0.3" data-grid-zindex="10" data-grid-gutterwidth="30px" data-grid-nbcols="16">
+<body>
 @yield('modals')
 <div class="wrapper">
     @include('partials.nav')

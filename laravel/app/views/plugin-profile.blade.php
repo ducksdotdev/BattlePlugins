@@ -13,7 +13,9 @@
 				<p><h4><a href="{{ $lastFile->downloadUrl }}">Download {{ $lastFile->name }} for {{ $lastFile->gameVersion }}</a></h4></p>
 				@endif
 				<p>
-					<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a><br/>
+					<a href="http://dev.bukkit.org/bukkit-plugins/{{ $lastBuild['bukkit'] }}">Bukkit Project Page <i class="fa fa-external-link"></i></a>
+				</p>
+				<p>
 					@if($lastBuild['ci']['build'] != 'None')
 					Last Successful Build: <a href="{{ $lastBuild['ci']['url'] }}">{{ $lastBuild['ci']['build'] }}</a><br />
 					<a href="http://ci.battleplugins.com/job/{{ $plugin->name }}/javadoc/">{{ $plugin->name }} Javadoc</a>

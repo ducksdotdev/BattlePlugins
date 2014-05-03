@@ -10,7 +10,11 @@
         "greggilbert/recaptcha": "dev-master",
         "fitztrev/laravel-html-minify": "dev-master",
         "pda/pheanstalk": "dev-master",
-        "barryvdh/laravel-debugbar": "1.*"
+        "barryvdh/laravel-debugbar": "1.*",
+        "symfony/class-loader": "dev-master",
+        "symfony/validator": "dev-master",
+        "doctrine/dbal": "dev-master",
+        "symfony/expression-language": "dev-master"
     },
     "autoload": {
         "classmap": [

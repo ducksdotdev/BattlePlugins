@@ -20,7 +20,7 @@ class Servers {
 
 			$stats = json_decode(file_get_contents($path));
 			$stats = array_merge($stats, $table);
-			file_put_contents($path, $stats);
+			file_put_contents($path, json_encode($stats));
 
 			Cache::put('getTotalServers', $stats, $diff);
 

@@ -24,13 +24,14 @@ class Servers {
 
 			Cache::put('getTotalServers', $stats, $diff);
 
-			return $table;
+			return $stats;
 //		});
 	}
 
 	public static function getAuthenticationModes(){
 		$interval = Config::get('statistics.interval');
 		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
+		$path = Config::get('statistics.location')."/authmode.json";
 
 		$table = DB::table('server_statistics')->
 		where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
@@ -40,7 +41,11 @@ class Servers {
 		groupBy('bOnlineMode')->
 		remember($diff)->get();
 
-		return $table;
+		$stats = json_decode(file_get_contents($path));
+		$stats = array_merge($stats, $table);
+		file_put_contents($path, json_encode($stats));
+
+		return $stats;
 	}
 
 }

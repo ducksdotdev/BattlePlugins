@@ -40,7 +40,7 @@ class UpdateGraphs extends Command{
 	public function fire(){
 		self::updateTotals();
 		self::updateAuthMode();
-		DB::table("delete from server_statistics where inserted_on < '"+DateUtil::getTimeToThirty()+"'");
+		DB::table("DELETE FROM server_statistics WHERE inserted_on < '".DateUtil::getTimeToThirty()."'");
 	}
 
 	/**

@@ -19,7 +19,8 @@ class Servers {
 			$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time');
 
 			$stats = json_decode(file_get_contents($path));
-			$stats = array_merge($stats, $table);
+			$stats = is_array($stats) ? $stats = array_merge($stats, $table) : $table;
+
 			file_put_contents($path, json_encode($stats));
 
 			Cache::put('getTotalServers', $stats, $diff);
@@ -42,7 +43,8 @@ class Servers {
 		remember($diff)->get();
 
 		$stats = json_decode(file_get_contents($path));
-		$stats = array_merge($stats, $table);
+		$stats = is_array($stats) ? $stats = array_merge($stats, $table) : $table;
+
 		file_put_contents($path, json_encode($stats));
 
 		return $stats;

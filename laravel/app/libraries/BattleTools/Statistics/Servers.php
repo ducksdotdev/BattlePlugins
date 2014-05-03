@@ -42,12 +42,10 @@ class Servers {
 		groupBy('bOnlineMode')->
 		remember($diff)->get();
 
-		$stats = json_decode(file_get_contents($path));
-		$stats = is_array($stats) ? $stats = array_merge($stats, $table) : $table;
+		file_put_contents($path, "");
+		file_put_contents($path, json_encode($table));
 
-		file_put_contents($path, json_encode($stats));
-
-		return $stats;
+		return $table;
 	}
 
 }

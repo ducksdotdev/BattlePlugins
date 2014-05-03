@@ -1,6 +1,9 @@
 <?php
 
 return array(
+	// Where are statistics files store?
+	'location' => '/home/battleplugins/stats',
+
 	// What statistics are tracked?
 	'tracked'    => array(
 		// Bukkit Statistics

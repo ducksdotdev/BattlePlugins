@@ -146,14 +146,14 @@ class UpdateGraphs extends Command{
 				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 			}
 
-			$file = $path.'/'.$plugin->name.'.json';
+			$file = $path.'/'.$plugin.'.json';
 
 			if(file_exists($file)){
 				$sendData = array_merge(json_decode(file_get_contents($file)), $sendData);
 			}
 
 			file_put_contents($file, json_encode($sendData), $diff);
-			Cache::put($plugin->name.'Statistics', $sendData, $diff);
+			Cache::put($plugin.'Statistics', $sendData, $diff);
 		}
 	}
 

@@ -3,7 +3,7 @@
 use BattleTools\UI\NavigationItem;
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
-	use BattleTools\Util\Deploy;
+use Illuminate\Routing\Controller;
 
 	class BaseController extends Controller {
     private static $activeNavTitle = null;

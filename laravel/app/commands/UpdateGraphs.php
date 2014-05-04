@@ -76,7 +76,7 @@ class UpdateGraphs extends Command{
 		}
 
 		file_put_contents($path, json_encode($table));
-		Cache::put('getTotalServers', $table, $diff);
+		Cache::forever('getTotalServers', $table);
 	}
 
 	private function updateAuthMode(){
@@ -92,7 +92,7 @@ class UpdateGraphs extends Command{
 		groupBy('bOnlineMode')->get();
 
 		file_put_contents($path, json_encode($table));
-		Cache::put('getAuthMode', $table, $diff);
+		Cache::forever('getAuthMode', $table);
 	}
 
 	private function updatePlugins() {
@@ -153,7 +153,7 @@ class UpdateGraphs extends Command{
 			}
 
 			file_put_contents($file, json_encode($sendData), $diff);
-			Cache::put($plugin.'Statistics', $sendData, $diff);
+			Cache::forever($plugin.'Statistics', $sendData);
 		}
 	}
 
@@ -171,6 +171,6 @@ class UpdateGraphs extends Command{
 
 		file_put_contents($path, json_decode($table));
 
-		Cache::put('pluginUsage', $table, $diff);
+		Cache::forever('pluginUsage', $table);
 	}
 }

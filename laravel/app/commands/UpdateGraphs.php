@@ -102,6 +102,8 @@ class UpdateGraphs extends Command{
 		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
 		foreach ($plugins as $plugin) {
+			$plugin = $plugin->name;
+
 			$pluginStatistics = DB::table('plugin_statistics')->
 			select(
 				DB::raw('count(distinct server) as count'),

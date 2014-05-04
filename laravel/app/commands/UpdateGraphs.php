@@ -117,11 +117,10 @@ class UpdateGraphs extends Command{
 	private function updatePlugins() {
 		$plugins = DB::table('plugins')->get();
 		$path = Config::get('statistics.location')."/plugins";
+		$interval = Config::get('statistics.interval');
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
 		foreach ($plugins as $plugin) {
-			$interval = Config::get('statistics.interval');
-			$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
-
 			$pluginStatistics = DB::table('plugin_statistics')->
 			select(
 				DB::raw('count(distinct server) as count'),

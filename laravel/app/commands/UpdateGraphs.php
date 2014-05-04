@@ -89,29 +89,10 @@ class UpdateGraphs extends Command{
 		where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
 		whereNotNull('bOnlineMode')->
 		select('bOnlineMode', DB::raw('count(distinct server) as total'))->
-		groupBy('bOnlineMode')->
-		remember($diff)->get();
+		groupBy('bOnlineMode')->get();
 
 		file_put_contents($path, json_encode($table));
 		Cache::put('getAuthMode', $table, $diff);
-	}
-
-	private function updatePluginUsage(){
-		$path = Config::get('statistics.location')."/overall/pluginusage.json";
-
-		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
-
-		$table = DB::table('plugin_statistics')->
-		where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
-		where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
-		select('plugin', DB::raw('count(distinct server) as total'))->
-		groupBy('plugin')->
-		remember($diff)->get();
-
-		file_put_contents($path, json_decode($table));
-
-		Cache::put('pluginUsage', $table, $diff);
 	}
 
 	private function updatePlugins() {
@@ -129,8 +110,7 @@ class UpdateGraphs extends Command{
 			where('plugin', $plugin)->
 			where('inserted_on', '<', DateUtil::getTimeToThirty())->
 			groupBy('version', 'time')->
-			orderBy('time')->
-			remember($diff)->get();
+			orderBy('time')->get();
 
 			$times = array();
 			$data = array();
@@ -173,5 +153,22 @@ class UpdateGraphs extends Command{
 			file_put_contents($file, json_encode($sendData), $diff);
 			Cache::put($plugin->name.'Statistics', $sendData, $diff);
 		}
+	}
+
+	private function updatePluginUsage(){
+		$path = Config::get('statistics.location')."/overall/pluginusage.json";
+
+		$interval = Config::get('statistics.interval');
+		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
+
+		$table = DB::table('plugin_statistics')->
+		where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
+		where('inserted_on', '<', DateUtil::getTimeToThirty()->subMinute())->
+		select('plugin', DB::raw('count(distinct server) as total'))->
+		groupBy('plugin')->get();
+
+		file_put_contents($path, json_decode($table));
+
+		Cache::put('pluginUsage', $table, $diff);
 	}
 }

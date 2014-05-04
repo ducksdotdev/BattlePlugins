@@ -66,7 +66,6 @@ class UpdateGraphs extends Command{
 
 	private function updateTotals(){
 		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 		$path = Config::get('statistics.location')."/overall/totals.json";
 
 		$table = DB::select('select count(distinct server) as nServers, sum(avg_players) as nPlayers, FROM_UNIXTIME(newTime*'.($interval*60).') as time from (select server,round(avg(bPlayersOnline)) as avg_players, inserted_on as timestamp, (FLOOR(UNIX_TIMESTAMP(innerTable.inserted_on)/'.($interval*60).')) as newTime from server_statistics as innerTable where innerTable.inserted_on<"'.DateUtil::getTimeToThirty().'" group by server, newTime) as st1 group by newTime order by time');
@@ -81,7 +80,6 @@ class UpdateGraphs extends Command{
 
 	private function updateAuthMode(){
 		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 		$path = Config::get('statistics.location')."/overall/authmode.json";
 
 		$table = DB::table('server_statistics')->
@@ -99,7 +97,6 @@ class UpdateGraphs extends Command{
 		$plugins = DB::table('plugins')->get();
 		$path = Config::get('statistics.location')."/plugins";
 		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
 		foreach ($plugins as $plugin) {
 			$plugin = $plugin->name;
@@ -152,7 +149,7 @@ class UpdateGraphs extends Command{
 				$sendData = array_merge(json_decode(file_get_contents($file)), $sendData);
 			}
 
-			file_put_contents($file, json_encode($sendData), $diff);
+			file_put_contents($file, json_encode($sendData));
 			Cache::forever($plugin.'Statistics', $sendData);
 		}
 	}
@@ -161,7 +158,6 @@ class UpdateGraphs extends Command{
 		$path = Config::get('statistics.location')."/overall/pluginusage.json";
 
 		$interval = Config::get('statistics.interval');
-		$diff = Carbon::now()->diffInMinutes(DateUtil::getTimeToThirty()->addMinutes($interval));
 
 		$table = DB::table('plugin_statistics')->
 		where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
@@ -169,7 +165,7 @@ class UpdateGraphs extends Command{
 		select('plugin', DB::raw('count(distinct server) as total'))->
 		groupBy('plugin')->get();
 
-		file_put_contents($path, json_decode($table));
+		file_put_contents($path, json_encode($table));
 
 		Cache::forever('pluginUsage', $table);
 	}

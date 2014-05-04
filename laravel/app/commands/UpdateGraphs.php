@@ -89,6 +89,7 @@ class UpdateGraphs extends Command{
 		remember($diff)->get();
 
 		file_put_contents($path, json_encode($table));
+		Cache::put('getAuthMode', $table, $diff);
 	}
 
 }

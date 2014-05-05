@@ -122,15 +122,16 @@ class UpdateGraphs extends Command{
 				$oldData = json_decode(file_get_contents($file));
 				foreach($oldData as $d){
 					foreach($d->data as $part){
-						$times[] = intval($part[0])/1000/$interval/60;
+						$times[] = intval($part[0]);
 					}
 				}
 			}
 
 			foreach ($pluginStatistics as $stat) {
-				$times[] = $stat->time;
+				$time = Carbon::createFromTimestampUTC($stat->time * $interval * 60)->getTimestamp() * 1000;
+				$times[] = $time;
 				$versions[] = $stat->version;
-				$counts[$stat->version][$stat->time] = intval($stat->count);
+				$counts[$stat->version][$time] = intval($stat->count);
 			}
 
 			$times = array_unique($times);
@@ -152,7 +153,7 @@ class UpdateGraphs extends Command{
 			foreach (array_keys($data) as $key) {
 				$thisData = array();
 				foreach ($data[$key] as $part) {
-					$thisData[] = array(Carbon::createFromTimestampUTC($part[0] * $interval * 60)->getTimestamp() * 1000, $part[1]);
+					$thisData[] = array($part[0], $part[1]);
 				}
 				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
 			}

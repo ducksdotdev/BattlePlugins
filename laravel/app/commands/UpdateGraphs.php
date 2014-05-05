@@ -134,7 +134,7 @@ class UpdateGraphs extends Command{
 			}
 
 			$times = array_unique($times);
-			asort($times);
+			rsort($times);
 
 			$versions = array_unique($versions);
 

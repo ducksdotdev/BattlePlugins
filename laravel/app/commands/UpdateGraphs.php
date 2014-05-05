@@ -116,7 +116,6 @@ class UpdateGraphs extends Command{
 			orderBy('time')->get();
 
 			if (count($pluginStatistics) > 0) {
-
 				$times = array();
 				$versions = array();
 				$counts = array();
@@ -141,6 +140,8 @@ class UpdateGraphs extends Command{
 					$versions[] = $stat->version; // Add the version to the version array
 					$counts[$stat->version][$time] = intval($stat->count); // Add the count to the count array
 				}
+
+				Log::info($counts);
 
 				$times = array_unique($times); // Get unique times
 				rsort($times); // Sort the times by value and assign new IDs

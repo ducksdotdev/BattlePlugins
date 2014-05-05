@@ -115,62 +115,60 @@ class UpdateGraphs extends Command{
 			groupBy('version', 'time')->
 			orderBy('time')->get();
 
-			if (count($pluginStatistics) > 0) {
-				$times = array();
-				$versions = array();
-				$counts = array();
+			$times = array();
+			$versions = array();
+			$counts = array();
 
-				$file = $path . '/' . $plugin . '.json';
-				$fileExists = file_exists($file);
+			$file = $path . '/' . $plugin . '.json';
+			$fileExists = file_exists($file);
 
-				if ($fileExists) { // If the JSON file exists, we need to add that data in the right spot
-					$oldData = json_decode(file_get_contents($file)); // Turn the data into a proper array
-					foreach ($oldData as $d) { // Loop through the data
-						foreach ($d->data as $part) { // Loop through each data point for the time series
-							$times[] = intval($part[0]); // Add the time to the times array to loop through later
-							$versions[] = $d->name; // Add the version in case it no longer exists
-							$counts[$d->name][$part[0]] = intval($part[1]); // Add the count for said version at said data point in the time series
-						}
+			if ($fileExists) { // If the JSON file exists, we need to add that data in the right spot
+				$oldData = json_decode(file_get_contents($file)); // Turn the data into a proper array
+				foreach ($oldData as $d) { // Loop through the data
+					foreach ($d->data as $part) { // Loop through each data point for the time series
+						$times[] = intval($part[0]); // Add the time to the times array to loop through later
+						$versions[] = $d->name; // Add the version in case it no longer exists
+						$counts[$d->name][$part[0]] = intval($part[1]); // Add the count for said version at said data point in the time series
 					}
 				}
-
-				foreach ($pluginStatistics as $stat) { // Loop through the new data
-					$time = Carbon::createFromTimestampUTC($stat->time * $interval * 60)->getTimestamp() * 1000; // Convert the timestamp to the HighCharts accepted time
-					$times[] = $time; // Add the time to the time array
-					$versions[] = $stat->version; // Add the version to the version array
-					$counts[$stat->version][$time] = intval($stat->count); // Add the count to the count array
-				}
-
-				Log::info($counts);
-
-				$times = array_unique($times); // Get unique times
-				rsort($times); // Sort the times by value and assign new IDs
-
-				$versions = array_unique($versions); // Get the unique version
-
-				$data = array();
-				foreach ($versions as $version) { // Check every statistic
-					foreach ($times as $time) { // Loop through every time
-						if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
-							$data[$version][] = array($time, null); // Set the statistic to null
-						} else {
-							$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
-						}
-					}
-				}
-
-				$sendData = array();
-				foreach (array_keys($data) as $key) { // Loop through all the data's keys
-					$thisData = array();
-					foreach ($data[$key] as $part) { // Loop through all the values
-						$thisData[] = array($part[0], $part[1]); // Add the time to temp data
-					}
-					$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData); // Add the data to the final array
-				}
-
-				file_put_contents($file, json_encode($sendData)); // Put the data into the file
-				Cache::forever($plugin . 'Statistics', $sendData); // Cache the data to be displayed by Highcharts
 			}
+
+			foreach ($pluginStatistics as $stat) { // Loop through the new data
+				$time = Carbon::createFromTimestampUTC($stat->time * $interval * 60)->getTimestamp() * 1000; // Convert the timestamp to the HighCharts accepted time
+				$times[] = $time; // Add the time to the time array
+				$versions[] = $stat->version; // Add the version to the version array
+				$counts[$stat->version][$time] = intval($stat->count); // Add the count to the count array
+			}
+
+			Log::info($counts);
+
+			$times = array_unique($times); // Get unique times
+			rsort($times); // Sort the times by value and assign new IDs
+
+			$versions = array_unique($versions); // Get the unique version
+
+			$data = array();
+			foreach ($versions as $version) { // Check every statistic
+				foreach ($times as $time) { // Loop through every time
+					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
+						$data[$version][] = array($time, null); // Set the statistic to null
+					} else {
+						$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
+					}
+				}
+			}
+
+			$sendData = array();
+			foreach (array_keys($data) as $key) { // Loop through all the data's keys
+				$thisData = array();
+				foreach ($data[$key] as $part) { // Loop through all the values
+					$thisData[] = array($part[0], $part[1]); // Add the time to temp data
+				}
+				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData); // Add the data to the final array
+			}
+
+			file_put_contents($file, json_encode($sendData)); // Put the data into the file
+			Cache::forever($plugin . 'Statistics', $sendData); // Cache the data to be displayed by Highcharts
 		}
 	}
 

@@ -115,11 +115,6 @@ class UpdateGraphs extends Command{
 			$data = array();
 			$versions = array();
 			$counts = array();
-			foreach ($pluginStatistics as $stat) {
-				$times[] = $stat->time;
-				$versions[] = $stat->version;
-				$counts[$stat->version][$stat->time] = intval($stat->count);
-			}
 
 			$file = $path.'/'.$plugin.'.json';
 
@@ -132,6 +127,12 @@ class UpdateGraphs extends Command{
 				}
 
 				$times = array_unique($times);
+			}
+
+			foreach ($pluginStatistics as $stat) {
+				$times[] = $stat->time;
+				$versions[] = $stat->version;
+				$counts[$stat->version][$stat->time] = intval($stat->count);
 			}
 
 			$times = array_unique($times);

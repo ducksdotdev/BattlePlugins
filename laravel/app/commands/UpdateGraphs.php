@@ -119,7 +119,7 @@ class UpdateGraphs extends Command{
 			$file = $path.'/'.$plugin.'.json';
 
 			if(file_exists($file)){
-				$sendData = array_merge(json_decode(file_get_contents($file)), $data);
+				$data = array_merge(json_decode(file_get_contents($file)), $data);
 			}
 
 			file_put_contents($file, json_encode($data));

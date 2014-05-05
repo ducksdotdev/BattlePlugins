@@ -194,6 +194,9 @@ $(function () {
                 scrollbar : {
                     enabled : false
                 },
+                yAxis: {
+                    min: 0
+                },
                 colors: colors,
                 series: data
             });

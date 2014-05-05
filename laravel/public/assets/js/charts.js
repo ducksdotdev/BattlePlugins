@@ -186,7 +186,7 @@ $(function () {
             var newdata = [];
             $.each(data, function(i, item){
                 newdata.push(item[1]);
-            })
+            });
 
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {

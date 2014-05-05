@@ -141,7 +141,7 @@ class UpdateGraphs extends Command{
 			}
 
 			if(count($counts) > 0) {
-				Log::info($plugin." Counts: ".$counts);
+				Log::info($plugin." Counts: ".var_dump($counts));
 			}
 
 			$times = array_unique($times); // Get unique times

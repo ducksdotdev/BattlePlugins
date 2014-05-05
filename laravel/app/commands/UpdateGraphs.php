@@ -125,8 +125,6 @@ class UpdateGraphs extends Command{
 						$times[] = $part[0]/1000;
 					}
 				}
-
-				$times = array_unique($times);
 			}
 
 			foreach ($pluginStatistics as $stat) {

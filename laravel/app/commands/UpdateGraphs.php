@@ -127,8 +127,6 @@ class UpdateGraphs extends Command{
 				}
 			}
 
-			Log::info($times);
-
 			foreach ($pluginStatistics as $stat) {
 				$times[] = $stat->time;
 				$versions[] = $stat->version;
@@ -139,8 +137,6 @@ class UpdateGraphs extends Command{
 			rsort($times);
 
 			$versions = array_unique($versions);
-
-			Log::info($times);
 
 			foreach ($versions as $version) { // Check every statistic
 				foreach ($times as $time) { // Loop through every time

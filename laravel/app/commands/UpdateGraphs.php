@@ -124,6 +124,8 @@ class UpdateGraphs extends Command{
 				foreach($oldData as $d){
 					foreach($d->data as $part){
 						$times[] = intval($part[0]);
+						$versions[] = $d->name;
+						$counts[$d->name][$part[0]] = intval($part[1]);
 					}
 				}
 			}
@@ -141,14 +143,6 @@ class UpdateGraphs extends Command{
 			$versions = array_unique($versions);
 
 			foreach ($versions as $version) { // Check every statistic
-				if ($fileExists) { // Check if the file exists already
-					foreach($oldData as $d){ // Loop through the old data to merge it with the new
-						foreach($d->data as $part){ // Go through each data point
-							$data[$d->name][] = $part; // Add the data to the array
-						}
-					}
-				}
-
 				foreach ($times as $time) { // Loop through every time
 					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
 						$data[$version][] = array($time, null); // Set the statistic to null

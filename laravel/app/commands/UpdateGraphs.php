@@ -141,7 +141,7 @@ class UpdateGraphs extends Command{
 			}
 
 			$times = array_unique($times); // Get unique times
-			rsort($times); // Sort the times by value and assign new IDs
+			sort($times); // Sort the times by value and assign new IDs
 
 			$versions = array_unique($versions); // Get the unique version
 

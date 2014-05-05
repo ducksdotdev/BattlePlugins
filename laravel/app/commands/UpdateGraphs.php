@@ -78,9 +78,9 @@ class UpdateGraphs extends Command{
 		Cache::forever('getTotalServers', $table);
 	}
 
-	private function updateAuthMode(){
+	private function updateAuthMode() {
 		$interval = Config::get('statistics.interval');
-		$path = Config::get('statistics.location')."/overall/authmode.json";
+		$path = Config::get('statistics.location') . "/overall/authmode.json";
 
 		$table = DB::table('server_statistics')->
 		where('inserted_on', '>', DateUtil::getTimeToThirty()->subMinutes($interval))->
@@ -89,8 +89,10 @@ class UpdateGraphs extends Command{
 		select('bOnlineMode', DB::raw('count(distinct server) as total'))->
 		groupBy('bOnlineMode')->get();
 
-		file_put_contents($path, json_encode($table));
-		Cache::forever('getAuthMode', $table);
+		if (count($table) > 0){
+			file_put_contents($path, json_encode($table));
+			Cache::forever('getAuthMode', $table);
+		}
 	}
 
 	private function updatePlugins() {
@@ -119,28 +121,28 @@ class UpdateGraphs extends Command{
 			$file = $path.'/'.$plugin.'.json';
 			$fileExists = file_exists($file);
 
-			if($fileExists){
-				$oldData = json_decode(file_get_contents($file));
-				foreach($oldData as $d){
-					foreach($d->data as $part){
-						$times[] = intval($part[0]);
-						$versions[] = $d->name;
-						$counts[$d->name][$part[0]] = intval($part[1]);
+			if($fileExists){ // If the JSON file exists, we need to add that data in the right spot
+				$oldData = json_decode(file_get_contents($file)); // Turn the data into a proper array
+				foreach($oldData as $d){ // Loop through the data
+					foreach($d->data as $part){ // Loop through each data point for the time series
+						$times[] = intval($part[0]); // Add the time to the times array to loop through later
+						$versions[] = $d->name; // Add the version in case it no longer exists
+						$counts[$d->name][$part[0]] = intval($part[1]); // Add the count for said version at said data point in the time series
 					}
 				}
 			}
 
-			foreach ($pluginStatistics as $stat) {
-				$time = Carbon::createFromTimestampUTC($stat->time * $interval * 60)->getTimestamp() * 1000;
-				$times[] = $time;
-				$versions[] = $stat->version;
-				$counts[$stat->version][$time] = intval($stat->count);
+			foreach ($pluginStatistics as $stat) { // Loop through the new data
+				$time = Carbon::createFromTimestampUTC($stat->time * $interval * 60)->getTimestamp() * 1000; // Convert the timestamp to the HighCharts accepted time
+				$times[] = $time; // Add the time to the time array
+				$versions[] = $stat->version; // Add the version to the version array
+				$counts[$stat->version][$time] = intval($stat->count); // Add the count to the count array
 			}
 
-			$times = array_unique($times);
-			rsort($times);
+			$times = array_unique($times); // Get unique times
+			rsort($times); // Sort the times by value and assign new IDs
 
-			$versions = array_unique($versions);
+			$versions = array_unique($versions); // Get the unique version
 
 			foreach ($versions as $version) { // Check every statistic
 				foreach ($times as $time) { // Loop through every time
@@ -161,8 +163,8 @@ class UpdateGraphs extends Command{
 				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData); // Add the data to the final array
 			}
 
-			file_put_contents($file, json_encode($sendData));
-			Cache::forever($plugin.'Statistics', $sendData);
+			file_put_contents($file, json_encode($sendData)); // Put the data into the file
+			Cache::forever($plugin.'Statistics', $sendData); // Cache the data to be displayed by Highcharts
 		}
 	}
 
@@ -177,8 +179,9 @@ class UpdateGraphs extends Command{
 		select('plugin', DB::raw('count(distinct server) as total'))->
 		groupBy('plugin')->get();
 
-		file_put_contents($path, json_encode($table));
-
-		Cache::forever('pluginUsage', $table);
+		if(count($table) > 0) {
+			file_put_contents($path, json_encode($table));
+			Cache::forever('pluginUsage', $table);
+		}
 	}
 }

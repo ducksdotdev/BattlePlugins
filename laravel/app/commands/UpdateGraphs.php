@@ -122,7 +122,7 @@ class UpdateGraphs extends Command{
 				$oldData = json_decode(file_get_contents($file));
 				foreach($oldData as $d){
 					foreach($d->data as $part){
-						$times[] = $part[0]/1000;
+						$times[] = intval($part[0])/1000;
 					}
 				}
 			}

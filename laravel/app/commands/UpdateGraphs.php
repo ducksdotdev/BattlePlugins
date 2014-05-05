@@ -117,8 +117,9 @@ class UpdateGraphs extends Command{
 			$counts = array();
 
 			$file = $path.'/'.$plugin.'.json';
+			$fileExists = file_exists($file);
 
-			if(file_exists($file)){
+			if($fileExists){
 				$oldData = json_decode(file_get_contents($file));
 				foreach($oldData as $d){
 					foreach($d->data as $part){
@@ -140,6 +141,14 @@ class UpdateGraphs extends Command{
 			$versions = array_unique($versions);
 
 			foreach ($versions as $version) { // Check every statistic
+				if ($fileExists) { // Check if the file exists already
+					foreach($oldData as $d){ // Loop through the old data to merge it with the new
+						foreach($d->data as $part){ // Go through each data point
+							$data[$d->name][] = $part; // Add the data to the array
+						}
+					}
+				}
+
 				foreach ($times as $time) { // Loop through every time
 					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
 						$data[$version][] = array($time, null); // Set the statistic to null
@@ -150,16 +159,12 @@ class UpdateGraphs extends Command{
 			}
 
 			$sendData = array();
-			foreach (array_keys($data) as $key) {
+			foreach (array_keys($data) as $key) { // Loop through all the data's keys
 				$thisData = array();
-				foreach ($data[$key] as $part) {
-					$thisData[] = array($part[0], $part[1]);
+				foreach ($data[$key] as $part) { // Loop through all the values
+					$thisData[] = array($part[0], $part[1]); // Add the time to temp data
 				}
-				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
-			}
-
-			if(file_exists($file)){
-				$sendData = array_merge($oldData, $sendData);
+				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData); // Add the data to the final array
 			}
 
 			file_put_contents($file, json_encode($sendData));

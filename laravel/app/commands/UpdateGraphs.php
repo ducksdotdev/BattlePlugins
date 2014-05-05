@@ -111,46 +111,19 @@ class UpdateGraphs extends Command{
 			groupBy('version', 'time')->
 			orderBy('time')->get();
 
-			$times = array();
 			$data = array();
-			$versions = array();
-			$counts = array();
-			foreach ($pluginStatistics as $stat) {
-				$times[] = $stat->time;
-				$versions[] = $stat->version;
-				$counts[$stat->version][$stat->time] = intval($stat->count);
-			}
-
-			$times = array_unique($times);
-			$versions = array_unique($versions);
-
-			foreach ($versions as $version) { // Check every statistic
-				foreach ($times as $time) { // Loop through every time
-					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
-						$data[$version][] = array($time, null); // Set the statistic to null
-					} else {
-						$data[$version][] = array($time, $counts[$version][$time]); // Or else set the statistic to the database value
-					}
-				}
-			}
-
-			$sendData = array();
-			foreach (array_keys($data) as $key) {
-				$thisData = array();
-				foreach ($data[$key] as $part) {
-					$thisData[] = array(Carbon::createFromTimestampUTC($part[0] * $interval * 60)->getTimestamp() * 1000, $part[1]);
-				}
-				$sendData[] = array('name' => array_search($data[$key], $data), 'data' => $thisData);
+			foreach($pluginStatistics as $stat){
+				$data[] = array((new Carbon($stat->inserted_on))->getTimestamp() * 1000, $stat->count);
 			}
 
 			$file = $path.'/'.$plugin.'.json';
 
 			if(file_exists($file)){
-				$sendData = array_merge(json_decode(file_get_contents($file)), $sendData);
+				$sendData = array_merge(json_decode(file_get_contents($file)), $data);
 			}
 
-			file_put_contents($file, json_encode($sendData));
-			Cache::forever($plugin.'Statistics', $sendData);
+			file_put_contents($file, json_encode($data));
+			Cache::forever($plugin.'Statistics', $data);
 		}
 	}
 

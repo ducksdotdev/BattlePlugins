@@ -136,6 +136,8 @@ class UpdateGraphs extends Command{
 			}
 
 			$times = array_unique($times);
+			asort($times);
+
 			$versions = array_unique($versions);
 
 			foreach ($versions as $version) { // Check every statistic

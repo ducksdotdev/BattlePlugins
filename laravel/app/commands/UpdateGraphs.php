@@ -128,7 +128,8 @@ class UpdateGraphs extends Command{
 					foreach ($d->data as $part) { // Loop through each data point for the time series
 						$times[] = intval($part[0]); // Add the time to the times array to loop through later
 						$versions[] = $d->name; // Add the version in case it no longer exists
-						$counts[$d->name][$part[0]] = intval($part[1]); // Add the count for said version at said data point in the time series
+						$count = intval($part[1]) <= 0 ? null : $part[1];
+						$counts[$d->name][$part[0]] = $count; // Add the count for said version at said data point in the time series
 					}
 				}
 			}

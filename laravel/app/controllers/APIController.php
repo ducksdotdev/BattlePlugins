@@ -409,7 +409,7 @@ class APIController extends BaseController{
 		$uid = Session::get('userId');
 		$groups = UserGroups::getGroups($uid);
 
-		if(!in_array(UserGroups::DEVELOPER, $groups)){
+		if(!in_array(UserGroups::ADMINISTRATOR, $groups)){
 			return Response::json(array('errors' => "You are not a developer"));
 		}
 

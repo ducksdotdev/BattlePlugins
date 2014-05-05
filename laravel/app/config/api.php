@@ -161,7 +161,7 @@ return array(
                 'example' => '{"php artisan down":{"output":"Application is now in maintenance mode.\n","errors":null},"git stash && git pull origin dev":{"output":"No local changes to save\nAlready up-to-date.\n","errors":null},"php artisan up":{"output":"Application is now live.\n","errors":null}}',
                 'description' => 'Downloads the GitHub BattlePlugins website repo, deploys it to the website and compresses CSS and JS. <strong>Please refrain from using this without good reason. This method automatically puts the website under maintenance during deploy</strong>. The POST method is mainly used for GitHub.',
                 'params' => array('payload MUST BE FROM GITHUB', 'timeout (SECONDS)', 'force (dev|master)'),
-                'group' => array(UserGroups::ADMINISTRATOR, UserGroups::DEVELOPER)
+                'group' => array(UserGroups::ADMINISTRATOR)
             ),
         ),
     ),

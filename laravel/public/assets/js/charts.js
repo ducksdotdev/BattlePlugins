@@ -182,12 +182,6 @@ $(function () {
     if($('#versionStatistics').length > 0){
         var plugin = $('#versionStatistics').data('plugin');
         $.getJSON('/statistics/plugin/'+plugin+'/version', function(data){
-
-            var newdata = [];
-            $.each(data, function(i, item){
-                newdata.push(item[1]);
-            });
-
             $('#versionStatistics').highcharts('StockChart', {
                 chart: {
                     type: 'area',
@@ -201,10 +195,7 @@ $(function () {
                     enabled : false
                 },
                 colors: colors,
-                series: [{
-                    pointStart: data[0][0],
-                    data: newdata
-                }]
+                series: data
             });
         });
     }

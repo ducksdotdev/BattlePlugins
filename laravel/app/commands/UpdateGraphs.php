@@ -126,7 +126,7 @@ class UpdateGraphs extends Command{
 			if(file_exists($file)){
 				$oldData = json_decode(file_get_contents($file));
 				foreach($oldData as $d){
-					foreach($d['data'] as $part){
+					foreach($d->data as $part){
 						$times[] = $part[0];
 					}
 				}

@@ -138,6 +138,8 @@ class UpdateGraphs extends Command{
 
 			$versions = array_unique($versions);
 
+			Log::info($times);
+
 			foreach ($versions as $version) { // Check every statistic
 				foreach ($times as $time) { // Loop through every time
 					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database

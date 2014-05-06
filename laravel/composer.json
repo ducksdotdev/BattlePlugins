@@ -10,16 +10,6 @@
         "greggilbert/recaptcha": "dev-master",
         "fitztrev/laravel-html-minify": "dev-master",
         "pda/pheanstalk": "dev-master",
-        "barryvdh/laravel-debugbar": "1.*",
-        "symfony/class-loader": "dev-master",
-        "symfony/validator": "dev-master",
-        "doctrine/dbal": "dev-master",
-        "symfony/expression-language": "dev-master",
-        "symfony/intl": "dev-master",
-        "symfony/yaml": "dev-master",
-        "symfony/config": "dev-master",
-        "egulias/email-validator": "dev-master",
-        "symfony/property-access": "dev-master"
     },
     "autoload": {
         "classmap": [

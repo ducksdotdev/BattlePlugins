@@ -109,7 +109,6 @@ return array(
 		'Greggilbert\Recaptcha\RecaptchaServiceProvider',
 		'Kmd\Logviewer\LogviewerServiceProvider',
 		'Fitztrev\LaravelHtmlMinify\LaravelHtmlMinifyServiceProvider',
-		'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 

@@ -27,7 +27,7 @@ class Jenkins {
 				);
 			}
 		}else{
-			Log::emergency("It looks like the CI server is down at $url");
+			Log::emergency("It looks like the CI server is down at $url.");
 			return $dne;
 		}
 	}

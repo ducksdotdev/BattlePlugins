@@ -11,14 +11,14 @@ class Jenkins {
 		try {
 			$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
 		}catch(Exception $e){
-			return self::timeout();
+			return self::timeout($url);
 		}
 
 		if($request->success) {
 			$matches = array();
 			$match = preg_match('/\<title\>[A-Za-z0-9-_]+ \#([0-9]+) \[Jenkins\]\<\/title\>/i', $request->body, $matches);
 			if ($match == 0) {
-				return self::timeout();
+				return self::timeout($url);
 			} else {
 				$buildnum = $matches[1];
 				return array(
@@ -28,11 +28,11 @@ class Jenkins {
 				);
 			}
 		}else{
-			return self::timeout();
+			return self::timeout($url);
 		}
 	}
 
-	private function timeout(){
+	private function timeout($url){
 		Log::emergency("It looks like the CI server is down at $url.");
 		return array(
 			'exists' => false,

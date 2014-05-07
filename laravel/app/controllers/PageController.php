@@ -3,7 +3,6 @@
 use BattleTools\UserManagement\UserGroups;
 use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\DateUtil;
-use BattleTools\Util\Jenkins;
 
 class PageController extends BaseController {
 

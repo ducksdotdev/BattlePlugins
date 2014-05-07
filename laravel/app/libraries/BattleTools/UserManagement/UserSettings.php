@@ -52,17 +52,6 @@ class UserSettings {
         Cache::forget('usettings-' . $uid . "-" . $key);
     }
 
-    public static function getGravatarString($uid, $cache=true) {
-        if (!$cache || !Cache::has("ugravatar-" . $uid)) {
-            $email = self::get($uid, "email");
-            $value = md5(strtolower(trim($email)));
-            Cache::forever("ugravatar-" . $uid, $value);
-            return $value;
-        } else {
-            return Cache::get("ugravatar-" . $uid);
-        }
-    }
-
     public static function getIdFromUsername($name){
         return DB::table("users")->where("username", $name)->pluck("id");
     }

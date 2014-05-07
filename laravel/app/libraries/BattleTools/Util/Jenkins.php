@@ -3,14 +3,13 @@
 namespace BattleTools\Util;
 
 use Illuminate\Support\Facades\Log;
-use Requests;
 
 class Jenkins {
 
 	public static function getLatestBuild($url, $job){
 		try {
-			$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
-		}catch(Exception $e){
+			$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
+		}catch(\Requests_Exception $e){
 			return self::timeout($url);
 		}
 

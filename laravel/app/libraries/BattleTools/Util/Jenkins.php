@@ -42,7 +42,7 @@ class Jenkins {
 		Log::emergency("It looks like the CI server is down at $url.");
 		return array(
 			'exists' => false,
-			'build' => 'None',
+			'build' => 'CI Server is currently down',
 			'url' => '#'
 		);
 	}

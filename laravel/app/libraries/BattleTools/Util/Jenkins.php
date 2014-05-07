@@ -2,6 +2,9 @@
 
 namespace BattleTools\Util;
 
+use Illuminate\Support\Facades\Log;
+use Requests;
+
 class Jenkins {
 
 	public static function getLatestBuild($url, $job){

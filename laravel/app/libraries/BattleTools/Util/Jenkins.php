@@ -31,7 +31,7 @@ class Jenkins {
 		}
 	}
 
-	private function timeout($url){
+	private static function timeout($url){
 		Log::emergency("It looks like the CI server is down at $url.");
 		return array(
 			'exists' => false,

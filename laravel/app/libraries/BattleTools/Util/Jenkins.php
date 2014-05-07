@@ -14,7 +14,7 @@ class Jenkins {
 			'url' => '#'
 		);
 
-		$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => '3'));
+		$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
 
 		if($request->success) {
 			$matches = array();

@@ -73,7 +73,7 @@
                     </div>
                     <div class="panel-body">
                         Created by: <a href="/profile/{{ $authors[$build['author']] }}">{{ $authors[$build['author']] }}</a><br />
-                        Last Successful Build: <a href="{{ $build['ci']['url'] }}">{{ $build['ci']['build'] }}</a><br />
+                       {{-- Last Successful Build: <a href="{{ $build['ci']['url'] }}">{{ $build['ci']['build'] }}</a><br /> --}}
                     </div>
                 </div>
             </div>

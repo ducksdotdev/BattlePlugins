@@ -7,7 +7,7 @@ class Jenkins {
 	public static function getLatestBuild($url, $job){
 		$ctx = stream_context_create(array(
 				'http' => array(
-					'timeout' => 1
+					'timeout' => 100
 				)
 			)
 		);

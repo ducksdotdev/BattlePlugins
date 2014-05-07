@@ -11,28 +11,28 @@ class PageController extends BaseController {
     {
         $vars['plugins'] = DB::table("plugins")->get();
 
-        $builds = array();
+//        $builds = array();
 
         foreach($vars['plugins'] as $plugin){
             $authors[$plugin->author] = UserSettings::getUsernameFromId($plugin->author);
 
-            $ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
-            if($ci['exists']){
-                $builds[] = array(
-                    'ci' => $ci,
-                    'name' => $plugin->name,
-                    'author' => $plugin->author,
-                    'bukkit' => $plugin->bukkit
-                );
-            }
+//            $ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
+//            if($ci['exists']){
+//                $builds[] = array(
+//                    'ci' => $ci,
+//                    'name' => $plugin->name,
+//                    'author' => $plugin->author,
+//                    'bukkit' => $plugin->bukkit
+//                );
+//            }
         }
 
         $vars['authors'] = $authors;
 
-        arsort($builds);
-        $builds = array_slice($builds, 0, 4);
+//        arsort($builds);
+//        $builds = array_slice($builds, 0, 4);
 
-        $vars['builds'] = $builds;
+//        $vars['builds'] = $builds;
 
         $vars['title'] = "Home";
 

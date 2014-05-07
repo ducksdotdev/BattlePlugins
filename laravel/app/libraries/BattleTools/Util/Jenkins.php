@@ -8,13 +8,11 @@ use Requests;
 class Jenkins {
 
 	public static function getLatestBuild($url, $job){
-		$dne = array(
-			'exists' => false,
-			'build' => 'None',
-			'url' => '#'
-		);
-
-		$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
+		try {
+			$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
+		}catch(Exception $e){
+			self::timeout();
+		}
 
 		if($request->success) {
 			$matches = array();
@@ -30,9 +28,17 @@ class Jenkins {
 				);
 			}
 		}else{
-			Log::emergency("It looks like the CI server is down at $url.");
-			return $dne;
+			self::timeout();
 		}
+	}
+
+	private function timeout(){
+		Log::emergency("It looks like the CI server is down at $url.");
+		return array(
+			'exists' => false,
+			'build' => 'None',
+			'url' => '#'
+		);
 	}
 
 }

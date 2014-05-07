@@ -11,14 +11,14 @@ class Jenkins {
 		try {
 			$request = Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
 		}catch(Exception $e){
-			self::timeout();
+			return self::timeout();
 		}
 
 		if($request->success) {
 			$matches = array();
 			$match = preg_match('/\<title\>[A-Za-z0-9-_]+ \#([0-9]+) \[Jenkins\]\<\/title\>/i', $request->body, $matches);
 			if ($match == 0) {
-				return $dne;
+				return self::timeout();
 			} else {
 				$buildnum = $matches[1];
 				return array(
@@ -28,7 +28,7 @@ class Jenkins {
 				);
 			}
 		}else{
-			self::timeout();
+			return self::timeout();
 		}
 	}
 

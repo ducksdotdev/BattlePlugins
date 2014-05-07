@@ -9,7 +9,8 @@
         "nesbot/Carbon": "*",
         "greggilbert/recaptcha": "dev-master",
         "fitztrev/laravel-html-minify": "dev-master",
-        "pda/pheanstalk": "dev-master"
+        "pda/pheanstalk": "dev-master",
+        "rmccue/requests": ">=1.0"
     },
     "autoload": {
         "classmap": [

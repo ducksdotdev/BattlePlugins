@@ -15,15 +15,15 @@ class PageController extends BaseController {
 		foreach($vars['plugins'] as $plugin){
 			$authors[$plugin->author] = UserSettings::getUsernameFromId($plugin->author);
 
-//			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
-//			if($ci['exists']){
-//				$builds[] = array(
-//					'ci' => $ci,
-//					'name' => $plugin->name,
-//					'author' => $plugin->author,
-//					'bukkit' => $plugin->bukkit
-//				);
-//			}
+			$ci = Jenkins::getLatestBuild("http://ci.battleplugins.com", $plugin->name);
+			if($ci['exists']){
+				$builds[] = array(
+					'ci' => $ci,
+					'name' => $plugin->name,
+					'author' => $plugin->author,
+					'bukkit' => $plugin->bukkit
+				);
+			}
 		}
 
 		$vars['authors'] = $authors;

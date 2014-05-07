@@ -46,7 +46,7 @@ class PageController extends BaseController {
             $vars['author'] = UserSettings::getUsernameFromId($blog->author);
         }
 
-        return View::make('index', $vars);
+        return View::make('home', $vars);
     }
 
     public function getWiki(){

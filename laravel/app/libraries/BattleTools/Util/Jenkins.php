@@ -8,7 +8,7 @@ class Jenkins {
 
 	public static function getLatestBuild($url, $job){
 		try {
-			$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
+			$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 2));
 		}catch(\Requests_Exception $e){
 			return self::timeout($url);
 		}

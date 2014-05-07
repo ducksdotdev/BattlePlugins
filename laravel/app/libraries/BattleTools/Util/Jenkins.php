@@ -5,6 +5,12 @@ namespace BattleTools\Util;
 class Jenkins {
 
 	public static function getLatestBuild($url, $job){
+		return array(
+			'exists' => false,
+			'build' => "N/A",
+			'url' => '#'
+		);
+
 		$ctx = stream_context_create(array(
 				'http' => array(
 					'timeout' => 100

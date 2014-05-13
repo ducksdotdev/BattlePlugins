@@ -105,10 +105,10 @@ class PageController extends BaseController {
 		$vars['author'] = UserSettings::getUsernameFromId($blog->author);
 		$vars['title'] = $blog->title;
 
-		$admin = true;
-
 		if(Auth::check()){
 			$admin = UserGroups::hasGroup(Auth::user()->id, UserGroups::ADMINISTRATOR);
+		}else{
+			$admin = false;
 		}
 
 		$vars['admin'] = $admin;

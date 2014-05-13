@@ -5,6 +5,8 @@ use BattleTools\UserManagement\UserSettings;
 use BattleTools\Util\DateUtil;
 use BattleTools\Util\Deploy;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redirect;
 use Symfony\Component\Process\Process;
 
 class AdminController extends BaseController{
@@ -283,5 +285,10 @@ class AdminController extends BaseController{
 		Queue::push('BattleTools\Queue\UpdateStatistics', array());
 		Cache::forget('getTotalServers');
 		return Redirect::to('/administrator/statistics');
+	}
+
+	public function clearJenkinsTimeout(){
+		Cache::forget('timeoutBuffer');
+		return Redirect::to("/");
 	}
 }

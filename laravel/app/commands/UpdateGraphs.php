@@ -149,10 +149,10 @@ class UpdateGraphs extends Command{
 			foreach ($versions as $version) { // Check every statistic
 				foreach ($times as $time) { // Loop through every time
 					if (!array_key_exists($time, $counts[$version])) { // If statistic doesn't already have data from the database
-						$data[$version][] = array($time, null); // Set the statistic to null
+						$data[$version][] = array($time, null);        // Set the statistic to null
 					} else {
 						$count = $counts[$version][$time] <= 0 ? null : $counts[$version][$time];
-						$data[$version][] = array($time, $count); // Or else set the statistic to the database value
+						$data[$version][] = array($time, $count);     // Else set the statistic to the database value
 					}
 				}
 			}
@@ -167,7 +167,7 @@ class UpdateGraphs extends Command{
 			}
 
 			file_put_contents($file, json_encode($sendData)); // Put the data into the file
-			Cache::forever($plugin . 'Statistics', $sendData); // Cache the data to be displayed by Highcharts
+			Cache::forever($plugin . 'Statistics', $sendData); // Cache the data to be displayed by HighCharts
 		}
 	}
 

@@ -11,7 +11,7 @@ class Jenkins {
 	public static function getLatestBuild($url, $job){
 		if(!Cache::get('timeoutBuffer')) {
 			try {
-				$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 2));
+				$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 5));
 			}catch (\Requests_Exception $e) {
 				return self::timeout($url);
 			}

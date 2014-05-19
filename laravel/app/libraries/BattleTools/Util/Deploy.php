@@ -32,18 +32,17 @@ class Deploy{
 		$masterBranch = Config::get('deploy.master-branch');
 		$devBranch = Config::get('deploy.development-branch');
 
-		$convertSass = Config::get("deploy.convert-sass");
-
 		if(($branch == $masterBranch && Config::get('deploy.minify-master')) ||
 			($branch == $devBranch && Config::get('deploy.minify-development'))){
 
+			$convertSass = Config::get("deploy.convert-sass");
 			$doMinify = Config::get('deploy.files-to-minify');
 
 			if($payload != null){
 				$files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
 
 				foreach($files as $file){
-					if($convertSass && ListSentence::endsWith($file, '.scss')) {
+					if($convertSass && ends_with($file, '.scss')) {
 						$output['sass '.$file] = self::convertSass($file, $cd);
 						$file = str_replace('.scss', '.css', $file);
 					}

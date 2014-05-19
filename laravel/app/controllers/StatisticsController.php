@@ -2,7 +2,6 @@
 
 use BattleTools\Statistics\Plugins;
 use BattleTools\Statistics\Servers;
-use BattleTools\Util\DateUtil;
 use Carbon\Carbon;
 
 class StatisticsController extends BaseController{

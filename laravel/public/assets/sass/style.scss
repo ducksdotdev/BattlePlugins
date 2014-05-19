@@ -6,14 +6,6 @@
   font-style: normal;
 }
 
-::selection, ::-moz-selection {
-  background: #4899ea;
-
-  a, &:hover {
-    color: #2A6496;
-  }
-}
-
 html, body {
   height: 100%;
   margin: 0;
@@ -40,7 +32,7 @@ footer, .push {
   border-bottom: 5px solid #222222;
 }
 
-.logo {
+a.logo, .logo {
   font-size: 11vw;
   color: white;
   font-family: "Tenby Five";
@@ -48,11 +40,6 @@ footer, .push {
   text-shadow: 2px 2px 5px black;
   line-height: 13vw;
   text-decoration: none;
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
 
   &.logo-footer {
     font-size: 35px;

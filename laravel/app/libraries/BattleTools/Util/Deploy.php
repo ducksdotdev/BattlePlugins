@@ -43,8 +43,8 @@ class Deploy{
 				$files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
 
 				foreach($files as $file){
-					if($convertSass) {
-						$output['sass'] = self::convertSass($file, $cd);
+					if($convertSass && ListSentence::endsWith($file, '.scss')) {
+						$output['sass '.$file] = self::convertSass($file, $cd);
 					}
 
 					if(in_array($file, $doMinify)){
@@ -54,8 +54,8 @@ class Deploy{
 				}
 			}else{
 				foreach($doMinify as $file){
-					if($convertSass) {
-						$output['sass'] = self::convertSass($file, $cd);
+					if($convertSass && ListSentence::endsWith($file, '.scss')) {
+						$output['sass '.$file] = self::convertSass($file, $cd);
 					}
 
 					$method = self::minify($file, $cd, $timeout);
@@ -126,9 +126,7 @@ class Deploy{
 	}
 
 	public static function convertSass($file, $cd){
-		if(ListSentence::endsWith($file, '.scss')){
-			$file = str_replace('.scss', '.css', $file);
-			return self::runProcess("sass ".$file.":".$file, $cd);
-		}
+		$file = str_replace('.scss', '.css', $file);
+		return self::runProcess("sass ".$file.":".$file, $cd);
 	}
 }

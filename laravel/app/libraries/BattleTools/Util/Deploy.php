@@ -32,6 +32,8 @@ class Deploy{
 		$masterBranch = Config::get('deploy.master-branch');
 		$devBranch = Config::get('deploy.development-branch');
 
+		$convertSass = Config::get("deploy.convert-sass");
+
 		if(($branch == $masterBranch && Config::get('deploy.minify-master')) ||
 			($branch == $devBranch && Config::get('deploy.minify-development'))){
 
@@ -41,7 +43,9 @@ class Deploy{
 				$files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
 
 				foreach($files as $file){
-					self::convertSass($file, $cd);
+					if($convertSass) {
+						$output['sass'] = self::convertSass($file, $cd);
+					}
 
 					if(in_array($file, $doMinify)){
 						$method = self::minify($file, $cd, $timeout);
@@ -50,7 +54,9 @@ class Deploy{
 				}
 			}else{
 				foreach($doMinify as $file){
-					self::convertSass($file, $cd);
+					if($convertSass) {
+						$output['sass'] = self::convertSass($file, $cd);
+					}
 
 					$method = self::minify($file, $cd, $timeout);
 					$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
@@ -120,11 +126,9 @@ class Deploy{
 	}
 
 	public static function convertSass($file, $cd){
-		$convertSass = Config::get("deploy.convert-sass");
-
-		if($convertSass && ListSentence::endsWith($file, '.scss')){
+		if(ListSentence::endsWith($file, '.scss')){
 			$file = str_replace('.scss', '.css', $file);
-			self::runProcess("sass ".$file.":".$file, $cd);
+			return self::runProcess("sass ".$file.":".$file, $cd);
 		}
 	}
 }

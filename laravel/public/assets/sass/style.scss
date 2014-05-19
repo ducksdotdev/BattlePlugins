@@ -48,16 +48,16 @@ footer, .push {
   text-shadow: 2px 2px 5px black;
   line-height: 13vw;
   text-decoration: none;
-}
 
-.logo a, .logo a:hover {
-  text-decoration: none;
-  color: white;
-}
+  &a {
+    text-decoration: none;
+    color: white;
+  }
 
-.logo.logo-footer {
-  font-size: 35px;
-  line-height: 45px;
+  &.logo-footer {
+    font-size: 35px;
+    line-height: 45px;
+  }
 }
 
 .logo .quote {

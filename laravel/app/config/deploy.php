@@ -19,7 +19,7 @@ return array(
 	'minify-development'   => false,
 
 	// Convert SASS?
-	'convert-sass' => true,
+	'convert-sass'         => true,
 
 	// Path to compiler.jar
 	'compiler'             => '/home/tools/compiler.jar',

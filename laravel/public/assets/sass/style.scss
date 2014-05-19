@@ -9,7 +9,7 @@
 ::selection, ::-moz-selection {
   background: #4899ea;
 
-  &a {
+  a, &:hover {
     color: #2A6496;
   }
 }

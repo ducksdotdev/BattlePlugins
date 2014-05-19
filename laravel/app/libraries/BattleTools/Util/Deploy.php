@@ -43,9 +43,7 @@ class Deploy{
 				foreach($files as $file){
 					if(ListSentence::endsWith($file, '.scss')){
 						$file = str_replace('.scss', '.css', $file);
-						$process = new Process("sass ".$cd."/".$file.":".$cd."/".$file);
-						$process->start();
-						while($process->isRunning()){}
+						self::runProcess("sass ".$file.":".$file, $cd);
 					}
 
 					if(in_array($file, $doMinify)){

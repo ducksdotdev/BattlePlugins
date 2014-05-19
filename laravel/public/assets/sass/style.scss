@@ -110,28 +110,26 @@ footer {
   min-height: 0 !important;
 }
 
-.navbar-nav > li > a {
-  padding: 10px 15px !important;
+.navbar-nav {
+  li {
+    a {
+      padding: 10px 15px !important;
+    }
+  }
 }
 
 .pointer {
   cursor: pointer;
 }
 
-hr.hr-dark {
-  border-color: rgba(0, 0, 0, 0.25);
+hr {
+  &.hr-dark {
+    border-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 .fb-like {
   margin-top: 5px;
-}
-
-form.ugly {
-  padding: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
 }
 
 form {
@@ -140,6 +138,14 @@ form {
   border: 1px solid rgb(189, 189, 189);
   border-radius: 4px;
   box-shadow: 0px 1px 0px rgba(168, 168, 168, 0.43);
+
+  &.ugly {
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 .navbar-inverse .dropdown-menu {
@@ -395,4 +401,5 @@ i.fa-refresh.panel-icon {
   font-size: 24px !important;
   line-height: 1.33 !important;
   border-radius: 6px !important;
+}
 }

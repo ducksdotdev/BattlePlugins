@@ -43,8 +43,9 @@ class Deploy{
 
 				foreach($files as $file){
 					if($convertSass && ends_with($file, '.scss')) {
-						$output['sass '.$file] = self::convertSass($file, $cd);
 						$file = str_replace('.scss', '.css', $file);
+						$command = "sass ".$file.":".$file;
+						$output[$command] = self::runProcess($command, $cd);
 					}
 
 					if(in_array($file, $doMinify)){
@@ -119,10 +120,5 @@ class Deploy{
 		$subdomain = str_replace('http://', '', $subdomain);
 
 		return $subdomain == 'dev';
-	}
-
-	public static function convertSass($file, $cd){
-		$file = str_replace('.scss', '.css', $file);
-		return self::runProcess("sass ".$file.":".$file, $cd);
 	}
 }

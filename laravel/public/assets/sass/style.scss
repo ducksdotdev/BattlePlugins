@@ -8,10 +8,10 @@
 
 ::selection, ::-moz-selection {
   background: #4899ea;
-}
 
-a::selection, a::-moz-selection {
-  color: #2A6496;
+  &a {
+    color: #2A6496;
+  }
 }
 
 html, body {

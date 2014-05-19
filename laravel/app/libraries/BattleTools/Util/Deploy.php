@@ -33,8 +33,7 @@ class Deploy{
 		$devBranch = Config::get('deploy.development-branch');
 
 		if(($branch == $masterBranch && Config::get('deploy.minify-master')) ||
-			($branch == $devBranch && Config::get('deploy.minify-development'))
-		){
+			($branch == $devBranch && Config::get('deploy.minify-development'))){
 
 			$doMinify = Config::get('deploy.files-to-minify');
 
@@ -42,6 +41,13 @@ class Deploy{
 				$files = $payload['head_commit']['modified'] + $payload['head_commit']['added'];
 
 				foreach($files as $file){
+					if(ListSentence::endsWith($file, '.scss')){
+						$file = str_replace('.scss', '.css', $file);
+						$process = new Process("sass ".$cd."/".$file.":".$cd."/".$file);
+						$process->start();
+						while($process->isRunning()){}
+					}
+
 					if(in_array($file, $doMinify)){
 						$method = self::minify($file, $cd, $timeout);
 						$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
@@ -66,7 +72,7 @@ class Deploy{
 		return $output;
 	}
 
-	public static function minify($file, $cd, $timeout = 180){
+	public static function minify($file, $cd){
 		$appendMin = self::appendMin($file);
 
 		$type = $appendMin['type'];
@@ -104,8 +110,7 @@ class Deploy{
 		$process = new Process($command, $cd);
 		$process->start();
 
-		while($process->isRunning()){
-		}
+		while($process->isRunning()){}
 
 		return array('output' => $process->getOutput(), 'errors' => $process->getErrorOutput());
 	}

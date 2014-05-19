@@ -10,7 +10,7 @@ class Jenkins {
 
 	public static function getLatestBuild($url, $job) {
 		try {
-			$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 5));
+			$request = \Requests::get($url . "/job/" . $job . "/lastSuccessfulBuild/", array(), array('timeout' => 3));
 		}catch (\Requests_Exception $e) {
 			return self::timeout($url);
 		}
@@ -37,7 +37,7 @@ class Jenkins {
 		Log::emergency("It looks like the CI server is down at $url.");
 		return array(
 			'exists' => false,
-			'build' => 'CI Server is currently down',
+			'build' => 'Job not found',
 			'url' => '#'
 		);
 	}

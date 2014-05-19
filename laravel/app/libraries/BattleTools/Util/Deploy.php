@@ -45,6 +45,7 @@ class Deploy{
 				foreach($files as $file){
 					if($convertSass && ListSentence::endsWith($file, '.scss')) {
 						$output['sass '.$file] = self::convertSass($file, $cd);
+						$file = str_replace('.scss', '.css', $file);
 					}
 
 					if(in_array($file, $doMinify)){
@@ -54,10 +55,6 @@ class Deploy{
 				}
 			}else{
 				foreach($doMinify as $file){
-					if($convertSass && ListSentence::endsWith($file, '.scss')) {
-						$output['sass '.$file] = self::convertSass($file, $cd);
-					}
-
 					$method = self::minify($file, $cd, $timeout);
 					$output['minify '.$file] = array('output' => $method['output'], 'errors' => $method['errors']);
 				}

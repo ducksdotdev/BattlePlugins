@@ -34,12 +34,12 @@ footer, .push {
 
 a.logo, .logo {
   font-size: 11vw;
-  color: white;
+  color: white !important;
   font-family: "Tenby Five";
   text-align: center;
   text-shadow: 2px 2px 5px black;
   line-height: 13vw;
-  text-decoration: none;
+  text-decoration: none !important;
 
   &.logo-footer {
     font-size: 35px;

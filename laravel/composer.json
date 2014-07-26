@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "4.2.*",
-        "kmd/logviewer": "1.1.*",
+        "kmd/logviewer": "*",
         "nesbot/Carbon": "*",
         "greggilbert/recaptcha": "dev-master",
         "fitztrev/laravel-html-minify": "dev-master",
@@ -41,5 +41,5 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "beta"
+    "minimum-stability": "stable"
 }

@@ -15,6 +15,7 @@
     <!--        End Styles -->
 </head>
 <body>
+@include('partials.login')
 <nav>
     <div class="grid-container">
         <div class="grid-50">
@@ -28,7 +29,7 @@
             </ul>
         </div>
         <div class="grid-10 text-right">
-            <button href="#" class="ui button primary">Login</button>
+            <div id="loginDropDownButton" class="ui button primary">Login</div>
         </div>
     </div>
 </nav>
@@ -105,7 +106,7 @@
             <div class="item">
                 <div class="content">
                     <a class="header">New Blog!</a>
-                    <div class="description">Hey guys, this is our new blog/website! I will be posting things like development tutorials, progress/dev updates on all of the BattlePlugins, as well as any..</div>
+                    <div class="description">Hey guys, this is our new blog/website! I will be posting things like...</div>
                 </div>
             </div>
         </div>
@@ -118,5 +119,13 @@
         BattlePlugins is not affiliated with Mojang or Minecraft.
     </p>
 </footer>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
+<script type="text/javascript" src="/assets/js/scripts.js"></script>
+@if(session()->has('error'))
+    <script type="text/javascript">
+        $("#login").sidebar({duration: 0}).sidebar('toggle')
+    </script>
+@endif
 </body>
 </html>

@@ -12,7 +12,7 @@
             </div>
             <div class="wide field">
                 <label>Blog Content</label>
-                <div id="blogContent"></div>
+                {!! Form::textarea('blogContent') !!}
             </div>
             {!! Form::close() !!}
         </div>

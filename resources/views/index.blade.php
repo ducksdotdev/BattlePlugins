@@ -85,7 +85,7 @@
     {{--</div>--}}
 {{--</div>--}}
 <div class="grid-container">
-    <div class="grid-100" id="blog">
+    <div class="grid-75" id="blog">
         <div class="item">
             <div class="content">
                 <h1>

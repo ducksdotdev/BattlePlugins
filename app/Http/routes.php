@@ -18,3 +18,7 @@ Route::get('/logout', 'UserController@logout');
 Route::group(['before' => 'csrf'], function () {
 	Route::post('/login', 'UserController@login');
 });
+
+Route::group(['before' => 'auth'], function () {
+	Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+});

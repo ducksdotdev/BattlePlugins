@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Blog;
-use App\Http\Requests\Request;
+use Illuminate\Http\Request;
 use Auth;
 
 class BlogController extends Controller {

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/assets/css/semantic.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.7/summernote.min.css">
     <!--        End Styles -->
 </head>
 <body>
@@ -132,10 +133,16 @@
 </footer>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.6.7/summernote.min.js"></script>
 <script type="text/javascript" src="/assets/js/scripts.js"></script>
 @if(session()->has('error'))
     <script type="text/javascript">
         $("#login").sidebar({duration: 0}).sidebar('toggle')
+    </script>
+@endif
+@if(Auth::check())
+    <script type="text/javascript">
+        $('#blogContent').summernote();
     </script>
 @endif
 </body>

@@ -22,9 +22,9 @@
         </div>
         <div class="grid-40">
             <ul>
-                <li><a href="#">Jenkins</a></li>
-                <li><a href="#">Wiki</a></li>
-                <li><a href="#">Github</a></li>
+                <li><a href="https://ci.battleplugins.com">Jenkins</a></li>
+                <li><a href="https://wiki.battleplugins.com">Wiki</a></li>
+                <li><a href="https://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
         <div class="grid-10 text-right">
@@ -134,7 +134,7 @@
 </div>
 <footer>
     <p>
-        <a href="#">Jenkins</a> | <a href="#">Wiki</a> | <a href="#">GitHub</a> | <a href="#">BattleTasks</a> | <a href="#">BattleWebAPI</a><br/>
+        <a href="https://ci.battleplugins.com">Jenkins</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a href="http://github.com/BattlePlugins">GitHub</a> | <a href="https://tasks.battleplugins.com">BattleTasks</a> | <a href="https://api.battleplugins.com">BattleWebAPI</a><br/>
         Copyright &copy; BattlePlugins. All Rights Reserved.<br/>
         BattlePlugins is not affiliated with Mojang or Minecraft.
     </p>

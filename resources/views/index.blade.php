@@ -32,7 +32,9 @@
         </div>
         <div class="grid-10 text-right">
             @if(Auth::check())
-                <button id="openBlogModal" class="circular small ui positive icon button">+</button>
+                <button id="createBlog" class="circular small ui positive icon button">
+                    <i class="icon plus"></i>
+                </button>
             @else
                 <div id="loginDropDownButton" class="ui button primary">Login</div>
             @endif

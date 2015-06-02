@@ -134,3 +134,7 @@ small.author {
 small {
     color: #a3a3a3;
 }
+
+#createBlogModal {
+    overflow: hidden;
+}

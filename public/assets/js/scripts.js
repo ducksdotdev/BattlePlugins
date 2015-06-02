@@ -3,6 +3,7 @@ $(function () {
     'use strict';
 
     $('.ui.checkbox').checkbox();
+    $('#blogContent').summernote();
 
     $("#loginDropDownButton").click(function () {
         $("#login").sidebar({

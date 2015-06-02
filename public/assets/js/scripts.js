@@ -3,7 +3,6 @@ $(function () {
     'use strict';
 
     $('.ui.checkbox').checkbox();
-    $('#blogContent').summernote();
 
     $("#loginDropDownButton").click(function () {
         $("#login").sidebar({
@@ -21,6 +20,7 @@ $(function () {
         $("#createBlog").addClass("loading");
         $("#createBlogModal").modal({
             onVisible: function () {
+                $('#blogContent').summernote();
                 $("#createBlog").removeClass("loading");
             },
             onApprove: function () {

@@ -99,38 +99,17 @@
             </div>
         </div>
     </div>
-    {{--<div class="grid-25">--}}
-        {{--<h4>Latest Blog Posts:</h4>--}}
-        {{--<div id="latestBlogPosts" class="ui divided list">--}}
-            {{--<div class="item">--}}
-                {{--<div class="content">--}}
-                    {{--<a class="header">Quae te</a>--}}
-                    {{--<div class="description">Exercitation fabulas varias id iis aliqua fore tractavissent ita amet--}}
-                        {{--sempiternum relinqueret. Officia id laboris commodo...</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="item">--}}
-                {{--<div class="content">--}}
-                    {{--<a class="header">Labore Transferrem Elit</a>--}}
-                    {{--<div class="description">Deserunt nescius comprehenderit duis quorum multos quamquam o vidisse appellat--}}
-                        {{--cernantur singulis...</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="item">--}}
-                {{--<div class="content">--}}
-                    {{--<a class="header">Comprehenderit Fabulas</a>--}}
-                    {{--<div class="description">Varias distinguantur aut possumus voluptate litteris concursionibus culpa legam--}}
-                        {{--fore...</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="item">--}}
-                {{--<div class="content">--}}
-                    {{--<a class="header">Appellat Tamen aut nam Dolore Expetendis aut</a>--}}
-                    {{--<div class="description">Voluptate quid quamquam et appellat nam magna nescius. Id fore e multos, ea enim tamen qui incididunt...</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+    <div class="grid-25">
+        <h4>Latest Blog Posts:</h4>
+        <div id="latestBlogPosts" class="ui divided list">
+            <div class="item">
+                <div class="content">
+                    <a class="header">New Blog!</a>
+                    <div class="description">Hey guys, this is our new blog/website! I will be posting things like development tutorials, progress/dev updates on all of the BattlePlugins, as well as any..</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <footer>
     <p>

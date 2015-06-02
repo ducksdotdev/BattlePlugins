@@ -124,7 +124,7 @@
             <div class="item">
                 <div class="content">
                     <a class="header">New Blog!</a>
-                    <div class="description">Hey guys, this is our new blog/website! I will be posting things like...</div>
+                    <div class="description"><small>Written by Zach443.</small></div>
                 </div>
             </div>
         </div>

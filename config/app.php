@@ -151,6 +151,7 @@ return [
 		 * Custom Providers
 		 */
 		'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
+		'GrahamCampbell\Markdown\MarkdownServiceProvider',
 
 	],
 
@@ -199,8 +200,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'Form' => 'Illuminate\Html\FormFacade',
-		'HTML' => 'Illuminate\Html\HtmlFacade',
+		'Form'      => 'Illuminate\Html\FormFacade',
+		'HTML'      => 'Illuminate\Html\HtmlFacade',
+		'Markdown'  => 'GrahamCampbell\Markdown\Facades\Markdown'
 
 	],
 

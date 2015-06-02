@@ -20,15 +20,10 @@ $(function () {
         $("#createBlog").addClass("loading");
         $("#createBlogModal").modal({
             onVisible: function () {
-                $('#blogContent').summernote();
                 $("#createBlog").removeClass("loading");
             },
             onApprove: function () {
-                var title = $("input[name='title']").val();
-                var content = $("#blogContent").code();
-                $.post('/blog', {title: title, content: content}).done(function(){
-                    window.location.reload();
-                });
+                return false;
             }
         }).modal('show');
     });

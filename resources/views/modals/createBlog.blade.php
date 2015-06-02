@@ -5,14 +5,14 @@
     </div>
     <div class="content">
         <div class="description">
-            {!! Form::open(['id'=>'createBlogForm','class'=>'ui form']) !!}
+            {!! Form::open(['id'=>'createBlogForm','url'=>URL::to('/blog', [], true),'class'=>'ui form']) !!}
             <div class="twelve wide field">
                 <label>Title</label>
                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
             </div>
             <div class="wide field">
-                <label>Blog Content</label>
-                <div id="blogContent"></div>
+                <label>Blog Content <small>Works with <a href="https://help.github.com/articles/github-flavored-markdown/" target="_blank">GitHub Flavored Markdown</a>. </small></label>
+                {!! Form::textarea('content') !!}
             </div>
             {!! Form::close() !!}
         </div>

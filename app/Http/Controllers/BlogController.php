@@ -8,7 +8,7 @@ class BlogController extends Controller {
 
 	public function newPost (Request $request) {
 		$title = $request->input('title');
-		$content = $request->input('blogContent');
+		$content = $request->input('content');
 		$author = Auth::user()->id;
 
 		Blog::create([

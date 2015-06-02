@@ -1,5 +1,4 @@
-# IDE generated files #
-#######################
-
+/vendor
+/node_modules
+.env
 .idea
-.iml

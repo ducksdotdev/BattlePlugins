@@ -30,11 +30,13 @@
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
-        @if(!Auth::check())
-            <div class="grid-10 text-right">
+        <div class="grid-10 text-right">
+            @if(Auth::check())
+                <button id="openBlogModal" class="circular small ui positive icon button">+</button>
+            @else
                 <div id="loginDropDownButton" class="ui button primary">Login</div>
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 </nav>
 {{--<div class="grid-container">--}}

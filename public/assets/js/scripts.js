@@ -2,6 +2,8 @@
 $(function () {
     'use strict';
 
+    $('#summernote').summernote();
+
     $('.ui.checkbox').checkbox();
 
     $("#loginDropDownButton").click(function () {
@@ -20,11 +22,14 @@ $(function () {
         $("#createBlog").addClass("loading");
         $("#createBlogModal").modal({
             onVisible: function () {
-                $('#blogContent').summernote();
                 $("#createBlog").removeClass("loading");
             },
             onApprove: function () {
-                return false;
+                var title = $("input[name='title']").val();
+                var content = $("#blogContent").code();
+                $.post('/blog', {title: title, content: content}).done(function(){
+                    window.location.reload();
+                });
             }
         }).modal('show');
     });

@@ -5,14 +5,14 @@
     </div>
     <div class="content">
         <div class="description">
-            {!! Form::open(['id'=>'createBlogForm','url'=>URL::to('/blog', [], true),'class'=>'ui form']) !!}
+            {!! Form::open(['id'=>'createBlogForm','class'=>'ui form']) !!}
             <div class="twelve wide field">
                 <label>Title</label>
                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
             </div>
             <div class="wide field">
                 <label>Blog Content</label>
-                {!! Form::textarea('blogContent') !!}
+                {!! Form::textarea('content', '', ['id'=>'summernote']) !!}
             </div>
             {!! Form::close() !!}
         </div>

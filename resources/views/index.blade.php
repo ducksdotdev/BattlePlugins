@@ -120,6 +120,9 @@
         </div>
     </div>
 </div>
+@if(Auth::check())
+    @include('modals.createBlog')
+@endif
 <footer>
     <p>
         <a href="http://ci.battleplugins.com">Jenkins</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a href="http://github.com/BattlePlugins">GitHub</a> | <a href="http://tasks.battleplugins.com">BattleTasks</a> | <a href="http://api.battleplugins.com">BattleWebAPI</a><br/>

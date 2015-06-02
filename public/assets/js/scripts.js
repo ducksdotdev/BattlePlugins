@@ -15,4 +15,16 @@ $(function () {
     $("#loginButton").click(function () {
         $(this).addClass("loading");
     });
+    
+    $("#createBlog").click(function () {
+        $("#createBlog").addClass("loading");
+        $("#createBlogModal").modal({
+            onVisible: function () {
+                $("#createBlog").removeClass("loading");
+            },
+            onApprove: function () {
+                return false;
+            }
+        }).modal('show');
+    });
 });

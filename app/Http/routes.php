@@ -12,3 +12,9 @@
 */
 
 Route::get('/', 'PageController@index');
+
+Route::get('/logout', 'UserController@logout');
+
+Route::group(['before' => 'csrf'], function () {
+	Route::post('/login', 'UserController@login');
+});

@@ -2,6 +2,8 @@
 $(function () {
     'use strict';
 
+    $('.ui.checkbox').checkbox();
+
     $("#loginDropDownButton").click(function () {
         $("#login").sidebar({
             onVisible: function () {

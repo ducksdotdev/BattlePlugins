@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Blog;
+use App\User;
+use Carbon\Carbon;
+
 class PageController extends Controller {
 
 	/**
@@ -9,7 +13,45 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		return view('index');
+		$blog = Blog::orderby('created_at', 'desc')->first();
+		$carbon = new Carbon($blog->created_at);
+
+		$users = User::all();
+		$displaynames = [];
+
+		foreach($users as $user){
+			$displaynames[$user->id] = $user->displayname;
+		}
+
+		return view('index',
+			[
+				'blog' => $blog,
+				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),
+				'author' => User::find($blog->author)->pluck('displayname'),
+				'created_at' => $carbon->diffForHumans(),
+				'users' => $displaynames
+			]);
+	}
+
+	public function getBlog($blog){
+		$blog = Blog::find($blog);
+		$carbon = new Carbon($blog->created_at);
+
+		$users = User::all();
+		$displaynames = [];
+
+		foreach($users as $user){
+			$displaynames[$user->id] = $user->displayname;
+		}
+
+		return view('index',
+			[
+				'blog' => $blog,
+				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),
+				'author' => User::find($blog->author)->pluck('displayname'),
+				'created_at' => $carbon->diffForHumans(),
+				'users' => $displaynames
+			]);
 	}
 
 }

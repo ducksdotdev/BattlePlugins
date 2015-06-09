@@ -8,7 +8,7 @@
 			@endif
 		</div>
 		<div class="grid-70 grid-parent">
-			{!! Form::open(['url'=>URL::to('/login', [], true),'class'=>'ui form']) !!}
+			{!! Form::open(['url'=>URL::to('/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
 			<div class="grid-container">
 				<div class="grid-50">
 					<label>Email</label>

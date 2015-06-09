@@ -103,11 +103,11 @@
         <div class="item">
             <div class="content">
                 <h1>
-                    New Blog! <small class="author">Written by Zach443.</small>
+                    {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}.</small>
                 </h1>
                 <div class="description">
                     <p>
-                        Hey guys, this is our new blog/website! I will be posting things like development tutorials, progress/dev updates on all of the BattlePlugins, as well as any other information about BattlePlugins here. All kinds of exciting things will be coming out of this blog. Aside from the blog, this site will contain links to all BattlePlugins' resources, such as the wiki, GitHub, and Jenkins. Above this post there will be boxes that will show all the most recent updates to our plugins. Enjoy the new site!
+                        {!! Markdown::convertToHTML(strip_tags($blog->content)) !!}
                     </p>
                 </div>
             </div>
@@ -116,12 +116,14 @@
     <div class="grid-25">
         <h4>Latest Blog Posts:</h4>
         <div id="latestBlogPosts" class="ui divided list">
+            @foreach($list as $bp)
             <div class="item">
                 <div class="content">
-                    <a class="header">New Blog!</a>
-                    <div class="description"><small>Written by Zach443.</small></div>
+                    <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
+                    <div class="description"><small>Written by {{ $users[$bp->author] }} {{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}.</small></div>
                 </div>
             </div>
+                @endforeach
         </div>
     </div>
 </div>

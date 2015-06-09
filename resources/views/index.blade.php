@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattlePlugins :: Minecraft Plugin Development Team</title>
-    <link rel="icon" href="favicon.png" />
+    <link rel="icon" href="/assets/img/bp.png" />
 
     <!--        Styles -->
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>

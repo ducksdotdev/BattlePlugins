@@ -109,9 +109,13 @@
                         </h1>
                     </div>
                     <div class="grid-10">
-                        <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">
-                            <i class="icon trash"></i>
-                        </a>
+                        @if(Auth::check())
+                            <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">
+                                <i class="icon trash"></i>
+                            </a>
+                        @else
+                            &nbsp;
+                        @endif
                     </div>
                     <div class="grid-100">
                         <div class="description">

@@ -98,35 +98,37 @@
 {{--</div>--}}
 {{--</div>--}}
 {{--</div>--}}
-<div class="grid-container">
-    <div class="grid-75" id="blog">
-        <div class="item">
-            <div class="content">
-                <h1>
-                    {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}.</small>
-                </h1>
-                <div class="description">
-                    <p>
-                        {!! Markdown::convertToHTML(strip_tags($blog->content)) !!}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid-25">
-        <h4>Latest Blog Posts:</h4>
-        <div id="latestBlogPosts" class="ui divided list">
-            @foreach($list as $bp)
+@if($blog)
+    <div class="grid-container">
+        <div class="grid-75" id="blog">
             <div class="item">
                 <div class="content">
-                    <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
-                    <div class="description"><small>Written by {{ $users[$bp->author] }} {{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}.</small></div>
+                    <h1>
+                        {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}.</small>
+                    </h1>
+                    <div class="description">
+                        <p>
+                            {!! Markdown::convertToHTML(strip_tags($blog->content)) !!}
+                        </p>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="grid-25">
+            <h4>Latest Blog Posts:</h4>
+            <div id="latestBlogPosts" class="ui divided list">
+                @foreach($list as $bp)
+                    <div class="item">
+                        <div class="content">
+                            <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
+                            <div class="description"><small>Written by {{ $users[$bp->author] }} {{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}.</small></div>
+                        </div>
+                    </div>
                 @endforeach
+            </div>
         </div>
     </div>
-</div>
+@endif
 @if(Auth::check())
     @include('modals.createBlog')
 @endif

@@ -14,7 +14,11 @@ class PageController extends Controller {
 	public function index()
 	{
 		$blog = Blog::orderby('created_at', 'desc')->first();
-		$carbon = new Carbon($blog->created_at);
+
+		if($blog)
+			$carbon = new Carbon($blog->created_at);
+		else
+			return view('index');
 
 		$users = User::all();
 		$displaynames = [];
@@ -35,7 +39,10 @@ class PageController extends Controller {
 
 	public function getBlog($blog){
 		$blog = Blog::find($blog);
-		$carbon = new Carbon($blog->created_at);
+
+		if($blog)
+			$carbon = new Carbon($blog->created_at);
+		else return redirect('/');
 
 		$users = User::all();
 		$displaynames = [];

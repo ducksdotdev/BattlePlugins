@@ -18,7 +18,7 @@ class PageController extends Controller {
 		if($blog)
 			$carbon = new Carbon($blog->created_at);
 		else
-			return view('index');
+			return view('index', ['blog'=>false]);
 
 		$users = User::all();
 		$displaynames = [];

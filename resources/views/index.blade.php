@@ -46,58 +46,58 @@
         </div>
     </div>
 </nav>
-<div class="grid-container">
-    <div class="ui items">
-        <div class="grid-25">
-            <div class="ui segment">
-                <div class="item">
-                    <div class="content">
-                        <span class="header">BattleArena v1.2.3 <small class="version-update">Updated 2 hours ago.</small></span>
-                        <div class="description">
-                            <p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid-25">
-            <div class="ui segment">
-                <div class="item">
-                    <div class="content">
-                        <span class="header">BattleArena v1.2.3</span>
-                        <div class="description">
-                            <p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid-25">
-            <div class="ui segment">
-                <div class="item">
-                    <div class="content">
-                        <span class="header">BattleArena v1.2.3</span>
-                        <div class="description">
-                            <p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid-25">
-            <div class="ui segment">
-                <div class="item">
-                    <div class="content">
-                        <span class="header">BattleArena v1.2.3</span>
-                        <div class="description">
-                            <p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div class="grid-container">--}}
+    {{--<div class="ui items">--}}
+        {{--<div class="grid-25">--}}
+            {{--<div class="ui segment">--}}
+                {{--<div class="item">--}}
+                    {{--<div class="content">--}}
+                        {{--<span class="header">BattleArena v1.2.3 <small class="version-update">Updated 2 hours ago.</small></span>--}}
+                        {{--<div class="description">--}}
+                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="grid-25">--}}
+            {{--<div class="ui segment">--}}
+                {{--<div class="item">--}}
+                    {{--<div class="content">--}}
+                        {{--<span class="header">BattleArena v1.2.3</span>--}}
+                        {{--<div class="description">--}}
+                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="grid-25">--}}
+            {{--<div class="ui segment">--}}
+                {{--<div class="item">--}}
+                    {{--<div class="content">--}}
+                        {{--<span class="header">BattleArena v1.2.3</span>--}}
+                        {{--<div class="description">--}}
+                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="grid-25">--}}
+            {{--<div class="ui segment">--}}
+                {{--<div class="item">--}}
+                    {{--<div class="content">--}}
+                        {{--<span class="header">BattleArena v1.2.3</span>--}}
+                        {{--<div class="description">--}}
+                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 @if($blog)
     <div class="grid-container">
         <div class="grid-75 grid-parent" id="blog">

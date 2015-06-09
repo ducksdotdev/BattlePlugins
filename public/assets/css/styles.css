@@ -102,7 +102,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: #c3c3c3;
+    color: rgb(149, 204, 247);
 }
 
 .brand a {

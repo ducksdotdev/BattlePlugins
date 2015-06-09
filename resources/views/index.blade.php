@@ -98,6 +98,7 @@
         </div>
     </div>
 </div>
+@if($blog)
     <div class="grid-container">
         <div class="grid-75 grid-parent" id="blog">
             <div class="item">
@@ -136,6 +137,7 @@
             </div>
         </div>
     </div>
+@endif
 @if(Auth::check())
     @include('modals.createBlog')
 @endif

@@ -61,4 +61,9 @@ class PageController extends Controller {
 			]);
 	}
 
+	public function deleteBlog($blog){
+		Blog::find($blog)->delete();
+		return redirect('/');
+	}
+
 }

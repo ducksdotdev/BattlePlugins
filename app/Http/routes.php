@@ -22,6 +22,7 @@ Route::group(['before' => 'csrf'], function () {
 
 Route::group(['before' => 'auth'], function () {
 	Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+	Route::get('/delete/{blog}', 'PageController@deleteBlog');
 
 	Route::group(['before' => 'csrf'], function () {
 		Route::post('/blog', 'BlogController@newPost');

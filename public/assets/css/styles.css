@@ -138,3 +138,7 @@ small {
 .description img {
     max-width: 100%;
 }
+
+#delete.button {
+    margin-top: 15px;
+}

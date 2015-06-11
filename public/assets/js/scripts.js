@@ -27,4 +27,16 @@ $(function () {
             }
         }).modal('show');
     });
+
+    $("#editBlog").click(function () {
+        $("#editBlog").addClass("loading");
+        $("#editBlogModal").modal({
+            onVisible: function () {
+                $("#editBlog").removeClass("loading");
+            },
+            onApprove: function () {
+                return false;
+            }
+        }).modal('show');
+    });
 });

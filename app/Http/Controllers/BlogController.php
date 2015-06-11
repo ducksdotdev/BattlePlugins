@@ -6,9 +6,15 @@ use Auth;
 
 class BlogController extends Controller {
 
-	public function newPost (Request $request) {
-		$title = $request->input('title');
-		$content = $request->input('content');
+	private $request;
+
+	public function __construct(Request $request){
+		$this->request = $request;
+	}
+
+	public function newBlog () {
+		$title = $this->request->input('title');
+		$content = $this->request->input('content');
 		$author = Auth::user()->id;
 
 		Blog::create([
@@ -18,6 +24,21 @@ class BlogController extends Controller {
 		]);
 
 		return redirect('/');
+	}
+
+	public function deleteBlog($blog){
+		Blog::find($blog)->delete();
+		return redirect('/');
+	}
+
+	public function editBlog($blog){
+		$title = $this->request->input('title');
+		$content = $this->request->input('content');
+
+		Blog::find($blog)->update([
+			'title' => $title,
+			'content' => $content,
+		]);
 	}
 
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,56 +46,56 @@
     </div>
 </nav>
 {{--<div class="grid-container">--}}
-    {{--<div class="ui items">--}}
-        {{--<div class="grid-25">--}}
-            {{--<div class="ui segment">--}}
-                {{--<div class="item">--}}
-                    {{--<div class="content">--}}
-                        {{--<span class="header">BattleArena v1.2.3 <small class="version-update">Updated 2 hours ago.</small></span>--}}
-                        {{--<div class="description">--}}
-                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="grid-25">--}}
-            {{--<div class="ui segment">--}}
-                {{--<div class="item">--}}
-                    {{--<div class="content">--}}
-                        {{--<span class="header">BattleArena v1.2.3</span>--}}
-                        {{--<div class="description">--}}
-                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="grid-25">--}}
-            {{--<div class="ui segment">--}}
-                {{--<div class="item">--}}
-                    {{--<div class="content">--}}
-                        {{--<span class="header">BattleArena v1.2.3</span>--}}
-                        {{--<div class="description">--}}
-                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="grid-25">--}}
-            {{--<div class="ui segment">--}}
-                {{--<div class="item">--}}
-                    {{--<div class="content">--}}
-                        {{--<span class="header">BattleArena v1.2.3</span>--}}
-                        {{--<div class="description">--}}
-                            {{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+{{--<div class="ui items">--}}
+{{--<div class="grid-25">--}}
+{{--<div class="ui segment">--}}
+{{--<div class="item">--}}
+{{--<div class="content">--}}
+{{--<span class="header">BattleArena v1.2.3 <small class="version-update">Updated 2 hours ago.</small></span>--}}
+{{--<div class="description">--}}
+{{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--<div class="grid-25">--}}
+{{--<div class="ui segment">--}}
+{{--<div class="item">--}}
+{{--<div class="content">--}}
+{{--<span class="header">BattleArena v1.2.3</span>--}}
+{{--<div class="description">--}}
+{{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--<div class="grid-25">--}}
+{{--<div class="ui segment">--}}
+{{--<div class="item">--}}
+{{--<div class="content">--}}
+{{--<span class="header">BattleArena v1.2.3</span>--}}
+{{--<div class="description">--}}
+{{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--<div class="grid-25">--}}
+{{--<div class="ui segment">--}}
+{{--<div class="item">--}}
+{{--<div class="content">--}}
+{{--<span class="header">BattleArena v1.2.3</span>--}}
+{{--<div class="description">--}}
+{{--<p>BattleArena has just been updated to version 1.2.3. Download the latest version from <a href="#">Jenkins</a>.</p>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
 {{--</div>--}}
 @if($blog)
     <div class="grid-container">
@@ -110,6 +109,9 @@
                     </div>
                     <div class="grid-10">
                         @if(Auth::check())
+                            <button id="edit" class="circular black ui icon button">
+                                <i class="icon pencil"></i>
+                            </button>
                             <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">
                                 <i class="icon trash"></i>
                             </a>
@@ -144,6 +146,10 @@
 @endif
 @if(Auth::check())
     @include('modals.createBlog')
+
+    @if($blog)
+        @include('modals.editBlog')
+    @endif
 @endif
 <footer>
     <p>

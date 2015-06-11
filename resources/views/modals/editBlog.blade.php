@@ -13,7 +13,7 @@
             </div>
             <div class="wide field">
                 <label>Blog Content <small>Works with <a href="https://help.github.com/articles/markdown-basics/" target="_blank">GitHub Flavored Markdown</a>. </small></label>
-                {!! Form::textarea('content', #blog->content) !!}
+                {!! Form::textarea('content', $blog->content) !!}
             </div>
             {!! Form::close() !!}
         </div>

@@ -102,14 +102,14 @@
         <div class="grid-75 grid-parent" id="blog">
             <div class="item">
                 <div class="content">
-                    <div class="grid-90">
+                    <div class="grid-85">
                         <h1>
                             {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}.</small>
                         </h1>
                     </div>
-                    <div class="grid-10">
+                    <div class="grid-15">
                         @if(Auth::check())
-                            <button id="edit" class="circular black ui icon button">
+                            <button id="editBlog" class="circular black ui icon button">
                                 <i class="icon pencil"></i>
                             </button>
                             <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">

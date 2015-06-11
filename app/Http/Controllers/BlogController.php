@@ -39,6 +39,8 @@ class BlogController extends Controller {
 			'title' => $title,
 			'content' => $content,
 		]);
+
+		return redirect('/blog/'.$blog);
 	}
 
 }

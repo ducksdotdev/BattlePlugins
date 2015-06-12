@@ -105,10 +105,10 @@
                     <div class="grid-85">
                         <h1>
                             {{ $blog->title }} <small class="author">
-                                Written by {{ $author }} {{ $created_at }}
+                                Written by {{ $author }} <span title="{{ $blog->created_at }}">{{ $created_at }}</span>
                                 @if($blog->updated_at != $blog->created_at)
                                     <span title="Edited {{ (new \Carbon\Carbon($blog->updated_at))->diffForHumans()
-                                         }}">*</span>
+                                         }} ({{ $blog->updated_at }})">*</span>
                                 @endif
                             </small>
                         </h1>
@@ -144,10 +144,10 @@
                             <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
                             <div class="description">
                                 <small>
-                                    Written by {{ $users[$bp->author] }} {{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}
+                                    Written by {{ $users[$bp->author] }} <span title="{{ $bp->created_at}}">{{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}</span>
                                     @if($bp->updated_at != $bp->created_at)
                                         <span title="Edited {{ (new \Carbon\Carbon($bp->updated_at))->diffForHumans()
-                                         }}">*</span>
+                                         }} ({{ $bp->updated_at }})">*</span>
                                     @endif
                                 </small>
                             </div>

@@ -104,7 +104,11 @@
                 <div class="content">
                     <div class="grid-85">
                         <h1>
-                            {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}.</small>
+                            {{ $blog->title }} <small class="author">Written by {{ $author }} {{ $created_at }}
+                                @if($blog->updated_at != $blog->created_at)
+                                    <span title="Edited {{ (new \Carbon\Carbon($bp->updated_at))->diffForHumans()
+                                         }}">*</span>
+                                @endif.</small>
                         </h1>
                     </div>
                     <div class="grid-15">

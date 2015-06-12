@@ -26,6 +26,6 @@ Route::group(['before' => 'auth'], function () {
 
 	Route::group(['before' => 'csrf'], function () {
 		Route::post('/blog', 'BlogController@newBlog');
-		Route::post('/{blog}', 'BlogController@editBlog');
+		Route::post('/blog/{blog}', 'BlogController@editBlog');
 	});
 });

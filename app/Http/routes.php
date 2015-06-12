@@ -25,7 +25,6 @@ Route::group(['before' => 'auth'], function () {
 	Route::get('/delete/{blog}', 'BlogController@deleteBlog');
 
 	Route::group(['before' => 'csrf'], function () {
-		Route::post('/create', 'BlogController@newBlog');
 		Route::post('/blog/{blog}', 'BlogController@editBlog');
 	});
 });

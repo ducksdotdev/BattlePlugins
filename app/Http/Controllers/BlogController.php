@@ -12,7 +12,7 @@ class BlogController extends Controller {
 		$this->request = $request;
 	}
 
-	public function newBlog () {
+	public function create () {
 		$title = $this->request->input('title');
 		$content = $this->request->input('content');
 		$author = Auth::user()->id;

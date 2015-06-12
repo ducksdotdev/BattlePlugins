@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Blog;
 use App\Tools\Webhooks;
 use Illuminate\Http\Request;
 use Auth;
@@ -30,7 +29,7 @@ class BlogController extends Controller {
 	}
 
 	public function deleteBlog($id){
-		Webhooks::sendPayload('/tasks/' . $id, 'DELETE');
+		Webhooks::sendPayload('/blogs/' . $id, 'DELETE');
 		return redirect('/');
 	}
 
@@ -43,7 +42,7 @@ class BlogController extends Controller {
 			'content' => $content,
 		];
 
-		Webhooks::sendPayload('/tasks/' . $id, 'PATCH', $data);
+		Webhooks::sendPayload('/blogs/' . $id, 'PATCH', $data);
 
 		return redirect('/blog/'.$id);
 	}

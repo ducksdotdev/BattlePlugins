@@ -3,6 +3,7 @@
 namespace App\Tools;
 
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class Webhooks {
 

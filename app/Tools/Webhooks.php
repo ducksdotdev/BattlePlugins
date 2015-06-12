@@ -3,7 +3,6 @@
 namespace App\Tools;
 
 use Auth;
-use Illuminate\Support\Facades\Log;
 
 class Webhooks {
 
@@ -29,8 +28,6 @@ class Webhooks {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         }
-
-        Log::info($url);
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_exec($ch);

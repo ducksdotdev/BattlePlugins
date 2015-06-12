@@ -32,6 +32,9 @@ class Webhooks {
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_exec($ch);
+
+        Log::info($url);
+
         curl_close($ch);
     }
 

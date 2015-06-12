@@ -23,7 +23,7 @@ class BlogController extends Controller {
 			'author' => $author
 		];
 
-//		Webhooks::sendPayload('/blogs', 'POST', $data);
+		Webhooks::sendPayload('/blogs', 'POST', $data);
 
 		return redirect('/');
 	}

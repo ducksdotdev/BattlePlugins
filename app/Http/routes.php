@@ -11,21 +11,21 @@
 |
 */
 
-Route::get('/', 'PageController@index');
-Route::get('/blog/{blog}', 'PageController@getBlog');
+get('/', 'PageController@index');
+get('/blog/{blog}', 'PageController@getBlog');
 
-Route::get('/logout', 'UserController@logout');
+get('/logout', 'UserController@logout');
 
 Route::group(['before' => 'csrf'], function () {
-	Route::post('/login', 'UserController@login');
+	post('/login', 'UserController@login');
 });
 
 Route::group(['before' => 'auth'], function () {
-	Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-	Route::get('/delete/{blog}', 'BlogController@deleteBlog');
+	get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+	get('/delete/{blog}', 'BlogController@deleteBlog');
 
 	Route::group(['before' => 'csrf'], function () {
-		Route::post('/blog', 'BlogController@newBlog');
-		Route::post('/{blog}', 'BlogController@editBlog');
+		post('/blog', 'BlogController@newBlog');
+		post('/{blog}', 'BlogController@editBlog');
 	});
 });

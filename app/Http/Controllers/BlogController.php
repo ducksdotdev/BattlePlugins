@@ -29,7 +29,7 @@ class BlogController extends Controller {
 		return redirect('/');
 	}
 
-	public function deleteBlog($blog){
+	public function deleteBlog($id){
 		Webhooks::sendPayload('/tasks/' . $id, 'DELETE');
 		return redirect('/');
 	}

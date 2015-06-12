@@ -135,7 +135,7 @@
                 @foreach($list as $bp)
                     <div class="item">
                         <div class="content">
-                            <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
+                            <a href="/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
                             <div class="description"><small>Written by {{ $users[$bp->author] }} {{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}.</small></div>
                         </div>
                     </div>

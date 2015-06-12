@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'PageController@index');
-Route::get('/blog/{blog}', 'PageController@getBlog');
+Route::get('/{blog}', 'PageController@getBlog');
 
 Route::get('/logout', 'UserController@logout');
 
@@ -26,6 +26,6 @@ Route::group(['before' => 'auth'], function () {
 
 	Route::group(['before' => 'csrf'], function () {
 		Route::post('/blog', 'BlogController@newBlog');
-		Route::post('/edit/{blog}', 'BlogController@editBlog');
+		Route::post('/{blog}', 'BlogController@editBlog');
 	});
 });

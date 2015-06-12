@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'PageController@index');
-Route::get('/blog/{blog}', 'PageController@getBlog');
 
 Route::get('/logout', 'UserController@logout');
 
@@ -29,3 +28,5 @@ Route::group(['before' => 'auth'], function () {
 		Route::post('/blog/{blog}', 'BlogController@editBlog');
 	});
 });
+
+Route::get('/blog/{blog}', 'PageController@getBlog');

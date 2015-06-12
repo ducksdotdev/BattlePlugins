@@ -23,13 +23,13 @@ class BlogController extends Controller {
 			'author' => $author
 		];
 
-//		Webhooks::sendPayload('/blogs', 'POST', $data);
+		Webhooks::sendPayload('/blogs', 'POST', $data);
 
 		return redirect('/');
 	}
 
 	public function deleteBlog($id){
-//		Webhooks::sendPayload('/blogs/' . $id, 'DELETE');
+		Webhooks::sendPayload('/blogs/' . $id, 'DELETE');
 		return redirect('/');
 	}
 
@@ -42,7 +42,7 @@ class BlogController extends Controller {
 			'content' => $content,
 		];
 
-//		Webhooks::sendPayload('/blogs/' . $id, 'PATCH', $data);
+		Webhooks::sendPayload('/blogs/' . $id, 'PATCH', $data);
 
 		return redirect('/blog/'.$id);
 	}

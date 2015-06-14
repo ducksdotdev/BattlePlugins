@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Blog;
+use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
-use Symfony\Component\HttpKernel\Tests\Controller;
 
 class PageController extends Controller {
 

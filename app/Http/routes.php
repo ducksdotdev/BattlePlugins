@@ -11,9 +11,7 @@
 |
 */
 
-Route::group(['domain'=>'battleplugins.com'], mainSite());
-
-function mainSite(){
+Route::group(['domain'=>'battleplugins.com'], function(){
     Route::get('/', 'Blog\PageController@index');
     Route::get('/blog/{blog}', 'Blog\PageController@getBlog');
 
@@ -32,4 +30,4 @@ function mainSite(){
             Route::post('/blog/{blog}', 'Blog\BlogController@editBlog');
         });
     });
-}
+});

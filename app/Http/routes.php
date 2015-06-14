@@ -30,3 +30,8 @@ Route::group(['before' => 'auth'], function () {
 	});
 });
 
+Route::group(['domain'=>'test.battleplugins.com'], function(){
+	Route::get('/', function(){
+		return "Works";
+	});
+});

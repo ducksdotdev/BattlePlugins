@@ -11,27 +11,25 @@
 |
 */
 
-Route::group(['domain'=>'test.battleplugins.com'], function(){
-    Route::get('/', function(){
-        return "Works";
+Route::group(['domain'=>'battleplugins.com'], mainSite());
+
+function mainSite(){
+    Route::get('/', 'Blog\PageController@index');
+    Route::get('/blog/{blog}', 'Blog\PageController@getBlog');
+
+    Route::get('/logout', 'UserController@logout');
+
+    Route::group(['before' => 'csrf'], function () {
+        Route::post('/login', 'UserController@login');
     });
-});
 
-Route::get('/', 'PageController@index');
-Route::get('/blog/{blog}', 'PageController@getBlog');
+    Route::group(['before' => 'auth'], function () {
+        Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+        Route::get('/delete/{blog}', 'Blog\Blog\BlogController@deleteBlog');
 
-Route::get('/logout', 'UserController@logout');
-
-Route::group(['before' => 'csrf'], function () {
-	Route::post('/login', 'UserController@login');
-});
-
-Route::group(['before' => 'auth'], function () {
-	Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-	Route::get('/delete/{blog}', 'BlogController@deleteBlog');
-
-	Route::group(['before' => 'csrf'], function () {
-		Route::post('/create', 'BlogController@create');
-		Route::post('/blog/{blog}', 'BlogController@editBlog');
-	});
-});
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/create', 'Blog\BlogController@create');
+            Route::post('/blog/{blog}', 'Blog\BlogController@editBlog');
+        });
+    });
+}

@@ -11,6 +11,12 @@
 |
 */
 
+Route::group(['domain'=>'test.battleplugins.com'], function(){
+    Route::get('/', function(){
+        return "Works";
+    });
+});
+
 Route::get('/', 'PageController@index');
 Route::get('/blog/{blog}', 'PageController@getBlog');
 
@@ -27,11 +33,5 @@ Route::group(['before' => 'auth'], function () {
 	Route::group(['before' => 'csrf'], function () {
 		Route::post('/create', 'BlogController@create');
 		Route::post('/blog/{blog}', 'BlogController@editBlog');
-	});
-});
-
-Route::group(['domain'=>'test.battleplugins.com'], function(){
-	Route::get('/', function(){
-		return "Works";
 	});
 });

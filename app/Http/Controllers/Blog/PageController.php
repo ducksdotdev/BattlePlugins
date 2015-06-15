@@ -19,7 +19,7 @@ class PageController extends Controller {
 		if($blog)
 			$carbon = new Carbon($blog->created_at);
 		else
-			return view('index', ['blog'=>false]);
+			return view('blog.index', ['blog'=>false]);
 
 		$users = User::all();
 		$displaynames = [];
@@ -28,7 +28,7 @@ class PageController extends Controller {
 			$displaynames[$user->id] = $user->displayname;
 		}
 
-		return view('index',
+		return view('blog.index',
 			[
 				'blog' => $blog,
 				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),
@@ -52,7 +52,7 @@ class PageController extends Controller {
 			$displaynames[$user->id] = $user->displayname;
 		}
 
-		return view('index',
+		return view('blog.index',
 			[
 				'blog' => $blog,
 				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),

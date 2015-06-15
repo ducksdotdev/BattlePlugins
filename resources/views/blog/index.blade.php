@@ -20,7 +20,7 @@
 </head>
 <body>
 @if(!Auth::check())
-    @include('partials.login')
+    @include('blog.partials.login')
 @endif
 <nav>
     <div class="grid-container">
@@ -159,10 +159,10 @@
     </div>
 @endif
 @if(Auth::check())
-    @include('modals.createBlog')
+    @include('blog.modals.createBlog')
 
     @if($blog)
-        @include('modals.editBlog')
+        @include('blog.modals.editBlog')
     @endif
 @endif
 <footer>

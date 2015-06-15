@@ -27,6 +27,27 @@ Route::group(['domain'=>'battleplugins.{tld}'], function(){
     });
 });
 
+Route::group(['domain'=>'api.battleplugins.{tld}'], function(){
+    Route::get('/', 'API\PageController@index');
+
+    Route::group(['prefix'=>'v1'], function() {
+        Route::resource('tasks', 'API\Endpoints\TasksController');
+        Route::resource('users', 'API\Endpoints\UsersController');
+        Route::resource('blogs', 'API\Endpoints\BlogsController');
+        Route::resource('shorturls', 'API\EndpointsAPI\ShortUrlsController');
+    });
+
+    Route::group(['before' => 'auth'], function () {
+        Route::get('/generateKey', 'API\PageController@generateKey');
+
+        Route::group(['before'=>'csrf'], function(){
+            Route::post('/webhooks', 'API\WebhookController@create');
+        });
+
+    });
+
+});
+
 Route::get('/logout', 'UserController@logout');
 
 Route::group(['before' => 'csrf'], function () {

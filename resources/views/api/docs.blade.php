@@ -90,5 +90,5 @@
             </div>
         </div>
     </div>
-    @include('modals.webhooks')
+    @include('api.modals.webhooks')
 @stop

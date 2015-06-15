@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API\Endpoints;
 
 use App\Blog;
-use App\Tools\StatusCodes\ApiStatusCode;
-use App\Tools\Transformers\BlogTransformer;
+use App\Tools\API\StatusCodes\ApiStatusCode;
+use App\Tools\API\Transformers\BlogTransformer;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -22,7 +22,8 @@ class BlogsController extends ApiController
      * @param ApiStatusCode $statusCode
      * @param Webhooks $webhooks
      */
-    function __construct (BlogTransformer $blogTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
+    function __construct(BlogTransformer $blogTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request)
+    {
         $this->middleware('auth.api', ['except'=>['show', 'index']]);
         $this->blogTransformer = $blogTransformer;
         $this->statusCode = $statusCode;

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Tools\API\Webhooks\Webhooks;
 use App\Tools\Misc\GenerateApiKey;
 use App\Tools\Models\User;
 use App\Tools\Models\Webhook;
+use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Support\Facades\Config;
 

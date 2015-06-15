@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
-use App\ShortUrl;
-use App\Tools\StatusCodes\ApiStatusCode;
-use App\Tools\Transformers\ShortUrlTransformer;
+use App\Tools\API\StatusCodes\ApiStatusCode;
+use App\Tools\API\Transformers\ShortUrlTransformer;
+use App\Tools\Models\ShortUrl;
 use Auth;
 use Illuminate\Http\Request;
 

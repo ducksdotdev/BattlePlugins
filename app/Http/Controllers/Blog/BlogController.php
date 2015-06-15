@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\Tools\API\Transformers\BlogTransformer;
-use App\Tools\API\Webhooks;
 use App\Tools\Models\Blog;
+use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 

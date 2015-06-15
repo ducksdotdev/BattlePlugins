@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
-use App\Task;
-use App\Tools\StatusCodes\ApiStatusCode;
-use App\Tools\Transformers\TaskTransformer;
+use App\Tools\API\StatusCodes\ApiStatusCode;
+use App\Tools\API\Transformers\TaskTransformer;
+use App\Tools\Models\Task;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -25,7 +25,8 @@ class TasksController extends ApiController {
 	 * @param ApiStatusCode $statusCode
 	 * @param Webhooks $webhooks
 	 */
-	function __construct (TaskTransformer $taskTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
+    function __construct(TaskTransformer $taskTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request)
+    {
 		$this->middleware('auth.api');
 		$this->taskTransformer = $taskTransformer;
 		$this->statusCode = $statusCode;

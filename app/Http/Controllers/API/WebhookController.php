@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Webhook;
+use App\Tools\Models\Webhook;
 use Auth;
 use Illuminate\Http\Request;
 

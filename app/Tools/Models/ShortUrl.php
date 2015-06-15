@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ShortUrl extends Model
 {
-    protected $table = 'shorturls';
-
-    protected $fillable = ['url', 'path', 'creator'];
-
+    protected static $webhookEvents = [];
     public $timestamps = false;
+    protected $table = 'shorturls';
+    protected $fillable = ['url', 'path', 'creator'];
 }

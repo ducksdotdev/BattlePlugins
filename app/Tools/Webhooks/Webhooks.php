@@ -13,10 +13,10 @@ class Webhooks
 
     const TASK_CREATED = 'TASK_CREATED';
     const TASK_DELETED = 'TASK_DELETED';
-    const TASK_MODIFIED = 'TASK_MODIFIED';
+    const TASK_UPDATED = 'TASK_UPDATED';
     const BLOG_CREATED = 'BLOG_CREATED';
     const BLOG_DELETED = 'BLOG_DELETED';
-    const BLOG_MODIFIED = 'BLOG_MODIFIED';
+    const BLOG_UPDATED = 'BLOG_UPDATED';
 
     public static function getTypes()
     {
@@ -24,7 +24,16 @@ class Webhooks
         return $oClass->getConstants();
     }
 
-    public static function sendPayload($url, $method, $payload = [])
+    public function triggerWebhook($payload, $event)
+    {
+        $urls = Webhook::where('event', $event)->lists('url');
+
+        foreach ($urls as $url) {
+            $this->dispatch(new SendPayload($url, 'POST', $payload));
+        }
+    }
+
+    public function sendPayload($url, $method, $payload = [])
     {
         $headers = array(
             'X-API-Key: ' . Auth::user()->api_key
@@ -50,15 +59,6 @@ class Webhooks
         curl_exec($ch);
 
         curl_close($ch);
-    }
-
-    public function triggerWebhook($payload, $event)
-    {
-        $urls = Webhook::where('event', $event)->lists('url');
-
-        foreach ($urls as $url) {
-            $this->dispatch(new SendPayload($url, 'POST', $payload));
-        }
     }
 
 }

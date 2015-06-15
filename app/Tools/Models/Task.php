@@ -12,6 +12,6 @@ class Task extends Model
 {
 
     public $timestamps = false;
-    protected $fillable = ['title', 'content', 'assigned_to', 'public', 'status'];
 
+    protected $fillable = ['title', 'content', 'assigned_to', 'public', 'status'];
 }

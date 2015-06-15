@@ -10,15 +10,14 @@ trait DispatchPayload
 
     protected static function bootDispatchPayload()
     {
-
         foreach (static::getModelEvents() as $event) {
             static::$event(function ($model) use ($event) {
-                (new Webhooks)->triggerWebhook($model, $model->getActivityName($model, $event));
+                (new Webhooks)->triggerWebhook($model, $model->getActivityName($event));
             });
         }
     }
 
-    protected function getModelEvents()
+    protected static function getModelEvents()
     {
         if (isset(static::$webhookEvents))
             return static::$webhookEvents;
@@ -26,9 +25,9 @@ trait DispatchPayload
         return ['created', 'deleted', 'updated'];
     }
 
-    protected function getActivityName($model, $action)
+    protected function getActivityName($action)
     {
-        $name = (new ReflectionClass($model))->getShortName();
+        $name = (new ReflectionClass($this))->getShortName();
 
         return strtoupper($action . '_' . $name);
     }

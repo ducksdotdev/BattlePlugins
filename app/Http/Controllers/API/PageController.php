@@ -26,7 +26,7 @@ class PageController extends Controller {
 
 			return view('api.docs', [
 				'apiKey' => $apiKey,
-				'docs' => Config::get('api'),
+				'docs' => Config::get('api.docs'),
 				'webhooks' => Webhooks::getTypes(),
 				'myHooks' => $webhooks
 			]);

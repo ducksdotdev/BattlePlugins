@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    "webhook_methods" => ['created', 'deleted', 'updated'],
     //  Basic API methods
     array(
         'name' => 'Users',

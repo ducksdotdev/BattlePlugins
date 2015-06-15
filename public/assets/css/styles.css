@@ -17,6 +17,17 @@ nav .ui.button {
     background: white;
 }
 
+#task-header {
+    font-family: "Tenby Five";
+    font-size: 20px;
+    background: #2095F2;
+    padding: 0 10px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #fcfcfc;
+    box-sizing: border-box;
+}
+
 pre, .pre {
     display: block;
     padding: 9.5px;
@@ -29,8 +40,21 @@ pre, .pre {
     white-space: pre;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .text-right {
     text-align: right;
+}
+
+.grid-center {
+    margin: 0 auto;
+    float: none !important;
+}
+
+#logoutButton {
+    margin-top: 10px;
 }
 
 code {
@@ -136,4 +160,26 @@ small {
 
 #delete.button {
     margin-top: 15px;
+}
+
+.list {
+    background: white;
+    padding-bottom: 15px;
+}
+
+.list .actions {
+    float: right;
+    margin-top: 5px;
+}
+
+.list .actions .button {
+    margin-bottom: 5px;
+}
+
+.list .header {
+    padding: 10px 0;
+}
+
+.list .description {
+    margin-bottom: 10px;
 }

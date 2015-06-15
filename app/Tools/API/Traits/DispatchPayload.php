@@ -3,6 +3,7 @@
 namespace App\Tools\API\Traits;
 
 use App\Tools\Webhooks\Webhooks;
+use Illuminate\Support\Facades\Config;
 use ReflectionClass;
 
 trait DispatchPayload
@@ -19,10 +20,7 @@ trait DispatchPayload
 
     protected static function getModelEvents()
     {
-        if (isset(static::$webhookEvents))
-            return static::$webhookEvents;
-
-        return ['created', 'deleted', 'updated'];
+        return isset(static::$webhookEvents) ? static::$webhookEvents : Config::get('api.webhook_methods');
     }
 
     protected function getActivityName($action)

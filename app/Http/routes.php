@@ -48,6 +48,23 @@ Route::group(['domain' => 'api.' . $url], function () {
 
 });
 
+if (env('APP_ENV_URL') == 'localhost')
+    $shurl = 'bplugin.localhost';
+else
+    $shurl = 'bplug.in';
+
+Route::group(['domain' => $shurl], function () {
+    Route::get('/', 'ShortUrls\PageController@index');
+
+    Route::group(['before' => 'auth'], function () {
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/create', 'ShortUrls\UrlController@create');
+        });
+    });
+
+    Route::get('/{url}', 'ShortUrls\UrlController@redirect');
+});
+
 Route::group(['domain' => 'tasks.' . $url], function () {
 
     Route::get('/', 'Tasks\PageController@index');

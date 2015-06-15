@@ -8,8 +8,6 @@ class SendPayload
 {
 
     public static function sendPayload ($url, $method, $payload = []) {
-        $url = env("API_URL") . env("API_VERSION") . $url;
-
         $headers = array(
             'X-API-Key: ' . Auth::user()->api_key
         );

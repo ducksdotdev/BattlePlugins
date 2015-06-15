@@ -1,16 +1,21 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Webhooks\Webhooks;
+use App\Tools\API\Transformers\BlogTransformer;
+use App\Tools\API\Webhooks;
+use App\Tools\Models\Blog;
 use Auth;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller {
 
-	private $request;
+    private $request, $webhooks, $blogTransformer;
 
-	public function __construct(Request $request){
+    public function __construct(Request $request, Webhooks $webhooks, BlogTransformer $blogTransformer)
+    {
 		$this->request = $request;
+        $this->webhooks = $webhooks;
+        $this->blogTransformer = $blogTransformer;
 	}
 
 	public function create () {
@@ -18,32 +23,38 @@ class BlogController extends Controller {
 		$content = $this->request->input('content');
 		$author = Auth::user()->id;
 
-		$data = [
+        $blog = Blog::create([
 			'title' => $title,
 			'content' => $content,
 			'author' => $author
-		];
+        ]);
 
-		Webhooks::sendPayload('/blogs', 'POST', $data);
+        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_CREATED);
 
-		return redirect('/');
+        return redirect('/');
 	}
 
 	public function deleteBlog($id){
-		Webhooks::sendPayload('/blogs/' . $id, 'DELETE');
-		return redirect('/');
+        $blog = Blog::find($id);
+
+        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_DELETED);
+
+        $blog->delete();
+
+        return redirect('/');
 	}
 
 	public function editBlog($id){
 		$title = $this->request->input('title');
 		$content = $this->request->input('content');
 
-		$data = [
+        $blog = Blog::find($id);
+        $blog->update([
 			'title' => $title,
 			'content' => $content,
-		];
+        ]);
 
-		Webhooks::sendPayload('/blogs/' . $id, 'PATCH', $data);
+        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_MODIFIED);
 
 		return redirect('/blog/'.$id);
 	}

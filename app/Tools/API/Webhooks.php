@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\API\Webhooks;
+namespace App\Tools\API;
 
 use App\Jobs\SendPayload;
 use App\Tools\Models\Webhook;

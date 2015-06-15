@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattleWebAPI :: Website API for BattlePlugins</title>
     <link rel="icon" href="/assets/img/api.png"/>
-    @include('partials.styles')
+    @include('api.partials.styles')
 </head>
 <body>
 <nav>

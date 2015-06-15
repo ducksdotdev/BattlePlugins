@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('api.layouts.master')
 @section('content')
     <div id="loginBox">
         <div class="grid-container">

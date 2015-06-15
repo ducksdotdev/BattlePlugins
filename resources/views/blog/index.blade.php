@@ -7,7 +7,7 @@
     <link rel="icon" href="/assets/img/bp.png" />
 
     <!--        Styles -->
-    <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
+    <link rel="stylesheet" href="/assets/css/blog/styles.css" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/semantic.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
@@ -15,7 +15,7 @@
     <!--        Scripts -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
-    <script type="text/javascript" src="/assets/js/scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/blog/scripts.js"></script>
     <!--       End Scripts -->
 </head>
 <body>

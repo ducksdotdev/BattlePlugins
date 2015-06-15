@@ -1,5 +1,7 @@
 <?php
 
+use App\Tools\URL\Domain;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,7 +13,7 @@
 |
 */
 
-Route::group(['domain'=>'battleplugins.com'], function(){
+Route::group(['domain'=>'battleplugins.{tld}'], function(){
     Route::get('/', 'Blog\PageController@index');
     Route::get('/blog/{blog}', 'Blog\PageController@getBlog');
 

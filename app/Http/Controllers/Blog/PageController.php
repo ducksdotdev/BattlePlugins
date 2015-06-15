@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Blog;
 
-use App\Blog;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Tools\Models\Blog;
+use App\Tools\Models\User;
 use Carbon\Carbon;
 
 class PageController extends Controller {

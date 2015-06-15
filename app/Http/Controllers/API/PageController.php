@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Tools\Misc\GenerateApiKey;
 use App\Tools\Webhooks\Webhooks;

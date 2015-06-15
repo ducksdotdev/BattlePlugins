@@ -6,7 +6,7 @@
  * Time: 7:24 PM
  */
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Endpoints;
 
 use App\Tools\StatusCodes\ApiStatusCode;
 use App\Tools\Transformers\UserTransformer;

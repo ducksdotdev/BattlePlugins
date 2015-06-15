@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Endpoints;
 
 use App\ShortUrl;
 use App\Tools\Transformers\ShortUrlTransformer;

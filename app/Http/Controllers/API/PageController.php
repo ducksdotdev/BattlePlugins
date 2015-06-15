@@ -17,12 +17,12 @@ class PageController extends Controller {
 			$apiKey = Auth::user()->api_key;
 			if (!$apiKey) {
 				$apiKey = GenerateApiKey::generateKey();
-				User::where('id', Auth::user()->id)->update([
+				User::find(Auth::user()->id)->update([
 					'api_key' => $apiKey
 				]);
 			}
 
-			$webhooks = Webhook::where('user', Auth::user()->id)->get();
+			$webhooks = Webhook::whereUser(Auth::user()->id)->get();
 
 			return view('api.docs', [
 				'apiKey' => $apiKey,
@@ -37,7 +37,7 @@ class PageController extends Controller {
 	public function generateKey(){
 		$apiKey = GenerateApiKey::generateKey();
 
-		User::where('id', Auth::user()->id)->update([
+		User::find(Auth::user()->id)->update([
 			'api_key' => $apiKey
 		]);
 

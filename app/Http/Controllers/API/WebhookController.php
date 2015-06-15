@@ -26,9 +26,9 @@ class WebhookController extends Controller {
 		$uid = Auth::user()->id;
 
 		if(!$url)
-			Webhook::where('user', $uid)->where('event', $event)->delete();
+			Webhook::whereUser($uid)->whereEvent($event)->delete();
 		else {
-			$query = Webhook::where('user', $uid)->where('event', $event);
+			$query = Webhook::whereUser($uid)->whereEvent($event);
 			$exists = $query->first();
 			if($exists) {
 				$query->update(['url'=>$url]);

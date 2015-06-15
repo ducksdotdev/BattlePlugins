@@ -32,12 +32,12 @@ class ShortUrlsController extends ApiController
         if(!(starts_with($req, 'http://') || starts_with($req, 'https://')))
             return $this->statusCode->respondWithError('Please make sure your URL has http:// or https:// defined.');
 
-        $url = ShortUrl::where('url', $req)->first();
+        $url = ShortUrl::whereUrl($req)->first();
 
         if(!$url) {
             $path = str_random(6);
 
-            while(ShortUrl::where('path', $path)->first())
+            while (ShortUrl::wherePath($path)->first())
                 $path = str_random(6);
 
             ShortUrl::create([
@@ -55,7 +55,7 @@ class ShortUrlsController extends ApiController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($url){
-        $url = ShortUrl::where('url', $url)->first();
+        $url = ShortUrl::whereUrl($url)->first();
         $url->delete();
 
         return $this->statusCode->respondWithSuccess("Short URL has been deleted.");

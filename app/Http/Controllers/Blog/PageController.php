@@ -14,7 +14,7 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		$blog = Blog::orderby('created_at', 'desc')->first();
+		$blog = Blog::latest()->first();
 
 		if($blog)
 			$carbon = new Carbon($blog->created_at);
@@ -31,7 +31,7 @@ class PageController extends Controller {
 		return view('blog.index',
 			[
 				'blog' => $blog,
-				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),
+				'list' => Blog::latest()->take(4)->get(),
 				'author' => User::find($blog->author)->pluck('displayname'),
 				'created_at' => $carbon->diffForHumans(),
 				'users' => $displaynames
@@ -55,7 +55,7 @@ class PageController extends Controller {
 		return view('blog.index',
 			[
 				'blog' => $blog,
-				'list' => Blog::orderby('created_at', 'desc')->take(4)->get(),
+				'list' => Blog::latest()->take(4)->get(),
 				'author' => User::find($blog->author)->pluck('displayname'),
 				'created_at' => $carbon->diffForHumans(),
 				'users' => $displaynames

@@ -8,7 +8,7 @@
     @include('api.partials.styles')
 </head>
 <body>
-<nav>
+<nav class="header-follow">
     <div class="grid-container">
         <div class="grid-50 tablet-grid-50 mobile-grid-50">
             <h1>battlewebapi</h1>

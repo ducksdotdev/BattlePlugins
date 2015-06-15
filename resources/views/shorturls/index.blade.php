@@ -27,7 +27,7 @@
                     </div>
                 @elseif(session()->has('url_path'))
                     <div class="ui positive message text-center">
-                        <a href="https://bplug.in/{{ session()->get('url_path') }}" class="link">
+                        <a href="https://bplug.in/{{ session()->get('url_path') }}" class="short-link">
                             https://bplug.in/{{ session()->get('url_path') }}
                         </a>
                     </div>

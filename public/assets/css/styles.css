@@ -5,6 +5,10 @@ nav {
     margin-bottom: 30px;
 }
 
+nav.header-follow {
+    margin-bottom: 0;
+}
+
 nav .brand {
     font-family: "Tenby Five";
 }
@@ -40,6 +44,10 @@ pre, .pre {
     white-space: pre;
 }
 
+.message a.short-link {
+    font-size: 3vw;
+}
+
 .text-center {
     text-align: center;
 }
@@ -70,18 +78,6 @@ footer {
     color: #a3a3a3;
     text-align: center;
     font-size: 12px;
-}
-
-.alert {
-    border: 1px solid rgba(0, 0, 0, 0.26);
-    padding: 10px;
-    box-sizing: border-box;
-    margin: 0 10px 10px;
-    font-weight: bold;
-}
-
-.alert.error {
-    background: rgb(243, 205, 205);
 }
 
 #loginBox {

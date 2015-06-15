@@ -6,8 +6,8 @@ use App\Task;
 use App\Tools\StatusCodes\ApiStatusCode;
 use App\Tools\Transformers\TaskTransformer;
 use App\Tools\Webhooks\Webhooks;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 
 /**
  * Class TasksController

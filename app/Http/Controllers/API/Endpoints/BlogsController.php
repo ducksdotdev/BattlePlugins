@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
-use Auth;
 use App\Blog;
 use App\Tools\StatusCodes\ApiStatusCode;
 use App\Tools\Transformers\BlogTransformer;
 use App\Tools\Webhooks\Webhooks;
+use Auth;
 use Illuminate\Http\Request;
 
 class BlogsController extends ApiController

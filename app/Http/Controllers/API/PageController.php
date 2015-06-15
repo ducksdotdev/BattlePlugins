@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Tools\Misc\GenerateApiKey;
 use App\Tools\Webhooks\Webhooks;
+use App\User;
 use App\Webhook;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use App\User;
 use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller {

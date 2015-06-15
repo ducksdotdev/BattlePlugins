@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\API\Endpoints;
 
 use App\ShortUrl;
+use App\Tools\StatusCodes\ApiStatusCode;
 use App\Tools\Transformers\ShortUrlTransformer;
 use Auth;
-use App\Tools\StatusCodes\ApiStatusCode;
 use Illuminate\Http\Request;
 
 class ShortUrlsController extends ApiController

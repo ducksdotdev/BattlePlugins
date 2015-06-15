@@ -74,10 +74,7 @@ class TasksController extends ApiController {
 			'content' => $this->request->input('content') ?: ''
 		];
 
-		$id = Task::insertGetId($insert);
-		$task = Task::find($id);
-
-		$this->webhooks->sendPayload($this->taskTransformer->transform($task), Webhooks::TASK_CREATED);
+        Task::create($insert);
 
 		return $this->statusCode->respondCreated('Task successfully created.');
 	}
@@ -87,10 +84,7 @@ class TasksController extends ApiController {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function destroy($id){
-		$task = Task::find($id);
-		$this->webhooks->sendPayload($this->taskTransformer->transform($task), Webhooks::TASK_DELETED);
-		$task->delete();
-
+        Task::find($id)->delete();
 		return $this->statusCode->respondWithSuccess("Task has been deleted.");
 	}
 
@@ -101,8 +95,6 @@ class TasksController extends ApiController {
 			return $this->statusCode->respondNotFound("Task does not exist!");
 
 		$task->update($this->request->all());
-
-		$this->webhooks->sendPayload($this->taskTransformer->transform($task), Webhooks::TASK_MODIFIED);
 
 		return $this->statusCode->respondWithSuccess("Task has been modified.");
 	}

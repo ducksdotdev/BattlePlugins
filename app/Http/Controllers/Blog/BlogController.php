@@ -23,24 +23,17 @@ class BlogController extends Controller {
 		$content = $this->request->input('content');
 		$author = Auth::user()->id;
 
-        $blog = Blog::create([
+        Blog::create([
 			'title' => $title,
 			'content' => $content,
 			'author' => $author
         ]);
 
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_CREATED);
-
         return redirect('/');
 	}
 
 	public function deleteBlog($id){
-        $blog = Blog::find($id);
-
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_DELETED);
-
-        $blog->delete();
-
+        Blog::find($id)->delete();
         return redirect('/');
 	}
 
@@ -48,13 +41,10 @@ class BlogController extends Controller {
 		$title = $this->request->input('title');
 		$content = $this->request->input('content');
 
-        $blog = Blog::find($id);
-        $blog->update([
+        Blog::find($id)->update([
 			'title' => $title,
 			'content' => $content,
         ]);
-
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_MODIFIED);
 
 		return redirect('/blog/'.$id);
 	}

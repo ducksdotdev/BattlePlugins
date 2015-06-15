@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Tools\Webhooks\SendPayload as Send;
+use App\Tools\Webhooks\Webhooks;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class SendPayload extends Job implements SelfHandling
@@ -28,6 +28,6 @@ class SendPayload extends Job implements SelfHandling
      */
     public function handle()
     {
-        Send::sendPayload($this->url, $this->method, $this->payload);
+        (new Webhooks)->sendPayload($this->url, $this->method, $this->payload);
     }
 }

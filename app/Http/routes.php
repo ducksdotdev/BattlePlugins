@@ -1,7 +1,5 @@
 <?php
 
-use App\Tools\URL\Domain;
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,7 +11,9 @@ use App\Tools\URL\Domain;
 |
 */
 
-Route::group(['domain'=>'battleplugins.{tld}'], function(){
+$url = env('APP_ENV_URL');
+
+Route::group(['domain' => $url], function () {
     Route::get('/', 'Blog\PageController@index');
     Route::get('/blog/{blog}', 'Blog\PageController@getBlog');
 
@@ -27,7 +27,7 @@ Route::group(['domain'=>'battleplugins.{tld}'], function(){
     });
 });
 
-Route::group(['domain'=>'api.battleplugins.{tld}'], function(){
+Route::group(['domain' => 'api.' . $url], function () {
     Route::get('/', 'API\PageController@index');
 
     Route::group(['prefix'=>'v1'], function() {
@@ -46,6 +46,22 @@ Route::group(['domain'=>'api.battleplugins.{tld}'], function(){
 
     });
 
+});
+
+Route::group(['domain' => 'tasks.' . $url], function () {
+
+    Route::get('/', 'Tasks\PageController@index');
+
+    Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
+
+    Route::group(['before' => 'auth'], function () {
+        Route::get('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
+        Route::get('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
+
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/tasks/create', 'Tasks\TasksController@createTask');
+        });
+    });
 });
 
 Route::get('/logout', 'UserController@logout');

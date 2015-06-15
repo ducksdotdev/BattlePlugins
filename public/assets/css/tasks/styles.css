@@ -1,0 +1,140 @@
+#jsalert {
+    margin-top: 10px;
+}
+
+#task-header {
+    font-family: "Tenby Five";
+    font-size: 20px;
+    background: #2095F2;
+    padding: 0 10px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: #fcfcfc;
+    box-sizing: border-box;
+}
+
+#task-header .actions {
+    margin-top: 27px;
+}
+
+.list {
+    background: white;
+    padding-bottom: 15px;
+}
+
+.list .actions {
+    float: right;
+    margin-top: 5px;
+}
+
+.list .actions .button {
+    margin-bottom: 5px;
+}
+
+.list .header {
+    padding: 10px 0;
+}
+
+.list .description {
+    margin-bottom: 10px;
+}
+
+.grid-center {
+    margin: 0 auto;
+    float: none !important;
+}
+
+.pull-left {
+    float: right;
+}
+
+.pull-right {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    color: #b2b2b2;
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.header small {
+    color: #afafaf;
+}
+
+#login {
+    border-top: 5px solid #1875D1;
+}
+
+#loginButton {
+    margin-left: 17px
+}
+
+#loginDropDownButton, #logoutButton {
+    margin-top: 10px;
+}
+
+.grid-container + .grid-container {
+    margin-top: 10px;
+}
+
+.item.completed {
+    background-color: rgba(91, 189, 114, 0.28);
+}
+
+.item.deleted {
+    background: rgba(217, 92, 92, 0.17);
+}
+
+.item.highlighted {
+    background: rgb(254, 254, 206);
+}
+
+.alert {
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0 10px 10px;
+    font-weight: bold;
+}
+
+.alert.error {
+    background: rgb(243, 205, 205);
+}
+
+.hello {
+    color: grey;
+    margin-top: 30px;
+}
+
+.name {
+    color: rgba(82, 82, 82, 0.87);
+}
+
+.have-tasks {
+    text-align: center;
+    background-color: white;
+    padding-top: 15px;
+}
+
+.item i.icon.linkify {
+    color: grey;
+}
+
+.content {
+    word-break: break-word;
+}
+
+.description.editable:focus {
+    border: 1px solid rgb(247, 247, 247);
+    padding: 4px;
+}

@@ -69,16 +69,11 @@ class BlogsController extends ApiController
         if(!$title || !$content)
             return $this->statusCode->respondWithError("A required field has been left blank.");
 
-        $insert = [
+        Blog::create([
             'title' => $title,
             'author' => Auth::user()->id,
             'content' =>  $content,
-        ];
-
-        $blog = new Blog;
-        $blog->create($insert);
-
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_CREATED);
+        ]);
 
         return $this->statusCode->respondCreated('Blog successfully created.');
     }
@@ -88,9 +83,7 @@ class BlogsController extends ApiController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id){
-        $blog = Blog::find($id);
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_DELETED);
-        $blog->delete();
+        $blog = Blog::find($id)->delete();
 
         return $this->statusCode->respondWithSuccess("Blog has been deleted.");
     }
@@ -102,8 +95,6 @@ class BlogsController extends ApiController
             return $this->statusCode->respondNotFound("Blog does not exist!");
 
         $blog->update($this->request->all());
-
-        $this->webhooks->sendPayload($this->blogTransformer->transform($blog), Webhooks::BLOG_MODIFIED);
 
         return $this->statusCode->respondWithSuccess("Blog has been modified.");
     }

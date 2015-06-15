@@ -201,7 +201,9 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
-		'Markdown'  => 'GrahamCampbell\Markdown\Facades\Markdown'
+        'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
+        'User' => 'App\Tools\Models\User',
+        'Linkify' => 'App\Tools\URL\Linkify'
 	],
 
 ];

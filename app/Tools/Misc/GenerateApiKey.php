@@ -2,7 +2,8 @@
 
 namespace App\Tools\Misc;
 
-use App\User;
+
+use App\Tools\Models\User;
 
 class GenerateApiKey {
 

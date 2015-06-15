@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Webhooks;
-use Illuminate\Http\Request;
+use App\Tools\Webhooks\Webhooks;
 use Auth;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller {
 

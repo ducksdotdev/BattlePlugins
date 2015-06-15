@@ -2,7 +2,7 @@
 
 namespace App\Tools\API\Transformers;
 
-use App\User;
+use App\Tools\Models\User;
 use Auth;
 
 /**

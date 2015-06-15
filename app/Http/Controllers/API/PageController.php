@@ -8,9 +8,7 @@ use App\Tools\Misc\GenerateApiKey;
 use App\Tools\Models\User;
 use App\Tools\Models\Webhook;
 use Auth;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller {
 
@@ -44,11 +42,6 @@ class PageController extends Controller {
 		]);
 
 		return redirect('/');
-	}
-
-	public function testPayload(Request $request){
-		Log::info('Payload recieved.', $request->all());
-		return response()->json($request->all());
 	}
 
 }

@@ -4,7 +4,8 @@ namespace App\Tools\Webhooks;
 
 use Auth;
 
-class Webhooks {
+class SendPayload
+{
 
     public static function sendPayload ($url, $method, $payload = []) {
         $url = env("API_URL") . $url;

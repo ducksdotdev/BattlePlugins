@@ -32,6 +32,10 @@ nav .ui.button {
     box-sizing: border-box;
 }
 
+#task-header .actions {
+    margin-top: 27px;
+}
+
 pre, .pre {
     display: block;
     padding: 9.5px;
@@ -61,7 +65,11 @@ pre, .pre {
     float: none !important;
 }
 
-#logoutButton {
+#loginButton {
+    margin-left: 17px
+}
+
+#loginDropDownButton, #logoutButton {
     margin-top: 10px;
 }
 

@@ -84,4 +84,6 @@ foreach ($tlds as $tld) {
             });
         });
     });
+
+    $url = env('APP_ENV_URL');
 }

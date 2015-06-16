@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Misc\GenerateApiKey;
+use App\Tools\API\GenerateApiKey;
 use App\Tools\Models\User;
 use App\Tools\Models\Webhook;
 use App\Tools\Webhooks\Webhooks;
@@ -17,7 +17,7 @@ class PageController extends Controller {
 			$apiKey = Auth::user()->api_key;
 			if (!$apiKey) {
 				$apiKey = GenerateApiKey::generateKey();
-				User::find(Auth::user()->id)->update([
+				User::findOrFail(Auth::user()->id)->update([
 					'api_key' => $apiKey
 				]);
 			}
@@ -37,7 +37,7 @@ class PageController extends Controller {
 	public function generateKey(){
 		$apiKey = GenerateApiKey::generateKey();
 
-		User::find(Auth::user()->id)->update([
+		User::findOrFail(Auth::user()->id)->update([
 			'api_key' => $apiKey
 		]);
 

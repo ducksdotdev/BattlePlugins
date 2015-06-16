@@ -39,7 +39,7 @@ class TasksController extends Controller
 
     public function deleteTask($id)
     {
-        Task::find($id)->delete();
+        Task::findOrFail($id)->delete();
     }
 
     public function gitHubCreate(Request $request)
@@ -66,10 +66,10 @@ class TasksController extends Controller
                 $assigneeName = $request->json('assignee.login');
                 $assignee = User::whereDisplayname($assigneeName)->first();
                 if ($assignee) {
-                    Task::find($id)->update(['assigned_to' => $assignee->id]);
+                    Task::findOrFail($id)->update(['assigned_to' => $assignee->id]);
                 }
             } else if ($action == 'unassigned') {
-                Task::find($id)->update(['assigned_to' => 0]);
+                Task::findOrFail($id)->update(['assigned_to' => 0]);
             }
         } else
             return redirect('/');
@@ -77,6 +77,6 @@ class TasksController extends Controller
 
     public function completeTask($id)
     {
-        Task::find($id)->update('status', '1');
+        Task::findOrFail($id)->update('status', '1');
     }
 }

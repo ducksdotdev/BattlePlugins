@@ -14,15 +14,9 @@
             @endif
             <small>Assigned
                 @if($task->assigned_to != 0)
-                    to
-                    <span class="name">
-											{{ User::find($task->assigned_to)->displayname }}
-										</span>
+                    to <span class="name">{{ User::findOrFail($task->assigned_to)->displayname }}</span>
                 @endif
-                by
-									<span class="name">
-										{{ User::find($task->creator)->displayname }}
-									</span>
+                by <span class="name">{{ User::findOrFail($task->creator)->displayname }}</span>
             </small>
         </div>
         <div class="description editable">

@@ -49,7 +49,7 @@ class UsersController extends ApiController {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function show($id){
-		$user = User::find($id);
+		$user = User::findOrFail($id);
 
 		if(!$user)
 			return $this->statusCode->respondNotFound("User does not exist!");

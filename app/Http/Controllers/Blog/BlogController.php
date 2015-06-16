@@ -32,7 +32,7 @@ class BlogController extends Controller {
 	}
 
 	public function deleteBlog($id){
-        Blog::find($id)->delete();
+		Blog::findOrFail($id)->delete();
         return redirect('/');
 	}
 

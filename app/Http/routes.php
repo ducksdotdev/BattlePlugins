@@ -26,7 +26,7 @@ Route::group(['before' => 'auth'], function () {
 Route::group(['domain' => $url], function () {
     Route::get('/', 'Blog\PageController@index');
     Route::group(['before' => 'auth'], function () {
-        Route::get('/delete/{blog}', 'Blog\Blog\BlogController@deleteBlog');
+        Route::get('/delete/{blog}', 'Blog\BlogController@deleteBlog');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/create', 'Blog\BlogController@create');

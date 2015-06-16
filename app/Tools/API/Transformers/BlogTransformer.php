@@ -20,7 +20,7 @@ class BlogTransformer extends Transformer {
 			'id' => (int) $blog['id'],
 			'title' => $blog['title'],
 			'content' => $blog['content'],
-			'author' => User::find($blog['author'])['displayname'],
+			'author' => User::findOrFail($blog['author'])['displayname'],
 			'created_at' => $blog['created_at'],
 			'updated_at' => $blog['updated_at']
 		];

@@ -36,7 +36,7 @@ class PageController extends Controller {
 			[
 				'blog' => $blog,
 				'list' => Blog::latest()->take(4)->get(),
-				'author' => User::find($blog->author)->pluck('displayname'),
+				'author' => $displaynames[$blog->author],
 				'created_at' => $carbon->diffForHumans(),
 				'users' => $displaynames
 			]);

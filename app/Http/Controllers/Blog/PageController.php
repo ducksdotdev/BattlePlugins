@@ -23,17 +23,19 @@ class PageController extends Controller {
 
     private static function retrieve($blog)
     {
-        $users = User::all();
-        $displaynames = [];
+        if ($blog instanceof Blog) {
+            $users = User::all();
+            $displaynames = [];
 
-        foreach ($users as $user)
-            $displaynames[$user->id] = $user->displayname;
+            foreach ($users as $user)
+                $displaynames[$user->id] = $user->displayname;
 
-        return [
-            'blog' => $blog,
-            'list' => Blog::latest()->take(4)->get(),
-            'users' => $displaynames
-        ];
+            return [
+                'blog' => $blog,
+                'list' => Blog::latest()->take(4)->get(),
+                'users' => $displaynames
+            ];
+        }
     }
 
     public function getBlog($id)

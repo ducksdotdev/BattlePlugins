@@ -52,7 +52,7 @@ class TasksController extends ApiController {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function show($id){
-		$task = Task::findOrFail($id);
+		$task = Task::find($id);
 
 		if(!$task)
 			return $this->statusCode->respondNotFound("Task does not exist!");
@@ -84,12 +84,12 @@ class TasksController extends ApiController {
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
 	public function destroy($id){
-		Task::findOrFail($id)->delete();
+		Task::find($id)->delete();
 		return $this->statusCode->respondWithSuccess("Task has been deleted.");
 	}
 
 	public function update($id){
-		$task = Task::findOrFail($id);
+		$task = Task::find($id);
 
 		if(!$task)
 			return $this->statusCode->respondNotFound("Task does not exist!");

@@ -49,7 +49,7 @@ class BlogsController extends ApiController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show($id){
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::find($id);
 
         if(!$blog)
             return $this->statusCode->respondNotFound("Blog does not exist!");
@@ -83,12 +83,12 @@ class BlogsController extends ApiController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id){
-        Blog::findOrFail($id)->delete();
+        Blog::find($id)->delete();
         return $this->statusCode->respondWithSuccess("Blog has been deleted.");
     }
 
     public function update($id){
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::find($id);
 
         if(!$blog)
             return $this->statusCode->respondNotFound("Blog does not exist!");

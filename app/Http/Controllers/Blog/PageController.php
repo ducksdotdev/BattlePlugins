@@ -38,7 +38,7 @@ class PageController extends Controller {
 
     public function getBlog($id)
     {
-        $blog = Blog::whereId($id);
+        $blog = Blog::whereId($id)->first();
 
         if (!$blog)
             return view('blog.index');

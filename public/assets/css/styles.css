@@ -13,10 +13,6 @@ nav .brand {
     font-family: "Tenby Five";
 }
 
-nav .ui.button {
-    margin-top: 18px;
-}
-
 #header {
     background: white;
 }
@@ -65,16 +61,16 @@ pre, .pre {
     float: none !important;
 }
 
+nav .ui.button {
+    margin-top: 18px;
+}
+
 #loginButton {
     margin-left: 17px
 }
 
 #loginDropDownButton, #logoutButton {
     margin-top: 10px;
-}
-
-nav #loginDropDownButton {
-    margin-top: 20px;
 }
 
 code {

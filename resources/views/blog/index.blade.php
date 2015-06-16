@@ -100,59 +100,13 @@
 @if($blog)
     <div class="grid-container">
         <div class="grid-75 grid-parent" id="blog">
-            <div class="item">
-                <div class="content">
-                    <div class="grid-85">
-                        <h1>
-                            {{ $blog->title }} <small class="author">
-                                Written by {{ $author }} <span title="{{ $blog->created_at }}">{{ $created_at }}</span>
-                                @if($blog->updated_at != $blog->created_at)
-                                    <span title="Edited {{ (new \Carbon\Carbon($blog->updated_at))->diffForHumans()
-                                         }} ({{ $blog->updated_at }})">*</span>
-                                @endif
-                            </small>
-                        </h1>
-                    </div>
-                    <div class="grid-15">
-                        @if(Auth::check())
-                            <button id="editBlog" class="circular black ui icon button">
-                                <i class="icon pencil"></i>
-                            </button>
-                            <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">
-                                <i class="icon trash"></i>
-                            </a>
-                        @else
-                            &nbsp;
-                        @endif
-                    </div>
-                    <div class="grid-100">
-                        <div class="description">
-                            <p>
-                                {!! Markdown::convertToHTML(strip_tags($blog->content)) !!}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('blog.partials.blogpost')
         </div>
         <div class="grid-25">
             <h4>Latest Blog Posts:</h4>
             <div id="latestBlogPosts" class="ui divided list">
                 @foreach($list as $bp)
-                    <div class="item">
-                        <div class="content">
-                            <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
-                            <div class="description">
-                                <small>
-                                    Written by {{ $users[$bp->author] }} <span title="{{ $bp->created_at}}">{{ (new \Carbon\Carbon($bp->created_at))->diffForHumans() }}</span>
-                                    @if($bp->updated_at != $bp->created_at)
-                                        <span title="Edited {{ (new \Carbon\Carbon($bp->updated_at))->diffForHumans()
-                                         }} ({{ $bp->updated_at }})">*</span>
-                                    @endif
-                                </small>
-                            </div>
-                        </div>
-                    </div>
+                    @include('blog.partials.listitem')
                 @endforeach
             </div>
         </div>
@@ -160,7 +114,6 @@
 @endif
 @if(Auth::check())
     @include('blog.modals.createBlog')
-
     @if($blog)
         @include('blog.modals.editBlog')
     @endif

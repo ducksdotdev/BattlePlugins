@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 use App\Tools\Models\Blog;
 use App\Tools\Models\User;
-use Carbon\Carbon;
 
 class PageController extends Controller {
 
@@ -20,26 +19,18 @@ class PageController extends Controller {
 
 	public function getBlog($blog){
 		$blog = Blog::find($blog);
-
-		if($blog)
-			$carbon = new Carbon($blog->created_at);
-		else return redirect('/');
-
 		$users = User::all();
 		$displaynames = [];
 
-		foreach($users as $user){
+		foreach ($users as $user)
 			$displaynames[$user->id] = $user->displayname;
-		}
 
-		return view('blog.index',
-			[
-				'blog' => $blog,
-				'list' => Blog::latest()->take(4)->get(),
-				'author' => $displaynames[$blog->author],
-				'created_at' => $carbon->diffForHumans(),
-				'users' => $displaynames
-			]);
+		return view('blog.index', [
+			'blog' => $blog,
+			'list' => Blog::latest()->take(4)->get(),
+			'author' => $displaynames[$blog->author],
+			'users' => $displaynames
+		]);
 	}
 
 }

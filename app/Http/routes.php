@@ -1,12 +1,6 @@
 <?php
 
-use App\Tools\URL\Domain;
-use Illuminate\Http\Request;
-
 $url = env('APP_ENV_URL');
-
-if ($url == 'battleplugins')
-    $url .= '.' . Domain::getTld(Request::root());
 
 Route::get('/logout', 'UserController@logout');
 

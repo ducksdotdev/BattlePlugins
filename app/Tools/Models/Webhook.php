@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Webhook extends Model {
 
-	protected static $webhookEvents = [];
 	/**
 	 * @var bool
 	 */

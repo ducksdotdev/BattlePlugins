@@ -12,7 +12,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	use Authenticatable, CanResetPassword;
 
-    protected static $webhookEvents = [];
 	/**
 	 * The database table used by the model.
 	 *

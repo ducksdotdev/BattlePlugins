@@ -2,6 +2,7 @@
 
 namespace App\Tools\Models;
 
+use App\Tools\API\Traits\DispatchPayload;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
+    use DispatchPayload;
 
     public $timestamps = false;
 

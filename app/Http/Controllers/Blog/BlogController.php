@@ -40,7 +40,12 @@ class BlogController extends Controller {
 		$title = $this->request->input('title');
 		$content = $this->request->input('content');
 
-        Blog::find($id)->update([
+        $blog = Blog::whereId($id);
+
+        if (!$blog)
+            return redirect("/");
+
+        $blog->update([
 			'title' => $title,
 			'content' => $content,
         ]);

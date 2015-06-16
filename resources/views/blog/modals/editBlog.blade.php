@@ -5,7 +5,7 @@
     </div>
     <div class="content">
         <div class="description">
-            {!! Form::open(['id'=>'editBlogForm','url'=>URL::to('/blog/'.$blog->id, [], env('HTTPS_ENABLED', true)),
+            {!! Form::open(['id'=>'editBlogForm','url'=>URL::to('/'.$blog->id, [], env('HTTPS_ENABLED', true)),
             'class'=>'ui form']) !!}
             <div class="twelve wide field">
                 <label>Title</label>

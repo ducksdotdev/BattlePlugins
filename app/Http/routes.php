@@ -15,16 +15,16 @@ $url = env('APP_ENV_URL');
 
 Route::group(['domain' => $url], function () {
     Route::get('/', 'Blog\PageController@index');
-    Route::get('/blog/{blog}', 'Blog\PageController@getBlog');
-
     Route::group(['before' => 'auth'], function () {
         Route::get('/delete/{blog}', 'Blog\Blog\BlogController@deleteBlog');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/create', 'Blog\BlogController@create');
-            Route::post('/blog/{blog}', 'Blog\BlogController@editBlog');
+            Route::post('/{id}', 'Blog\BlogController@editBlog');
         });
     });
+
+    Route::get('/{id}', 'Blog\PageController@getBlog');
 });
 
 Route::group(['domain' => 'api.' . $url], function () {

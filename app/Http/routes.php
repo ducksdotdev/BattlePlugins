@@ -44,7 +44,7 @@ Route::group(['domain' => 'api.' . $url], function () {
         Route::resource('tasks', 'API\Endpoints\TasksController');
         Route::resource('users', 'API\Endpoints\UsersController');
         Route::resource('blogs', 'API\Endpoints\BlogsController');
-        Route::resource('shorturls', 'API\EndpointsAPI\ShortUrlsController');
+        Route::resource('shorturls', 'API\Endpoints\ShortUrlsController');
     });
 
     Route::group(['before' => 'auth'], function () {
@@ -56,6 +56,22 @@ Route::group(['domain' => 'api.' . $url], function () {
 
     });
 
+});
+
+Route::group(['domain' => 'tasks.' . $url], function () {
+
+    Route::get('/', 'Tasks\PageController@index');
+
+    Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
+
+    Route::group(['before' => 'auth'], function () {
+        Route::get('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
+        Route::get('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
+
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/tasks/create', 'Tasks\TasksController@createTask');
+        });
+    });
 });
 
 if (env('APP_ENV_URL') == 'localhost')
@@ -73,20 +89,4 @@ Route::group(['domain' => $shurl], function () {
     });
 
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');
-});
-
-Route::group(['domain' => 'tasks.' . $url], function () {
-
-    Route::get('/', 'Tasks\PageController@index');
-
-    Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
-
-    Route::group(['before' => 'auth'], function () {
-        Route::get('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
-        Route::get('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
-
-        Route::group(['before' => 'csrf'], function () {
-            Route::post('/tasks/create', 'Tasks\TasksController@createTask');
-        });
-    });
 });

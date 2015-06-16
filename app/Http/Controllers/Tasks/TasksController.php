@@ -1,5 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Tasks;
 
+use App\Http\Controllers\Controller;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\VerifyHMAC;

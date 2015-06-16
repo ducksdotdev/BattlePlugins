@@ -13,6 +13,16 @@
 
 $url = env('APP_ENV_URL');
 
+Route::get('/logout', 'UserController@logout');
+
+Route::group(['before' => 'csrf'], function () {
+    Route::post('/login', 'UserController@login');
+});
+
+Route::group(['before' => 'auth'], function () {
+    Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+});
+
 Route::group(['domain' => $url], function () {
     Route::get('/', 'Blog\PageController@index');
     Route::group(['before' => 'auth'], function () {
@@ -79,14 +89,4 @@ Route::group(['domain' => 'tasks.' . $url], function () {
             Route::post('/tasks/create', 'Tasks\TasksController@createTask');
         });
     });
-});
-
-Route::get('/logout', 'UserController@logout');
-
-Route::group(['before' => 'csrf'], function () {
-    Route::post('/login', 'UserController@login');
-});
-
-Route::group(['before' => 'auth'], function () {
-    Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });

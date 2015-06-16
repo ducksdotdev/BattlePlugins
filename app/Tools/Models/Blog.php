@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model {
 
-//    use DispatchPayload;
+    use DispatchPayload;
 
 	protected $fillable = ['title','content','author'];
 

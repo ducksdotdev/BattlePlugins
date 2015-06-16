@@ -49,7 +49,7 @@ class BlogsController extends ApiController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show($id){
-        $blog = Blog::where('id', $id);
+        $blog = Blog::find($id);
 
         if(!$blog)
             return $this->statusCode->respondNotFound("Blog does not exist!");

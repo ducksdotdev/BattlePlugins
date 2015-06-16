@@ -17,20 +17,24 @@ class PageController extends Controller {
 		return $this->getBlog($blog);
 	}
 
-	public function getBlog($blog){
-		$blog = Blog::find($blog);
+    public function getBlog($id)
+    {
+        $blog = Blog::find($id);
 		$users = User::all();
 		$displaynames = [];
 
 		foreach ($users as $user)
 			$displaynames[$user->id] = $user->displayname;
 
-		return view('blog.index', [
-			'blog' => $blog,
-			'list' => Blog::latest()->take(4)->get(),
-			'author' => $displaynames[$blog->author],
-			'users' => $displaynames
-		]);
+        if ($blog) {
+            return view('blog.index', [
+                'blog' => $blog,
+                'list' => Blog::latest()->take(4)->get(),
+                'author' => $displaynames[$blog->author],
+                'users' => $displaynames
+            ]);
+        } else
+            return view('blog.index');
 	}
 
 }

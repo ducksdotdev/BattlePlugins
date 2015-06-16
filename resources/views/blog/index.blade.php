@@ -97,7 +97,7 @@
 {{--</div>--}}
 {{--</div>--}}
 {{--</div>--}}
-@if($blog)
+@if(isset($blog))
     <div class="grid-container">
         <div class="grid-75 grid-parent" id="blog">
             @include('blog.partials.blogpost')
@@ -111,12 +111,12 @@
             </div>
         </div>
     </div>
+    @if(Auth::check())
+        @include('blog.modals.editBlog')
+    @endif
 @endif
 @if(Auth::check())
     @include('blog.modals.createBlog')
-    @if($blog)
-        @include('blog.modals.editBlog')
-    @endif
 @endif
 <footer>
     <p>

@@ -1,7 +1,6 @@
 <div class="item">
     <div class="content">
         <a href="/blog/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
-
         <div class="description">
             <small>
                 Written by {{ $users[$bp->author] }} <span

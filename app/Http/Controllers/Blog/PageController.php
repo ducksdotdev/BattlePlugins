@@ -18,10 +18,10 @@ class PageController extends Controller {
         if (!$blog)
             return view('blog.index');
 
-        return view('blog.index', $this->retrieve($blog));
+        return view('blog.index', static::retrieve($blog));
     }
 
-    private function retrieve(Blog $blog)
+    private static function retrieve(Blog $blog)
     {
 
         $users = User::all();
@@ -45,7 +45,6 @@ class PageController extends Controller {
         if (!$blog)
             return view('blog.index');
 
-        return view('blog.index', $this->retrieve($blog));
+        return view('blog.index', static::retrieve($blog));
     }
-
 }

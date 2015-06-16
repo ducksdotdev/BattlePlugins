@@ -21,9 +21,8 @@ class PageController extends Controller {
         return view('blog.index', static::retrieve($blog));
     }
 
-    private static function retrieve(Blog $blog)
+    private static function retrieve($blog)
     {
-
         $users = User::all();
         $displaynames = [];
 

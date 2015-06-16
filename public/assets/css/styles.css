@@ -61,16 +61,16 @@ pre, .pre {
     float: none !important;
 }
 
-nav .ui.button {
-    margin-top: 18px;
-}
-
 #loginButton {
     margin-left: 17px
 }
 
 #loginDropDownButton, #logoutButton {
     margin-top: 10px;
+}
+
+nav .ui.button {
+    margin-top: 18px !important;
 }
 
 code {

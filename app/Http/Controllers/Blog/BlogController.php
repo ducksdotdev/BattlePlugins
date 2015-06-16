@@ -21,12 +21,11 @@ class BlogController extends Controller {
 	public function create () {
 		$title = $this->request->input('title');
 		$content = $this->request->input('content');
-		$author = Auth::user()->id;
 
         Blog::create([
 			'title' => $title,
 			'content' => $content,
-			'author' => $author
+			'author' => Auth::user()->id
         ]);
 
         return redirect('/');

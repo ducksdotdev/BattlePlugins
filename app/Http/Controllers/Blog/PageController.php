@@ -14,28 +14,8 @@ class PageController extends Controller {
 	 */
 	public function index()
 	{
-		$blog = Blog::latest()->first();
-
-		if($blog)
-			$carbon = new Carbon($blog->created_at);
-		else
-			return view('blog.index', ['blog'=>false]);
-
-		$users = User::all();
-		$displaynames = [];
-
-		foreach($users as $user){
-			$displaynames[$user->id] = $user->displayname;
-		}
-
-		return view('blog.index',
-			[
-				'blog' => $blog,
-				'list' => Blog::latest()->take(4)->get(),
-				'author' => User::find($blog->author)->pluck('displayname'),
-				'created_at' => $carbon->diffForHumans(),
-				'users' => $displaynames
-			]);
+		$blog = Blog::latest()->first()->id;
+		return $this->getBlog($blog);
 	}
 
 	public function getBlog($blog){

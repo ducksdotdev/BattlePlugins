@@ -73,6 +73,10 @@ pre, .pre {
     margin-top: 10px;
 }
 
+nav #loginDropDownButton {
+    margin-top: 20px;
+}
+
 code {
     padding: 2px 4px;
     font-size: 90%;

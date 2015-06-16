@@ -1,17 +1,12 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use App\Tools\URL\Domain;
+use Illuminate\Http\Request;
 
 $url = env('APP_ENV_URL');
+
+if ($url == 'battleplugins')
+    $url .= '.' . Domain::getTld(Request::root());
 
 Route::get('/logout', 'UserController@logout');
 

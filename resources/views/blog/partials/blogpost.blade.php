@@ -4,7 +4,7 @@
             <h1>
                 {{ $blog->title }}
                 <small class="author">
-                    Written by {{ $author }} <span
+                    Written by {{ $users[$blog->author] }} <span
                             title="{{ $blog->created_at }}">{{ $blog->created_at->diffForHumans() }}</span>
                     @if($blog->updated_at != $blog->created_at)
                         <span title="Edited {{ $blog->updated_at->diffForHumans()

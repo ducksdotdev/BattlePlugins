@@ -32,7 +32,6 @@ class PageController extends Controller {
         return [
             'blog' => $blog,
             'list' => Blog::latest()->take(4)->get(),
-            'author' => $displaynames[$blog->author],
             'users' => $displaynames
         ];
     }

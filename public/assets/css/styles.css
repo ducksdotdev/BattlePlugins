@@ -193,12 +193,15 @@ pre, .pre {
     font-size: 13px;
     color: #333;
     padding: 16px;
-    background-color: #EDEDED;
+    background-color: #545454;
     word-wrap: break-word;
     font-family: monospace;
     word-break: normal;
 }
 
 .pre code, pre code {
+    font-size: 13px;
     white-space: pre;
+    color: #545454;
+    background-color: transparent;
 }

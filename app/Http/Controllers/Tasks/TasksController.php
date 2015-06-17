@@ -78,6 +78,6 @@ class TasksController extends Controller
 
     public function completeTask($id)
     {
-        Task::findOrFail($id)->update(['status' => 1]);
+        Task::find($id)->update(['status' => 1]);
     }
 }

@@ -30,6 +30,7 @@ class TasksController extends Controller
 
         Task::create([
             'title' => $title,
+            'creator' => Auth::user()->id,
             'assigned_to' => $request->input('assigned_to'),
             'public' => $public,
             'content' => $request->input('content')

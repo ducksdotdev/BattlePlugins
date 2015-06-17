@@ -13,9 +13,10 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
-if (env('APP_ENV_URL') == 'localhost')
+if (env('APP_ENV_URL') == 'localhost') {
     $shurl = 'bplugin.localhost';
-else
+    $tlds = [''];
+} else
     $shurl = 'bplug.in';
 
 Route::group(['domain' => $shurl], function () {
@@ -29,7 +30,6 @@ Route::group(['domain' => $shurl], function () {
 
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');
 });
-
 
 foreach ($tlds as $tld) {
     $url .= $tld;

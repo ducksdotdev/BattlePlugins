@@ -16,11 +16,12 @@ class PageController extends Controller
     public function index()
     {
         if (Auth::check())
-            $tasks = Task::where('status', '!=', 2)->get();
+            $tasks = Task::all();
         else
-            $tasks = Task::wherePublic(true)->where('status', '!=', 2)->get();
+            $tasks = Task::wherePublic(true)->get();
 
         $users = User::all();
+        $displaynames = [];
 
         foreach ($users as $user)
             $displaynames[$user->id] = $user->displayname;

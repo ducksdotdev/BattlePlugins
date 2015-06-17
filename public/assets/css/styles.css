@@ -202,12 +202,12 @@ small {
 }
 
 pre {
-    background-color: rgba(0, 0, 0, 0.05);
-    margin: 10px 0;
-    padding: 1em;
-    border: 1px solid rgb(218, 218, 218);
-    font-family: monospace;
-    font-size: 12px;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border-radius: 3px;
 }
 
 pre code {
@@ -217,4 +217,20 @@ pre code {
     font-weight: normal;
     background-color: transparent;
     color: rgb(95, 95, 95);
+}
+
+pre code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
 }

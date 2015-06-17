@@ -65,7 +65,7 @@ class TasksController extends Controller
                 $this->completeTask($id);
             } else if ($action == 'assigned') {
                 $assigneeName = $request->json('assignee.login');
-                $assignee = User::whereDisplayname($assigneeName)->first();
+                $assignee = User::where('displayname', $assigneeName)->first();
                 if ($assignee) {
                     Task::findOrFail($id)->update(['assigned_to' => $assignee->id]);
                 }

@@ -20,9 +20,16 @@ class PageController extends Controller
         else
             $tasks = Task::wherePublic(true)->where('status', '!=', 2)->get();
 
-        $users = User::where('id', '!=', 24)->get();
+        $users = User::all();
 
-        return view('tasks.index', ['tasks' => $tasks, 'users' => $users]);
+        foreach ($users as $user)
+            $displaynames[$user->id] = $user->displayname;
+
+        return view('tasks.index', [
+            'tasks' => $tasks,
+            'users' => $users,
+            'displaynames' => $displaynames
+        ]);
     }
 
 }

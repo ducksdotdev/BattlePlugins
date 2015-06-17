@@ -17,7 +17,7 @@ class PageController extends Controller {
 			$apiKey = Auth::user()->api_key;
 			if (!$apiKey) {
 				$apiKey = GenerateApiKey::generateKey();
-				User::findOrFail(Auth::user()->id)->update([
+				User::find(Auth::user()->id)->update([
 					'api_key' => $apiKey
 				]);
 			}
@@ -37,7 +37,7 @@ class PageController extends Controller {
 	public function generateKey(){
 		$apiKey = GenerateApiKey::generateKey();
 
-		User::findOrFail(Auth::user()->id)->update([
+		User::find(Auth::user()->id)->update([
 			'api_key' => $apiKey
 		]);
 

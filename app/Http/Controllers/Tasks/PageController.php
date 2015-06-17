@@ -18,7 +18,7 @@ class PageController extends Controller
         if (Auth::check())
             $tasks = Task::where('status', '!=', 2)->get();
         else
-            $tasks = Task::where('public', true)->where('status', '!=', 2)->get();
+            $tasks = Task::wherePublic(true)->where('status', '!=', 2)->get();
 
         $users = User::where('id', '!=', 24)->get();
 

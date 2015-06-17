@@ -18,13 +18,13 @@ class TaskTransformer extends Transformer {
 	public function transform ($task){
 		$assigned_to = null;
 		if($task['assigned_to'] != 0)
-			$assigned_to = User::findOrFail($task['assigned_to'])['displayname'];
+			$assigned_to = User::find($task['assigned_to'])['displayname'];
 
 		return [
 			'id' => $task['id'],
 			'title' => $task['title'],
 			'content' => $task['content'],
-			'creator' => User::findOrFail($task['creator'])['displayname'],
+			'creator' => User::find($task['creator'])['displayname'],
 			'assigned_to' => $assigned_to,
 			'public' => (boolean) $task['public'],
 			'completed' => (boolean) $task['status']

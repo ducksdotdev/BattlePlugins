@@ -40,7 +40,7 @@ class PageController extends Controller {
 
     public function getBlog($id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::find($id);
 
         if (!$blog)
             return view('blog.index');

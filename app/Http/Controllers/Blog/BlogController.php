@@ -5,20 +5,22 @@ use App\Tools\API\Transformers\BlogTransformer;
 use App\Tools\Models\Blog;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller {
 
-	private $webhooks, $blogTransformer;
+	private $request, $webhooks, $blogTransformer;
 
-	public function __construct(Webhooks $webhooks, BlogTransformer $blogTransformer)
+	public function __construct(Request $request, Webhooks $webhooks, BlogTransformer $blogTransformer)
     {
+		$this->request = $request;
         $this->webhooks = $webhooks;
         $this->blogTransformer = $blogTransformer;
 	}
 
 	public function create () {
-		$title = $this->request()->input('title');
-		$content = $this->request()->input('content');
+		$title = $this->request->input('title');
+		$content = $this->request->input('content');
 
         Blog::create([
 			'title' => $title,
@@ -35,8 +37,8 @@ class BlogController extends Controller {
 	}
 
 	public function editBlog($id){
-		$title = $this->request()->input('title');
-		$content = $this->request()->input('content');
+		$title = $this->request->input('title');
+		$content = $this->request->input('content');
 
         $blog = Blog::whereId($id);
 

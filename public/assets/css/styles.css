@@ -191,9 +191,9 @@ small {
 
 pre, .pre {
     font-size: 13px;
-    color: #333;
+    color: #545454;
     padding: 16px;
-    background-color: #545454;
+    background-color: #EDEDED;
     word-wrap: break-word;
     font-family: monospace;
     word-break: normal;

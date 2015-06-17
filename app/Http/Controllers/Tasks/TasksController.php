@@ -6,7 +6,6 @@ use App\Tools\Models\User;
 use App\Tools\VerifyHMAC;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
-use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
@@ -18,22 +17,23 @@ class TasksController extends Controller
         $this->webhooks = $webhooks;
     }
 
-    public function createTask(Request $request)
+    public function createTask()
     {
-        $title = $request->input('title');
-        $public = $request->input('public');
+        $title = $this->request()->input('title');
+        $public = $this->request()->input('public');
 
         if (!$title)
             $title = 'Untitled';
+
         if (!$public)
             $public = false;
 
         Task::create([
             'title' => $title,
             'creator' => Auth::user()->id,
-            'assigned_to' => $request->input('assigned_to'),
+            'assigned_to' => $this->request()->input('assigned_to'),
             'public' => $public,
-            'content' => $request->input('content')
+            'content' => $this->request()->input('content')
         ]);
 
         return redirect('/');
@@ -44,28 +44,29 @@ class TasksController extends Controller
         Task::find($id)->delete();
     }
 
-    public function gitHubCreate(Request $request)
+    public function gitHubCreate()
     {
         $payload = file_get_contents('php://input');
-        if (VerifyHMAC::validateSignature($request->header('X-Hub-Signature'), $payload)) {
+        if (VerifyHMAC::validateSignature($this->request()->header('X-Hub-Signature'), $payload)) {
             Auth::loginUsingId(24);
 
-            $action = $request->json('action');
+            $action = $this->request()->json('action');
 
-            $title = '[Issue ' . $request->json('issue.id') . '] ' . $request->json('issue.title');
+            $title = '[Issue ' . $this->request()->json('issue.id') . '] ' . $this->request()->json('issue.title');
             $id = Task::whereTitle($title)->pluck('id');
 
             if ($action == 'opened') {
                 Task::create([
                     'title' => $title,
+                    'creator' => 24,
                     'assigned_to' => 0,
                     'public' => true,
-                    'content' => $request->json('issue.html_url')
+                    'content' => $this->request()->json('issue.html_url')
                 ]);
             } else if ($action == 'closed') {
                 $this->completeTask($id);
             } else if ($action == 'assigned') {
-                $assigneeName = $request->json('assignee.login');
+                $assigneeName = $this->request()->json('assignee.login');
                 $assignee = User::whereDisplayname($assigneeName)->first();
                 if ($assignee) {
                     Task::find($id)->update(['assigned_to' => $assignee->id]);

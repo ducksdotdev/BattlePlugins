@@ -11,18 +11,17 @@ use Illuminate\Http\Request;
 class TasksController extends Controller
 {
 
-    private $webhooks, $request;
+    private $webhooks;
 
-    public function __construct(Request $request, Webhooks $webhooks)
+    public function __construct(Webhooks $webhooks)
     {
-        $this->request = $request;
         $this->webhooks = $webhooks;
     }
 
-    public function createTask()
+    public function createTask(Request $request)
     {
-        $title = $this->request->input('title');
-        $public = $this->request->input('public');
+        $title = $request->input('title');
+        $public = $request->input('public');
 
         if (!$title)
             $title = 'Untitled';
@@ -33,9 +32,9 @@ class TasksController extends Controller
         Task::create([
             'title' => $title,
             'creator' => Auth::user()->id,
-            'assigned_to' => $this->request->input('assigned_to'),
+            'assigned_to' => $request->input('assigned_to'),
             'public' => $public,
-            'content' => $this->request->input('content')
+            'content' => $request->input('content')
         ]);
 
         return redirect('/');
@@ -46,15 +45,15 @@ class TasksController extends Controller
         Task::find($id)->delete();
     }
 
-    public function gitHubCreate()
+    public function gitHubCreate(Request $request)
     {
         $payload = file_get_contents('php://input');
-        if (VerifyHMAC::validateSignature($this->request->header('X-Hub-Signature'), $payload)) {
+        if (VerifyHMAC::validateSignature($request->header('X-Hub-Signature'), $payload)) {
             Auth::loginUsingId(24);
 
-            $action = $this->request->json('action');
+            $action = $request->json('action');
 
-            $title = '[Issue ' . $this->request->json('issue.id') . '] ' . $this->request->json('issue.title');
+            $title = '[Issue ' . $request->json('issue.id') . '] ' . $request->json('issue.title');
             $id = Task::whereTitle($title)->pluck('id');
 
             if ($action == 'opened') {
@@ -63,12 +62,12 @@ class TasksController extends Controller
                     'creator' => 24,
                     'assigned_to' => 0,
                     'public' => true,
-                    'content' => $this->request->json('issue.html_url')
+                    'content' => $request->json('issue.html_url')
                 ]);
             } else if ($action == 'closed') {
                 $this->completeTask($id);
             } else if ($action == 'assigned') {
-                $assigneeName = $this->request->json('assignee.login');
+                $assigneeName = $request->json('assignee.login');
                 $assignee = User::whereDisplayname($assigneeName)->first();
                 if ($assignee) {
                     Task::find($id)->update(['assigned_to' => $assignee->id]);

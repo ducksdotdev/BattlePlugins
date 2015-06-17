@@ -50,7 +50,7 @@ class BlogController extends Controller {
 			'content' => $content,
         ]);
 
-		return redirect('/blog/'.$id);
+		return redirect('/' . $id);
 	}
 
 }

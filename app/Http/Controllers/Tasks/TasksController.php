@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
-use App\Tools\VerifyHMAC;
+use App\Tools\Security\VerifyHMAC;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -54,7 +54,7 @@ class TasksController extends Controller
             $action = $request->json('action');
 
             $title = '[Issue ' . $request->json('issue.id') . '] ' . $request->json('issue.title');
-            $id = Task::whereTitle($title)->pluck('id');
+            $task = Task::whereTitle($title)->first();
 
             if ($action == 'opened') {
                 Task::create([
@@ -64,19 +64,21 @@ class TasksController extends Controller
                     'public' => true,
                     'content' => $request->json('issue.html_url')
                 ]);
-            } else if ($action == 'closed') {
-                $this->completeTask($id);
-            } else if ($action == 'assigned') {
+            } else if ($action == 'closed')
+                $task->update(['status' => 1]);
+            else if ($action == 'assigned') {
+
                 $assigneeName = $request->json('assignee.login');
                 $assignee = User::whereDisplayname($assigneeName)->first();
-                if ($assignee) {
-                    Task::find($id)->update(['assigned_to' => $assignee->id]);
-                }
-            } else if ($action == 'unassigned') {
-                Task::find($id)->update(['assigned_to' => 0]);
-            }
+                if ($assignee)
+                    $task->update(['assigned_to' => $assignee->id]);
+
+            } else if ($action == 'unassigned')
+                $task->update(['assigned_to' => 0]);
+
         } else
             return redirect('/');
+
     }
 
     public function completeTask($id)

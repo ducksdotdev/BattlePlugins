@@ -13,7 +13,7 @@
         </p>
     @endif
     <p>
-        Copyright &copy; BattlePlugins. All Rights Reserved.<br/>
+        Copyright &copy; 2012 - {{ date('Y') }} BattlePlugins. All Rights Reserved.<br/>
         BattlePlugins is not affiliated with Mojang or Minecraft.
     </p>
 </footer>

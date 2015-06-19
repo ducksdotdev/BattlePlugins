@@ -3,28 +3,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="lDucks">
-    <title>BattlePlugins :: Returning Soon</title>
-    <link rel="icon" type="image/png" href="favicon.png"/>
+    <title>BattlePlugins :: 500 Error</title>
+    <link rel="icon" type="image/png" href="bp.png"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <style>
         body {
             text-align: center;
-            padding: 150px;
-        }
-
-        h1 {
-            font-size: 50px;
-        }
-
-        body {
+            padding-top: 150px;
             font: 20px Helvetica, sans-serif;
             color: #333;
-        }
-
-        article {
-            display: block;
-            text-align: left;
-            width: 650px;
-            margin: 0 auto;
         }
 
         a {
@@ -46,16 +33,21 @@
     </style>
 </head>
 <body>
-<h1>Oh No! Looks like something went wrong!</h1>
+<div class="grid-container">
+    <div class="grid-100">
+        <h1>Oh No! Looks like something went wrong!</h1>
+    </div>
+    <div class="grid-100">
+        <p>
+        <h4>We couldn't load the page you were looking for! (500 Error)</h4>
 
-<div>
-    <p>
-    <h4>We couldn't load the page you were looking for! (500 Error)</h4>
-
-    <h3>Please report this error in the <a href="http://irc.battleplugins.com/">#battleplugins IRC channel</a>.</h3>
-    <h4><a href="/">Click here to Return to Safety</a></h4>
-    </p>
-    @include('footer')
+        <h3>Please report this error in the <a href="http://irc.battleplugins.com/">#battleplugins IRC channel</a>.</h3>
+        <h4><a href="/">Click here to Return to Safety</a></h4>
+        </p>
+    </div>
+    <div class="grid-100">
+        @include('footer')
+    </div>
 </div>
 </body>
 </html>

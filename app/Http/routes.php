@@ -85,5 +85,9 @@ foreach ($tlds as $tld) {
         });
     });
 
+    Route::group(['domain' => 'paste.' . $url], function () {
+        Route::get('/', 'Paste\PageController@index');
+    });
+
     $url = env('APP_ENV_URL');
 }

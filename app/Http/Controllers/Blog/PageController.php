@@ -43,7 +43,7 @@ class PageController extends Controller {
         $blog = Blog::find($id);
 
         if (!$blog)
-            return view('blog.index');
+            return abort(404);
 
         return view('blog.index', static::retrieve($blog));
     }

@@ -44,7 +44,7 @@
                 {!! Form::close() !!}
             </div>
         </div>
-        @include('shorturls.partials.footer')
+        @include('footer')
     </div>
 </div>
 </body>

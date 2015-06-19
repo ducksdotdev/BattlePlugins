@@ -65,7 +65,7 @@
                 @include('tasks.modals.createTask')
             @endif
         </div>
-        @include('tasks.partials.footer')
+        @include('footer')
     </div>
 </div>
 @if(session()->has('error'))

@@ -25,7 +25,7 @@
 <nav>
     <div class="grid-container">
         <div class="grid-50">
-            <h1 class="brand">battleplugins</h1>
+            <h1 class="brand"><a href="/">battleplugins</a></h1>
         </div>
         <div class="grid-40">
             <ul>

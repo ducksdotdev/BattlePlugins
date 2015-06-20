@@ -3,11 +3,9 @@
 $url = env('APP_ENV_URL');
 $tlds = ['.com', '.net', '.org'];
 
-Route::get('/logout', 'UserController@logout');
 
-Route::group(['before' => 'csrf'], function () {
-    Route::post('/login', 'UserController@login');
-});
+Route::get('/logout', 'UserController@logout');
+Route::get('/login', 'UserController@login');
 
 Route::group(['before' => 'auth'], function () {
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

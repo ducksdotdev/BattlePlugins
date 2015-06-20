@@ -145,7 +145,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
 		/*
 		 * Custom Providers
@@ -203,7 +203,8 @@ return [
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Markdown' => 'GrahamCampbell\Markdown\Facades\Markdown',
         'User' => 'App\Tools\Models\User',
-        'Linkify' => 'App\Tools\URL\Linkify'
+        'Linkify' => 'App\Tools\URL\Linkify',
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 	],
 
 ];

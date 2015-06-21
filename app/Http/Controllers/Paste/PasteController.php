@@ -52,6 +52,7 @@ class PasteController extends Controller
 
         return view('paste.paste', [
             'paste' => $paste,
+            'author' => User::find($paste->creator)->displayname,
             'content' => file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt")
         ]);
     }

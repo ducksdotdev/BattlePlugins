@@ -15,7 +15,7 @@ class PageController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $pastes = Paste::all();
+            $pastes = Paste::whereCreator(Auth::user()->id)->latest()->get();
 
             return view('paste.index', [
                 'pastes' => $pastes

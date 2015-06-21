@@ -11,6 +11,7 @@
             @if($paste->public)
                 (Public)
             @endif
+                <small>Created by {{ $author }}</small>
         </h1>
         <pre class="prettyprint linenums grid-100">
             {{ $content }}

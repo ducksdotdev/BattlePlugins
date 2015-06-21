@@ -1,6 +1,5 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BattlePaste :: BattlePlugins Paste Service</title>
 <link rel="icon" href="/assets/img/bp.png"/>
 <!--        Styles -->
 <link rel="stylesheet" href="/assets/css/semantic.css">

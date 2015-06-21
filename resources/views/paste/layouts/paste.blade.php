@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     @include('paste.partials.head')
-    <title>BattlePaste :: BattlePlugins Paste Service</title>
+    <title>
+        @if($paste->title)
+            {{ $paste->title }}
+        @else
+            {{ $paste->slug }}
+        @endif
+    </title>
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
 </head>
-<body>
+<body onload="prettyPrint()">
 <nav>
     <div class="grid-container">
         <div class="brand grid-50 tablet-grid-50 mobile-grid-50">

@@ -1,4 +1,4 @@
-@extends('paste.layouts.login')
+@extends('paste.layouts.paste')
 @section('content')
     <div class="grid-container">
         <h1 class="grid-100">
@@ -48,7 +48,4 @@
 @stop
 @section('extraScripts')
     <script src="/assets/js/paste/prettify.js"></script>
-@stop
-@section('onLoad')
-    onload="prettyPrint()"
 @stop

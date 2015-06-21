@@ -24,7 +24,7 @@ class PasteController extends Controller
             'path' => $slug
         ]);
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $request->get('content'));
+        file_put_contents(storage_path() . "/app/pastes/$slug.txt", PHP_EOL . $request->get('content'));
 
         Paste::create([
             'slug' => $slug,
@@ -41,7 +41,7 @@ class PasteController extends Controller
         $paste = Paste::find($request->id);
         $slug = $paste->slug;
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $request->get('content'));
+        file_put_contents(storage_path() . "/app/pastes/$slug.txt", PHP_EOL . $request->get('content'));
 
         $paste->updated_at = Carbon::now();
         $paste->save();

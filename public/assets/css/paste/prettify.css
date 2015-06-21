@@ -1,7 +1,6 @@
-li:last-child {
+li:first-child {
     display: none;
 }
-
 @media screen {
     .str {
         color: #080

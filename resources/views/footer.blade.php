@@ -1,9 +1,9 @@
 <footer>
     <p>
-        <a href="http://ci.battleplugins.com">Jenkins</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a
+        <a href="http://wiki.battleplugins.com">Wiki</a> | <a href="http://ci.battleplugins.com">Jenkins</a> | <a
                 href="http://github.com/BattlePlugins">GitHub</a> | <a
                 href="http://tasks.battleplugins.com">BattleTasks</a> | <a href="http://api.battleplugins.com">BattleWebAPI</a>
-        | <a href="http://bplug.in">bplug.in</a>
+        | <a href="http://paste.battleplugins.com">BattlePaste</a> | <a href="http://bplug.in">bplug.in</a>
     </p>
     @if(Auth::check())
         <p>

@@ -87,6 +87,18 @@ foreach ($tlds as $tld) {
 
     Route::group(['domain' => 'paste.' . $url], function () {
         Route::get('/', 'Paste\PageController@index');
+
+        Route::group(['before' => 'auth'], function () {
+            Route::get('/delete/{id}', 'Paste\PasteController@deletePaste');
+            Route::get('/togglepub/{id}', 'Paste\PasteController@togglePublic');
+
+            Route::group(['before' => 'csrf'], function () {
+                Route::post('/create', 'Paste\PasteController@createPaste');
+                Route::post('/edit', 'Paste\PasteController@editPaste');
+            });
+        });
+
+        Route::get('/{slug}', 'Paste\PasteController@getPaste');
     });
 
     $url = env('APP_ENV_URL');

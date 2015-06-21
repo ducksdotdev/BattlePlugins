@@ -15,6 +15,12 @@
                 <label>Paste Content</label>
                 {!! Form::textarea('content') !!}
             </div>
+            <div class="field">
+                <div class="ui toggle checkbox">
+                    {!! Form::checkbox('public') !!}
+                    <label>Allow <b>anyone</b> to see this paste?</label>
+                </div>
+            </div>
             {!! Form::close() !!}
         </div>
     </div>

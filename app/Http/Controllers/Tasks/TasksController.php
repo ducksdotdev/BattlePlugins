@@ -15,6 +15,7 @@ class TasksController extends Controller
 
     public function __construct(Webhooks $webhooks)
     {
+        $this->middleware('auth', ['except' => ['gitHubCreate']]);
         $this->webhooks = $webhooks;
     }
 

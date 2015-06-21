@@ -9446,12 +9446,6 @@ ol.ui.list ol,
     color: rgba(0, 0, 0, 0.4);
 }
 
-/* Linking Content */
-
-.ui.list .item a:hover {
-    color: #00b2f3 !important;
-}
-
 /* Header */
 
 .ui.list .list > .item .header,

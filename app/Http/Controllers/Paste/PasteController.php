@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use App\Tools\Models\Paste;
+use App\Tools\Models\ShortUrl;
+use App\Tools\Models\User;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -13,8 +15,14 @@ class PasteController extends Controller
     {
         $slug = str_random(6);
 
-        while (Paste::where('slug', $slug)->first())
+        while (Paste::where('slug', $slug)->first() || ShortUrl::wherePath($slug)->first())
             $slug = str_random(6);
+
+
+        ShortUrl::create([
+            'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
+            'path' => $slug
+        ]);
 
         file_put_contents(storage_path() . "/app/pastes/$slug.txt", $request->get('content'));
 
@@ -53,6 +61,7 @@ class PasteController extends Controller
         return view('paste.paste', [
             'paste' => $paste,
             'author' => User::find($paste->creator)->displayname,
+            'url' => ShortUrl::wherePath($slug)->first(),
             'content' => file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt")
         ]);
     }
@@ -61,6 +70,7 @@ class PasteController extends Controller
     {
         $paste = Paste::find($id);
 
+        ShortUrl::wherePath($paste->slug)->delete();
         unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
         $paste->delete();
 

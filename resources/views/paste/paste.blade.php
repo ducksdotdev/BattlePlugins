@@ -13,6 +13,9 @@
             @endif
                 <small>Created by {{ $author }}</small>
         </h1>
+        <div class="grid-100">
+            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a>
+        </div>
         <pre class="prettyprint linenums grid-100">
             {{ $content }}
         </pre>

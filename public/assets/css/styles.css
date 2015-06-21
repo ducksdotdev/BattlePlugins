@@ -49,6 +49,10 @@ nav .brand {
     float: none !important;
 }
 
+.grid-100 + .grid-100 {
+    margin-top: 10px;
+}
+
 #loginButton {
     margin-left: 17px
 }
@@ -204,4 +208,12 @@ pre, .pre {
     white-space: pre;
     color: #545454;
     background-color: transparent;
+}
+
+h1.grid-100 {
+    margin: 0;
+}
+
+h1 small {
+    font-size: 20px;
 }

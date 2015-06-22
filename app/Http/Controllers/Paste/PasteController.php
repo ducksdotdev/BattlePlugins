@@ -83,7 +83,7 @@ class PasteController extends Controller
         else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
             return abort(403);
 
-        return file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+        return response()->json(file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt"));
     }
 
     public function deletePaste($id)

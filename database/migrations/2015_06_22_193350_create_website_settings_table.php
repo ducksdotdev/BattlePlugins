@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class MakePastesTable extends Migration
+class CreateWebsiteSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -11,11 +11,9 @@ class MakePastesTable extends Migration
      */
     public function up()
     {
-        \Illuminate\Support\Facades\Schema::create('pastes', function ($table) {
-            $table->increments('id');
-            $table->binary('slug', 6)->unique();
-            $table->integer('creator')->index()->foreign();
-            $table->timestamps();
+        \Illuminate\Support\Facades\Schema::create('server_settings', function ($table) {
+            $table->string('key')->unique()->index();
+            $table->string('value')->unique();
 
         });
     }

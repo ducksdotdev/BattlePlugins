@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Tools\Models\ShortUrl;
+use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -27,8 +28,8 @@ class UrlController extends Controller
     {
         $req = $request->get('url');
 
-        if (!(starts_with($req, 'http://') || starts_with($req, 'https://')))
-            return redirect('/')->with('error', 'Please make sure your URL has http:// or https:// defined.');
+        if (!Domain::isUrl($req))
+            return redirect('/')->with('error', 'Please enter a valid URL.');
 
         $url = ShortUrl::where('url', $req)->first();
 

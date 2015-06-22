@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Endpoints;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\ShortUrlTransformer;
 use App\Tools\Models\ShortUrl;
+use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -29,8 +30,8 @@ class ShortUrlsController extends ApiController
     public function store() {
         $req = $this->request->get('url');
 
-        if(!(starts_with($req, 'http://') || starts_with($req, 'https://')))
-            return $this->statusCode->respondWithError('Please make sure your URL has http:// or https:// defined.');
+        if(!Domain::isUrl($req))
+            return $this->statusCode->respondWithError('Please enter a valid URL.');
 
         $url = ShortUrl::whereUrl($req)->first();
 

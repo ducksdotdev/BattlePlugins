@@ -14,9 +14,9 @@
                 <small>Created by {{ $author }}</small>
         </h1>
         <div class="grid-100">
-            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a><br/>
-            Raw URL: <a href="/{{ $paste->slug }}/raw">paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>
-            <a href="/{{ $paste->slug }}/download">Download</a>
+            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">https://bplug.in/{{ $paste->slug }}</a><br/>
+            Raw URL: <a href="/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>
+            Download Link: <a href="/{{ $paste->slug }}/download">https://paste.battleplugins.com/{{ $paste->slug }}/download</a>
         </div>
         <pre class="prettyprint linenums grid-100">
             {{ $content }}

@@ -152,6 +152,7 @@ return [
 		 */
 		'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
 		'GrahamCampbell\Markdown\MarkdownServiceProvider',
+        'Awjudd\FeedReader\FeedReaderServiceProvider',
 	],
 
 	/*

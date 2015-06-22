@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Blog;
 use App\Tools\Models\User;
 
@@ -16,7 +17,7 @@ class PageController extends Controller {
         $blog = Blog::latest()->first();
 
         if (!$blog)
-            return view('blog.index');
+            return view('blog.index', ['rssFeed' => Jenkins::getFeed()]);
 
         return view('blog.index', static::retrieve($blog));
     }
@@ -33,7 +34,8 @@ class PageController extends Controller {
             return [
                 'blog' => $blog,
                 'list' => Blog::latest()->take(4)->get(),
-                'users' => $displaynames
+                'users' => $displaynames,
+                'rssFeed' => Jenkins::getFeed('rssLatest')
             ];
         }
     }

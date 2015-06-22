@@ -243,6 +243,91 @@ return array(
             )
         ),
         array(
+            'name' => 'BattlePaste',
+            'methods' => array(
+                array(
+                    'title' => 'Get Pastes',
+                    'url' => 'pastes',
+                    'methods' => array(
+                        array(
+                            'name' => 'get',
+                            'color' => 'green'
+                        ),
+                        array(
+                            'name' => 'requires auth',
+                            'color' => 'black'
+                        )
+                    ),
+                    'example' => array(
+                        'success' => '{"data":[{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"http:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}],"paginator":{"total_count":1,"total_pages":1,"current_page":1,"limit":5}}',
+                        'error' => 'Not Applicable.'
+                    ),
+                    'description' => 'This endpoint will return all public pastes. If authenticated, this will also
+                    return the respective user\'s pastes. Limited 5 pastes per page.',
+                    'params' => array('limit INT', 'page INT')
+                ),
+                array(
+                    'title' => 'Get Specific Paste',
+                    'url' => 'pastes/{id}',
+                    'methods' => array(
+                        array(
+                            'name' => 'get',
+                            'color' => 'green'
+                        )
+                    ),
+                    'example' => array(
+                        'success' => '{"data":{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"http:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000",
+                        "timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}}',
+                        'error' => '{"error":{"message":"You don\'t have permission to view this paste.",
+                        "status_code":422}}'
+                    ),
+                    'description' => 'This endpoint will return a single specified paste.',
+                ),
+                array(
+                    'title' => 'Create Paste',
+                    'url' => 'Pastes',
+                    'methods' => array(
+                        array(
+                            'name' => 'post',
+                            'color' => 'red'
+                        ),
+                        array(
+                            'name' => 'requires auth',
+                            'color' => 'black'
+                        )
+                    ),
+                    'example' => array(
+                        'success' => '{"success":{"message":"gIRj65","status_code":201}}',
+                        'error' => '{"error":{"message":"A required field has been left blank.","status_code":200}}'
+                    ),
+                    'description' => 'This endpoint will create a new paste. The message field of a successful paste
+                    will contain the slug to the paste and shorturl. IE) The message is gIRj65 which means bplug
+                    .in/gIRj65 will bring you to that paste.',
+                    'params' => array('title VARCHAR(64)', 'content TEXT()', 'public BOOLEAN'),
+                ),
+                array(
+                    'title' => 'Delete Paste',
+                    'url' => 'pastes/{id}',
+                    'methods' => array(
+                        array(
+                            'name' => 'destroy',
+                            'color' => 'purple'
+                        ),
+                        array(
+                            'name' => 'requires auth',
+                            'color' => 'black'
+                        )
+                    ),
+                    'example' => array(
+                        'success' => '{"success":{"message":"Paste has been deleted.","status_code":201}}',
+                        'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
+                    ),
+                    'description' => 'This endpoint will delete a specified paste. You can only delete pastes that
+                    you have created.'
+                )
+            )
+        ),
+        array(
             'name' => 'bplug.in',
             'methods' => array(
                 array(

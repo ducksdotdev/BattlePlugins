@@ -56,6 +56,7 @@ foreach ($tlds as $tld) {
             Route::resource('users', 'API\Endpoints\UsersController');
             Route::resource('blogs', 'API\Endpoints\BlogsController');
             Route::resource('shorturls', 'API\Endpoints\ShortUrlsController');
+            Route::resource('pastes', 'API\Endpoints\PastesController');
         });
 
         Route::group(['before' => 'auth'], function () {

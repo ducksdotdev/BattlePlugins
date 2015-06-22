@@ -83,7 +83,8 @@ class PasteController extends Controller
         else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
             return abort(403);
 
-        return response()->json(file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt"));
+        $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+        return view('paste.raw', ['content' => $content]);
     }
 
     public function deletePaste($id)
@@ -97,6 +98,18 @@ class PasteController extends Controller
         }
 
         return redirect("/");
+    }
+
+    public function download($id)
+    {
+        $paste = Paste::whereSlug($slug)->first();
+
+        if (!$paste)
+            return abort(404);
+        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
+            return abort(403);
+
+        return response()->download(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
     }
 
     public function togglePublic($id)

@@ -15,9 +15,8 @@
         </h1>
         <div class="grid-100">
             Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a><br/>
-            Raw URL: <a
-                    href="https://paste.battleplugins.com/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}
-                /raw</a>
+            Raw URL: <a href="/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>
+            <a href="/{{ $paste->slug }}/download">Download</a>
         </div>
         <pre class="prettyprint linenums grid-100">
             {{ $content }}

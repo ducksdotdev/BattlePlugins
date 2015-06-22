@@ -101,6 +101,7 @@ foreach ($tlds as $tld) {
 
         Route::get('/{slug}', 'Paste\PasteController@getPaste');
         Route::get('/{slug}/raw', 'Paste\PasteController@getRawPaste');
+        Route::get('/{slug}/download', 'Paste\PasteController@downloadPaste');
     });
 
     $url = env('APP_ENV_URL');

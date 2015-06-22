@@ -15,7 +15,7 @@
         </h1>
         <div class="grid-100">
             Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a><br/>
-            Raw URL: <a href="/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>
+            Raw URL: <a href="/{{ $paste->slug }}/raw">paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>
             <a href="/{{ $paste->slug }}/download">Download</a>
         </div>
         <pre class="prettyprint linenums grid-100">
@@ -40,8 +40,8 @@
                 {!! Form::textarea('content', $content) !!}
             </div>
             <div class="grid-100 text-right">
-                <button id="savePaste" class="ui positive button">
-                    Save Paste
+                <button class="ui positive button">
+                    Edit Paste
                 </button>
             </div>
             {!! Form::close() !!}

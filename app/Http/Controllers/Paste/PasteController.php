@@ -100,7 +100,7 @@ class PasteController extends Controller
         return redirect("/");
     }
 
-    public function download($id)
+    public function download($slug)
     {
         $paste = Paste::whereSlug($slug)->first();
 

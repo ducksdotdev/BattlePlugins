@@ -3,8 +3,8 @@
         <a href="http://battleplugins.com">Home</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a
                 href="http://ci.battleplugins.com">Jenkins</a> | <a
                 href="http://github.com/BattlePlugins">GitHub</a><br/>
-        <a href="http://tasks.battleplugins.com">BattleTasks</a> | <a href="http://api.battleplugins
-        .com">BattleWebAPI</a>
+        <a href="http://tasks.battleplugins.com">BattleTasks</a> | <a
+                href="http://api.battleplugins.com">BattleWebAPI</a>
         | <a href="http://paste.battleplugins.com">BattlePaste</a> | <a href="http://bplug.in">bplug.in</a>
         @if(Auth::check())
             <br/>

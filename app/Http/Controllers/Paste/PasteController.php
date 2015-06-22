@@ -13,7 +13,7 @@ class PasteController extends Controller
 
     function __construct()
     {
-        $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste']]);
+        $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste', 'downloadPaste']]);
     }
 
     public function createPaste(Request $request)

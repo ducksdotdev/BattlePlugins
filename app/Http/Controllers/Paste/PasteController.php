@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class PasteController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste']]);
+    }
+
     public function createPaste(Request $request)
     {
         $slug = str_random(6);
@@ -39,12 +44,15 @@ class PasteController extends Controller
     public function editPaste(Request $request)
     {
         $paste = Paste::find($request->id);
-        $slug = $paste->slug;
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", PHP_EOL . $request->get('content'));
+        if ($paste->creator == Auth::user()->id) {
+            $slug = $paste->slug;
 
-        $paste->updated_at = Carbon::now();
-        $paste->save();
+            file_put_contents(storage_path() . "/app/pastes/$slug.txt", PHP_EOL . $request->get('content'));
+
+            $paste->updated_at = Carbon::now();
+            $paste->save();
+        }
 
         return redirect('/' . $slug);
     }
@@ -66,13 +74,27 @@ class PasteController extends Controller
         ]);
     }
 
+    public function getRawPaste($slug)
+    {
+        $paste = Paste::whereSlug($slug)->first();
+
+        if (!$paste)
+            return abort(404);
+        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
+            return abort(403);
+
+        return file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+    }
+
     public function deletePaste($id)
     {
         $paste = Paste::find($id);
 
-        ShortUrl::wherePath($paste->slug)->delete();
-        unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
-        $paste->delete();
+        if ($paste->creator == Auth::user()->id) {
+            ShortUrl::wherePath($paste->slug)->delete();
+            unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+            $paste->delete();
+        }
 
         return redirect("/");
     }
@@ -80,8 +102,11 @@ class PasteController extends Controller
     public function togglePublic($id)
     {
         $paste = Paste::find($id);
-        $paste->public = !$paste->public;
-        $paste->save();
+
+        if ($paste->creator == Auth::user()->id) {
+            $paste->public = !$paste->public;
+            $paste->save();
+        }
 
         return redirect('/' . $paste->slug);
     }

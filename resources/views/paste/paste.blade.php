@@ -14,34 +14,40 @@
                 <small>Created by {{ $author }}</small>
         </h1>
         <div class="grid-100">
-            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a>
+            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">bplug.in/{{ $paste->slug }}</a><br/>
+            Raw URL: <a
+                    href="https://paste.battleplugins.com/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}
+                /raw</a>
         </div>
         <pre class="prettyprint linenums grid-100">
             {{ $content }}
         </pre>
-        <div class="grid-100 text-right">
-            @if($paste->public)
-                <a href="/togglepub/{{ $paste->id }}" class="ui button black">Make Private</a>
-            @else
-                <a href="/togglepub/{{ $paste->id }}" class="ui button green">Make Public</a>
-            @endif
-
-            <a href="/delete/{{ $paste->id }}" class="ui button red">Delete Paste</a>
-        </div>
+        @if(Auth::check() && Auth::user()->id == $paste->creator)
+            <div class="grid-100 text-right">
+                @if($paste->public)
+                    <a href="/togglepub/{{ $paste->id }}" class="ui button black">Make Private</a>
+                @else
+                    <a href="/togglepub/{{ $paste->id }}" class="ui button green">Make Public</a>
+                @endif
+                <a href="/delete/{{ $paste->id }}" class="ui button red">Delete Paste</a>
+            </div>
+        @endif
     </div>
-    <div class="grid-container">
-        {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
-        {!! Form::hidden('id', $paste->id) !!}
-        <div class="grid-100">
-            {!! Form::textarea('content', $content) !!}
+    @if(Auth::check() && Auth::user()->id == $paste->creator)
+        <div class="grid-container">
+            {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
+            {!! Form::hidden('id', $paste->id) !!}
+            <div class="grid-100">
+                {!! Form::textarea('content', $content) !!}
+            </div>
+            <div class="grid-100 text-right">
+                <button id="savePaste" class="ui positive button">
+                    Save Paste
+                </button>
+            </div>
+            {!! Form::close() !!}
         </div>
-        <div class="grid-100 text-right">
-            <button id="savePaste" class="ui positive button">
-                Save Paste
-            </button>
-        </div>
-        {!! Form::close() !!}
-    </div>
+    @endif
 @stop
 @section('extraStyles')
     <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>

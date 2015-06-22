@@ -25,7 +25,6 @@
                         You don't have any pastes!
                     </div>
                 </div>
-                &nbsp;
             @endif
 
             @if(Auth::check())

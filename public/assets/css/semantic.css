@@ -9277,7 +9277,6 @@ ul.ui.list:last-child,
 ol.ui.list:last-child,
 .ui.list:last-child {
     margin-bottom: 0em;
-    padding-bottom: 0em;
 }
 
 /*******************************

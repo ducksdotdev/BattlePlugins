@@ -1,7 +1,9 @@
 $(function(){
     $('textarea').autosize();
 
-    copytext($('.copyable').data('url'));
+    $('.copyable').click(function(){
+        copytext($('.copyable').data('url'));
+    });
 });
 
 function copytext(text) {

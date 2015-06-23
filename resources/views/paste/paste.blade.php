@@ -33,10 +33,8 @@
         @endif
     </div>
     <div class="grid-container">
-        @if(Auth::check() && Auth::user()->id == $paste->creator)
-            {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
-            {!! Form::hidden('id', $paste->id) !!}
-        @endif
+        {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
+        {!! Form::hidden('id', $paste->id) !!}
         <div class="grid-100">
             {!! Form::textarea('content', $content) !!}
         </div>
@@ -46,8 +44,8 @@
                     Edit Paste
                 </button>
             </div>
-            {!! Form::close() !!}
         @endif
+        {!! Form::close() !!}
     </div>
 @stop
 @section('extraStyles')

@@ -3,6 +3,7 @@
 namespace App\Tools\URL;
 
 use App\Tools\Models\ShortUrl;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,7 +30,6 @@ class Domain
         $req = static::stripTrailingSlash($req);
 
         if (static::isUrl($req)) {
-
             $url = ShortUrl::where('url', $req)->first();
 
             if (!$url) {
@@ -41,8 +41,11 @@ class Domain
                 ]);
 
                 return $path;
-            } else
+            } else {
+                $url->last_used = Carbon::now();
+                $url->saved;
                 return $url->path;
+            }
         }
     }
 

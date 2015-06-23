@@ -14,7 +14,7 @@
             <small>Created by {{ $author }}</small>
         </h1>
         <div class="grid-100">
-            @include('partials.paste.pastedata')
+            @include('paste.partials.pastedata')
         </div>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}

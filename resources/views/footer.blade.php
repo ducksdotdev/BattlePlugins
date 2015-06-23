@@ -16,9 +16,5 @@
     <p>
         Copyright &copy; 2012 - {{ date('Y') }} BattlePlugins. All Rights Reserved.<br/>
         BattlePlugins is not affiliated with Mojang or Minecraft.
-        @if(Auth::check())
-            <br/>
-            <small>md5: {{ md5_file(base_path()) }}</small>
-        @endif
     </p>
 </footer>

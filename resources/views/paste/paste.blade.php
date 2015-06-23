@@ -16,7 +16,7 @@
         <div class="grid-100">
             Created <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>.
             @if($paste->created_at != $paste->updated_at)
-                Last modified <span title="{{ $paste->updated_at }}">{{ $paste->updated_at->diffForHumans() }}</span>
+                Last modified <span title="{{ $paste->updated_at }}">{{ $paste->updated_at->diffForHumans() }}</span>.
             @endif<br />
             Short URL: <a href="http://bplug.in/{{ $paste->slug }}">https://bplug.in/{{ $paste->slug }}</a><br/>
             Raw URL: <a href="/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}/raw</a><br/>

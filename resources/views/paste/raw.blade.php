@@ -1,3 +1,1 @@
-<pre>
-    {{ $content }}
-</pre>
+<pre>{{ $content }}</pre>

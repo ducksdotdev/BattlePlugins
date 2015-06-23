@@ -2,19 +2,14 @@ $(function(){
     $('textarea').autosize();
 
     $('.copyable').click(function(){
-        var text = $(this).attr('data-url');
-        copytext(text);
+        var textField = document.createElement('textarea');
+        textField.innerText = $(this).attr('data-url');
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
     });
 });
-
-function copytext(text) {
-    var textField = document.createElement('textarea');
-    textField.innerText = text;
-    document.body.appendChild(textField);
-    textField.select();
-    document.execCommand('copy');
-    textField.remove();
-}
 
 // Copyright (C) 2006 Google Inc.
 //

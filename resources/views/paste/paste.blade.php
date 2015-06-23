@@ -19,7 +19,7 @@
             </small>
         </h1>
         @include('paste.partials.pastedata')
-        <small>{{ strlen($content) }} characters. {{ $lines }} lines (includes EOF line).</small>
+        <small>{{ strlen($content) }} characters. {{ $lines }} lines (+1 for EOF).</small>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}
         </pre>

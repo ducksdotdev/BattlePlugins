@@ -1,7 +1,7 @@
 $(function(){
     $('textarea').autosize();
 
-    $("#toggleShortUrls").click(function(){
+    $(".toggleShortUrls").click(function(){
         $(".pastedata").toggleClass('hidden');
         $(".short-pastedata").toggleClass('hidden');
     });

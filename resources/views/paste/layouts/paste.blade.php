@@ -22,7 +22,7 @@
             @if(Auth::check())
                 <a href="/logout" class="ui button default">Logout</a>
             @else
-                <a href="/login" class="ui button primary">Login</a>
+                <a href="/" class="ui button primary">Login</a>
             @endif
         </div>
     </div>

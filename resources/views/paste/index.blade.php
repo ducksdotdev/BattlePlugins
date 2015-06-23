@@ -30,10 +30,6 @@
                                 </div>
                             </div>
                             <div class="ui buttons pull-right">
-                                <button class="ui button">
-                                    Cancel
-                                </button>
-                                <div class="or"></div>
                                 <button class="ui positive button">
                                     Save Paste
                                 </button>

@@ -8,30 +8,31 @@ use App\Tools\Models\User;
 use App\Tools\Models\Webhook;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
-use Illuminate\Support\Facades\Config;
 
 class PageController extends Controller {
 
-	public function index(){
-		if(Auth::check()) {
-			$apiKey = Auth::user()->api_key;
-			if (!$apiKey) {
-				$apiKey = GenerateApiKey::generateKey();
-				User::find(Auth::user()->id)->update([
-					'api_key' => $apiKey
-				]);
-			}
-
-			$webhooks = Webhook::whereUser(Auth::user()->id)->get();
-
-			return view('api.docs', [
-				'apiKey' => $apiKey,
-				'docs' => Config::get('api.docs'),
-				'webhooks' => Webhooks::getTypes(),
-				'myHooks' => $webhooks
-			]);
-		} else
+	function __construct(){
+		if(!Auth::check())
 			return view('api.login');
+	}
+
+	public function index(){
+		$apiKey = Auth::user()->api_key;
+		if (!$apiKey) {
+			$apiKey = GenerateApiKey::generateKey();
+			User::find(Auth::user()->id)->update([
+				'api_key' => $apiKey
+			]);
+		}
+
+		$webhooks = Webhook::whereUser(Auth::user()->id)->get();
+
+		return view('api.docs', [
+			'apiKey' => $apiKey,
+			'docs' => Config::get('api.docs'),
+			'webhooks' => Webhooks::getTypes(),
+			'myHooks' => $webhooks
+		]);
 	}
 
 	public function generateKey(){

@@ -12,8 +12,8 @@
                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
             </div>
             <div class="wide field">
-                <label>Paste Content</label>
-                {!! Form::textarea('content') !!}
+                <label>Paste Content <small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
+                {!! Form::textarea('content', '', ['maxlength'=>env("PASTE_MAX_LEN", 500000)]) !!}
             </div>
             <div class="field">
                 <div class="ui toggle checkbox">

@@ -2,7 +2,7 @@ $(function(){
     $('textarea').autosize();
 
     $('.copyable').click(function(){
-        var text = $('.copyable').attr('data-url');
+        var text = $(this).data('url');
         copytext(text);
     });
 });

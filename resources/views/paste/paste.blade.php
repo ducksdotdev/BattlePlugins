@@ -19,6 +19,7 @@
             </small>
         </h1>
         @include('paste.partials.pastedata')
+        <small>{{ strlen($content) }} characters. <span id="lines"></span> lines.</small>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}
         </pre>

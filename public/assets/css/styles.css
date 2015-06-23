@@ -194,7 +194,7 @@ small {
 }
 
 pre, .pre {
-    font-size: 13px;
+    font-size: 12px;
     color: #545454;
     padding: 16px;
     background-color: #EDEDED;
@@ -204,10 +204,17 @@ pre, .pre {
 }
 
 .pre code, pre code {
-    font-size: 13px;
+    font-size: 12px;
     white-space: pre;
     color: #545454;
     background-color: transparent;
+}
+
+textarea.monospace {
+    font-family: monospace !important;
+    font-size: 12px;
+    word-wrap: break-word;
+    word-break: normal;
 }
 
 h1.grid-100 {
@@ -216,13 +223,6 @@ h1.grid-100 {
 
 h1 small {
     font-size: 20px;
-}
-
-textarea.monospace {
-    font-family: monospace !important;
-    font-size: 13px;
-    word-wrap: break-word;
-    word-break: normal;
 }
 
 .pull-right {

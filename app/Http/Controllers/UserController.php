@@ -13,7 +13,7 @@ class UserController extends Controller {
 		$rememberMe = $request->input('rememberMe');
 
 		if (Auth::attempt(['email' => $email, 'password' => $password], $rememberMe)) {
-			return redirect()->intended('/');
+			return redirect('/');
 		} else {
 			return redirect('/')->with('error', 'There was an error logging you in. Please make sure your email is correct (and is an @battleplugins.com email). Also, remember that your password is case sensitive.');
 		}

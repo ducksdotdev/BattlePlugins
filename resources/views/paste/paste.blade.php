@@ -49,6 +49,9 @@
         @endif
         {!! Form::close() !!}
     </div>
+    <div class="grid-container">
+        @include('paste.partials.pastedata')
+    </div>
 @stop
 @section('extraStyles')
     <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>

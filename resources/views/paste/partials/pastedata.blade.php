@@ -34,7 +34,4 @@
             </div>
         </div>
     </div>
-    <div class="text-center">
-        <small>Click on a URL to highlight it for copying.</small>
-    </div>
 </div>

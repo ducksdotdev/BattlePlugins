@@ -14,13 +14,7 @@
             <small>Created by {{ $author }}</small>
         </h1>
         <div class="grid-100">
-            Created <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>.
-            @if($paste->created_at != $paste->updated_at)
-                Last modified <span title="{{ $paste->updated_at }}">{{ $paste->updated_at->diffForHumans() }}</span>.
-            @endif<br />
-            Short URL: <a href="http://bplug.in/{{ $paste->slug }}">https://bplug.in/{{ $paste->slug }}</a> <a data-url="http://bplug.in/{{ $paste->slug }}" class="copyable"><i class="icon copy"></i></a><br/>
-            Raw URL: <a href="/{{ $paste->slug }}/raw">https://paste.battleplugins.com/{{ $paste->slug }}/raw</a> <a data-url="https://paste.battleplugins.com/{{ $paste->slug }}/raw" class="copyable"><i class="icon copy"></i></a><br/>
-            Download Link: <a href="/{{ $paste->slug }}/download">https://paste.battleplugins.com/{{ $paste->slug }}/download</a> <a data-url="https://paste.battleplugins.com/{{ $paste->slug }}/download" class="copyable"><i class="icon copy"></i></a>
+            @include('partials.paste.pastedata')
         </div>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}

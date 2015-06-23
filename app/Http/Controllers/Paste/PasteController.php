@@ -74,7 +74,8 @@ class PasteController extends Controller
             return abort(403);
 
 	    $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
-	    $lines_arr = preg_split('/\n|\r/',$content);
+
+	    $lines_arr = preg_split('/\n/',$content);
 	    $lines = count($lines_arr);
 
         return view('paste.paste', [

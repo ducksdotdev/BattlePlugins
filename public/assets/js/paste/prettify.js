@@ -2,7 +2,8 @@ $(function(){
     $('textarea').autosize();
 
     $('.copyable').click(function(){
-        copytext($('.copyable').data('url'));
+        var text = $('.copyable').attr('data-url');
+        copytext(text);
     });
 });
 

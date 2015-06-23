@@ -11,7 +11,12 @@
             @if($paste->public)
                 (Public)
             @endif
-            <small>Created by {{ $author }}</small>
+            <small>Created by {{ $author }} <span title="{{ $paste->created_at }}"
+                @if($paste->created_at != $paste->updated_at)
+                    title="Last modified {{ $paste->updated_at->diffForHumans() }} ({{ $paste->updated_at }})."
+                @endif
+                >{{ $paste->created_at->diffForHumans() }}</span>.
+            </small>
         </h1>
         @include('paste.partials.pastedata')
         <pre class="prettyprint linenums grid-100">

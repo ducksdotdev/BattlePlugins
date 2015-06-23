@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Tools\Models\Paste;
 use App\Tools\Models\ShortUrl;
 use App\Tools\Models\User;
+use App\Tools\URL\SlugGenerator;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,13 +24,9 @@ class PasteController extends Controller
         if (!$content || (strlen($content) > env("PASTE_MAX_LEN", 500000)))
             return redirect("/");
 
-        $slug = str_random(6);
+		$slug = SlugGenerator::generate();
 
-        while (Paste::where('slug', $slug)->first() || ShortUrl::wherePath($slug)->first())
-            $slug = str_random(6);
-
-
-        ShortUrl::create([
+	    ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
             'path' => $slug
         ]);

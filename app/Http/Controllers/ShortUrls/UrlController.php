@@ -27,6 +27,7 @@ class UrlController extends Controller
     public function create(Request $request)
     {
         $req = $request->get('url');
+        $req = Domain::stripTrailingSlash($req);
 
         if (!Domain::isUrl($req))
             return redirect('/')->with('error', 'Please enter a valid URL.');
@@ -34,10 +35,7 @@ class UrlController extends Controller
         $url = ShortUrl::where('url', $req)->first();
 
         if (!$url) {
-            $path = str_random(6);
-
-            while (ShortUrl::where('path', $path)->first())
-                $path = str_random(6);
+            $path = SlugGenerator::generate();
 
             ShortUrl::create([
                 'url' => $req,

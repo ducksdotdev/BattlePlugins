@@ -6,6 +6,7 @@ use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\PasteTransformer;
 use App\Tools\Models\Paste;
 use App\Tools\Models\ShortUrl;
+use App\Tools\URL\SlugGenerator;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -85,10 +86,7 @@ class PastesController extends ApiController
         else if(strlen($content) > env("PASTE_MAX_LEN", 500000))
             return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit.");
 
-        $slug = str_random(6);
-
-        while (Paste::where('slug', $slug)->first() || ShortUrl::wherePath($slug)->first())
-            $slug = str_random(6);
+	    $slug = SlugGenerator::generate();
 
         ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,

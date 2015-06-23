@@ -19,4 +19,8 @@ class Domain
         return !$validator->fails();
     }
 
+    public static function stripTrailingSlash($url){
+        return rtrim($url, "/");
+    }
+
 }

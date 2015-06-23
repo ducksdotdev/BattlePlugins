@@ -6,6 +6,7 @@ use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\ShortUrlTransformer;
 use App\Tools\Models\ShortUrl;
 use App\Tools\URL\Domain;
+use App\Tools\URL\SlugGenerator;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,7 @@ class ShortUrlsController extends ApiController
      */
     public function store() {
         $req = $this->request->get('url');
+	    $req = Domain::stripTrailingSlash($req);
 
         if(!Domain::isUrl($req))
             return $this->statusCode->respondWithError('Please enter a valid URL.');
@@ -36,10 +38,7 @@ class ShortUrlsController extends ApiController
         $url = ShortUrl::whereUrl($req)->first();
 
         if(!$url) {
-            $path = str_random(6);
-
-            while (ShortUrl::wherePath($path)->first())
-                $path = str_random(6);
+            $path = SlugGenerator::generate();
 
             ShortUrl::create([
                 'url' => $req,

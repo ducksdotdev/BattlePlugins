@@ -16,7 +16,7 @@ class UrlController extends Controller
      */
     public function redirect($path)
     {
-        $url = ShortUrl::where('path', $path)->first();
+        $url = ShortUrl::wherePath($path)->first();
 
         if ($url)
             return redirect($url->url);

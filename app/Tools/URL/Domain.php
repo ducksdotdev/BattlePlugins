@@ -30,7 +30,7 @@ class Domain
         $req = static::stripTrailingSlash($req);
 
         if (static::isUrl($req)) {
-            $url = ShortUrl::where('url', $req)->first();
+            $url = ShortUrl::whereUrl($req)->first();
 
             if (!$url) {
                 $path = SlugGenerator::generate();
@@ -43,7 +43,7 @@ class Domain
                 return $path;
             } else {
                 $url->last_used = Carbon::now();
-                $url->saved;
+                $url->save();
                 return $url->path;
             }
         }

@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Tools\API\StatusCodes\StatusCode;
+use App\Tools\Models\User;
 use Auth;
 use Closure;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class ApiAuthenticate
@@ -34,7 +34,7 @@ class ApiAuthenticate
         if (!$key)
             $key = $request->input('_key');
 
-        $result = DB::table('users')->where('api_key', $key)->first();
+        $result = User::where('api_key', $key)->first();
         if ($result) {
             Auth::loginUsingId($result->id);
             return $next($request);

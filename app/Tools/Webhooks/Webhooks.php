@@ -26,7 +26,7 @@ class Webhooks
 
     public function triggerWebhook($payload, $event)
     {
-        $urls = Webhook::where('event', $event)->lists('url');
+        $urls = Webhook::whereEvent($event)->lists('url');
 
         foreach ($urls as $url) {
             $this->dispatch(new SendPayload($url, 'POST', $payload));

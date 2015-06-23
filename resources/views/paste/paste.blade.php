@@ -13,7 +13,7 @@
             @endif
             <small>Created by {{ $author }}</small>
         </h1>
-        <div class="grid-100">
+        <div class="grid-100 ui form">
             @include('paste.partials.pastedata')
         </div>
         <pre class="prettyprint linenums grid-100">

@@ -7,7 +7,7 @@
                     <div class="grid-90 mobile-grid-90">
                         <h2>battlepaste</h2>
                     </div>
-                    <div class="grid-10 tablet-grid-10 mobile-grid-10 text-right actions">
+                    <div class="grid-10 tablet-grid-10 mobile-grid-10 pull-right actions">
                         @if(Auth::check())
                             <button id="createPaste" class="circular small ui positive icon button">
                                 <i class="icon plus"></i>

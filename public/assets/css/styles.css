@@ -224,3 +224,7 @@ textarea.monospace {
     word-wrap: break-word;
     word-break: normal;
 }
+
+.pull-right {
+    float: right;
+}

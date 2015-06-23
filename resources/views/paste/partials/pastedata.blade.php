@@ -1,4 +1,4 @@
-<div id="pastedata" class="grid-100 ui form">
+<div id="pastedata" class="hidden grid-100 ui form">
     <div class="three fields">
         <div class="field">
             <label>

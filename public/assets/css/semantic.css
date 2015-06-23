@@ -11365,7 +11365,6 @@ Standard Inputs
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     font-size: 1em;
     min-height: 8em;
-    max-height: 24em;
     line-height: 1.2857;
     resize: vertical;
 }

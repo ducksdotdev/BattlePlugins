@@ -18,7 +18,7 @@
                 @endif
             </small>
         </h1>
-        @include('paste.partials.pastedata')
+        @include('paste.partials.data')
         <small>{{ strlen($content) }} characters. {{ $lines }} lines.</small>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}
@@ -52,7 +52,7 @@
         {!! Form::close() !!}
     </div>
     <div class="grid-container">
-        @include('paste.partials.pastedata')
+        @include('paste.partials.data')
     </div>
 @stop
 @section('extraStyles')

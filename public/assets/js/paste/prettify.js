@@ -1,5 +1,10 @@
 $(function(){
     $('textarea').autosize();
+
+    $("#toggleShortUrls").click(function(){
+        $("#pastedata").toggleClass('hidden');
+        $("#short-pastedata").toggleClass('hidden');
+    });
 });
 
 // Copyright (C) 2006 Google Inc.

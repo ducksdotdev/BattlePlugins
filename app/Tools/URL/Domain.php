@@ -2,6 +2,7 @@
 
 namespace App\Tools\URL;
 
+use App\Tools\Models\ShortUrl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,6 +22,28 @@ class Domain
 
     public static function stripTrailingSlash($url){
         return rtrim($url, "/");
+    }
+
+    public static function shorten($req)
+    {
+        $req = static::stripTrailingSlash($req);
+
+        if (static::isUrl($req)) {
+
+            $url = ShortUrl::where('url', $req)->first();
+
+            if (!$url) {
+                $path = SlugGenerator::generate();
+
+                ShortUrl::create([
+                    'url' => $req,
+                    'path' => $path
+                ]);
+
+                return $path;
+            } else
+                return $url->path;
+        }
     }
 
 }

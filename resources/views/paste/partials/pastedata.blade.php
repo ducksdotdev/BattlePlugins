@@ -1,12 +1,12 @@
-<div class="grid-100 ui form">
+<div id="pastedata" class="grid-100 ui form">
     <div class="three fields">
         <div class="field">
             <label>
-                Short URL:
+                URL:
             </label>
             <div class="ui action input">
-                <input type="text" onclick="select()" value="http://bplug.in/{{ $paste->slug }}" readonly />
-                <a class="ui right icon button" href="http://bplug.in/{{ $paste->slug }}">
+                <input type="text" onclick="select()" value="{{ url($paste->slug) }}" readonly />
+                <a class="ui right icon button" href="/{{ $paste->slug }}">
                     <i class="external icon"></i>
                 </a>
             </div>

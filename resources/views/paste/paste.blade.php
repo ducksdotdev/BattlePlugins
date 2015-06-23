@@ -19,10 +19,11 @@
             </small>
         </h1>
         @include('paste.partials.pastedata')
-        <small>{{ strlen($content) }} characters. {{ $lines }} lines (+1 for EOF).</small>
+        <small>{{ strlen($content) }} characters. {{ $lines }} lines.</small>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}
         </pre>
+        <small>{{ strlen($content) }} characters. {{ $lines }} lines.</small>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
             <div class="grid-100 text-right">
                 @if($paste->public)

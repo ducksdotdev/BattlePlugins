@@ -2,8 +2,8 @@ $(function(){
     $('textarea').autosize();
 
     $("#toggleShortUrls").click(function(){
-        $("#pastedata").toggleClass('hidden');
-        $("#short-pastedata").toggleClass('hidden');
+        $(".pastedata").toggleClass('hidden');
+        $(".short-pastedata").toggleClass('hidden');
     });
 });
 

@@ -8,6 +8,7 @@ use App\Tools\Models\User;
 use App\Tools\Models\Webhook;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
+use Illuminate\Support\Facades\Config;
 
 class PageController extends Controller {
 

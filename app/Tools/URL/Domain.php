@@ -42,8 +42,9 @@ class Domain
 
                 return $path;
             } else {
-                $url->last_used = Carbon::now();
-                $url->save();
+                ShortUrl::whereUrl($req)->update([
+                    'last_used' => Carbon::now()
+                ]);
                 return $url->path;
             }
         }

@@ -10,7 +10,7 @@
 <body>
 <nav class="header-follow">
     <div class="grid-container">
-        <div class="grid-50 tablet-grid-50 mobile-grid-50">
+        <div class="grid-50 tablet-grid-50 mobile-grid-50 brand">
             <h1>battlewebapi</h1>
         </div>
         @if(Auth::check())

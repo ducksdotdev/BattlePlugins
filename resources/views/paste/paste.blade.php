@@ -41,7 +41,7 @@
         {!! Form::hidden('id', $paste->id) !!}
         <div class="grid-100">
             <label for="content"><small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
-            {!! Form::textarea('content', $content, ['maxlength'=>env("PASTE_MAX_LEN", 500000)]) !!}
+            {!! Form::textarea('content', $content, ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}
         </div>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
             <div class="grid-100 text-right">
@@ -57,5 +57,6 @@
     <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
 @stop
 @section('extraScripts')
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.18/jquery.autosize.min.js"></script>
     <script src="/assets/js/paste/prettify.js"></script>
 @stop

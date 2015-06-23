@@ -13,7 +13,7 @@
             </div>
             <div class="wide field">
                 <label>Paste Content <small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
-                {!! Form::textarea('content', '', ['maxlength'=>env("PASTE_MAX_LEN", 500000)]) !!}
+                {!! Form::textarea('content', '', ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}
             </div>
             <div class="field">
                 <div class="ui toggle checkbox">

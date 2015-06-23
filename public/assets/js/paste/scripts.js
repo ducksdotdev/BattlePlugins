@@ -4,8 +4,6 @@ $(function () {
 
     $('.ui.checkbox').checkbox();
 
-    $('textarea').autosize()
-
     $("#createPaste").click(function () {
         $("#createPaste").addClass("loading");
         $("#createPasteModal").modal({

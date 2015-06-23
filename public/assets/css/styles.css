@@ -217,3 +217,10 @@ h1.grid-100 {
 h1 small {
     font-size: 20px;
 }
+
+textarea.monospace {
+    font-family: monospace !important;
+    font-size: 13px;
+    word-wrap: break-word;
+    word-break: normal;
+}

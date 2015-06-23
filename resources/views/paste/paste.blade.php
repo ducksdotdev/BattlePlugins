@@ -36,7 +36,7 @@
         {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
         {!! Form::hidden('id', $paste->id) !!}
         <div class="grid-100">
-            {!! Form::textarea('content', $content, ['rows'=>substr_count($content, "\n")]) !!}
+            {!! Form::textarea('content', $content) !!}
         </div>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
             <div class="grid-100 text-right">

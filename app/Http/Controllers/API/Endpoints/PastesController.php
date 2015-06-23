@@ -82,6 +82,8 @@ class PastesController extends ApiController
 
         if (!$content)
             return $this->statusCode->respondWithError("A required field has been left blank.");
+        else if(strlen($content) > env("PASTE_MAX_LEN", 500000))
+            return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit.");
 
         $slug = str_random(6);
 

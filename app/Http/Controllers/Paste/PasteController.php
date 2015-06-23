@@ -18,6 +18,11 @@ class PasteController extends Controller
 
     public function createPaste(Request $request)
     {
+        $content = $request->get('content');
+
+        if (!$content || (strlen($content) > env("PASTE_MAX_LEN", 500000)))
+            return redirect("/");
+
         $slug = str_random(6);
 
         while (Paste::where('slug', $slug)->first() || ShortUrl::wherePath($slug)->first())
@@ -29,7 +34,7 @@ class PasteController extends Controller
             'path' => $slug
         ]);
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $request->get('content'));
+        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
         Paste::create([
             'slug' => $slug,
@@ -43,12 +48,17 @@ class PasteController extends Controller
 
     public function editPaste(Request $request)
     {
+        $content = $request->get('content');
+
+        if (!$content || (strlen($content) > env("PASTE_MAX_LEN", 500000)))
+            return redirect("/");
+
         $paste = Paste::find($request->id);
 
         if ($paste->creator == Auth::user()->id) {
             $slug = $paste->slug;
 
-            file_put_contents(storage_path() . "/app/pastes/$slug.txt", $request->get('content'));
+            file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
             $paste->updated_at = Carbon::now();
             $paste->save();

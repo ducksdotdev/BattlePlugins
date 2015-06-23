@@ -2,8 +2,9 @@ $(function(){
     $('textarea').autosize();
 
     $('.copyable').click(function(){
+        var text = $(this).attr('data-url');
         var textField = document.createElement('textarea');
-        textField.innerText = $(this).attr('data-url');
+        textField.innerText = text;
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');

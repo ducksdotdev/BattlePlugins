@@ -18,11 +18,13 @@
         <div class="brand grid-50 tablet-grid-50 mobile-grid-50">
             <h1><a href="/">battlepaste</a></h1>
         </div>
-        @if(Auth::check())
-            <div class="grid-50 tablet-grid-50 mobile-grid-50 text-right">
-                <a href="/logout" class="ui button primary">Logout</a>
-            </div>
-        @endif
+        <div class="grid-50 tablet-grid-50 mobile-grid-50 text-right">
+            @if(Auth::check())
+                <a href="/logout" class="ui button default">Logout</a>
+            @else
+                <a href="/login" class="ui button primary">Login</a>
+            @endif
+        </div>
     </div>
 </nav>
 @yield('content')

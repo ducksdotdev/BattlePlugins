@@ -1,15 +1,5 @@
 $(function(){
     $('textarea').autosize();
-
-    $('.copyable').click(function(){
-        var text = $(this).attr('data-url');
-        var textField = document.createElement('textarea');
-        textField.innerText = text;
-        document.body.appendChild(textField);
-        textField.select();
-        document.execCommand('copy');
-        textField.remove();
-    });
 });
 
 // Copyright (C) 2006 Google Inc.

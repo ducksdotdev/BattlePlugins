@@ -73,11 +73,16 @@ class PasteController extends Controller
         else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
             return abort(403);
 
+	    $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+	    $lines_arr = preg_split('/\n|\r/',$content);
+	    $lines = count($lines_arr);
+
         return view('paste.paste', [
             'paste' => $paste,
             'author' => User::find($paste->creator)->displayname,
             'url' => ShortUrl::wherePath($slug)->first(),
-            'content' => file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt")
+	        'lines' => $lines,
+            'content' => $content
         ]);
     }
 

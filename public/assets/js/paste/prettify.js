@@ -1,6 +1,5 @@
 $(function(){
     $('textarea').autosize();
-    $('#lines').text($(".linenums li").length - 1);
 });
 
 // Copyright (C) 2006 Google Inc.

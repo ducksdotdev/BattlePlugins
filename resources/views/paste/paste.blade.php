@@ -19,7 +19,7 @@
             </small>
         </h1>
         @include('paste.partials.pastedata')
-        <small>{{ strlen($content) }} characters. <span id="lines"></span> lines.</small>
+        <small>{{ strlen($content) }} characters. {{ $lines }} lines.</small>
         <pre class="prettyprint linenums grid-100">
             {{ PHP_EOL . $content }}
         </pre>
@@ -59,5 +59,5 @@
 @stop
 @section('extraScripts')
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.18/jquery.autosize.min.js"></script>
-    <script src="/assets/js/paste/prettify.js"></script>
+    <script type="text/javascript" src="/assets/js/paste/prettify.js"></script>
 @stop

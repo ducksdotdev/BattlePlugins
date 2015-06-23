@@ -19,7 +19,7 @@
             Download Link: <a href="/{{ $paste->slug }}/download">https://paste.battleplugins.com/{{ $paste->slug }}/download</a>
         </div>
         <pre class="prettyprint linenums grid-100">
-            {{ $content }}
+            {{ PHP_EOL . $content }}
         </pre>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
             <div class="grid-100 text-right">

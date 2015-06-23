@@ -93,7 +93,7 @@ class PastesController extends ApiController
             'path' => $slug
         ]);
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", PHP_EOL . $content);
+        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
         Paste::create([
             'slug' => $slug,

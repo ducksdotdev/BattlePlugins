@@ -16,7 +16,7 @@
                 Raw URL:
             </label>
             <div class="ui action input">
-                <input type="text" onclick="select()" value="http://paste.battleplugins.com/{{ $paste->slug }}/raw" readonly />
+                <input type="text" onclick="select()" value="{{ url($paste->slug .'/raw') }}" readonly />
                 <a class="ui right icon button" href="/{{ $paste->slug }}/raw">
                     <i class="external icon"></i>
                 </a>
@@ -27,7 +27,7 @@
                 Download Link:
             </label>
             <div class="ui action input">
-                <input type="text" onclick="select()" value="http://paste.battleplugins.com/{{ $paste->slug }}/download" readonly />
+                <input type="text" onclick="select()" value="{{ url($paste->slug .'/download') }}" readonly />
                 <a class="ui right icon button" href="/{{ $paste->slug }}/download">
                     <i class="external icon"></i>
                 </a>

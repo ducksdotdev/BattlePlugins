@@ -212,7 +212,7 @@ pre, .pre {
 
 textarea.monospace {
     font-family: monospace !important;
-    font-size: 12px;
+    font-size: 12px !important;
     word-wrap: break-word;
     word-break: normal;
 }

@@ -1,6 +1,9 @@
 <div class="item">
     <div class="content @if(Auth::check()) grid-90 @else grid-100 @endif">
         <div class="header">
+            @if($paste->public)
+                (Public)
+            @endif
             <a href="/{{ $paste->slug }}">
                 @if($paste->title)
                     {{ $paste->title }}
@@ -10,9 +13,6 @@
             </a>
         </div>
         <div class="description">
-            @if($paste->public)
-                (Public)
-            @endif
             Created <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>.
             @if($paste->created_at != $paste->updated_at)
                 Last modified <span title="{{ $paste->updated_at }}">{{ $paste->updated_at->diffForHumans() }}</span>

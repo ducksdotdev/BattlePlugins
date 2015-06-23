@@ -35,11 +35,9 @@ class PageController extends Controller {
 	}
 
 	public function generateKey(){
-		$apiKey = GenerateApiKey::generateKey();
-
-		User::find(Auth::user()->id)->update([
-			'api_key' => $apiKey
-		]);
+		$user = Auth::user();
+		$user->api_key = GenerateApiKey::generateKey();
+		$user->save();
 
 		return redirect('/');
 	}

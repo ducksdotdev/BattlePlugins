@@ -1,6 +1,17 @@
 $(function(){
-    $('textarea').autosize()
+    $('textarea').autosize();
+
+    copytext($('.copyable').data('url'));
 });
+
+function copytext(text) {
+    var textField = document.createElement('textarea');
+    textField.innerText = text;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+}
 
 // Copyright (C) 2006 Google Inc.
 //

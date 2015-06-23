@@ -13,9 +13,9 @@
             @if($paste->public)
                 (Public)
             @endif
-            Created {{ $paste->created_at->diffForHumans() }}.
+            Created <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>.
             @if($paste->created_at != $paste->updated_at)
-                Last modified {{ $paste->updated_at->diffForHumans() }}
+                Last modified <span title="{{ $paste->updated_at }}">{{ $paste->updated_at->diffForHumans() }}</span>
             @endif
         </div>
     </div>

@@ -22,4 +22,7 @@
             <input type="text" onclick="select()" value="http://paste.battleplugins.com/{{ $paste->slug }}/download" readonly />
         </div>
     </div>
+    <div class="text-center">
+        <small>Click on a URL to highlight it for copying.</small>
+    </div>
 </div>

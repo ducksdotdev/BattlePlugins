@@ -12,7 +12,7 @@
                 (Public)
             @endif
             <small>
-                Created by {{ $author }} <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>.
+                Created by {{ $author }} <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>
                 @if($paste->created_at != $paste->updated_at)
                     <span title="Last modified {{ $paste->updated_at->diffForHumans() }} ({{ $paste->updated_at }}).">*</span>
                 @endif

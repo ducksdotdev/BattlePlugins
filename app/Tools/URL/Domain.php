@@ -48,6 +48,8 @@ class Domain
                 return $url->path;
             }
         }
+
+        return null;
     }
 
 }

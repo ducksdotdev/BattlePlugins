@@ -21,13 +21,20 @@ class UrlController extends Controller
         if ($url)
             return redirect($url->url);
 
-        return redirect('/');
+        return abort(404);
     }
 
     public function create(Request $request)
     {
+        if(!$request->has('url'))
+            redirect('/')->with('error', 'Please use a proper URL.');
+
         $req = $request->get('url');
         $path = Domain::shorten($req);
+
+        if(!$path)
+            redirect('/')->with('error', 'Please use a proper URL.');
+
         return redirect('/')->with('url_path', $path);
     }
 

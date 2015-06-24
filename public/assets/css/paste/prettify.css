@@ -1,3 +1,7 @@
+.paste {
+    position: relative;
+    padding-top: 2px;
+}
 @media screen {
     .str {
         color: #080

@@ -21,7 +21,12 @@
         @include('paste.partials.data')
         <div class="grid-100">
             <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
-            <pre class="prettyprint linenums">{{ $content }}</pre>
+            <div class="paste">
+                @if($lang != 'auto')
+                    <div class="ui top attached blue label">{{ $lang }}</div>
+                @endif
+                <pre class="prettyprint linenums lang-{{ $lang }}">{{ $content }}</pre>
+            </div>
             <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
         </div>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
@@ -57,6 +62,7 @@
 @stop
 @section('extraStyles')
     <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
 @stop
 @section('extraScripts')
     <script type="text/javascript" src="/assets/js/paste/prettify.js"></script>

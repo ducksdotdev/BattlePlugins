@@ -24,9 +24,9 @@ class PasteController extends Controller
         if (!$content)
             return redirect("/");
 
-		$slug = SlugGenerator::generate();
+        $slug = SlugGenerator::generate();
 
-	    ShortUrl::create([
+        ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
             'path' => $slug
         ]);
@@ -75,17 +75,27 @@ class PasteController extends Controller
         else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
             return abort(403);
 
-	    $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+        $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
 
-	    $lines_arr = preg_split('/\n/',$content);
-	    $lines = count($lines_arr);
+        $lines_arr = preg_split('/\n/',$content);
+        $lines = count($lines_arr);
+
+        $words = explode('.', $paste->title);
+        if(count($words) > 1) {
+            $pos = count($words)-1;
+            $lang = strtoupper($words[$pos]);
+            if(!in_array($lang, config('paste')))
+                $lang = 'auto';
+        } else
+            $lang = 'auto';
 
         return view('paste.paste', [
             'paste' => $paste,
             'author' => User::find($paste->creator)->displayname,
             'url' => ShortUrl::wherePath($slug)->first(),
-	        'lines' => $lines,
-            'content' => $content
+            'lines' => $lines,
+            'content' => $content,
+            'lang' => $lang
         ]);
     }
 

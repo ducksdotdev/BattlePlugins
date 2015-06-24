@@ -10,6 +10,7 @@ nav {
 
   .brand {
     font-family: "Tenby Five", Lato, sans-serif;
+    color: white;
 
     a:hover {
       color: white;
@@ -95,14 +96,6 @@ nav {
 
 #loginDropDownButton, #logoutButton {
   margin-top: 10px;
-}
-
-code {
-  padding: 2px 4px;
-  font-size: 90%;
-  color: #c7254e;
-  background-color: #f9f2f4;
-  border-radius: 4px;
 }
 
 footer {
@@ -206,6 +199,14 @@ pre, .pre {
     color: #545454;
     background-color: transparent;
   }
+}
+
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
 }
 
 textarea.monospace {

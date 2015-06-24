@@ -11,7 +11,7 @@
             @if($paste->public)
                 (Public)
             @endif
-            <small>
+            <small class="author">
                 Created by {{ $author }} <span title="{{ $paste->created_at }}">{{ $paste->created_at->diffForHumans() }}</span>
                 @if($paste->created_at != $paste->updated_at)
                     <span title="Last modified {{ $paste->updated_at->diffForHumans() }} ({{ $paste->updated_at }}).">*</span>
@@ -19,18 +19,7 @@
             </small>
         </h1>
         @include('paste.partials.data')
-        @include('paste.partials.actions')
-        <div class="grid-100">
-            <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
-            <div class="paste">
-                @if($lang != 'txt')
-                    <div class="ui top attached blue label">{{ $lang }}</div>
-                @endif
-                <pre class="prettyprint linenums lang-{{ $lang }}">{{ $content }}</pre>
-            </div>
-            <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
-        </div>
-        @include('paste.partials.actions')
+        @include('paste.paritals.pastepre')
     </div>
     <div class="grid-container">
         {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
@@ -55,8 +44,8 @@
 @section('extraStyles')
     @if($lang != 'txt')
         <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
     @endif
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
 @stop
 @section('extraScripts')
     <script type="text/javascript" src="/assets/js/paste/prettify.js"></script>

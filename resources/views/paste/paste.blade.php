@@ -59,6 +59,5 @@
     <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
 @stop
 @section('extraScripts')
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.18/jquery.autosize.min.js"></script>
     <script type="text/javascript" src="/assets/js/paste/prettify.js"></script>
 @stop

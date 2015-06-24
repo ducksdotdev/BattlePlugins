@@ -16,7 +16,7 @@
                             {!! Form::open(['id'=>'createPasteForm','url'=>URL::to('/create', [], env('HTTPS_ENABLED', true)),
                             'class'=>'ui form']) !!}
                             <div class="twelve wide field">
-                                <label for="title">Title</label>
+                                <label for="title">Title <small>(Optional)</small></label>
                                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
                             </div>
                             <div class="wide field">

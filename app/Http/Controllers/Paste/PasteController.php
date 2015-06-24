@@ -22,7 +22,7 @@ class PasteController extends Controller
         $content = $request->get('content');
 
         if (!$content)
-            return redirect("/");
+            return redirect("/")->with('error', 'Do not leave the content field blank.');
 
         $slug = SlugGenerator::generate();
 

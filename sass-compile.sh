@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-sass /resources/assets/sass/master.scss:/public/assets/css/styles.css && sass /resources/assets/sass/errors.scss:/public/assets/css/errors.css
+sass $( dirname ${BASH_SOURCE[0]} )/resources/assets/sass/master.scss:$( dirname ${BASH_SOURCE[0]} )/public/assets/css/styles.css && sass $( dirname ${BASH_SOURCE[0]} )/resources/assets/sass/errors.scss:$( dirname ${BASH_SOURCE[0]} )/public/assets/css/errors.css

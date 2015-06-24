@@ -9,7 +9,7 @@ nav {
   }
 
   .brand {
-    font-family: "Tenby Five";
+    font-family: "Tenby Five", Lato, sans-serif;
 
     a {
       color: white;
@@ -58,7 +58,7 @@ nav {
 }
 
 #task-header {
-  font-family: "Tenby Five";
+  font-family: "Tenby Five", Lato, sans-serif;
   font-size: 20px;
   background: #2095F2;
   padding: 0 10px;
@@ -181,16 +181,18 @@ small {
   }
 }
 
-.item.highlighted {
-  background-color: rgb(255, 255, 186);
-}
+.item {
+  &.deleted {
+    background-color: rgb(255, 186, 186)
+  }
 
-.item.completed {
-  background-color: rgb(186, 255, 189);
-}
+  &.completed {
+    background-color: rgb(186, 255, 189);
+  }
 
-.item.deleted {
-  background-color: rgb(255, 186, 186)
+  &.highlighted {
+    background-color: rgb(255, 255, 186);
+  }
 }
 
 pre, .pre {
@@ -217,12 +219,14 @@ textarea.monospace {
   word-break: normal;
 }
 
-h1.grid-100 {
-  margin: 0;
-}
+h1 {
+  &.grid-100 {
+    margin: 0;
+  }
 
-h1 small {
-  font-size: 20px;
+  small {
+    font-size: 20px;
+  }
 }
 
 .pull-right {

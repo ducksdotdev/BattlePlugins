@@ -285,7 +285,7 @@ return array(
                 ),
                 array(
                     'title' => 'Create Paste',
-                    'url' => 'Pastes',
+                    'url' => 'pastes',
                     'methods' => array(
                         array(
                             'name' => 'post',

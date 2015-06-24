@@ -11,12 +11,8 @@ nav {
   .brand {
     font-family: "Tenby Five", Lato, sans-serif;
 
-    a {
+    a:hover {
       color: white;
-
-      &:hover {
-        color: white;
-      }
     }
   }
 
@@ -42,7 +38,7 @@ nav {
         margin-left: 40px;
       }
 
-      &a {
+      a {
         color: white;
 
         &:hover {

@@ -12,8 +12,12 @@ nav {
     font-family: "Tenby Five", Lato, sans-serif;
     color: white;
 
-    a:hover {
+    a {
       color: white;
+
+      &:hover {
+        color: white;
+      }
     }
   }
 
@@ -39,12 +43,8 @@ nav {
         margin-left: 40px;
       }
 
-      a {
-        color: white;
-
-        &:hover {
-          color: rgb(149, 204, 247);
-        }
+      a:hover {
+        color: rgb(149, 204, 247);
       }
     }
   }

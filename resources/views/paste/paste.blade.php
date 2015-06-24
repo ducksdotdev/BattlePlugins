@@ -18,9 +18,6 @@
                 @endif
             </small>
         </h1>
-        <div class="grid-15 text-right">
-            <button class="toggleShortUrls ui button small">Toggle Short URLs</button>
-        </div>
         @include('paste.partials.data')
         @include('paste.partials.actions')
         <div class="grid-100">
@@ -53,9 +50,6 @@
     </div>
     <div class="grid-container">
         @include('paste.partials.data')
-        <div class="grid-100 text-right">
-            <button class="toggleShortUrls ui button small">Toggle Short URLs</button>
-        </div>
     </div>
 @stop
 @section('extraStyles')

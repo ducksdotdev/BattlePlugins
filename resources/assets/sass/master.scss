@@ -43,8 +43,12 @@ nav {
         margin-left: 40px;
       }
 
-      a:hover {
-        color: rgb(149, 204, 247);
+      a {
+        color: white;
+
+        &:hover {
+          color: rgb(149, 204, 247);
+        }
       }
     }
   }
@@ -79,6 +83,14 @@ nav {
 
 .text-right {
   text-align: right;
+}
+
+.pull-right {
+  float: right;
+}
+
+.hidden {
+  display: none;
 }
 
 .grid-center {
@@ -224,12 +236,4 @@ h1 {
   small {
     font-size: 20px;
   }
-}
-
-.pull-right {
-  float: right;
-}
-
-.hidden {
-  display: none;
 }

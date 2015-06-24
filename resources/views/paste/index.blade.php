@@ -15,8 +15,13 @@
                         <div class="description">
                             {!! Form::open(['id'=>'createPasteForm','url'=>URL::to('/create', [], env('HTTPS_ENABLED', true)),
                             'class'=>'ui form']) !!}
-                            <div class="twelve wide field">
-                                <label for="title">Title <small>(Optional)</small></label>
+                            <div class="field">
+                                <label for="title">Title
+                                    <small>(Optional. End your title with the file type to use
+                                        that language's syntax highlighter. IE: ending a file with .css will use css
+                                        highlighting)
+                                    </small>
+                                </label>
                                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
                             </div>
                             <div class="wide field">

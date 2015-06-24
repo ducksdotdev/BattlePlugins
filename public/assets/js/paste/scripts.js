@@ -3,4 +3,5 @@ $(function () {
     'use strict';
 
     $('.ui.checkbox').checkbox();
+    $('textarea.monospace').autosize();
 });

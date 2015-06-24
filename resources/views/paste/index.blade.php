@@ -16,11 +16,14 @@
                             {!! Form::open(['id'=>'createPasteForm','url'=>URL::to('/create', [], env('HTTPS_ENABLED', true)),
                             'class'=>'ui form']) !!}
                             <div class="twelve wide field">
-                                <label>Title</label>
+                                <label for="title">Title</label>
                                 {!! Form::text('title', '', ['maxlength'=>64]) !!}
                             </div>
                             <div class="wide field">
-                                <label>Paste Content <small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
+                                <label for="content">
+                                    Paste Content
+                                    <small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small>
+                                </label>
                                 {!! Form::textarea('content', '', ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}
                             </div>
                             <div class="field">

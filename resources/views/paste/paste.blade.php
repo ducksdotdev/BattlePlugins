@@ -19,7 +19,7 @@
             </small>
         </h1>
         @include('paste.partials.data')
-        @include('paste.paritals.pastepre')
+        @include('paste.partials.pastepre')
     </div>
     <div class="grid-container">
         {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}

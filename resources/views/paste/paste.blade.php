@@ -19,11 +19,11 @@
             </small>
         </h1>
         @include('paste.partials.data')
-        <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
-        <pre class="prettyprint linenums grid-100">
-            {{ PHP_EOL . $content }}
-        </pre>
-        <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
+        <div class="grid-100">
+            <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
+            <pre class="prettyprint linenums">{{ $content }}</pre>
+            <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
+        </div>
         @if(Auth::check() && Auth::user()->id == $paste->creator)
             <div class="grid-100 text-right">
                 @if($paste->public)

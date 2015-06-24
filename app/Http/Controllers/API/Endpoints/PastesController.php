@@ -80,11 +80,12 @@ class PastesController extends ApiController
     {
         $title = $this->request->input('title');
         $content = $this->request->input('content');
+        $force = $this->request->input('force');
 
         if (!$content)
             return $this->statusCode->respondWithError("A required field has been left blank.");
-        else if(strlen($content) > env("PASTE_MAX_LEN", 500000))
-            return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit.");
+        else if(strlen($content) > env("PASTE_MAX_LEN", 500000) && !$force)
+            return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit. Set the force param to true to cut your paste after " . env("PASTE_MAX_LEN", 500000) . "characters");
 
 	    $slug = SlugGenerator::generate();
 

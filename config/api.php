@@ -302,8 +302,10 @@ return array(
                     ),
                     'description' => 'This endpoint will create a new paste. The message field of a successful paste
                     will contain the slug to the paste and shorturl. IE) The message is gIRj65 which means bplug
-                    .in/gIRj65 will bring you to that paste.',
-                    'params' => array('title VARCHAR(64)', 'content TEXT()', 'public BOOLEAN'),
+                    .in/gIRj65 will bring you to that paste. If your paste content exceeds '. env("PASTE_MAX_LEN", 500000) .' characters, it will throw an error. You can force the paste to cut after the
+                            maximum length by setting the force param to true.',
+                    'params' => array('title VARCHAR(64)', 'content TEXT('. env("PASTE_MAX_LEN", 500000) .')', 'public BOOLEAN()', 'force BOOLEAN
+                    ()'),
                 ),
                 array(
                     'title' => 'Delete Paste',

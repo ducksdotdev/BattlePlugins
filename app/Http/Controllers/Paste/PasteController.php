@@ -21,7 +21,7 @@ class PasteController extends Controller
     {
         $content = $request->get('content');
 
-        if (!$content || (strlen($content) > env("PASTE_MAX_LEN", 500000)))
+        if (!$content)
             return redirect("/");
 
 		$slug = SlugGenerator::generate();
@@ -31,7 +31,8 @@ class PasteController extends Controller
             'path' => $slug
         ]);
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
+        file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
+            500000)));
 
         Paste::create([
             'slug' => $slug,
@@ -47,7 +48,7 @@ class PasteController extends Controller
     {
         $content = $request->get('content');
 
-        if (!$content || (strlen($content) > env("PASTE_MAX_LEN", 500000)))
+        if (!$content)
             return redirect("/");
 
         $paste = Paste::find($request->id);
@@ -55,7 +56,8 @@ class PasteController extends Controller
         if ($paste->creator == Auth::user()->id) {
             $slug = $paste->slug;
 
-            file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
+            file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
+                500000)));
 
             $paste->updated_at = Carbon::now();
             $paste->save();

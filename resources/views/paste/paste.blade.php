@@ -53,7 +53,9 @@
     </div>
 @stop
 @section('extraStyles')
-    <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
+    @if($lang != 'txt')
+        <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
+    @endif
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
 @stop
 @section('extraScripts')

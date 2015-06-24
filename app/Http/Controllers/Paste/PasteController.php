@@ -85,9 +85,9 @@ class PasteController extends Controller
             $pos = count($words)-1;
             $lang = strtoupper($words[$pos]);
             if(!in_array($lang, config('paste')))
-                $lang = 'auto';
+                $lang = 'txt';
         } else
-            $lang = 'auto';
+            $lang = 'txt';
 
         return view('paste.paste', [
             'paste' => $paste,

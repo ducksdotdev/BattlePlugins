@@ -18,7 +18,7 @@
     </div>
     <div class="grid-100">
         <h4>We couldn't find the page you were looking for!</h4>
-        <h4><a href="/">Click here to Return to a page we <em>can</em> find.</a></h4>
+        <h4><a href="/">Click here to go to a page we <em>can</em> find.</a></h4>
     </div>
     <div class="grid-100">
         @include('footer')

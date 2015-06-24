@@ -1,7 +1,7 @@
 @extends('paste.layouts.paste')
 @section('content')
     <div class="grid-container">
-        <h1 class="grid-100">
+        <h1 class="grid-85">
             @if($paste->title)
                 {{ $paste->title }}
             @else
@@ -18,7 +18,11 @@
                 @endif
             </small>
         </h1>
+        <div class="grid-15 text-right">
+            <button class="toggleShortUrls ui button small">Toggle Short URLs</button>
+        </div>
         @include('paste.partials.data')
+        @include('paste.partials.actions')
         <div class="grid-100">
             <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
             <div class="paste">
@@ -29,16 +33,7 @@
             </div>
             <small>{{ strlen($content) }}/{{ env("PASTE_MAX_LEN", 500000) }} characters. {{ $lines }} lines.</small>
         </div>
-        @if(Auth::check() && Auth::user()->id == $paste->creator)
-            <div class="grid-100 text-right">
-                @if($paste->public)
-                    <a href="/togglepub/{{ $paste->id }}" class="ui button black">Make Private</a>
-                @else
-                    <a href="/togglepub/{{ $paste->id }}" class="ui button green">Make Public</a>
-                @endif
-                <a href="/delete/{{ $paste->id }}" class="ui button red">Delete Paste</a>
-            </div>
-        @endif
+        @include('paste.partials.actions')
     </div>
     <div class="grid-container">
         {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
@@ -58,6 +53,9 @@
     </div>
     <div class="grid-container">
         @include('paste.partials.data')
+        <div class="grid-100 text-right">
+            <button class="toggleShortUrls ui button small">Toggle Short URLs</button>
+        </div>
     </div>
 @stop
 @section('extraStyles')

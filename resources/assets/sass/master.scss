@@ -1,0 +1,230 @@
+nav {
+  background: #2095F2;
+  color: #fcfcfc;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+
+  &.header-follow {
+    margin-bottom: 0;
+  }
+
+  .brand {
+    font-family: "Tenby Five";
+
+    a {
+      color: white;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  .ui.button {
+    margin-top: 18px !important;
+  }
+
+  ul {
+    list-style: none;
+    text-align: right;
+    margin: 24px 0 0 0;
+    padding: 0;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    li {
+      display: inline;
+      margin: 0;
+      padding: 0;
+
+      &+li {
+        margin-left: 40px;
+      }
+
+      &a {
+        color: white;
+
+        &:hover {
+          color: rgb(149, 204, 247);
+        }
+      }
+    }
+  }
+}
+
+#header {
+  background: white;
+}
+
+#task-header {
+  font-family: "Tenby Five";
+  font-size: 20px;
+  background: #2095F2;
+  padding: 0 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: #fcfcfc;
+  box-sizing: border-box;
+
+  .actions {
+    margin-top: 27px;
+  }
+}
+
+.message a.short-link {
+  font-size: 3vw;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.grid-center {
+  margin: 0 auto;
+  float: none !important;
+}
+
+.grid-100 + .grid-100 {
+  margin-top: 10px;
+}
+
+#loginButton {
+  margin-left: 17px
+}
+
+#loginDropDownButton, #logoutButton {
+  margin-top: 10px;
+}
+
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+footer {
+  margin: 20px 0;
+  color: #a3a3a3;
+  text-align: center;
+  font-size: 10px;
+}
+
+#loginBox {
+  margin: 30px 0;
+}
+
+.grid-container + .grid-container {
+  margin-top: 15px;
+}
+
+.accordion {
+  margin-top: 30px;
+}
+
+.header {
+  font-weight: bold;
+}
+
+#latestBlogPosts {
+  border-left: 1px solid #d9d9d9;
+  background-color: transparent;
+}
+
+#blog {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+small {
+  color: #a3a3a3;
+
+  &.author {
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+
+.description img {
+  max-width: 100%;
+}
+
+#delete.button {
+  margin-top: 15px;
+}
+
+.list {
+  background: white;
+  padding-bottom: 15px;
+
+  .actions {
+    float: right;
+    margin-top: 5px;
+
+    .button {
+      margin-bottom: 5px;
+    }
+  }
+
+  .header {
+    padding: 10px 0;
+  }
+
+  .description {
+    margin-bottom: 10px;
+  }
+}
+
+.item.highlighted {
+  background-color: rgb(255, 255, 186);
+}
+
+.item.completed {
+  background-color: rgb(186, 255, 189);
+}
+
+.item.deleted {
+  background-color: rgb(255, 186, 186)
+}
+
+pre, .pre {
+  font-size: 12px;
+  color: #545454;
+  padding: 16px;
+  background-color: #EDEDED;
+  word-wrap: break-word;
+  font-family: monospace;
+  word-break: normal;
+
+  code, .code {
+    font-size: 12px;
+    white-space: pre;
+    color: #545454;
+    background-color: transparent;
+  }
+}
+
+textarea.monospace {
+  font-family: monospace !important;
+  font-size: 12px !important;
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+h1.grid-100 {
+  margin: 0;
+}
+
+h1 small {
+  font-size: 20px;
+}
+
+.pull-right {
+  float: right;
+}

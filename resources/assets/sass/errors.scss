@@ -1,0 +1,23 @@
+body {
+  text-align: center;
+  padding-top: 100px;
+  font: 20px Helvetica, sans-serif;
+  color: #333;
+}
+
+a {
+  color: #428bca;
+  text-decoration: none;
+
+  &:hover {
+    color: #2a6496;
+    text-decoration: underline;
+  }
+}
+
+footer {
+  margin: 20px 0;
+  color: #a3a3a3;
+  text-align: center;
+  font-size: 10px;
+}

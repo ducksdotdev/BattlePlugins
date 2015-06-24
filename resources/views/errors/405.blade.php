@@ -6,7 +6,7 @@
     <title>BattlePlugins :: 405 Error</title>
     <link rel="icon" type="image/png" href="bp.png"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
-    <link rel="stylesheet" href="/assets/css/error.css"/>
+    <link rel="stylesheet" href="/assets/css/errors.css"/>
 </head>
 <body>
 <div class="grid-container">

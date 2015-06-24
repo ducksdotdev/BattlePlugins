@@ -14,7 +14,7 @@
         <label>
             Short Raw URL:
         </label>
-        <div class="ui action labeled input">
+        <div class="ui action input">
             <input type="text" onclick="select()" value="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/raw')) }}" readonly />
             <a class="ui right icon button" href="http://bplug.in/{{ Domain::shorten(url($paste->slug
                 .'/raw')) }}">

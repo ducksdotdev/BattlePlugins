@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            <div class="segment content grid-100">
+            <div class="paste ui segment grid-100">
                 @if(session()->has('error'))
                     <div class="ui message negative">
                         {{ session()->get('error') }}

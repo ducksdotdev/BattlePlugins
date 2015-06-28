@@ -41,7 +41,7 @@ class TasksController extends ApiController {
 		$limit = $this->request->input('limit', 20);
 		$limit = $limit > 20 ? 20 : $limit;
 
-		$tasks = Task::paginate($limit);
+		$tasks = Task::latest()->paginate($limit);
 		return $this->returnWithPagination($tasks, [
 			'data' => $this->taskTransformer->transformCollection($tasks->all())
 		]);

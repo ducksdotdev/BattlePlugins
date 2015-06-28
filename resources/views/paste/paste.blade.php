@@ -21,22 +21,22 @@
         @include('paste.partials.data')
         @include('paste.partials.pastepre')
     </div>
-    <div class="grid-container">
-        {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
-        {!! Form::hidden('id', $paste->id) !!}
-        <div class="grid-100">
-            <label for="content"><small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
-            {!! Form::textarea('content', $content, ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}
-        </div>
-        @if(Auth::check() && Auth::user()->id == $paste->creator)
+    @if(Auth::check() && Auth::user()->id == $paste->creator)
+        <div class="grid-container">
+            {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
+            {!! Form::hidden('id', $paste->id) !!}
+            <div class="grid-100">
+                <label for="content"><small>Max length {{ env("PASTE_MAX_LEN", 500000) }} characters.</small></label>
+                {!! Form::textarea('content', $content, ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}
+            </div>
             <div class="grid-100 text-right">
                 <button class="ui positive button">
                     Edit Paste
                 </button>
             </div>
-        @endif
-        {!! Form::close() !!}
-    </div>
+            {!! Form::close() !!}
+        </div>
+    @endif
 @stop
 @section('extraStyles')
     @if($lang != 'txt')

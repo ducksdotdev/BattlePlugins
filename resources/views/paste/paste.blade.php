@@ -37,9 +37,6 @@
         @endif
         {!! Form::close() !!}
     </div>
-    <div class="grid-container">
-        @include('paste.partials.data')
-    </div>
 @stop
 @section('extraStyles')
     @if($lang != 'txt')

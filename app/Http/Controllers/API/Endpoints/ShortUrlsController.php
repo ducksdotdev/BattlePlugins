@@ -29,6 +29,10 @@ class ShortUrlsController extends ApiController
      */
     public function store() {
         $req = $this->request->get('url');
+
+        if(!Domain::isUrl($req))
+            return $this->statusCode->respondWithError("Please enter a proper URL.");
+
         $path = Domain::shorten($req);
         if(!$path)
             return $this->statusCode->respondWithError("Please enter a proper URL.");

@@ -1,3 +1,9 @@
+## BattlePlugins Website
+This is the repository for the BattlePlugins website. If you would like to contribute, please open a pull request for review by lDucks.
+
+### Notes
+* Migrations aren't in the reposiory due to an issue where they had gotten deleted when lDucks merged a few projects together
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

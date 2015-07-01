@@ -9,7 +9,7 @@
             <tr>
                 <th>Email</th>
                 <th>Display Name</th>
-                <th colspan="3">User Settings</th>
+                <th>User Settings</th>
             </tr>
             </thead>
             <tbody>
@@ -17,9 +17,18 @@
                 <tr>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->displayname }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    @if($user->id != 1)
+                        <td>
+                            @if($user->admin)
+                                <a href="/modify/user/{{ $user->id }}/admin" class="ui button red">Remove Admin</a>
+                            @else
+                                <a href="/modify/user/{{ $user->id }}/admin" class="ui button black">Make Admin</a>
+                            @endif
+                            <a href="/modify/user/{{ $user->id }}/delete" class="ui button red">Delete User</a>
+                        </td>
+                    @else
+                        <td>User can't be modified.</td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

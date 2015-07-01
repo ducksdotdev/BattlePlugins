@@ -27,10 +27,8 @@
     </div>
 </nav>
 @include('admin.partials.menu')
-<div class="body">
-    <div class="admin content grid-80 grid-parent">
-        @yield('content')
-    </div>
+<div class="body grid-80 grid-parent">
+    @yield('content')
 </div>
 <div class="grid-100">
     @include('footer')

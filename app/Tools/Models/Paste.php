@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Paste extends Model
-{
+class Paste extends Model {
 
     protected $fillable = ['slug', 'creator', 'title', 'public'];
 

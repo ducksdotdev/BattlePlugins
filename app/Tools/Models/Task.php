@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Task
  * @package App
  */
-class Task extends Model
-{
+class Task extends Model {
     use DispatchPayload;
 
     public $timestamps = false;

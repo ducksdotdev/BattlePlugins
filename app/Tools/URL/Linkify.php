@@ -4,11 +4,9 @@ namespace App\Tools\URL;
 
 use Illuminate\Html\HtmlFacade as HTML;
 
-class Linkify
-{
+class Linkify {
 
-    public static function link($content)
-    {
+    public static function link($content) {
         $paragraphs = preg_split('/[\n]/', $content);
         $newContent = '';
         foreach ($paragraphs as $paragraph) {

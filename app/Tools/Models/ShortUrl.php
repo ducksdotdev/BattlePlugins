@@ -4,8 +4,7 @@ namespace App\Tools\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShortUrl extends Model
-{
+class ShortUrl extends Model {
     public $timestamps = false;
 
     protected $table = 'shorturls';

@@ -11,13 +11,11 @@ use Closure;
  * Class ApiAuthenticate
  * @package App\Http\Middleware
  */
-class ApiAuthenticate
-{
+class ApiAuthenticate {
 
     protected $statusCode;
 
-    function __construct(StatusCode $statusCode)
-    {
+    function __construct(StatusCode $statusCode) {
         $this->statusCode = $statusCode;
     }
 
@@ -28,8 +26,7 @@ class ApiAuthenticate
      * @param  \Closure $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         $key = $request->header('X-API-Key');
         if (!$key)
             $key = $request->input('_key');

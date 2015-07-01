@@ -9,8 +9,7 @@ use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 
-class BlogsController extends ApiController
-{
+class BlogsController extends ApiController {
     /**
      * @var BlogTransformer
      */
@@ -22,9 +21,8 @@ class BlogsController extends ApiController
      * @param ApiStatusCode $statusCode
      * @param Webhooks $webhooks
      */
-    function __construct(BlogTransformer $blogTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request)
-    {
-        $this->middleware('auth.api', ['except'=>['show', 'index']]);
+    function __construct(BlogTransformer $blogTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
+        $this->middleware('auth.api', ['except' => ['show', 'index']]);
         $this->blogTransformer = $blogTransformer;
         $this->statusCode = $statusCode;
         $this->webhooks = $webhooks;
@@ -34,7 +32,7 @@ class BlogsController extends ApiController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(){
+    public function index() {
         $limit = $this->request->input('limit', $this->limit);
         $limit = $limit > $this->limit ? $this->limit : $limit;
 
@@ -48,10 +46,10 @@ class BlogsController extends ApiController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show($id){
+    public function show($id) {
         $blog = Blog::find($id);
 
-        if(!$blog)
+        if (!$blog)
             return $this->statusCode->respondNotFound("Blog does not exist!");
 
         return $this->statusCode->respond([
@@ -66,13 +64,13 @@ class BlogsController extends ApiController
         $title = $this->request->input('title');
         $content = $this->request->input('content');
 
-        if(!$title || !$content)
+        if (!$title || !$content)
             return $this->statusCode->respondWithError("A required field has been left blank.");
 
         Blog::create([
             'title' => $title,
             'author' => Auth::user()->id,
-            'content' =>  $content,
+            'content' => $content,
         ]);
 
         return $this->statusCode->respondCreated('Blog successfully created.');
@@ -82,15 +80,15 @@ class BlogsController extends ApiController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function destroy($id){
+    public function destroy($id) {
         Blog::find($id)->delete();
         return $this->statusCode->respondWithSuccess("Blog has been deleted.");
     }
 
-    public function update($id){
+    public function update($id) {
         $blog = Blog::find($id);
 
-        if(!$blog)
+        if (!$blog)
             return $this->statusCode->respondNotFound("Blog does not exist!");
 
         $blog->update($this->request->all());

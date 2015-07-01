@@ -5,8 +5,7 @@ namespace App\Jobs;
 use App\Tools\Webhooks\Webhooks;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class SendPayload extends Job implements SelfHandling
-{
+class SendPayload extends Job implements SelfHandling {
     private $url, $method, $payload;
 
     /**
@@ -14,8 +13,7 @@ class SendPayload extends Job implements SelfHandling
      *
      * @return void
      */
-    public function __construct($url, $method, $payload = [])
-    {
+    public function __construct($url, $method, $payload = []) {
         $this->url = $url;
         $this->method = $method;
         $this->payload = $payload;
@@ -26,8 +24,7 @@ class SendPayload extends Job implements SelfHandling
      *
      * @return void
      */
-    public function handle()
-    {
+    public function handle() {
         (new Webhooks)->sendPayload($this->url, $this->method, $this->payload);
     }
 }

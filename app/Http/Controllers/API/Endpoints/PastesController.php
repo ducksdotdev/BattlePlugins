@@ -11,8 +11,7 @@ use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 
-class PastesController extends ApiController
-{
+class PastesController extends ApiController {
     /**
      * @var PasteTransformer
      */
@@ -24,8 +23,7 @@ class PastesController extends ApiController
      * @param ApiStatusCode $statusCode
      * @param Webhooks $webhooks
      */
-    function __construct(PasteTransformer $pasteTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request)
-    {
+    function __construct(PasteTransformer $pasteTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
         $this->middleware('auth.api', ['except' => ['show', 'index']]);
         $this->pasteTransformer = $pasteTransformer;
         $this->statusCode = $statusCode;
@@ -36,8 +34,7 @@ class PastesController extends ApiController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
-    {
+    public function index() {
         $limit = $this->request->input('limit', $this->limit);
         $limit = $limit > $this->limit ? $this->limit : $limit;
 
@@ -57,8 +54,7 @@ class PastesController extends ApiController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $paste = Paste::find($id);
 
         if (!$paste)
@@ -76,18 +72,17 @@ class PastesController extends ApiController
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function store()
-    {
+    public function store() {
         $title = $this->request->input('title');
         $content = $this->request->input('content');
         $force = $this->request->input('force');
 
         if (!$content)
             return $this->statusCode->respondWithError("A required field has been left blank.");
-        else if(strlen($content) > env("PASTE_MAX_LEN", 500000) && !$force)
+        else if (strlen($content) > env("PASTE_MAX_LEN", 500000) && !$force)
             return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit. Set the force param to true to cut your paste after " . env("PASTE_MAX_LEN", 500000) . "characters");
 
-	    $slug = SlugGenerator::generate();
+        $slug = SlugGenerator::generate();
 
         ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
@@ -110,8 +105,7 @@ class PastesController extends ApiController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         $paste = Paste::find($id);
 
         if ($paste->creator == Auth::user()->id) {

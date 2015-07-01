@@ -12,36 +12,36 @@ use Illuminate\Support\Facades\Config;
 
 class PageController extends Controller {
 
-	public function index(){
-		if(Auth::check()) {
-			$apiKey = Auth::user()->api_key;
-			if (!$apiKey) {
-				$apiKey = GenerateApiKey::generateKey();
-				User::find(Auth::user()->id)->update([
-					'api_key' => $apiKey
-				]);
-			}
+    public function index() {
+        if (Auth::check()) {
+            $apiKey = Auth::user()->api_key;
+            if (!$apiKey) {
+                $apiKey = GenerateApiKey::generateKey();
+                User::find(Auth::user()->id)->update([
+                    'api_key' => $apiKey
+                ]);
+            }
 
-			$webhooks = Webhook::whereUser(Auth::user()->id)->get();
+            $webhooks = Webhook::whereUser(Auth::user()->id)->get();
 
-			return view('api.docs', [
-				'apiKey' => $apiKey,
-				'docs' => Config::get('api.docs'),
-				'webhooks' => Webhooks::getTypes(),
-				'myHooks' => $webhooks
-			]);
-		} else
-			return view('api.login');
-	}
+            return view('api.docs', [
+                'apiKey' => $apiKey,
+                'docs' => Config::get('api.docs'),
+                'webhooks' => Webhooks::getTypes(),
+                'myHooks' => $webhooks
+            ]);
+        } else
+            return view('api.login');
+    }
 
-	public function generateKey(){
-		if(Auth::check()) {
-			$user = Auth::user();
-			$user->api_key = GenerateApiKey::generateKey();
-			$user->save();
-		}
+    public function generateKey() {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->api_key = GenerateApiKey::generateKey();
+            $user->save();
+        }
 
-		return redirect('/');
-	}
+        return redirect('/');
+    }
 
 }

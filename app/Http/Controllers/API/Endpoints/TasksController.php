@@ -15,88 +15,87 @@ use Illuminate\Http\Request;
  */
 class TasksController extends ApiController {
 
-	/**
-	 * @var TaskTransformer
-	 */
-	protected $taskTransformer, $statusCode, $webhooks, $request;
+    /**
+     * @var TaskTransformer
+     */
+    protected $taskTransformer, $statusCode, $webhooks, $request;
 
-	/**
-	 * @param TaskTransformer $taskTransformer
-	 * @param ApiStatusCode $statusCode
-	 * @param Webhooks $webhooks
-	 */
-    function __construct(TaskTransformer $taskTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request)
-    {
-		$this->middleware('auth.api');
-		$this->taskTransformer = $taskTransformer;
-		$this->statusCode = $statusCode;
-		$this->webhooks = $webhooks;
-		$this->request = $request;
-	}
+    /**
+     * @param TaskTransformer $taskTransformer
+     * @param ApiStatusCode $statusCode
+     * @param Webhooks $webhooks
+     */
+    function __construct(TaskTransformer $taskTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
+        $this->middleware('auth.api');
+        $this->taskTransformer = $taskTransformer;
+        $this->statusCode = $statusCode;
+        $this->webhooks = $webhooks;
+        $this->request = $request;
+    }
 
-	/**
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function index(){
-		$limit = $this->request->input('limit', 20);
-		$limit = $limit > 20 ? 20 : $limit;
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function index() {
+        $limit = $this->request->input('limit', 20);
+        $limit = $limit > 20 ? 20 : $limit;
 
-		$tasks = Task::orderBy('id', 'desc')->paginate($limit);
-		return $this->returnWithPagination($tasks, [
-			'data' => $this->taskTransformer->transformCollection($tasks->all())
-		]);
-	}
+        $tasks = Task::orderBy('id', 'desc')->paginate($limit);
+        return $this->returnWithPagination($tasks, [
+            'data' => $this->taskTransformer->transformCollection($tasks->all())
+        ]);
+    }
 
-	/**
-	 * @param $id
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function show($id){
-		$task = Task::find($id);
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function show($id) {
+        $task = Task::find($id);
 
-		if(!$task)
-			return $this->statusCode->respondNotFound("Task does not exist!");
+        if (!$task)
+            return $this->statusCode->respondNotFound("Task does not exist!");
 
-		return $this->statusCode->respond([
-			'data' => $this->taskTransformer->transform($task)
-		]);
-	}
+        return $this->statusCode->respond([
+            'data' => $this->taskTransformer->transform($task)
+        ]);
+    }
 
-	/**
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function store() {
-		$insert = [
-			'title' => $this->request->input('title') ?: 'Untitled',
-			'creator' => Auth::user()->id,
-			'assigned_to' =>  $this->request->input('assigned_to') ?: 0,
-			'public' => $this->request->input('public') ?: false,
-			'content' => $this->request->input('content') ?: ''
-		];
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function store() {
+        $insert = [
+            'title' => $this->request->input('title') ?: 'Untitled',
+            'creator' => Auth::user()->id,
+            'assigned_to' => $this->request->input('assigned_to') ?: 0,
+            'public' => $this->request->input('public') ?: false,
+            'content' => $this->request->input('content') ?: ''
+        ];
 
         Task::create($insert);
 
-		return $this->statusCode->respondCreated('Task successfully created.');
-	}
+        return $this->statusCode->respondCreated('Task successfully created.');
+    }
 
-	/**
-	 * @param $id
-	 * @return \Symfony\Component\HttpFoundation\Response
-	 */
-	public function destroy($id){
-		Task::find($id)->delete();
-		return $this->statusCode->respondWithSuccess("Task has been deleted.");
-	}
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function destroy($id) {
+        Task::find($id)->delete();
+        return $this->statusCode->respondWithSuccess("Task has been deleted.");
+    }
 
-	public function update($id){
-		$task = Task::find($id);
+    public function update($id) {
+        $task = Task::find($id);
 
-		if(!$task)
-			return $this->statusCode->respondNotFound("Task does not exist!");
+        if (!$task)
+            return $this->statusCode->respondNotFound("Task does not exist!");
 
-		$task->update($this->request->all());
+        $task->update($this->request->all());
 
-		return $this->statusCode->respondWithSuccess("Task has been modified.");
-	}
+        return $this->statusCode->respondWithSuccess("Task has been modified.");
+    }
 
 }

@@ -8,19 +8,16 @@ use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 
-class TasksController extends Controller
-{
+class TasksController extends Controller {
 
     private $webhooks;
 
-    public function __construct(Webhooks $webhooks)
-    {
+    public function __construct(Webhooks $webhooks) {
         $this->middleware('auth', ['except' => ['gitHubCreate']]);
         $this->webhooks = $webhooks;
     }
 
-    public function createTask(Request $request)
-    {
+    public function createTask(Request $request) {
         $title = $request->input('title');
         $public = $request->input('public');
 
@@ -41,13 +38,11 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-    public function deleteTask($id)
-    {
+    public function deleteTask($id) {
         Task::find($id)->delete();
     }
 
-    public function gitHubCreate(Request $request)
-    {
+    public function gitHubCreate(Request $request) {
         $payload = file_get_contents('php://input');
         if (VerifyHMAC::validateSignature($request->header('X-Hub-Signature'), $payload)) {
             Auth::loginUsingId(24);
@@ -68,12 +63,10 @@ class TasksController extends Controller
             } else if ($action == 'closed')
                 $task->update(['status' => 1]);
             else if ($action == 'assigned') {
-
                 $assigneeName = $request->json('assignee.login');
                 $assignee = User::whereDisplayname($assigneeName)->first();
                 if ($assignee)
                     $task->update(['assigned_to' => $assignee->id]);
-
             } else if ($action == 'unassigned')
                 $task->update(['assigned_to' => 0]);
 
@@ -82,8 +75,7 @@ class TasksController extends Controller
 
     }
 
-    public function completeTask($id)
-    {
+    public function completeTask($id) {
         Task::find($id)->update(['status' => 1]);
     }
 }

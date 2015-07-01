@@ -9,16 +9,13 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class PasteController extends Controller
-{
+class PasteController extends Controller {
 
-    function __construct()
-    {
+    function __construct() {
         $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste', 'downloadPaste']]);
     }
 
-    public function createPaste(Request $request)
-    {
+    public function createPaste(Request $request) {
         $content = $request->get('content');
 
         if (!$content)
@@ -44,8 +41,7 @@ class PasteController extends Controller
         return redirect('/' . $slug);
     }
 
-    public function editPaste(Request $request)
-    {
+    public function editPaste(Request $request) {
         $content = $request->get('content');
 
         if (!$content)
@@ -66,8 +62,7 @@ class PasteController extends Controller
         return redirect('/' . $slug);
     }
 
-    public function getPaste($slug)
-    {
+    public function getPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
         if (!$paste)
@@ -77,14 +72,14 @@ class PasteController extends Controller
 
         $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
 
-        $lines_arr = preg_split('/\n/',$content);
+        $lines_arr = preg_split('/\n/', $content);
         $lines = count($lines_arr);
 
         $words = explode('.', $paste->title);
-        if(count($words) > 1) {
-            $pos = count($words)-1;
+        if (count($words) > 1) {
+            $pos = count($words) - 1;
             $lang = strtoupper($words[$pos]);
-            if(!in_array($lang, config('paste')))
+            if (!in_array($lang, config('paste')))
                 $lang = 'txt';
         } else
             $lang = 'txt';
@@ -99,8 +94,7 @@ class PasteController extends Controller
         ]);
     }
 
-    public function getRawPaste($slug)
-    {
+    public function getRawPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
         if (!$paste)
@@ -112,8 +106,7 @@ class PasteController extends Controller
         return view('paste.raw', ['content' => $content]);
     }
 
-    public function deletePaste($id)
-    {
+    public function deletePaste($id) {
         $paste = Paste::find($id);
 
         if ($paste->creator == Auth::user()->id) {
@@ -125,8 +118,7 @@ class PasteController extends Controller
         return redirect("/");
     }
 
-    public function downloadPaste($slug)
-    {
+    public function downloadPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
         if (!$paste)
@@ -137,8 +129,7 @@ class PasteController extends Controller
         return response()->download(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
     }
 
-    public function togglePublic($id)
-    {
+    public function togglePublic($id) {
         $paste = Paste::find($id);
 
         if ($paste->creator == Auth::user()->id) {

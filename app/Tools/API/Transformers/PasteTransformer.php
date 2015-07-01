@@ -5,15 +5,13 @@ namespace App\Tools\API\Transformers;
 use App\Tools\Models\User;
 use Auth;
 
-class PasteTransformer extends Transformer
-{
+class PasteTransformer extends Transformer {
 
     /**
      * @param $paste
      * @return array
      */
-    public function transform($paste)
-    {
+    public function transform($paste) {
 
         $content = file_get_contents(storage_path() . '/app/pastes/' . $paste['slug'] . '.txt');
 

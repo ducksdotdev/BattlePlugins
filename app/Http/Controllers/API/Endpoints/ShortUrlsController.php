@@ -9,18 +9,17 @@ use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
 
-class ShortUrlsController extends ApiController
-{
+class ShortUrlsController extends ApiController {
     protected $shortUrlTransformer, $statusCode, $request;
 
-    function __construct (ShortUrlTransformer $shortUrlTransformer, ApiStatusCode $statusCode, Request $request) {
+    function __construct(ShortUrlTransformer $shortUrlTransformer, ApiStatusCode $statusCode, Request $request) {
         $this->middleware('auth.api');
         $this->shortUrlTransformer = $shortUrlTransformer;
         $this->statusCode = $statusCode;
         $this->request = $request;
     }
 
-    public function index(){
+    public function index() {
         return $this->statusCode->respondNotFound();
     }
 
@@ -30,11 +29,11 @@ class ShortUrlsController extends ApiController
     public function store() {
         $req = $this->request->get('url');
 
-        if(!$this->request->has('url') || !Domain::isUrl($req))
+        if (!$this->request->has('url') || !Domain::isUrl($req))
             return $this->statusCode->respondWithError("Please enter a proper URL.");
 
         $path = Domain::shorten($req);
-        if(!$path)
+        if (!$path)
             return $this->statusCode->respondWithError("Please enter a proper URL.");
 
         return $this->statusCode->respondCreated($path);
@@ -44,7 +43,7 @@ class ShortUrlsController extends ApiController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function destroy($url){
+    public function destroy($url) {
         $url = ShortUrl::whereUrl($url)->first();
         $url->delete();
 

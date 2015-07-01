@@ -6,8 +6,8 @@ use Illuminate\Http\Response;
 
 class ApiStatusCode extends StatusCode {
 
-	public function respondCreated($message = 'Object Created.'){
-		return StatusCode::respondWithSuccess($message, Response::HTTP_CREATED);
-	}
+    public function respondCreated($message = 'Object Created.') {
+        return StatusCode::respondWithSuccess($message, Response::HTTP_CREATED);
+    }
 
 }

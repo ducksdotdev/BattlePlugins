@@ -9,36 +9,35 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller {
 
-	private $request, $webhooks, $blogTransformer;
+    private $request, $webhooks, $blogTransformer;
 
-	public function __construct(Request $request, Webhooks $webhooks, BlogTransformer $blogTransformer)
-    {
-		$this->request = $request;
+    public function __construct(Request $request, Webhooks $webhooks, BlogTransformer $blogTransformer) {
+        $this->request = $request;
         $this->webhooks = $webhooks;
         $this->blogTransformer = $blogTransformer;
-	}
+    }
 
-	public function create () {
-		$title = $this->request->input('title');
-		$content = $this->request->input('content');
+    public function create() {
+        $title = $this->request->input('title');
+        $content = $this->request->input('content');
 
         Blog::create([
-			'title' => $title,
-			'content' => $content,
-			'author' => Auth::user()->id
+            'title' => $title,
+            'content' => $content,
+            'author' => Auth::user()->id
         ]);
 
         return redirect('/');
-	}
+    }
 
-	public function deleteBlog($id){
-		Blog::find($id)->delete();
+    public function deleteBlog($id) {
+        Blog::find($id)->delete();
         return redirect('/');
-	}
+    }
 
-	public function editBlog($id){
-		$title = $this->request->input('title');
-		$content = $this->request->input('content');
+    public function editBlog($id) {
+        $title = $this->request->input('title');
+        $content = $this->request->input('content');
 
         $blog = Blog::whereId($id);
 
@@ -46,11 +45,11 @@ class BlogController extends Controller {
             return redirect("/");
 
         $blog->update([
-			'title' => $title,
-			'content' => $content,
+            'title' => $title,
+            'content' => $content,
         ]);
 
-		return redirect('/' . $id);
-	}
+        return redirect('/' . $id);
+    }
 
 }

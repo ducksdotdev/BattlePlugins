@@ -6,16 +6,14 @@ use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
 
-class UrlController extends Controller
-{
+class UrlController extends Controller {
 
     /**
      * Show the application welcome screen to the user.
      *
      * @return Response
      */
-    public function redirect($path)
-    {
+    public function redirect($path) {
         $url = ShortUrl::wherePath($path)->first();
 
         if ($url)
@@ -24,15 +22,14 @@ class UrlController extends Controller
         return abort(404);
     }
 
-    public function create(Request $request)
-    {
-        if(!$request->has('url'))
+    public function create(Request $request) {
+        if (!$request->has('url'))
             redirect('/')->with('error', 'Please use a proper URL.');
 
         $req = $request->get('url');
         $path = Domain::shorten($req);
 
-        if(!$path)
+        if (!$path)
             redirect('/')->with('error', 'Please use a proper URL.');
 
         return redirect('/')->with('url_path', $path);

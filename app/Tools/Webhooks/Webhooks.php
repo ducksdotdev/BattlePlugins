@@ -6,8 +6,7 @@ use App\Jobs\SendPayload;
 use App\Tools\Models\Webhook;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Webhooks
-{
+class Webhooks {
 
     use DispatchesJobs;
 
@@ -18,14 +17,12 @@ class Webhooks
     const BLOG_DELETED = 'BLOG_DELETED';
     const BLOG_UPDATED = 'BLOG_UPDATED';
 
-    public static function getTypes()
-    {
+    public static function getTypes() {
         $oClass = new \ReflectionClass(__CLASS__);
         return $oClass->getConstants();
     }
 
-    public function triggerWebhook($payload, $event)
-    {
+    public function triggerWebhook($payload, $event) {
         $urls = Webhook::whereEvent($event)->lists('url');
 
         foreach ($urls as $url) {
@@ -33,8 +30,7 @@ class Webhooks
         }
     }
 
-    public function sendPayload($url, $method, $payload = [])
-    {
+    public function sendPayload($url, $method, $payload = []) {
         $headers = array(
             'X-API-Key: ' . Auth::user()->api_key
         );

@@ -12,8 +12,7 @@ class PageController extends Controller {
      *
      * @return Response
      */
-    public function index()
-    {
+    public function index() {
         $blog = Blog::latest()->first();
 
         if (!$blog)
@@ -22,8 +21,7 @@ class PageController extends Controller {
         return view('blog.index', static::retrieve($blog));
     }
 
-    private static function retrieve($blog)
-    {
+    private static function retrieve($blog) {
         if ($blog instanceof Blog) {
             $users = User::all();
             $displaynames = [];
@@ -40,8 +38,7 @@ class PageController extends Controller {
         }
     }
 
-    public function getBlog($id)
-    {
+    public function getBlog($id) {
         $blog = Blog::find($id);
 
         if (!$blog)

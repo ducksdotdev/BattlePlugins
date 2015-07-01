@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Webhook extends Model {
 
-	/**
-	 * @var bool
-	 */
-	public $timestamps = false;
-	/**
-	 * @var array
-	 */
-	protected $fillable = ['user', 'url', 'event'];
+    /**
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
+     * @var array
+     */
+    protected $fillable = ['user', 'url', 'event'];
 
 }

@@ -5,11 +5,9 @@ namespace App\Tools\API;
 
 use App\Tools\Models\User;
 
-class GenerateApiKey
-{
+class GenerateApiKey {
 
-    public static function generateKey()
-    {
+    public static function generateKey() {
         $apiKey = str_random(32);
 
         // Prevent collisions:

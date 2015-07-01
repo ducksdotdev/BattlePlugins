@@ -7,6 +7,6 @@ class Blog extends Model {
 
     use DispatchPayload;
 
-	protected $fillable = ['title','content','author'];
+    protected $fillable = ['title', 'content', 'author'];
 
 }

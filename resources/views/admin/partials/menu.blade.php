@@ -6,7 +6,7 @@
             <div class="header">User Management</div>
             <div class="menu">
                 <a href="/user/create" class="item">Create User</a>
-                <a class="item">Modify User</a>
+                <a href="/user/modify" class="item">Modify User</a>
             </div>
         </div>
     @endif

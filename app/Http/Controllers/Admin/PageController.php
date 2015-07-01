@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Models\User;
 use Auth;
 
 class PageController extends Controller {
@@ -22,5 +23,11 @@ class PageController extends Controller {
 
 	public static function createUser () {
 		return view('admin.createuser');
+	}
+
+	public static function modifyUser () {
+		return view('admin.modifyuser', [
+			'users' => User::all()
+		]);
 	}
 }

@@ -108,6 +108,7 @@ foreach ($tlds as $tld) {
 		Route::get('/', 'Admin\PageController@index');
 		Route::get('/settings', 'Admin\PageController@settings');
 		Route::get('/user/create', 'Admin\PageController@createUser');
+		Route::get('/user/modify', 'Admin\PageController@modifyUser');
 
 		Route::group(['before' => 'csrf'], function () {
 			Route::post('/settings', 'UserController@changeSettings');

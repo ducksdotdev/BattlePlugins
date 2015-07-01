@@ -24,7 +24,7 @@
         </div>
     </div>
 </nav>
-<div class="ui left vertical inverted labeled icon sidebar menu">
+<div class="ui left vertical visible inverted labeled icon sidebar menu">
     <a class="item">
         <i class="home icon"></i>
         Home

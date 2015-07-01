@@ -35,8 +35,8 @@
             {!! Form::password('newpassword', null, []) !!}
         </div>
         <div class="field">
-            {!! Form::label('newpassword2', 'Repeat New Password') !!}
-            {!! Form::password('newpassword2', null, []) !!}
+            {!! Form::label('newpassword_confirmation', 'Repeat New Password') !!}
+            {!! Form::password('newpassword_confirmation', null, []) !!}
         </div>
     </div>
     <div class="grid-100">

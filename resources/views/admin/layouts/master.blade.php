@@ -8,7 +8,7 @@
 
     <!--        Styles -->
     <link rel="stylesheet" href="/assets/css/semantic.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
     <!--        End Styles -->
@@ -26,24 +26,11 @@
     </div>
 </nav>
 <div class="context">
-    <div class="ui left vertical visible inverted labeled icon sidebar menu">
-        <a class="item">
-            <i class="home icon"></i>
-            Home
-        </a>
-        <a class="item">
-            <i class="block layout icon"></i>
-            Topics
-        </a>
-        <a class="item">
-            <i class="smile icon"></i>
-            Friends
-        </a>
-    </div>
+    @include('admin.partials.menu')
     <div class="pusher">
         @yield('content')
-        @include('footer')
     </div>
+    @include('footer')
 </div>
 </body>
 <script>

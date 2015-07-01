@@ -32,11 +32,11 @@
 
         <div class="field">
             {!! Form::label('newpassword', 'New Password') !!}
-            {!! Form::text('newpassword', null, []) !!}
+            {!! Form::password('newpassword', null, []) !!}
         </div>
         <div class="field">
             {!! Form::label('newpassword2', 'Repeat New Password') !!}
-            {!! Form::text('newpassword2', null, []) !!}
+            {!! Form::password('newpassword2', null, []) !!}
         </div>
     </div>
     <div class="grid-100">
@@ -44,7 +44,7 @@
 
         <div class="field">
             {!! Form::label('password', 'Current Password') !!}
-            {!! Form::text('password', null, []) !!}
+            {!! Form::password('password', null, []) !!}
         </div>
     </div>
     <div class="grid-100 text-right">

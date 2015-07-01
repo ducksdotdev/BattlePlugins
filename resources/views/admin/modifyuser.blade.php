@@ -14,11 +14,13 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->displayname }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <tr>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->displayname }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
             @endforeach
             </tbody>
         </table>

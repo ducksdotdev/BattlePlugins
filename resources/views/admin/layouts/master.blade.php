@@ -18,6 +18,7 @@
     <!--       End Scripts -->
 </head>
 <body>
+@include('admin.partials.menu')
 <nav>
     <div class="grid-container">
         <div class="grid-100">
@@ -26,7 +27,6 @@
     </div>
 </nav>
 <div class="context">
-    @include('admin.partials.menu')
     <div class="pusher">
         @yield('content')
         @include('footer')
@@ -36,6 +36,6 @@
 <script>
     $(".sidebar").sidebar({
         context: $(".context")
-    }).sidebar('attach events', '.context .menu .item').sidebar();
+    }).sidebar('attach events', '.context .menu .item');
 </script>
 </html>

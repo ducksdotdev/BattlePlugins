@@ -25,7 +25,7 @@
         </div>
     </div>
 </nav>
-<div class="content">
+<div class="context">
     <div class="ui left vertical visible inverted labeled icon sidebar menu">
         <a class="item">
             <i class="home icon"></i>
@@ -48,7 +48,7 @@
 </body>
 <script>
     $(".sidebar").sidebar({
-        context: $(".content")
-    });
+        context: $(".context")
+    }).sidebar('attach events', '.context .menu .item');
 </script>
 </html>

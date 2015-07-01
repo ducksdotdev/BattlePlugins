@@ -106,6 +106,12 @@ foreach ($tlds as $tld) {
 
 	Route::group(['domain' => 'admin.' . $url], function () {
 		Route::get('/', 'Admin\PageController@index');
+		Route::get('/settings', 'Admin\PageController@settings');
+
+		Route::group(['before' => 'csrf'], function () {
+			Route::post('/settings', 'UserController@changeSettings');
+		});
+
 	});
 
 	$url = env('APP_ENV_URL');

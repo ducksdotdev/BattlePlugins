@@ -24,4 +24,38 @@ class UserController extends Controller {
 		return redirect()->back();
 	}
 
+	public function changeSettings (Request $request) {
+		$user = Auth::user();
+		$password = $request->input('password');
+
+		if (Auth::validate(['id' => $user->id, 'password' => $password])) {
+			if ($request->has('newpassword') && $request->has('newpassword2')) {
+				$newpassword = $request->input('newpassword');
+				$newpassword2 = $request->input('newpassword2');
+				if ($newpassword == $newpassword2)
+					$user->password = Hash::make($newpassword);
+				else
+					return redirect()->back()->withErrors(['Your passwords do not match']);
+
+				if ($request->has('displayname')) {
+					$displayname = request->input('displayname');
+
+					$validator = Validator::make(
+						array('displayname' => $displayname),
+						array('displayname' => 'required|max:16')
+					);
+
+					if ($validator->fails())
+						return redirect()->back()->withErrors($validator->errors());
+
+					$user->displayname = $displayname;
+				}
+			}
+
+			$user->save();
+			Auth::logout();
+			redirect('/');
+		} else
+			return redirect()->back()->withErrors(['Invalid password.']);
+	}
 }

@@ -1,4 +1,4 @@
-<div class="ui vertical fixed left inverted menu">
+<div class="ui vertical fixed left inverted admin menu">
     <div class="item">
         <div class="header">Products</div>
         <div class="menu">

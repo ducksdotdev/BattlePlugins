@@ -29,11 +29,13 @@
 @include('admin.partials.menu')
 <div class="body">
     <div class="grid-container">
-        @yield('content')
+        <div class="grid-100 grid-parent">
+            @yield('content')
+        </div>
+        <div class="grid-100">
+            @include('footer')
+        </div>
     </div>
-</div>
-<div class="grid-100">
-    @include('footer')
 </div>
 </div>
 </body>

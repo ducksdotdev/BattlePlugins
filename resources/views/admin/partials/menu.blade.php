@@ -23,6 +23,6 @@
         </div>
     </div>
 </div>
-<div class="ui secondary pointing menu hide-on-desktop hide-on-tablet">
+<div class="ui pointing menu hide-on-desktop hide-on-tablet">
     <a href="/" class="item">Home</a>
 </div>

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    {!! Form::open(['id'=>'contactForm','url'=>URL::to('/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
+    {!! Form::open(['id'=>'contactForm','url'=>URL::to('/user/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">
             There was an error processing your request!

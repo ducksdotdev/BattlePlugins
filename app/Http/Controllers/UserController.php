@@ -41,7 +41,7 @@ class UserController extends Controller {
 				return redirect()->back()->withErrors($validator->errors());
 
 			if ($request->has('password'))
-				$user->password = $request->input('password');
+				$user->password = Hash::make($request->input('password'));
 
 			$displayname = $request->input('displayname');
 			$user->displayname = $displayname;

@@ -1,4 +1,4 @@
-<div class="ui left vertical inverted labeled icon sidebar menu">
+<div class="ui left vertical inverted labeled icon sidebar menu visible">
     <a class="item">
         <i class="home icon"></i>
         Home

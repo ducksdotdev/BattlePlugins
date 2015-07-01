@@ -29,14 +29,13 @@
     @include('admin.partials.menu')
     <div class="pusher">
         @yield('content')
+        @include('footer')
     </div>
-    @include('footer')
 </div>
 </body>
 <script>
     $(".sidebar").sidebar({
         context: $(".context")
-    }).sidebar('attach events', '.context .menu .item')
-            .sidebar('toggle');
+    }).sidebar('attach events', '.context .menu .item').sidebar();
 </script>
 </html>

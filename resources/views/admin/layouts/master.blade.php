@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BattleAdmin :: BattlePlugins Administration Panel</title>
+    <title>{{ $title }} :: BattlePlugins Administration Panel</title>
     <link rel="icon" href="/assets/img/bp.png"/>
 
     <!--        Styles -->

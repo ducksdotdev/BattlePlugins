@@ -8,7 +8,7 @@
         | <a href="http://paste.battleplugins.com">BattlePaste</a> | <a href="http://bplug.in">bplug.in</a>
         @if(Auth::check())
             <br/>
-            <a href="https://admin.battleplugins.com/">User Settings</a>
+            <a href="https://admin.battleplugins.com/">BattleAdmin</a>
             | <a href="/logs">Log Viewer</a>
             | <a href="/logout">Logout</a>
         @endif

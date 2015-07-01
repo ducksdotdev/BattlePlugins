@@ -1,5 +1,5 @@
 <div class="ui vertical inverted admin menu">
-    <a href="/" class="item">Home</a>
+    <a href="/" class="item">Dashboard</a>
     <a href="/settings" class="item">User Settings</a>
     @if(Auth::user()->admin)
         <div class="item">

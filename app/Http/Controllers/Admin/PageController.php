@@ -14,6 +14,7 @@ class PageController extends Controller {
     public static function index() {
         if (Auth::check())
             return view('admin.index', [
+                'title' => 'Dashboard',
                 'alerts' => Alert::whereUser(Auth::user()->id)->latest()->get()
             ]);
         else
@@ -21,22 +22,27 @@ class PageController extends Controller {
     }
 
     public static function settings() {
-        return view('admin.settings');
+        return view('admin.settings', [
+            'title' => 'User Settings'
+        ]);
     }
 
     public static function createUser() {
-        return view('admin.createuser');
+        return view('admin.createuser', [
+            'title' => 'Create User'
+        ]);
     }
 
     public static function modifyUser() {
         return view('admin.modifyuser', [
+            'title' => 'Modify User',
             'users' => User::all()
         ]);
     }
 
     public function alerts() {
         return view('admin.alerts', [
-            'users' => User::all()
+            'title' => 'Create Alert'
         ]);
     }
 }

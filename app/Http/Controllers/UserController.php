@@ -37,7 +37,7 @@ class UserController extends Controller {
 				]
 			);
 
-			if ($validator->fails())
+			if ($validator && $validator->fails())
 				return redirect()->back()->withErrors($validator->errors());
 
 			if ($request->has('password'))
@@ -47,8 +47,7 @@ class UserController extends Controller {
 			$user->displayname = $displayname;
 
 			$user->save();
-			Auth::logout();
-			redirect('/');
+			return self::logout();
 		} else
 			return redirect()->back()->withErrors(['Invalid confirmation password.']);
 	}

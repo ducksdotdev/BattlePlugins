@@ -32,10 +32,10 @@
         <div class="grid-100 grid-parent">
             @yield('content')
         </div>
+        <div class="grid-100">
+            @include('footer')
+        </div>
     </div>
-</div>
-<div class="grid-100">
-    @include('footer')
 </div>
 </body>
 </html>

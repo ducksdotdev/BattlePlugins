@@ -24,23 +24,30 @@
         </div>
     </div>
 </nav>
-<div class="ui left vertical visible inverted labeled icon sidebar menu">
-    <a class="item">
-        <i class="home icon"></i>
-        Home
-    </a>
-    <a class="item">
-        <i class="block layout icon"></i>
-        Topics
-    </a>
-    <a class="item">
-        <i class="smile icon"></i>
-        Friends
-    </a>
+<div class="content">
+    <div class="ui left vertical visible inverted labeled icon sidebar menu">
+        <a class="item">
+            <i class="home icon"></i>
+            Home
+        </a>
+        <a class="item">
+            <i class="block layout icon"></i>
+            Topics
+        </a>
+        <a class="item">
+            <i class="smile icon"></i>
+            Friends
+        </a>
+    </div>
+    <div class="pusher">
+        @yield('content')
+        @include('footer')
+    </div>
 </div>
-<div class="pusher">
-    @yield('content')
-</div>
-@include('footer')
 </body>
+<script>
+    $(".sidebar").sidebar({
+        context: $(".content")
+    });
+</script>
 </html>

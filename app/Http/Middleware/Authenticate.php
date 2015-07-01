@@ -31,7 +31,7 @@ class Authenticate {
      */
     public function handle($request, Closure $next) {
         if ($this->auth->guest())
-            return abort(401);
+            return redirect('/');
 
         return $next($request);
     }

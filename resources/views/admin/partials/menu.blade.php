@@ -1,14 +1,20 @@
-<div class="ui left vertical inverted labeled icon sidebar menu visible">
-    <a class="item">
-        <i class="home icon"></i>
-        Home
-    </a>
-    <a class="item">
-        <i class="block layout icon"></i>
-        Topics
-    </a>
-    <a class="item">
-        <i class="smile icon"></i>
-        Friends
-    </a>
+<div class="ui segment">
+    <div class="ui left fixed vertical menu">
+        <div class="item">
+            <img class="ui mini image" src="/images/logo.png">
+        </div>
+        <a class="item">Features</a>
+        <a class="item">Testimonials</a>
+        <a class="item">Sign-in</a>
+    </div>
+    <div class="ui right fixed vertical menu">
+        <div class="item">
+            <img class="ui mini image" src="/images/logo.png">
+        </div>
+        <a class="item">Features</a>
+        <a class="item">Testimonials</a>
+        <a class="item">Sign-in</a>
+    </div>
+    <p></p>
+    <p></p>
 </div>

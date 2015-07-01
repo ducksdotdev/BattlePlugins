@@ -27,7 +27,9 @@
     </div>
 </nav>
 @include('admin.partials.menu')
-@yield('content')
+<div class="grid-80 grid-parent">
+    @yield('content')
+</div>
 @include('footer')
 </body>
 </html>

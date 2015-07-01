@@ -111,7 +111,7 @@ foreach ($tlds as $tld) {
 
 		Route::group(['before' => 'csrf'], function () {
 			Route::post('/settings', 'UserController@changeSettings');
-			Route::post('/user/create', 'Admin\UserController@createUser');
+			Route::post('/user/create', 'UserController@createUser');
 		});
 
 	});

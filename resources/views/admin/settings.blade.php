@@ -31,20 +31,20 @@
         <h2>Password</h2>
 
         <div class="field">
-            {!! Form::label('newpassword', 'New Password') !!}
-            {!! Form::password('newpassword', null, []) !!}
+            {!! Form::label('password', 'New Password') !!}
+            {!! Form::password('password', null, []) !!}
         </div>
         <div class="field">
-            {!! Form::label('newpassword_confirmation', 'Repeat New Password') !!}
-            {!! Form::password('newpassword_confirmation', null, []) !!}
+            {!! Form::label('password_confirmation', 'Repeat New Password') !!}
+            {!! Form::password('password_confirmation', null, []) !!}
         </div>
     </div>
     <div class="grid-100">
         <h2>Confirm Changes</h2>
 
         <div class="field">
-            {!! Form::label('password', 'Current Password') !!}
-            {!! Form::password('password', null, []) !!}
+            {!! Form::label('confirmation', 'Current Password') !!}
+            {!! Form::password('confirmation', null, []) !!}
         </div>
     </div>
     <div class="grid-100 text-right">

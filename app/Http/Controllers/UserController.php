@@ -27,21 +27,21 @@ class UserController extends Controller {
 
 	public function changeSettings (Request $request) {
 		$user = Auth::user();
-		$password = $request->input('password');
+		$confirmation = $request->input('confirmation');
 
-		if (Auth::validate(['id' => $user->id, 'password' => $password])) {
+		if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
 			$validator = $this->validate($request,
 				[
 					'displayname' => 'required|max:16',
-					'newpassword' => 'confirmed'
+					'password' => 'confirmed'
 				]
 			);
 
 			if ($validator->fails())
 				return redirect()->back()->withErrors($validator->errors());
 
-			if ($request->has('newpassword') && $request->has('newpassword2'))
-				$user->password = $request->input('newpassword');
+			if ($request->has('password'))
+				$user->password = $request->input('password');
 
 			$displayname = $request->input('displayname');
 			$user->displayname = $displayname;
@@ -50,6 +50,6 @@ class UserController extends Controller {
 			Auth::logout();
 			redirect('/');
 		} else
-			return redirect()->back()->withErrors(['Invalid password.']);
+			return redirect()->back()->withErrors(['Invalid confirmation password.']);
 	}
 }

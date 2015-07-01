@@ -1,4 +1,4 @@
-@extends('api.layouts.master')
+@extends('admin.layouts.login')
 @section('content')
     <div id="loginBox">
         <div class="grid-container">

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Tools\Models\User;
 use Auth;
-use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -56,11 +56,10 @@ class UserController extends Controller {
 	public function createUser (Request $request) {
 		if (Auth::user()->admin) {
 			$password = $request->password;
-			$registrar = new Registrar();
 
-			$registrar->create([
+			User::create([
 				'email' => $request->email,
-				'password' => $password,
+				'password' => Hash::make($password),
 				'displayname' => $request->displayname,
 				'isadmin' => $request->isadmin
 			]);

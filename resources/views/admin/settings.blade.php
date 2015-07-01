@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('admin.layouts.master')
 @section('content')
     {!! Form::open(['id'=>'contactForm','url'=>URL::to('/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form segment']) !!}
     @if(count($errors) > 0)

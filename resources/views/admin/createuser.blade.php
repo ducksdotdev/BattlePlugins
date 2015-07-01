@@ -1,7 +1,16 @@
 @extends('admin.layouts.master')
 @section('content')
     {!! Form::open(['url'=>URL::to('/user/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
-    @if(session()->has('success'))
+    @if(count($errors) > 0)
+        <div class="ui message negative">
+            There was an error creating that user!
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @elseif(session()->has('success'))
         <div class="ui message positive">
             {{ session()->get('success') }}
         </div>
@@ -11,11 +20,11 @@
 
         <div class="field">
             {!! Form::label('email', 'Email') !!}
-            {!! Form::text('email', '@battleplugins.com', ['placeholder'=>'name@battleplugins.com']) !!}
+            {!! Form::text('email', '@battleplugins.com', ['placeholder'=>'@battleplugins.com']) !!}
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name (Minecraft Username)') !!}
-            {!! Form::text('displayname', '', ['placeholder'=>'Minecraft Username'])!!}
+            {!! Form::text('displayname', '', ['placeholder'=>'Minecraft Username']) !!}
         </div>
         <div class="field">
             {!! Form::label('password', 'Enter Password') !!}

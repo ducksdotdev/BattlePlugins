@@ -58,6 +58,9 @@ class UserController extends Controller {
 		if (Auth::user()->admin) {
 			$password = $request->password;
 
+			if(User::whereEmail($request->email)->first())
+				return redirect()->back()->withErrors('That email is already registered to a user.');
+
 			User::create([
 				'email' => $request->email,
 				'password' => Hash::make($password),

@@ -104,5 +104,9 @@ foreach ($tlds as $tld) {
         Route::get('/{slug}/download', 'Paste\PasteController@downloadPaste');
     });
 
-    $url = env('APP_ENV_URL');
+	Route::group(['domain' => 'admin.' . $url], function () {
+		Route::get('/', 'Admin\PageController@index');
+	});
+
+	$url = env('APP_ENV_URL');
 }

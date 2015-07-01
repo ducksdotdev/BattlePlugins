@@ -26,12 +26,13 @@
         </div>
     </div>
 </nav>
-<div class="context">
-    @include('admin.partials.menu')
-    <div class="admin content grid-80 grid-parent">
-        @yield('content')
-    </div>
+@include('admin.partials.menu')
+<div class="admin content grid-80 grid-parent">
+    @yield('content')
+</div>
+<div class="grid-100 black">
     @include('footer')
+</div>
 </div>
 </body>
 </html>

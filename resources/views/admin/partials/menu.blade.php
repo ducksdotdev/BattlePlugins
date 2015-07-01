@@ -1,14 +1,31 @@
-<div class="ui left fixed vertical inverted menu">
-    <a class="item">Home</a>
-
-    <div class="ui dropdown item">
-        User Management
-        <i class="dropdown icon"></i>
-
+<div class="ui vertical inverted menu">
+    <div class="item">
+        <div class="header">Products</div>
         <div class="menu">
-            <a class="item"><i class="edit icon"></i> Create User</a>
-            <a class="item"><i class="globe icon"></i> Manage Users</a>
-            <a class="item"><i class="settings icon"></i> Account Settings</a>
+            <a class="item">Enterprise</a>
+            <a class="item">Consumer</a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="header">CMS Solutions</div>
+        <div class="menu">
+            <a class="item">Rails</a>
+            <a class="item">Python</a>
+            <a class="item">PHP</a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="header">Hosting</div>
+        <div class="menu">
+            <a class="item">Shared</a>
+            <a class="item">Dedicated</a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="header">Support</div>
+        <div class="menu">
+            <a class="item">E-mail Support</a>
+            <a class="item">FAQs</a>
         </div>
     </div>
 </div>

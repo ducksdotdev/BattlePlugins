@@ -17,18 +17,18 @@
                 <tr>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->displayname }}</td>
-                    @if($user->id != 1)
-                        <td>
+                    <td class="text-center">
+                        @if($user->id != 1)
                             @if($user->admin)
-                                <a href="/modify/user/{{ $user->id }}/admin" class="ui button red">Remove Admin</a>
+                                <a href="/user/modify/{{ $user->id }}/admin" class="ui button red mini">Remove Admin</a>
                             @else
-                                <a href="/modify/user/{{ $user->id }}/admin" class="ui button black">Make Admin</a>
+                                <a href="/user/modify/{{ $user->id }}/admin" class="ui button black mini">Make Admin</a>
                             @endif
-                            <a href="/modify/user/{{ $user->id }}/delete" class="ui button red">Delete User</a>
-                        </td>
-                    @else
-                        <td>User can't be modified.</td>
-                    @endif
+                            <a href="/user/modify/{{ $user->id }}/delete" class="ui button red mini">Delete User</a>
+                        @else
+                            This user cannot be modified.
+                        @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>

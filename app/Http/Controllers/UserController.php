@@ -6,7 +6,6 @@ use App\Tools\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller {
 
@@ -64,18 +63,29 @@ class UserController extends Controller {
 			User::create([
 				'email' => $request->email,
 				'password' => Hash::make($password),
-				'displayname' => $request->displayname,
+				'displayname' => $request->input('displayname'),
 				'isadmin' => $request->isadmin
 			]);
-
-			Mail::send('emails.welcome', array(
-				'password' => $password,
-				'displayname' => $request->displayname
-			), function ($message) use ($request) {
-				$message->to($request->email, $request->displayname)->subject('BattleAdmin Registration Confirmation');
-			});
 
 			return redirect()->back()->with('success', 'User successfully created.');
 		}
 	}
+
+	public function toggleAdmin($user){
+		$user = User::find($user);
+		if($user->id != 1 && Auth::user()->admin){
+            $user->admin = !$user->admin;
+            $user->save();
+		}
+
+        return redirect()->back();
+	}
+
+    public function deleteUser($user) {
+        $user = User::find($user);
+        if($user->id != 1 && Auth::user()->admin)
+            $user->delete();
+
+        return redirect()->back();
+    }
 }

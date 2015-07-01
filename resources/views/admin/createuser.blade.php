@@ -24,7 +24,7 @@
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name (Minecraft Username)') !!}
-            {!! Form::text('displayname', '', ['placeholder'=>'Minecraft Username']) !!}
+            {!! Form::text('displayname', null, ['placeholder'=>'Minecraft Username']) !!}
         </div>
         <div class="field">
             {!! Form::label('password', 'Enter Password') !!}

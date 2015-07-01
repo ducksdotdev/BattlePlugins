@@ -9,6 +9,12 @@
                 <a href="/user/modify" class="item">Modify User</a>
             </div>
         </div>
+        <div class="item">
+            <div class="header">Tools</div>
+            <div class="menu">
+                <a href="/tools/alert" class="item">Create Alert</a>
+            </div>
+        </div>
     @endif
     <a href="/logout" class="item">Logout</a>
 </div>

@@ -107,12 +107,29 @@ foreach ($tlds as $tld) {
 	Route::group(['domain' => 'admin.' . $url], function () {
 		Route::get('/', 'Admin\PageController@index');
 		Route::get('/settings', 'Admin\PageController@settings');
-		Route::get('/user/create', 'Admin\PageController@createUser');
-		Route::get('/user/modify', 'Admin\PageController@modifyUser');
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/create', 'Admin\PageController@createUser');
+            Route::get('/modify', 'Admin\PageController@modifyUser');
+            Route::get('/modify/{id}/delete', 'UserController@deleteUser');
+            Route::get('/modify/{id}/admin', 'UserController@toggleAdmin');
+
+            Route::group(['before' => 'csrf'], function () {
+                Route::post('/create', 'UserController@createUser');
+            });
+        });
+
+        Route::group(['prefix' => 'tools'], function () {
+            Route::get('/alert', 'Admin\PageController@alerts');
+            Route::get('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
+
+            Route::group(['before' => 'csrf'], function () {
+                Route::post('/alert', 'Admin\ToolsController@alert');
+            });
+        });
 
 		Route::group(['before' => 'csrf'], function () {
 			Route::post('/settings', 'UserController@changeSettings');
-			Route::post('/user/create', 'UserController@createUser');
 		});
 
 	});

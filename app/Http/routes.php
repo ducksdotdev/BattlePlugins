@@ -107,11 +107,11 @@ foreach ($tlds as $tld) {
 	Route::group(['domain' => 'admin.' . $url], function () {
 		Route::get('/', 'Admin\PageController@index');
 		Route::get('/settings', 'Admin\PageController@settings');
-		Route::get('/users/create', 'Admin\PageController@createUser');
+		Route::get('/user/create', 'Admin\PageController@createUser');
 
 		Route::group(['before' => 'csrf'], function () {
 			Route::post('/settings', 'UserController@changeSettings');
-			Route::post('/users/create', 'Admin\UserController@createUser');
+			Route::post('/user/create', 'Admin\UserController@createUser');
 		});
 
 	});

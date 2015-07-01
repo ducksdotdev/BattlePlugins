@@ -1,7 +1,11 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="grid-100">
-        Avast, aww. Planets view from devastations like mysterious collectives. Per guest prepare three pounds of soy
-        sauce with breaked blueberries for dessert. Iunquam consumere candidatus. Nunquam talem candidatus.
+        <h1>Notices</h1>
+
+        <div class="ui message warning">
+            The admin panel is currently under construction. If you have any requests for tools or features you would
+            like to see please ask lDucks.
+        </div>
     </div>
 @stop

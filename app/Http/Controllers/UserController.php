@@ -37,19 +37,16 @@ class UserController extends Controller {
 				else
 					return redirect()->back()->withErrors(['Your passwords do not match']);
 
-				if ($request->has('displayname')) {
-					$displayname = request->input('displayname');
+				$displayname = $request->input('displayname');
+				$validator = Validator::make(
+					array('displayname' => $displayname),
+					array('displayname' => 'required|max:16')
+				);
 
-					$validator = Validator::make(
-						array('displayname' => $displayname),
-						array('displayname' => 'required|max:16')
-					);
+				if ($validator->fails())
+					return redirect()->back()->withErrors($validator->errors());
 
-					if ($validator->fails())
-						return redirect()->back()->withErrors($validator->errors());
-
-					$user->displayname = $displayname;
-				}
+				$user->displayname = $displayname;
 			}
 
 			$user->save();

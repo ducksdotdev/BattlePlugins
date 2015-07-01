@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    {!! Form::open(['id'=>'contactForm','url'=>URL::to('/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form segment']) !!}
+    {!! Form::open(['id'=>'contactForm','url'=>URL::to('/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">
             There was an error processing your request!
@@ -20,11 +20,11 @@
 
         <div class="field">
             {!! Form::label('email', 'Your Email (Can\'t be changed)') !!}
-            {!! Form::text('email', $email, ['disabled'=>true]) !!}
+            {!! Form::text('email', Auth::user()->email, ['disabled'=>true]) !!}
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name') !!}
-            {!! Form::text('displayname', null, []) !!}
+            {!! Form::text('displayname', Auth::user()->displayname, []) !!}
         </div>
     </div>
     <div class="grid-100">

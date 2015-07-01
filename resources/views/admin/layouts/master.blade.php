@@ -34,6 +34,8 @@
         </div>
     </div>
 </div>
-@include('footer')
+<div class="grid-100">
+    @include('footer')
+</div>
 </body>
 </html>

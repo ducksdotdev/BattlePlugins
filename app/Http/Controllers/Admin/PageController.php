@@ -17,8 +17,6 @@ class PageController extends Controller {
 	}
 
 	public static function settings () {
-		return view('admin.settings', [
-			'email' => Auth::user()->email
-		]);
+		return view('admin.settings');
 	}
 }

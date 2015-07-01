@@ -39,7 +39,7 @@
             {!! Form::text('newpassword2', null, []) !!}
         </div>
     </div>
-    <div class="col-lg-12">
+    <div class="grid-100">
         <h2>Confirm Changes</h2>
 
         <div class="field">
@@ -47,6 +47,8 @@
             {!! Form::text('password', null, []) !!}
         </div>
     </div>
-    {!! Form::submit('Save Changes', ['class'=>'ui button primary']) !!}
+    <div class="grid-100 text-right">
+        {!! Form::submit('Save Changes', ['class'=>'ui button primary']) !!}
+    </div>
     {!! Form::close() !!}
 @stop

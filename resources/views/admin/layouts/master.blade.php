@@ -26,8 +26,10 @@
         </div>
     </div>
 </nav>
-@include('admin.partials.menu')
-@yield('content')
-@include('footer')
+<div class="context">
+    @include('admin.partials.menu')
+    @yield('content')
+    @include('footer')
+</div>
 </body>
 </html>

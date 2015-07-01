@@ -25,10 +25,8 @@
         </div>
     </div>
 </nav>
-<div class="ui segment">
-    @include('admin.partials.menu')
-    @yield('content')
-    @include('footer')
-</div>
+@include('admin.partials.menu')
+@yield('content')
+@include('footer')
 </body>
 </html>

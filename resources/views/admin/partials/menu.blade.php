@@ -1,28 +1,19 @@
 <div class="ui vertical inverted admin menu hide-on-mobile">
     <a href="/" class="item">Home</a>
-    <div class="item">
-        <div class="header">CMS Solutions</div>
-        <div class="menu">
-            <a class="item">Rails</a>
-            <a class="item">Python</a>
-            <a class="item">PHP</a>
+    <a class="item">User Settings</a>
+    @if(Auth::user()->admin)
+        <div class="item">
+            <div class="header">User Management</div>
+            <div class="menu">
+                <a class="item">Create User</a>
+                <a class="item">Modify User</a>
+            </div>
         </div>
-    </div>
-    <div class="item">
-        <div class="header">Hosting</div>
-        <div class="menu">
-            <a class="item">Shared</a>
-            <a class="item">Dedicated</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="header">Support</div>
-        <div class="menu">
-            <a class="item">E-mail Support</a>
-            <a class="item">FAQs</a>
-        </div>
-    </div>
+    @endif
+    <a href="/logout" class="item">Logout</a>
 </div>
-<div class="ui tabular menu hide-on-desktop hide-on-tablet">
-    <a href="/" class="item">Home</a>
+<div class="ui buttons hide-on-desktop hide-on-tablet">
+    <a href="/" class="ui button">Home</a>
+    <a class="ui button">User Settings</a>
+    <a href="/logout" class="ui button">Logout</a>
 </div>

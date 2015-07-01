@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    {!! Form::open(['id'=>'contactForm','url'=>URL::to('/user/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
+    {!! Form::open(['url'=>URL::to('/user/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(session()->has('success'))
         <div class="ui message positive">
             {{ session()->get('success') }}
@@ -15,8 +15,7 @@
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name (Minecraft Username)') !!}
-            {!! Form::text('displayname', '', ['placeholder'=>'Minecraft Username'])
-            !!}
+            {!! Form::text('displayname', '', ['placeholder'=>'Minecraft Username']) !!}
         </div>
         <div class="field">
             {!! Form::label('password', 'Enter Password') !!}

@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller {
 
 	public function login (Request $request) {
-		$email = $request->input('email');
-		$password = $request->input('password');
-		$rememberMe = $request->input('rememberMe');
+		$email = $request->email;
+		$password = $request->password;
+		$rememberMe = $request->rememberMe;
 
 		if (Auth::attempt(['email' => $email, 'password' => $password], $rememberMe)) {
 			return redirect('/');
@@ -28,7 +28,7 @@ class UserController extends Controller {
 
 	public function changeSettings (Request $request) {
 		$user = Auth::user();
-		$confirmation = $request->input('confirmation');
+		$confirmation = $request->confirmation;
 
 		if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
 			$validator = $this->validate($request,
@@ -42,9 +42,9 @@ class UserController extends Controller {
 				return redirect()->back()->withErrors($validator->errors());
 
 			if ($request->has('password'))
-				$user->password = Hash::make($request->input('password'));
+				$user->password = Hash::make($request->password);
 
-			$displayname = $request->input('displayname');
+			$displayname = $request->displayname;
 			$user->displayname = $displayname;
 
 			$user->save();
@@ -57,6 +57,7 @@ class UserController extends Controller {
 		if (Auth::user()->admin) {
 			$password = $request->password;
 			$registrar = new Registrar();
+
 			$registrar->create([
 				'email' => $request->email,
 				'password' => $password,

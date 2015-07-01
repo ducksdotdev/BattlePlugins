@@ -39,7 +39,7 @@ nav {
       margin: 0;
       padding: 0;
 
-      &+li {
+      & + li {
         margin-left: 40px;
       }
 
@@ -242,11 +242,16 @@ h1 {
   margin-top: 0;
 }
 
-.admin.menu {
-  margin: -30px 0 0 0;
-  border-radius: 0;
+.black {
+  background: #1B1C1D;
 }
 
-.black {
-  background: black;
+.body {
+  background: #f7f7f7;
+  padding-top: 30px;
+  margin-top: -30px;
+}
+
+.admin.menu {
+  margin: -30px 0 0 0;
 }

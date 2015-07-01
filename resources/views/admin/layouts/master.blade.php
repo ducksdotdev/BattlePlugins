@@ -18,7 +18,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <!--       End Scripts -->
 </head>
-<body>
+<body class="black">
 <nav>
     <div class="grid-container">
         <div class="grid-100">
@@ -26,11 +26,13 @@
         </div>
     </div>
 </nav>
-@include('admin.partials.menu')
-<div class="admin content grid-80 grid-parent">
-    @yield('content')
+<div class="grid-container body">
+    @include('admin.partials.menu')
+    <div class="admin content grid-80 grid-parent">
+        @yield('content')
+    </div>
 </div>
-<div class="grid-100 black">
+<div class="grid-100">
     @include('footer')
 </div>
 </div>

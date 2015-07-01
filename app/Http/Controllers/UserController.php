@@ -39,7 +39,7 @@ class UserController extends Controller {
                     return redirect()->back()->withErrors(['Your passwords do not match']);
 
                 $displayname = $request->input('displayname');
-                $validator = Validator::make(
+                $validator = $this->validate(
                     array('displayname' => $displayname),
                     array('displayname' => 'required|max:16')
                 );

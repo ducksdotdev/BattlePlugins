@@ -36,6 +36,7 @@
 <script>
     $(".sidebar").sidebar({
         context: $(".context")
-    }).sidebar('attach events', '.context .menu .item');
+    }).sidebar('attach events', '.context .menu .item')
+            .sidebar('toggle');
 </script>
 </html>

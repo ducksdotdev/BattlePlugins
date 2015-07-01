@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Registrar;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,5 +51,27 @@ class UserController extends Controller {
 			return self::logout();
 		} else
 			return redirect()->back()->withErrors(['Invalid confirmation password.']);
+	}
+
+	public function createUser (Request $request) {
+		if (Auth::user()->admin) {
+			$password = $request->password;
+			$registrar = new Registrar();
+			$registrar->create([
+				'email' => $request->email,
+				'password' => $password,
+				'displayname' => $request->displayname,
+				'isadmin' => $request->isadmin
+			]);
+
+			Mail::send('emails.welcome', array(
+				'password' => $password,
+				'displayname' => $request->displayname
+			), function ($message) use ($request) {
+				$message->to($request->email, $request->displayname)->subject('BattleAdmin Registration Confirmation');
+			});
+
+			return redirect()->back()->with('success', 'User successfully created.');
+		}
 	}
 }

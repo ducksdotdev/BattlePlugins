@@ -19,4 +19,7 @@ class PageController extends Controller {
 	public static function settings () {
 		return view('admin.settings');
 	}
+	public static function createUser () {
+		return view('admin.createuser');
+	}
 }

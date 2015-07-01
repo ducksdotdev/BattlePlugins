@@ -25,10 +25,6 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
 <script type="text/javascript">
-    $('.ui.accordion').accordion();
-    $('.ui.sticky').sticky({
-        context: '#docs'
-    });
     $('.ui.checkbox').checkbox();
 </script>
 @yield('extraScripts')

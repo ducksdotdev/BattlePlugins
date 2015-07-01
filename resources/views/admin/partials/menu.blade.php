@@ -5,7 +5,7 @@
         <div class="item">
             <div class="header">User Management</div>
             <div class="menu">
-                <a class="item">Create User</a>
+                <a href="/users/create" class="item">Create User</a>
                 <a class="item">Modify User</a>
             </div>
         </div>

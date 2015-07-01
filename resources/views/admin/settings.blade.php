@@ -23,7 +23,7 @@
             {!! Form::text('email', $email, ['disabled'=>true]) !!}
         </div>
         <div class="field">
-            {!! Form::label('displayname', 'Display Name:' !!}
+            {!! Form::label('displayname', 'Display Name') !!}
             {!! Form::text('displayname', null, []) !!}
         </div>
     </div>
@@ -31,11 +31,11 @@
         <h2>Password</h2>
 
         <div class="field">
-            {!! Form::label('newpassword', 'New Password:' !!}
+            {!! Form::label('newpassword', 'New Password') !!}
             {!! Form::text('newpassword', null, []) !!}
         </div>
         <div class="field">
-            {!! Form::label('newpassword2', 'Repeat New Password:' !!}
+            {!! Form::label('newpassword2', 'Repeat New Password') !!}
             {!! Form::text('newpassword2', null, []) !!}
         </div>
     </div>
@@ -43,7 +43,7 @@
         <h2>Confirm Changes</h2>
 
         <div class="field">
-            {!! Form::label('password', 'Current Password:' !!}
+            {!! Form::label('password', 'Current Password') !!}
             {!! Form::text('password', null, []) !!}
         </div>
     </div>

@@ -15,4 +15,17 @@ class Task extends Model {
     public $timestamps = false;
 
     protected $fillable = ['title', 'creator', 'content', 'assigned_to', 'public', 'status'];
+
+    public static function boot() {
+        parent::boot();
+
+        static::created(function ($model) {
+            if ($model->assigned_to != 0) {
+                Alert::create([
+                    'user' => $model->assigned_to,
+                    'content' => "A task has been assigned to you by " . User::find($model->creator)->displayname,
+                ]);
+            }
+        });
+    }
 }

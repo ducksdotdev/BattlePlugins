@@ -5,7 +5,7 @@
     </div>
     <div class="content">
         <div class="description">
-            {!! Form::open(['id'=>'createTaskForm','url'=>URL::to('/tasks/create', [], true),'class'=>'ui form']) !!}
+            {!! Form::open(['id'=>'createTaskForm','url'=>URL::to('/tasks/create', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
             <div class="twelve wide field">
                 <label>Title</label>
                 {!! Form::text('title', '', ['maxlength'=>64]) !!}

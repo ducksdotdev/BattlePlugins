@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Registrar;
 use Auth;
+use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 

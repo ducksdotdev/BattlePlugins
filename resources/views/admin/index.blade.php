@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-100">
-        <h2>{{ $title }}</h2>
-    </div>
     @if(count($alerts) > 0)
         <div class="grid-100">
             <h3>Alerts ({{ count($alerts) }})</h3>
@@ -21,16 +18,31 @@
         </div>
     @endif
     <div class="grid-100 grid-parent">
-        <div class="grid-50">
+        <div class="grid-33">
             <h3>BattlePlugins Websites</h3>
             <ul>
-                <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} tasks</a> yet to be completed.
+                <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} incomplete tasks</a>.
                 </li>
                 <li>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was
-                    created {{ $blog->created_at->diffForHumans() }}</li>
+                    created {{ $blog->created_at->diffForHumans() }}.
+                </li>
             </ul>
         </div>
-        <div class="grid-50">
+        <div class="grid-33">
+            <h3>Server Status</h3>
+            <ul>
+                @foreach(['s1','s2','s3'] as $server)
+                    <li>{{ $server }}.battleplugins.com:
+                        @if(Domain::isOnline('http://s1.battleplugins.com'))
+                            <span class="green">Online!</span>
+                        @else
+                            <span class="red">Offline!</span>
+                        @endif
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="grid-33">
             <h3>Queue Information</h3>
             Queued Jobs: {{ $queuedJobs }}<br/>
             Failed Jobs: {{ $failedJobs }}

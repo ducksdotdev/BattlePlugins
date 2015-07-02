@@ -18527,7 +18527,6 @@ Label
 .ui.checkbox label,
 .ui.checkbox + label {
     cursor: pointer;
-    color: rgba(0, 0, 0, 0.8);
     -webkit-transition: color 0.2s ease;
     transition: color 0.2s ease;
     -webkit-user-select: none;
@@ -18554,11 +18553,6 @@ Hover
 .ui.checkbox label:hover::before {
     background: #ffffff;
     border: 1px solid rgba(39, 41, 43, 0.3);
-}
-
-.ui.checkbox label:hover,
-.ui.checkbox + label:hover {
-    color: rgba(0, 0, 0, 0.8);
 }
 
 /*--------------

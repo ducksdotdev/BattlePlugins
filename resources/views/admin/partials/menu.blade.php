@@ -1,15 +1,16 @@
 <div class="ui vertical inverted admin menu grid-15">
     <a href="/" class="item">Dashboard</a>
-    <a href="/settings" class="item">User Settings</a>
-    @if(Auth::user()->admin)
-        <div class="item">
-            <div class="header">User Management</div>
-            <div class="menu">
+
+    <div class="item">
+        <div class="header">User Management</div>
+        <div class="menu">
+            <a href="/settings" class="item">User Settings</a>
+            @if(Auth::user()->admin)
                 <a href="/user/create" class="item">Create User</a>
                 <a href="/user/modify" class="item">Modify User</a>
-            </div>
+            @endif
         </div>
-    @endif
+    </div>
     <div class="item">
         <div class="header">Tools</div>
         <div class="menu">

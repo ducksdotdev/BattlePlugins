@@ -98,10 +98,6 @@ nav {
   float: none !important;
 }
 
-.grid-100 + .grid-100 {
-  margin-top: 10px;
-}
-
 #loginButton {
   margin-left: 17px
 }
@@ -248,11 +244,23 @@ h1 {
   }
 
   &.menu {
-    border-radius: 0;
-    height: calc(100% - 37px);
-    margin: -30px 0 0 0;
     padding-top: 10px;
+    top: 75px !important;
   }
+}
+
+.grid-100 + .grid-100 {
+  margin-top: 10px;
+}
+
+.body {
+  margin-top: 75px;
+}
+
+nav.admin {
+  margin-bottom: 0;
+  top: 0;
+  position: fixed;
 }
 
 .red {
@@ -263,6 +271,10 @@ h1 {
   color: #1ebc30;
 }
 
+.yellow {
+  color: #b58105;
+}
+
 a .icon.remove {
   color: rgba(0, 0, 0, 0.32);
 
@@ -271,18 +283,38 @@ a .icon.remove {
   }
 }
 
-ul.serverstats {
+ul.stats {
   list-style-type: none;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: bold;
-  margin: 50px 0 30px 0;
   text-align: center;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  &.small li {
+    width: 80px;
+    height: 80px;
+    padding-top: 26px;
+  }
 
   li {
-    display: inline;
+    display: inline-block;
     border: 2px solid;
     border-radius: 50px;
-    padding: 30px;
+    padding-top: 37px;
+    width: 100px;
+    height: 100px;
+    background: #efefef;
+
+    &.has-small {
+      padding-top: 29px;
+    }
+
+    .small {
+      font-size: 11px;
+    }
 
     &.red {
       background: #ffe8e6;
@@ -292,12 +324,33 @@ ul.serverstats {
       background: #ebffed;
     }
 
+    &.yellow {
+      background: #fff8db;
+    }
+
     & + li {
-      margin-left: 40px;
+      margin-left: 15px;
     }
   }
 }
 
 .alerts {
   margin-bottom: 20px;
+}
+
+.updates {
+  padding-top: 18px;
+
+  .grid-20 {
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .grid-80 {
+    font-style: italic;
+  }
+}
+
+.pointer {
+  cursor: pointer;
 }

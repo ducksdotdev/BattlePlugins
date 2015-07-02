@@ -1,4 +1,4 @@
-<div class="ui vertical inverted admin menu grid-15">
+<div class="ui vertical inverted admin menu left fixed grid-15">
     <a href="/" class="item">Dashboard</a>
 
     <div class="item">

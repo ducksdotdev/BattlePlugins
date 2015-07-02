@@ -10,4 +10,6 @@ class ServerSettings extends Model {
     protected $table = 'server_settings';
 
     protected $fillable = ['key', 'value'];
+
+    public $primaryKey = 'key';
 }

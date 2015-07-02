@@ -121,6 +121,7 @@ foreach ($tlds as $tld) {
 
         Route::group(['prefix' => 'tools'], function () {
             Route::get('/alert', 'Admin\PageController@alerts');
+            Route::get('/alert/json', 'Admin\ToolsController@jsonAlerts');
             Route::get('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
 
             Route::get('/cms', 'Admin\PageController@cms');

@@ -33,6 +33,8 @@ class PageController extends Controller {
             foreach ($users as $user)
                 $displaynames[$user->id] = $user->displayname;
 
+            ServerSettings::firstOrCreate(['key'=>'blogviews'])->increment('value');
+
             return [
                 'blog' => $blog,
                 'list' => Blog::latest()->take(4)->get(),

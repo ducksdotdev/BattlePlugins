@@ -54,4 +54,7 @@ class ToolsController extends Controller {
         return redirect()->back();
     }
 
+    public function jsonAlerts() {
+        return response()->json(Alert::whereUser(Auth::user()->id)->latest()->get());
+    }
 }

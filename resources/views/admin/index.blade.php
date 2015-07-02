@@ -1,75 +1,97 @@
 @extends('admin.layouts.master')
 @section('content')
-    @if(count($alerts) > 0)
-        <div class="grid-100 alerts">
-            <h3>Alerts ({{ count($alerts) }})</h3>
-            @foreach($alerts as $alert)
-                <div class="ui message {{ $alert->color }}">
-                    <a href="/tools/alert/delete/{{ $alert->id }}">
-                        <i class="icon remove pull-right"></i>
-                    </a>
-                    <strong>Posted {{ $alert->created_at->diffForHumans() }}</strong>
-
-                    <p>
-                        {{ $alert->content }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-    @endif
-    <div class="grid-50 grid-parent">
-        <h3>
-            Server Status <br/>
-            <small>Updated every 30 minutes.</small>
-        </h3>
-        <ul class="serverstats">
-            @foreach($serverData as $server)
-                @if($server['online'])
-                    <li class="green">
-                        {{ strtoupper($server['name']) }}
-                    </li>
-                @else
-                    <li class="red">
-                        {{ strtoupper($server['name']) }}
-                    </li>
-                @endif
-            @endforeach
-        </ul>
+    <div class="grid-100">
+        <h1>{{ $title }}</h1>
     </div>
-    <div class="grid-50 grid-parent">
+    <div class="grid-60 grid-parent">
         <div class="grid-100">
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>BattlePlugins Websites</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} incomplete tasks</a>.</td>
-                </tr>
-                <tr>
-                    <td>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was created {{ $blog->created_at->diffForHumans() }}.</td>
-                </tr>
-                </tbody>
-            </table>
+            <h3>
+                Server Status <br/>
+                <small>Updated every {{ $updateMins }} minutes. Last
+                    updated {{ $serverData['updated_at']->diffForHumans() }}.
+                </small>
+            </h3>
+            <ul class="stats small">
+                @foreach($serverData['servers'] as $server)
+                    <li class="{{ $server['online'] ? 'green' : 'red' }}">
+                        {{ ucfirst($server['name']) }}
+                    </li>
+                @endforeach
+            </ul>
         </div>
         <div class="grid-100">
-            <table class="ui celled table">
-                <thead>
-                <tr>
-                    <th>Queue Information</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Queued Jobs: {{ $queuedJobs }}</td>
-                </tr>
-                <tr>
-                    <td>Failed Jobs: {{ $failedJobs }}</td>
-                </tr>
-                </tbody>
-            </table>
+            <h3>Tasks Overview</h3>
+            <ul class="stats">
+                <li class="yellow has-small">
+                    {{ count($tasks->where('assigned_to', auth()->user()->id)->where('status', false)->get()) }}
+                    <div class="small">Assigned to You</div>
+                </li>
+                <li class="yellow has-small">
+                    {{ count($tasks->where('status', false)->get()) }}
+                    <div class="small">Incomplete</div>
+                </li>
+                <li class="red has-small">
+                    {{ count($tasks->where('status', false)->where('creator', 24)->get()) }}
+                    <div class="small">GitHub Issues</div>
+                </li>
+                <li class="green has-small">
+                    {{ count($tasks->where('status', true)->get()) }}
+                    <div class="small">Completed</div>
+                </li>
+            </ul>
         </div>
+        <div class="grid-100">
+            <h3>Blog Overview</h3>
+            <ul class="stats">
+                <li class="has-small">
+                    {{ count($blogs) }}
+                    <div class="small">Blog Posts</div>
+                </li>
+                <li class="has-small">
+                    {{ \App\Tools\Models\ServerSettings::whereKey('blogviews')->pluck('value')  }}
+                    <div class="small">Page Hits</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="grid-40 grid-parent">
+        <div class="grid-100">
+            <h3>Latest From the Blog</h3>
+
+            <div class="ui middle aligned divided list segment">
+                @foreach($blogList as $post)
+                    <div class="item">
+                        <div class="header">
+                            <a href="{{ action('Blog\PageController@getBlog', ['id'=>$post->id]) }}">{{ $post->title }}</a>
+                            <small>
+                                Written by {{ $displaynames[$post->author] }} <span
+                                        title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
+                                @if($post->updated_at != $post->created_at)
+                                    <span title="Edited {{ $post->updated_at->diffForHumans()
+                                         }} ({{ $post->updated_at }})">*</span>
+                                @endif
+                            </small>
+                        </div>
+                        <div class="description">
+                            {{ str_limit($post->content, 75) }}
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @if($jenkins)
+            <div class="grid-100 grid-parent">
+                <h3>Latest CI Builds</h3>
+                @foreach($rssFeed as $item)
+                    <div class="grid-100">
+                        <div class="ui small message {{ str_contains($item->get_title(), 'broken') ? 'red' : 'green' }}">
+                            <div class="header">
+                                <a href="{{ $item->get_permalink()}}">{{ $item->get_title() }}</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 @stop

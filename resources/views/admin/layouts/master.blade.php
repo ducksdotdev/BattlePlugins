@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="BattleAdmin">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,27 +9,51 @@
     <!--        Styles -->
     <link rel="stylesheet" href="/assets/css/semantic.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.min.css"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/menu.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
     <!--        End Styles -->
     <!--        Scripts -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
-    <!--       End Scripts -->
+
+    @if(count($alerts) > 0)
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+        <script type="text/javascript" src="/assets/js/admin/alerts.js"></script>
+        @endif
+                <!--       End Scripts -->
 </head>
 <body>
-<nav>
-    <div class="grid-100">
+<nav class="admin grid-100 grid-parent">
+    <div class="grid-20">
         <h1 class="admin brand"><a href="/">battleadmin</a></h1>
     </div>
+    @if(count($alerts) > 0)
+        <div class="grid-60 grid-parent updates" ng-controller="AlertsCtrl">
+            <div class="grid-20">Alerts |</div>
+            <div class="grid-80 grid-parent">
+                <div class="grid-85">
+                    <span id="alert" ng-bind="alert['content']"></span>
+                </div>
+                <div class="grid-15">
+                    <i ng-click="prevAlert()" ng-hide="alerts.length == 1" class="icon caret left pointer"></i>
+                    <a id="removeAlert"><i class="icon remove pointer"></i></a>
+                    <i ng-click="nextAlert()" ng-hide="alerts.length == 1" class="icon caret right pointer"></i>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="grid-60 updates text-center">Hello, {{ auth()->user()->displayname }}. Welcome to BattleAdmin!</div>
+    @endif
+    <div class="grid-20"></div>
 </nav>
-@include('admin.partials.menu')
-<div class="grid-85 grid-parent">
-    <div class="grid-container">
-        @yield('content')
+<div class="grid-100 grid-parent">
+    @include('admin.partials.menu')
+    <div class="grid-85 grid-parent pull-right body">
+        <div class="grid-container">
+            @yield('content')
+        </div>
+        @include('footer')
     </div>
-    @include('footer')
 </div>
 <script type="text/javascript">
     $('.ui.checkbox').checkbox();

@@ -1,8 +1,11 @@
 @extends('admin.layouts.master')
 @section('content')
+    <div class="grid-100">
+        <h2>{{ $title }}</h2>
+    </div>
     @if(count($alerts) > 0)
         <div class="grid-100">
-            <h2>Alerts ({{ count($alerts) }})</h2>
+            <h3>Alerts ({{ count($alerts) }})</h3>
             @foreach($alerts as $alert)
                 <div class="ui message {{ $alert->color }}">
                     <a href="/tools/alert/delete/{{ $alert->id }}">
@@ -18,10 +21,10 @@
         </div>
     @endif
     <div class="grid-100 grid-parent">
-        <h2>Overview</h2>
+        <h3>Overview</h3>
 
         <div class="grid-50">
-            <h3>BattlePlugins Websites</h3>
+            <h2>BattlePlugins Websites</h2>
             <ul>
                 <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} tasks</a> yet to be completed.
                 </li>
@@ -29,7 +32,7 @@
             </ul>
         </div>
         <div class="grid-50">
-            <h3>Queue Information</h3>
+            <h2>Queue Information</h2>
             Queued Jobs: {{ $queuedJobs }}<br/>
             Failed Jobs: {{ $failedJobs }}
         </div>

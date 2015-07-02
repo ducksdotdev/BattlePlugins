@@ -20,6 +20,8 @@ class PageController extends Controller {
 
         if (auth()->check())
             view()->share('alerts', Alert::whereUser(Auth::user()->id)->latest()->get());
+
+        view()->share('alert_bar', ServerSettings::whereKey('alert_bar')->pluck('value'));
     }
 
     public static function index() {
@@ -93,7 +95,8 @@ class PageController extends Controller {
             'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value'),
             'dash_jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
             'registration' => ServerSettings::whereKey('registration')->pluck('value'),
-            'footer' => ServerSettings::whereKey('footer')->pluck('value')
+            'footer' => ServerSettings::whereKey('footer')->pluck('value'),
+            'alert_bar' => ServerSettings::whereKey('alert_bar')->pluck('value')
         ]);
     }
 }

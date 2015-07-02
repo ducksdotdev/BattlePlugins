@@ -32,5 +32,11 @@
         @else
             <a href="/tools/cms/dash_jenkins" class="ui button primary">Enable Jenkins Feed</a>
         @endif
+
+        @if($alert_bar)
+            <a href="/tools/cms/alert_bar" class="ui button red">Disable Alert Bar</a>
+        @else
+            <a href="/tools/cms/alert_bar" class="ui button primary">Enable Alert Bar</a>
+        @endif
     </div>
 @stop

@@ -46,6 +46,8 @@
                     </table>
                 </div>
             </div>
+        @elseif($alert_bar)
+            <div class="grid-100 grid-parent alerts"><div class="updates"></div></div>
         @endif
         <div class="grid-85 pull-right grid-parent">
             <div class="grid-container">

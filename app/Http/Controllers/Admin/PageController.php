@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Alert;
 use App\Tools\Models\Blog;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\Task;
@@ -33,7 +32,6 @@ class PageController extends Controller {
 
             return view('admin.index', [
                 'title' => 'Dashboard',
-                'alerts' => Alert::whereUser(Auth::user()->id)->latest()->get(),
                 'tasks' => count(Task::whereStatus(false)->get()),
                 'blog' => Blog::latest()->first(),
                 'queuedJobs' => count(DB::table('jobs')->get()),

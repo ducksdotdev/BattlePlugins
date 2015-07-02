@@ -46,6 +46,12 @@ class PageController extends Controller {
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;
 
+            $hits = ServerSettings::whereKey('blogviews')->pluck('value');
+
+            $hitChange = $hits - Cache::pull('hitChange');
+            Cache::forget('hitChange');
+            Cache::forever('hitChange', $hits);
+
             return view('admin.index', [
                 'title' => 'Dashboard',
                 'tasks' => count(Task::whereStatus(false)->get()),
@@ -58,7 +64,9 @@ class PageController extends Controller {
                 'updateMins' => $updateMins,
                 'displaynames' => $displaynames,
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value')
+                'jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
+                'hitChange' => $hitChange,
+                'hits' => $hits
             ]);
         } else
             return view('admin.login');

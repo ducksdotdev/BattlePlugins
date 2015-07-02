@@ -5,7 +5,12 @@
         <div class="small">Blog Posts</div>
     </li>
     <li class="has-small">
-        {{ \App\Tools\Models\ServerSettings::whereKey('blogviews')->pluck('value')  }}
+        {{ $hits  }}
+        @if($hitChange > 0)
+            <small class="green">(+{{ $hitChange }})</small>
+        @else
+            <small>({{ $hitChange }})</small>
+        @endif
         <div class="small">Page Hits</div>
     </li>
 </ul>

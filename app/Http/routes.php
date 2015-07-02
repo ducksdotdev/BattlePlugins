@@ -1,7 +1,7 @@
 <?php
 
 $url = env('APP_ENV_URL');
-$tlds = ['.com', '.net', '.org'];
+$tlds = ['.org', '.net', '.com'];
 
 Route::get('/logout', 'UserController@logout');
 

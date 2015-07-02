@@ -16,7 +16,7 @@
             @if(Auth::user()->admin)
                 <a href="/tools/alert" class="item">Create Alert</a>
             @endif
-            <a href="/tools/cms" class="item">Content Management</a>
+            <a href="/tools/cms" class="item">Manage Content</a>
         </div>
     </div>
     <a href="/logout" class="item">Logout</a>

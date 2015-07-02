@@ -20,10 +20,8 @@
 </head>
 <body class="black">
 <nav>
-    <div class="grid-container">
-        <div class="grid-100">
-            <h1 class="brand"><a href="/">battleadmin</a></h1>
-        </div>
+    <div class="grid-100">
+        <h1 class="brand"><a href="/">battleadmin</a></h1>
     </div>
 </nav>
 @include('admin.partials.menu')

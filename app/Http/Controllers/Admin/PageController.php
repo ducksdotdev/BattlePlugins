@@ -56,7 +56,7 @@ class PageController extends Controller {
                 'updateMins' => $updateMins,
                 'displaynames' => $displaynames,
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value')
+                'jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value')
             ]);
         } else
             return view('admin.login');
@@ -91,6 +91,7 @@ class PageController extends Controller {
         return view('admin.cms', [
             'title' => 'Manage Content',
             'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value'),
+            'dash_jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
             'registration' => ServerSettings::whereKey('registration')->pluck('value'),
             'footer' => ServerSettings::whereKey('footer')->pluck('value')
         ]);

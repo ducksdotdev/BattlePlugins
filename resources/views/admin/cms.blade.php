@@ -25,4 +25,12 @@
             <a href="/tools/cms/jenkins" class="ui button primary">Enable Jenkins Feed</a>
         @endif
     </div>
+    <div class="grid-50">
+        <h3>BattleAdmin</h3>
+        @if($dash_jenkins)
+            <a href="/tools/cms/dash_jenkins" class="ui button red">Disable Jenkins Feed</a>
+        @else
+            <a href="/tools/cms/dash_jenkins" class="ui button primary">Enable Jenkins Feed</a>
+        @endif
+    </div>
 @stop

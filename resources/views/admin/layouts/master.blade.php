@@ -54,9 +54,11 @@
         <div class="grid-85 pull-right grid-parent">
             <div class="grid-container">
                 @yield('content')
+                <div class="grid-100">
+                    @include('footer')
+                </div>
             </div>
         </div>
-        @include('footer')
     </div>
 </div>
 <script type="text/javascript">

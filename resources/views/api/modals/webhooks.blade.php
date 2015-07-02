@@ -49,7 +49,7 @@
 
         var myHooks = [];
         @foreach($myHooks as $hook)
-        myHooks[{{ $hook->event }}] = '{{$hook->url}}';
+        myHooks['{{ $hook->event }}'] = '{{$hook->url}}';
         @endforeach
 
         $("#eventSelect").change(function(){

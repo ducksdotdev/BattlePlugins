@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="grid-100">
-        <h2>Manage Content</h2>
+        <h2>{{ $title }}</h2>
         @if($jenkins)
             <a href="/tools/cms/jenkins" class="ui button red">Disable Jenkins Feed</a>
         @else

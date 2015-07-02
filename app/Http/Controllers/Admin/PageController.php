@@ -7,7 +7,9 @@ use App\Tools\Models\Blog;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
+use App\Tools\URL\Domain;
 use Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller {
@@ -17,13 +19,26 @@ class PageController extends Controller {
 
     public static function index() {
         if (Auth::check()) {
+            $serverData = Cache::remember('serverData', 30, function () {
+                $serverData = [];
+                foreach (config('servers') as $server) {
+                    $serverData[] = [
+                        'name' => $server,
+                        'online' => Domain::isOnline('http://' . $server . '.battleplugins.com')
+                    ];
+                }
+
+                return $serverData;
+            });
+
             return view('admin.index', [
                 'title' => 'Dashboard',
                 'alerts' => Alert::whereUser(Auth::user()->id)->latest()->get(),
                 'tasks' => count(Task::whereStatus(false)->get()),
                 'blog' => Blog::latest()->first(),
                 'queuedJobs' => count(DB::table('jobs')->get()),
-                'failedJobs' => count(DB::table('failed_jobs')->get())
+                'failedJobs' => count(DB::table('failed_jobs')->get()),
+                'serverData' => $serverData
             ]);
         } else
             return view('admin.login');

@@ -49,7 +49,7 @@ class Domain {
     }
 
     public static function isOnline($domain) {
-        if(!filter_var($domain, FILTER_VALIDATE_URL))
+        if(!static::isUrl($domain))
             return false;
 
         //initialize curl

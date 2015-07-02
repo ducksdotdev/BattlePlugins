@@ -19,15 +19,16 @@
     @endif
     <div class="grid-100 grid-parent text-center">
         <h3>Server Status</h3>
+        <small>Updated every 30 minutes.</small>
         <ul class="serverstats">
-            @foreach(['s1','s2','s3'] as $server)
-                @if(Domain::isOnline('http://s1.battleplugins.com'))
+            @foreach($serverData as $server)
+                @if($server['online'])
                     <li class="green">
-                        {{ strtoupper($server) }}
+                        {{ strtoupper($server['name']) }}
                     </li>
                 @else
                     <li class="red">
-                        {{ strtoupper($server) }}
+                        {{ strtoupper($server['name']) }}
                     </li>
                 @endif
             @endforeach

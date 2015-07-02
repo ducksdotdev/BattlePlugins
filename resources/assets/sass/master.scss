@@ -339,15 +339,11 @@ ul.stats {
 }
 
 .updates {
-  padding-top: 18px;
+  height: 75px;
+  width: 100%;
 
-  .grid-20 {
-    text-align: right;
-    font-weight: bold;
-  }
-
-  .grid-80 {
-    font-style: italic;
+  td {
+    vertical-align: middle;
   }
 }
 

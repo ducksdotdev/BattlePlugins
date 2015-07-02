@@ -28,18 +28,20 @@
         <h1 class="admin brand"><a href="/">battleadmin</a></h1>
     </div>
     @if(count($alerts) > 0)
-        <div class="grid-60 grid-parent updates" ng-controller="AlertsCtrl">
-            <div class="grid-20">Alerts |</div>
-            <div class="grid-80 grid-parent">
-                <div class="grid-85">
-                    <span id="alert" ng-bind="alert['content']"></span>
-                </div>
-                <div class="grid-15">
-                    <i ng-click="prevAlert()" ng-hide="alerts.length == 1" class="icon caret left pointer"></i>
-                    <a id="removeAlert"><i class="icon remove pointer"></i></a>
-                    <i ng-click="nextAlert()" ng-hide="alerts.length == 1" class="icon caret right pointer"></i>
-                </div>
-            </div>
+        <div class="grid-60 grid-parent" ng-controller="AlertsCtrl">
+            <table class="updates">
+                <tbody>
+                <tr>
+                    <td width="10%" class="text-center"><h3>Alerts | </h3></td>
+                    <td width="80%" ng-bind="alert['content']"></td>
+                    <td width="10%" class="text-right">
+                        <i ng-click="prevAlert()" ng-hide="alerts.length == 1" class="icon caret left pointer"></i>
+                        <a id="removeAlert"><i class="icon remove pointer"></i></a>
+                        <i ng-click="nextAlert()" ng-hide="alerts.length == 1" class="icon caret right pointer"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     @else
         <div class="grid-60 updates text-center">Hello, {{ auth()->user()->displayname }}. Welcome to BattleAdmin!</div>

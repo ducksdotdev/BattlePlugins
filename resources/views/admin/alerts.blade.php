@@ -35,6 +35,12 @@
                     </div>
                 </div>
             @endforeach
+            <div class="grid-100">
+                <div class="ui message">
+                    {!! Form::radio('color', 'Default') !!}
+                    <label>Default</label>
+                </div>
+            </div>
         </div>
     </div>
     <div class="grid-100 text-right">

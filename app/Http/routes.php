@@ -127,6 +127,8 @@ foreach ($tlds as $tld) {
             Route::get('/cms', 'Admin\PageController@cms');
             Route::get('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
 
+            Route::get('/serverstats', 'Admin\PageController@serverStats');
+
             Route::group(['before' => 'csrf'], function () {
                 Route::post('/alert', 'Admin\ToolsController@alert');
             });

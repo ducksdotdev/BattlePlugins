@@ -4,9 +4,7 @@
         <h1>{{ $title }}</h1>
     </div>
     <div class="grid-60 grid-parent">
-        <div class="grid-100">
-            @include('admin.partials.dashboard.serverstats')
-        </div>
+        <div class="grid-100" ng-controller="ServerStatusCtrl" ng-bind-html="serverstats"></div>
         <div class="grid-100">
             @include('admin.partials.dashboard.tasks')
         </div>

@@ -31,3 +31,16 @@ BattleAdmin.controller("AlertsCtrl", function ($scope, $http) {
     };
 
 });
+
+BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $interval) {
+    $scope.serverstats = '';
+
+    var poll = function() {
+        $http.get('/tools/serverstats').success(function (data) {
+            $scope.serverstats = $sce.trustAsHtml(data);
+        });
+    };
+
+    poll();
+    $interval(poll, 1000);
+});

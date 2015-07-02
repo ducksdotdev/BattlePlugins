@@ -26,22 +26,6 @@ class PageController extends Controller {
 
     public static function index() {
         if (Auth::check()) {
-            $updateMins = 3;
-
-            $serverData = Cache::remember('serverData', $updateMins, function () {
-                $serverData = [];
-                foreach (config('servers') as $name => $server) {
-                    $serverData['servers'][] = [
-                        'name' => $name,
-                        'online' => Domain::isOnline($server)
-                    ];
-                }
-
-                $serverData['updated_at'] = Carbon::now();
-
-                return $serverData;
-            });
-
             $displaynames = [];
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;
@@ -60,8 +44,6 @@ class PageController extends Controller {
                 'tasks' => new Task,
                 'queuedJobs' => count(DB::table('jobs')->get()),
                 'failedJobs' => count(DB::table('failed_jobs')->get()),
-                'serverData' => $serverData,
-                'updateMins' => $updateMins,
                 'displaynames' => $displaynames,
                 'rssFeed' => Jenkins::getFeed(),
                 'jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
@@ -105,6 +87,29 @@ class PageController extends Controller {
             'registration' => ServerSettings::whereKey('registration')->pluck('value'),
             'footer' => ServerSettings::whereKey('footer')->pluck('value'),
             'alert_bar' => ServerSettings::whereKey('alert_bar')->pluck('value')
+        ]);
+    }
+
+    public function serverStats() {
+        $updateMins = 3;
+
+        $serverData = Cache::remember('serverData', $updateMins, function () {
+            $serverData = [];
+            foreach (config('servers') as $name => $server) {
+                $serverData['servers'][] = [
+                    'name' => $name,
+                    'online' => Domain::isOnline($server)
+                ];
+            }
+
+            $serverData['updated_at'] = Carbon::now();
+
+            return $serverData;
+        });
+
+        return view('admin.partials.dashboard.serverstats', [
+            'serverData' => $serverData,
+            'updateMins' => $updateMins,
         ]);
     }
 }

@@ -242,9 +242,19 @@ h1 {
   margin-top: 0;
 }
 
-.admin.menu {
-  border-radius: 0;
-  height: calc(100% - 37px);
-  margin: -30px 0 0 0;
-  padding-top: 10px;
+.admin {
+  &.brand {
+    margin-left: 10px;
+  }
+
+  &.menu {
+    border-radius: 0;
+    height: calc(100% - 37px);
+    margin: -30px 0 0 0;
+    padding-top: 10px;
+  }
+}
+
+.body {
+  margin-top: -30px;
 }

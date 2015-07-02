@@ -21,7 +21,7 @@
 <body>
 <nav>
     <div class="grid-100">
-        <h1 class="brand"><a href="/">battleadmin</a></h1>
+        <h1 class="admin brand"><a href="/">battleadmin</a></h1>
     </div>
 </nav>
 @include('admin.partials.menu')

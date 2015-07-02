@@ -1,42 +1,52 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-100">
+    <div class="grid-100 grid-parent0">
         <h2>{{ $title }}</h2>
     </div>
-    <div class="grid-50">
+    <div class="grid-25 grid-parent">
         <h3>All Sites</h3>
+        {!! Form::open(['url'=>URL::to('/tools/cms/registration', [], env('HTTPS_ENABLED', true))]) !!}
         @if($registration)
-            <a href="/tools/cms/registration" class="ui button red">Disable Registration</a>
+            <button class="ui button red">Disable Registration</button>
         @else
-            <a href="/tools/cms/registration" class="ui button primary">Enable Registration</a>
+            <button class="ui button primary">Enable Registration</button>
         @endif
-
+        {!! Form::close() !!}
+        <br/>
+        {!! Form::open(['url'=>URL::to('/tools/cms/footer', [], env('HTTPS_ENABLED', true))]) !!}
         @if($footer)
-            <a href="/tools/cms/footer" class="ui button red">Disable Footer</a>
+            <button class="ui button red">Disable Footer</button>
         @else
-            <a href="/tools/cms/footer" class="ui button primary">Enable Footer</a>
+            <button class="ui button primary">Enable Footer</button>
         @endif
+        {!! Form::close() !!}
     </div>
-    <div class="grid-50">
+    <div class="grid-25 grid-parent">
         <h3>Blog</h3>
+        {!! Form::open(['url'=>URL::to('/tools/cms/jenkins', [], env('HTTPS_ENABLED', true))]) !!}
         @if($jenkins)
-            <a href="/tools/cms/jenkins" class="ui button red">Disable Jenkins Feed</a>
+            <button class="ui button red">Disable Jenkins Feed</button>
         @else
-            <a href="/tools/cms/jenkins" class="ui button primary">Enable Jenkins Feed</a>
+            <button class="ui button primary">Enable Jenkins Feed</button>
         @endif
+        {!! Form::close() !!}
     </div>
-    <div class="grid-50">
+    <div class="grid-25 grid-parent">
         <h3>BattleAdmin</h3>
+        {!! Form::open(['url'=>URL::to('/tools/cms/dash_jenkins', [], env('HTTPS_ENABLED', true))]) !!}
         @if($dash_jenkins)
-            <a href="/tools/cms/dash_jenkins" class="ui button red">Disable Jenkins Feed</a>
+            <button class="ui button red">Disable Jenkins Feed</button>
         @else
-            <a href="/tools/cms/dash_jenkins" class="ui button primary">Enable Jenkins Feed</a>
+            <button class="ui button primary">Enable Jenkins Feed</button>
         @endif
-
+        {!! Form::close() !!}
+        <br/>
+        {!! Form::open(['url'=>URL::to('/tools/cms/alert_bar', [], env('HTTPS_ENABLED', true))]) !!}
         @if($alert_bar)
-            <a href="/tools/cms/alert_bar" class="ui button red">Disable Alert Bar</a>
+            <button class="ui button red">Disable Alert Bar</button>
         @else
-            <a href="/tools/cms/alert_bar" class="ui button primary">Enable Alert Bar</a>
+            <button class="ui button primary">Enable Alert Bar</button>
         @endif
+        {!! Form::close() !!}
     </div>
 @stop

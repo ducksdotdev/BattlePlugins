@@ -58,7 +58,7 @@ foreach ($tlds as $tld) {
         });
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
-            Route::get('/generateKey', 'API\PageController@generateKey');
+            Route::post('/generateKey', 'API\PageController@generateKey');
             Route::post('/webhooks', 'API\WebhookController@create');
         });
     });
@@ -70,8 +70,8 @@ foreach ($tlds as $tld) {
         Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
-            Route::get('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
-            Route::get('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
+            Route::post('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
+            Route::post('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
             Route::post('/tasks/create', 'Tasks\TasksController@createTask');
         });
     });
@@ -82,8 +82,8 @@ foreach ($tlds as $tld) {
         Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
             Route::post('/create', 'Paste\PasteController@createPaste');
             Route::post('/edit', 'Paste\PasteController@editPaste');
-            Route::get('/togglepub/{id}', 'Paste\PasteController@togglePublic');
-            Route::get('/delete/{id}', 'Paste\PasteController@deletePaste');
+            Route::post('/togglepub/{id}', 'Paste\PasteController@togglePublic');
+            Route::post('/delete/{id}', 'Paste\PasteController@deletePaste');
         });
 
         Route::get('/{slug}', 'Paste\PasteController@getPaste');
@@ -98,10 +98,10 @@ foreach ($tlds as $tld) {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/create', 'Admin\PageController@createUser');
             Route::get('/modify', 'Admin\PageController@modifyUser');
-            Route::get('/modify/{id}/delete', 'UserController@deleteUser');
-            Route::get('/modify/{id}/admin', 'UserController@toggleAdmin');
 
             Route::group(['before' => 'csrf'], function () {
+                Route::post('/modify/{id}/delete', 'UserController@deleteUser');
+                Route::post('/modify/{id}/admin', 'UserController@toggleAdmin');
                 Route::post('/create', 'UserController@createUser');
             });
         });
@@ -116,8 +116,8 @@ foreach ($tlds as $tld) {
 
             Route::group(['before' => 'csrf'], function () {
                 Route::post('/alert', 'Admin\ToolsController@alert');
-                Route::get('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
-                Route::get('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
+                Route::post('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
+                Route::post('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
             });
         });
 

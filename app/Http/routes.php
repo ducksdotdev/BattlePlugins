@@ -22,10 +22,8 @@ if (env('APP_ENV_URL') == 'localhost') {
 Route::group(['domain' => $shurl], function () {
     Route::get('/', 'ShortUrls\PageController@index');
 
-    Route::group(['before' => 'auth'], function () {
-        Route::group(['before' => 'csrf'], function () {
-            Route::post('/create', 'ShortUrls\UrlController@create');
-        });
+    Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
+        Route::post('/create', 'ShortUrls\UrlController@create');
     });
 
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');
@@ -59,15 +57,10 @@ foreach ($tlds as $tld) {
             Route::resource('pastes', 'API\Endpoints\PastesController');
         });
 
-        Route::group(['before' => 'auth'], function () {
+        Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::get('/generateKey', 'API\PageController@generateKey');
-
-            Route::group(['before' => 'csrf'], function () {
-                Route::post('/webhooks', 'API\WebhookController@create');
-            });
-
+            Route::post('/webhooks', 'API\WebhookController@create');
         });
-
     });
 
     Route::group(['domain' => 'tasks.' . $url], function () {
@@ -76,27 +69,21 @@ foreach ($tlds as $tld) {
 
         Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
 
-        Route::group(['before' => 'auth'], function () {
+        Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::get('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
             Route::get('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');
-
-            Route::group(['before' => 'csrf'], function () {
-                Route::post('/tasks/create', 'Tasks\TasksController@createTask');
-            });
+            Route::post('/tasks/create', 'Tasks\TasksController@createTask');
         });
     });
 
     Route::group(['domain' => 'paste.' . $url], function () {
         Route::get('/', 'Paste\PageController@index');
 
-        Route::group(['before' => 'auth'], function () {
-            Route::get('/delete/{id}', 'Paste\PasteController@deletePaste');
+        Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
+            Route::post('/create', 'Paste\PasteController@createPaste');
+            Route::post('/edit', 'Paste\PasteController@editPaste');
             Route::get('/togglepub/{id}', 'Paste\PasteController@togglePublic');
-
-            Route::group(['before' => 'csrf'], function () {
-                Route::post('/create', 'Paste\PasteController@createPaste');
-                Route::post('/edit', 'Paste\PasteController@editPaste');
-            });
+            Route::get('/delete/{id}', 'Paste\PasteController@deletePaste');
         });
 
         Route::get('/{slug}', 'Paste\PasteController@getPaste');
@@ -104,9 +91,9 @@ foreach ($tlds as $tld) {
         Route::get('/{slug}/download', 'Paste\PasteController@downloadPaste');
     });
 
-	Route::group(['domain' => 'admin.' . $url], function () {
-		Route::get('/', 'Admin\PageController@index');
-		Route::get('/settings', 'Admin\PageController@settings');
+    Route::group(['domain' => 'admin.' . $url], function () {
+        Route::get('/', 'Admin\PageController@index');
+        Route::get('/settings', 'Admin\PageController@settings');
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/create', 'Admin\PageController@createUser');
@@ -122,23 +109,23 @@ foreach ($tlds as $tld) {
         Route::group(['prefix' => 'tools'], function () {
             Route::get('/alert', 'Admin\PageController@alerts');
             Route::get('/alert/json', 'Admin\ToolsController@jsonAlerts');
-            Route::get('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
 
             Route::get('/cms', 'Admin\PageController@cms');
-            Route::get('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
 
             Route::get('/serverstats', 'Admin\PageController@serverStats');
 
             Route::group(['before' => 'csrf'], function () {
                 Route::post('/alert', 'Admin\ToolsController@alert');
+                Route::get('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
+                Route::get('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
             });
         });
 
-		Route::group(['before' => 'csrf'], function () {
-			Route::post('/settings', 'UserController@changeSettings');
-		});
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/settings', 'UserController@changeSettings');
+        });
 
-	});
+    });
 
-	$url = env('APP_ENV_URL');
+    $url = env('APP_ENV_URL');
 }

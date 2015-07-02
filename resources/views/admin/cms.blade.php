@@ -14,7 +14,7 @@
             <a href="/tools/cms/registration" class="ui button primary">Enable Registration</a>
         @endif
 
-        @if($api)
+        @if($footer)
             <a href="/tools/cms/footer" class="ui button red">Disable Footer</a>
         @else
             <a href="/tools/cms/footer" class="ui button primary">Enable Footer</a>

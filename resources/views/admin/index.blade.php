@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     @if(count($alerts) > 0)
-        <div class="grid-100">
+        <div class="grid-100 alerts">
             <h3>Alerts ({{ count($alerts) }})</h3>
             @foreach($alerts as $alert)
                 <div class="ui message {{ $alert->color }}">

@@ -274,3 +274,28 @@ a .icon.remove {
     color: black;
   }
 }
+
+ul.serverstats {
+  list-style-type: none;
+  font-size: 20px;
+  margin: 50px 0 30px -40px;
+
+  li {
+    display: inline;
+    border: 2px solid;
+    border-radius: 45px;
+    padding: 30px;
+
+    &.red {
+      background: #ffe8e6;
+    }
+
+    &.green {
+      background: #ebffed;
+    }
+
+    & + li {
+      margin-left: 40px;
+    }
+  }
+}

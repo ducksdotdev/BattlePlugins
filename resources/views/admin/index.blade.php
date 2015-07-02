@@ -17,8 +17,24 @@
             @endforeach
         </div>
     @endif
+    <div class="grid-100 grid-parent text-center">
+        <h3>Server Status</h3>
+        <ul class="serverstats">
+            @foreach(['s1','s2','s3'] as $server)
+                @if(Domain::isOnline('http://s1.battleplugins.com'))
+                    <li class="green">
+                        {{ strtoupper($server) }}
+                    </li>
+                @else
+                    <li class="red">
+                        {{ strtoupper($server) }}
+                    </li>
+                @endif
+            @endforeach
+        </ul>
+    </div>
     <div class="grid-100 grid-parent">
-        <div class="grid-33">
+        <div class="grid-50">
             <h3>BattlePlugins Websites</h3>
             <ul>
                 <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} incomplete tasks</a>.
@@ -28,21 +44,7 @@
                 </li>
             </ul>
         </div>
-        <div class="grid-33">
-            <h3>Server Status</h3>
-            <ul>
-                @foreach(['s1','s2','s3'] as $server)
-                    <li>{{ $server }}.battleplugins.com:
-                        @if(Domain::isOnline('http://s1.battleplugins.com'))
-                            <span class="green">Online!</span>
-                        @else
-                            <span class="red">Offline!</span>
-                        @endif
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="grid-33">
+        <div class="grid-50">
             <h3>Queue Information</h3>
             Queued Jobs: {{ $queuedJobs }}<br/>
             Failed Jobs: {{ $failedJobs }}

@@ -21,18 +21,17 @@
         </div>
     @endif
     <div class="grid-100 grid-parent">
-        <h3>Overview</h3>
-
         <div class="grid-50">
-            <h2>BattlePlugins Websites</h2>
+            <h3>BattlePlugins Websites</h3>
             <ul>
                 <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} tasks</a> yet to be completed.
                 </li>
-                <li>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was created {{ $blog->created_at->diffForHumans() }}</li>
+                <li>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was
+                    created {{ $blog->created_at->diffForHumans() }}</li>
             </ul>
         </div>
         <div class="grid-50">
-            <h2>Queue Information</h2>
+            <h3>Queue Information</h3>
             Queued Jobs: {{ $queuedJobs }}<br/>
             Failed Jobs: {{ $failedJobs }}
         </div>

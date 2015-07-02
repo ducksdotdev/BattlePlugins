@@ -18,24 +18,18 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <!--       End Scripts -->
 </head>
-<body class="black">
+<body>
 <nav>
     <div class="grid-100">
         <h1 class="brand"><a href="/">battleadmin</a></h1>
     </div>
 </nav>
 @include('admin.partials.menu')
-<div class="body">
+<div class="grid-85 grid-parent body">
     <div class="grid-container">
-        <div class="grid-100 grid-parent">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
-</div>
-<div class="grid-container">
-    <div class="grid-100">
-        @include('footer')
-    </div>
+    @include('footer')
 </div>
 <script type="text/javascript">
     $('.ui.checkbox').checkbox();

@@ -266,3 +266,11 @@ h1 {
 .green {
   color: #1ebc30;
 }
+
+a .icon.remove {
+  color: rgba(0, 0, 0, 0.32);
+
+  &:hover {
+    color: black;
+  }
+}

@@ -17,7 +17,7 @@
             @endforeach
         </div>
     @endif
-    <div class="grid-100 grid-parent text-center">
+    <div class="grid-50 grid-parent text-center">
         <h3>Server Status</h3>
         <small>Updated every 30 minutes.</small>
         <ul class="serverstats">
@@ -34,21 +34,40 @@
             @endforeach
         </ul>
     </div>
-    <div class="grid-100 grid-parent">
-        <div class="grid-50">
-            <h3>BattlePlugins Websites</h3>
-            <ul>
-                <li>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} incomplete tasks</a>.
-                </li>
-                <li>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was
-                    created {{ $blog->created_at->diffForHumans() }}.
-                </li>
-            </ul>
+    <div class="grid-50 grid-parent">
+        <div class="grid-100">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>BattlePlugins Websites</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>There are <a href="http://tasks.battleplugins.com/">{{ $tasks }} incomplete tasks</a>.</td>
+                </tr>
+                <tr>
+                    <td>The <a href="https://battleplugins.com/{{ $blog->id }}">last blog post</a> was created {{ $blog->created_at->diffForHumans() }}.</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="grid-50">
-            <h3>Queue Information</h3>
-            Queued Jobs: {{ $queuedJobs }}<br/>
-            Failed Jobs: {{ $failedJobs }}
+        <div class="grid-100">
+            <table class="ui celled table">
+                <thead>
+                <tr>
+                    <th>Queue Information</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Queued Jobs: {{ $queuedJobs }}</td>
+                </tr>
+                <tr>
+                    <td>Failed Jobs: {{ $failedJobs }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 @stop

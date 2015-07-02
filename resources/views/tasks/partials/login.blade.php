@@ -2,11 +2,8 @@
     <div class="grid-container">
         @include('login')
         <div class="grid-30">
-            <p class="text-right"><a href="#">Register</a> | <a href="#">Forgot Password</a></p>
-
-            <p>BattleTasks is a task tracking website for BattlePlugins staff. You must be authorized to create
-                tasks,
-                however anyone can view the tasks assigned.</p>
+            @include('loginlinks')
+            <p>BattleTasks is a task tracking website for BattlePlugins staff. You must be authorized to create tasks, however anyone can view the tasks assigned.</p>
         </div>
     </div>
 </div>

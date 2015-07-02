@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattlePlugins :: Minecraft Plugin Development Team</title>
-    <link rel="icon" href="/assets/img/bp.png" />
+    <link rel="icon" href="/assets/img/bp.png"/>
 
     <!--        Styles -->
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/semantic.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <!--        End Styles -->
     <!--        Scripts -->
@@ -45,7 +45,9 @@
         </div>
     </div>
 </nav>
-{{--@include('blog.partials.jenkins')--}}
+@if($jenkins)
+    @include('blog.partials.jenkins')
+@endif
 @if(isset($blog))
     @include('blog.partials.blog')
 @endif

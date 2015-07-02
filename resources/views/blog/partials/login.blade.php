@@ -35,8 +35,8 @@
 			{!! Form::close() !!}
 		</div>
 		<div class="grid-30">
-			<p class="text-right"><a href="#">Register</a> | <a href="#">Forgot Password</a></p>
-			<p>BattlePlugins is a Minecraft plugin development team founded in 2012. You must be authorized to login.</p>
+            @include('loginlinks')
+            <p>BattlePlugins is a Minecraft plugin development team founded in 2012. You must be authorized to login.</p>
 		</div>
 	</div>
 </div>

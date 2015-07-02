@@ -4,7 +4,7 @@
         <div class="grid-container">
             @include('login')
             <div class="grid-30">
-                <p class="text-right"><a href="#">Register</a> | <a href="#">Forgot Password</a></p>
+                @include('loginlinks')
                 <p>bplug.in is a URL shortening website for BattlePlugins. You must be authorized to access this tool.</p>
             </div>
         </div>

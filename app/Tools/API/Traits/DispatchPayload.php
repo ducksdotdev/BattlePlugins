@@ -9,18 +9,18 @@ use ReflectionClass;
 trait DispatchPayload {
 
     protected static function bootDispatchPayload() {
-        foreach (static::getModelEvents() as $event) {
+        foreach (static::getDispatchModelEvents() as $event) {
             static::$event(function ($model) use ($event) {
-                (new Webhooks)->triggerWebhook($model, $model->getActivityName($event));
+                (new Webhooks)->triggerWebhook($model, $model->getDispatchActivityName($event));
             });
         }
     }
 
-    protected static function getModelEvents() {
+    protected static function getDispatchModelEvents() {
         return isset(static::$webhookEvents) ? static::$webhookEvents : Config::get('api.webhook_methods');
     }
 
-    protected function getActivityName($action) {
+    protected function getDispatchActivityName($action) {
         $name = (new ReflectionClass($this))->getShortName();
 
         return strtoupper($action . '_' . $name);

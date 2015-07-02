@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Blog;
+use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
 
 class PageController extends Controller {
@@ -16,7 +17,10 @@ class PageController extends Controller {
         $blog = Blog::latest()->first();
 
         if (!$blog)
-            return view('blog.index', ['rssFeed' => Jenkins::getFeed()]);
+            return view('blog.index', [
+                'rssFeed' => Jenkins::getFeed(),
+                'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value')
+            ]);
 
         return view('blog.index', static::retrieve($blog));
     }
@@ -33,7 +37,8 @@ class PageController extends Controller {
                 'blog' => $blog,
                 'list' => Blog::latest()->take(4)->get(),
                 'users' => $displaynames,
-                'rssFeed' => Jenkins::getFeed('rssLatest')
+                'rssFeed' => Jenkins::getFeed('rssLatest'),
+                'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value')
             ];
         }
     }

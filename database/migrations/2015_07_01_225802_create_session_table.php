@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWebsiteSettingsTable extends Migration
+class CreateSessionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -11,10 +11,10 @@ class CreateWebsiteSettingsTable extends Migration
      */
     public function up()
     {
-        \Illuminate\Support\Facades\Schema::create('server_settings', function ($table) {
-            $table->string('key')->unique()->index();
-            $table->string('value');
-
+        Schema::create('sessions', function ($table) {
+            $table->string('id')->unique();
+            $table->text('payload');
+            $table->integer('last_activity');
         });
     }
 

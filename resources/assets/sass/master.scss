@@ -347,6 +347,12 @@ ul.stats {
   color: #fcfcfc;
   box-sizing: border-box;
   margin-bottom: 30px;
+
+  .red {
+    background-color: #FFE8E6;
+    border-bottom: 3px solid;
+    box-sizing: content-box;
+  }
 }
 
 .updates {

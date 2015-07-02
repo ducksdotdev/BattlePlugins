@@ -58,7 +58,8 @@ class PageController extends Controller {
         return view('admin.cms', [
             'title' => 'Manage Content',
             'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value'),
-            'registration' => ServerSettings::whereKey('registration')->pluck('value')
+            'registration' => ServerSettings::whereKey('registration')->pluck('value'),
+            'footer' => ServerSettings::whereKey('footer')->pluck('value')
         ]);
     }
 }

@@ -279,6 +279,10 @@ nav.admin {
   color: #1ebc30;
 }
 
+.blue {
+  color: #3b83c0;
+}
+
 .yellow {
   color: #b58105;
 }
@@ -336,6 +340,10 @@ ul.stats {
       background: #fff8db;
     }
 
+    &.blue {
+      background-color: #dff0ff;
+    }
+
     & + li {
       margin-left: 15px;
     }
@@ -348,10 +356,24 @@ ul.stats {
   box-sizing: border-box;
   margin-bottom: 30px;
 
+  .red, .green, .blue, .yellow {
+    border-bottom: 3px solid;
+  }
+
   .red {
     background-color: #FFE8E6;
-    border-bottom: 3px solid;
-    box-sizing: content-box;
+  }
+
+  .green {
+    background-color: #ebffed;
+  }
+
+  .blue {
+    background-color: #dff0ff;
+  }
+
+  .yellow {
+    background-color: #fff8db;
   }
 }
 

@@ -65,7 +65,7 @@ class UserController extends Controller {
                 'email' => $request->email,
                 'password' => Hash::make($password),
                 'displayname' => $request->input('displayname'),
-                'isadmin' => $request->isadmin
+                'admin' => $request->input('isadmin')
             ]);
 
             Alert::create([

@@ -24,7 +24,6 @@
         </div>
         <div class="field">
             {!! Form::label('color', 'Color') !!}
-            <small>(Optional)</small>
             @foreach(config('colors') as $color)
                 <div class="grid-25">
                     <div class="ui message {{ $color }}">
@@ -35,12 +34,6 @@
                     </div>
                 </div>
             @endforeach
-            <div class="grid-100">
-                <div class="ui message">
-                    {!! Form::radio('color', 'Default') !!}
-                    <label>Default</label>
-                </div>
-            </div>
         </div>
     </div>
     <div class="grid-100 text-right">

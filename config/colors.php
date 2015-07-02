@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'red','green','blue','yellow'
+    'red','green','blue','yellow','default'
 ];

@@ -275,7 +275,8 @@ ul.serverstats {
   list-style-type: none;
   font-size: 26px;
   font-weight: bold;
-  margin: 50px 0 30px -40px;
+  margin: 50px 0 30px 0;
+  text-align: center;
 
   li {
     display: inline;

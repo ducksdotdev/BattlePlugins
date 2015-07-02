@@ -17,9 +17,11 @@
             @endforeach
         </div>
     @endif
-    <div class="grid-50 grid-parent text-center">
-        <h3>Server Status</h3>
-        <small>Updated every 30 minutes.</small>
+    <div class="grid-50 grid-parent">
+        <h3>
+            Server Status <br/>
+            <small>Updated every 30 minutes.</small>
+        </h3>
         <ul class="serverstats">
             @foreach($serverData as $server)
                 @if($server['online'])

@@ -2,6 +2,8 @@
 
 namespace App\Tools\API\Traits;
 
+use App\Tools\Models\Alert;
+
 trait AlertUser {
 
     protected static function bootAlertUser() {

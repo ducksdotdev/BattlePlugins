@@ -240,7 +240,18 @@ h1 {
 
 .admin {
   &.brand {
-    margin-left: 10px;
+    background: #2095F2;
+    color: #fcfcfc;
+    font-family: "Tenby Five", Lato, sans-serif;
+    position: fixed;
+
+    a {
+      color: white;
+
+      &:hover {
+        color: white;
+      }
+    }
   }
 
   &.menu {
@@ -251,10 +262,6 @@ h1 {
 
 .grid-100 + .grid-100 {
   margin-top: 10px;
-}
-
-.body {
-  margin-top: 75px;
 }
 
 nav.admin {
@@ -335,7 +342,10 @@ ul.stats {
 }
 
 .alerts {
-  margin-bottom: 20px;
+  background: #2095F2;
+  color: #fcfcfc;
+  box-sizing: border-box;
+  margin-bottom: 30px;
 }
 
 .updates {

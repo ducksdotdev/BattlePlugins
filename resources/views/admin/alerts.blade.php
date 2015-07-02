@@ -24,16 +24,17 @@
         </div>
         <div class="field">
             {!! Form::label('color', 'Color') !!}
+            <small>(Optional)</small>
             @foreach(config('colors') as $color)
-            <div class="grid-25">
-                <div class="ui message {{ $color }}">
-                    <div class="ui radio checkbox">
-                        {!! Form::radio('color', ucfirst($color)) !!}
-                        <label>{{ ucfirst($color) }}</label>
+                <div class="grid-25">
+                    <div class="ui message {{ $color }}">
+                        <div class="ui radio checkbox">
+                            {!! Form::radio('color', ucfirst($color)) !!}
+                            <label>{{ ucfirst($color) }}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-                @endforeach
+            @endforeach
         </div>
     </div>
     <div class="grid-100 text-right">

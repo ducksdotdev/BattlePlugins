@@ -10,8 +10,15 @@ trait AlertUser {
                 if ($model->assigned_to != 0) {
                     Alert::create([
                         'user' => $model->assigned_to,
-                        'content' => "A " . str_singular($model->getTable()) . " has been assigned to you by " . User::find($model->creator)->displayname,
+                        'content' => "A task has been assigned to you by " . User::find($model->creator)->displayname,
                     ]);
+                } else {
+	                foreach(User::all() as $user){
+		                Alert::create([
+			                'user' => $user->id,
+			                'content' => "A task has been created by " . User::find($model->creator)->displayname,
+		                ]);
+	                }
                 }
             });
         }

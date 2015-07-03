@@ -384,8 +384,18 @@ ul.stats {
   td {
     vertical-align: middle;
   }
-}
+}6
 
 .pointer {
   cursor: pointer;
+}
+
+.top-margin {
+  &.ten {
+    margin-top: 10px;
+  }
+}
+
+.inline {
+  display: inline;
 }

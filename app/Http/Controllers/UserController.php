@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller {
 
     public function login(Request $request) {
-        $email = $request->email;
+        $email = $request->input('email');
         $password = $request->password;
         $rememberMe = $request->rememberMe;
 
@@ -58,11 +58,13 @@ class UserController extends Controller {
         if (Auth::user()->admin) {
             $password = $request->password;
 
-            if (User::whereEmail($request->email)->first())
+            if (User::whereEmail($request->input('email'))->first())
                 return redirect()->back()->withErrors('That email is already registered to a user.');
+            elseif(!filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) !== false)
+                return redirect()->back()->withErrors('You must enter a proper email.');
 
             $id = User::insertGetId([
-                'email' => $request->email,
+                'email' => $request->input('email'),
                 'password' => Hash::make($password),
                 'displayname' => $request->input('displayname'),
                 'admin' => $request->input('isadmin')

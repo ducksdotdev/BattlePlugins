@@ -25,7 +25,7 @@
         <div class="field">
             {!! Form::label('color', 'Color') !!}
             @foreach(config('colors') as $color)
-                <div class="grid-25">
+                <div class="grid-25 top-margin ten">
                     <div class="ui message {{ $color }}">
                         <div class="ui radio checkbox">
                             {!! Form::radio('color', ucfirst($color)) !!}

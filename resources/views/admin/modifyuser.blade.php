@@ -7,9 +7,9 @@
         <table class="ui celled striped table">
             <thead>
             <tr>
-                <th>Email</th>
-                <th>Display Name</th>
-                <th>User Settings</th>
+                <th width="50%">Email</th>
+                <th width="20%">Display Name</th>
+                <th widt="30%">User Settings</th>
             </tr>
             </thead>
             <tbody>
@@ -19,12 +19,16 @@
                     <td>{{ $user->displayname }}</td>
                     <td class="text-center">
                         @if($user->id != 1)
-                            @if($user->admin)
-                                <a href="/user/modify/{{ $user->id }}/admin" class="ui button red mini">Remove Admin</a>
-                            @else
-                                <a href="/user/modify/{{ $user->id }}/admin" class="ui button black mini">Make Admin</a>
-                            @endif
-                            <a href="/user/modify/{{ $user->id }}/delete" class="ui button red mini">Delete User</a>
+                            {!! Form::open(['url'=>URL::to('/user/modify/'.$user->id.'/admin', [], env('HTTPS_ENABLED', true)), 'class' => 'inline']) !!}
+                                @if($user->admin)
+                                    <button class="ui button red mini">Remove Admin</button>
+                                @else
+                                    <button class="ui button black mini">Make Admin</button>
+                                @endif
+                            {!! Form::close() !!}
+                            {!! Form::open(['url'=>URL::to('/user/modify/'. $user->id .'/delete', [], env('HTTPS_ENABLED', true)), "class"=>'inline']) !!}
+                                <button href="" class="ui button red mini">Delete User</button>
+                            {!! Form::close() !!}
                         @else
                             This user cannot be modified.
                         @endif

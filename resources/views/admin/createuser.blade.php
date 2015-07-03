@@ -20,7 +20,7 @@
 
         <div class="field">
             {!! Form::label('email', 'Email') !!}
-            {!! Form::text('email', '@battleplugins.com', ['placeholder'=>'@battleplugins.com']) !!}
+            {!! Form::text('email', null, ['placeholder'=>'@battleplugins.com']) !!}
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name (Minecraft Username)') !!}

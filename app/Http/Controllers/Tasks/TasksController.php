@@ -40,6 +40,7 @@ class TasksController extends Controller {
 
     public function deleteTask($id) {
         Task::find($id)->delete();
+        return redirect()->back();
     }
 
     public function gitHubCreate(Request $request) {
@@ -77,5 +78,6 @@ class TasksController extends Controller {
 
     public function completeTask($id) {
         Task::find($id)->update(['status' => 1]);
+        return redirect()->back();
     }
 }

@@ -34,34 +34,4 @@ BattleTasks.controller("TasksCtrl", function ($scope, $http) {
     };
 
     $scope.getHighlighted();
-
-    $scope.completeTask = function ($event, id) {
-        var taskButton = $event.currentTarget;
-        taskButton = $(taskButton);
-        taskButton.addClass("loading");
-
-        $http.get('/tasks/complete/' + id).success(function () {
-            var parentElement = taskButton.parent().parent();
-            parentElement.addClass("completed");
-            taskButton.addClass("disabled");
-            taskButton.removeClass("loading");
-            if (!$scope.showCompleted) {
-                parentElement.fadeOut('slow');
-            }
-        });
-    };
-
-    $scope.deleteTask = function ($event, id) {
-        var taskButton = $event.currentTarget;
-        taskButton = $(taskButton);
-        taskButton.addClass("loading");
-
-        $http.get('/tasks/delete/' + id).success(function () {
-            var parent = taskButton.parent().parent();
-
-            parent.addClass("deleted");
-            taskButton.addClass("disabled");
-            parent.fadeOut('slow');
-        });
-    };
 });

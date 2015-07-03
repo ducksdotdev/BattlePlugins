@@ -19,7 +19,6 @@
             </small>
         </h1>
         @include('paste.partials.data')
-        @include('paste.partials.pastepre')
     </div>
     @if(Auth::check() && Auth::user()->id == $paste->creator)
         @include('paste.partials.editpaste')

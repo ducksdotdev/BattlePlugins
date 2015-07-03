@@ -1,4 +1,4 @@
-<h3>Latest CI Builds</h3>
+<h3>Latest CI Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
 @foreach($rssFeed as $item)
     <div class="grid-100">
         <div class="ui small message {{ str_contains($item->get_title(), 'broken') ? 'red' : 'green' }}">

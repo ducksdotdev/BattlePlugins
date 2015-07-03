@@ -18,9 +18,9 @@
                 <button id="editBlog" class="circular black ui icon button">
                     <i class="icon pencil"></i>
                 </button>
-                <a id="delete" href="/delete/{{ $blog->id }}" class="circular red ui icon button">
-                    <i class="icon trash"></i>
-                </a>
+                {!! Form::open(['url'=>URL::to('/delete/'.$blog->id, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
+                <button id="delete" href="" class="circular red ui icon button"><i class="icon trash"></i></button>
+                {!! Form::close() !!}
             @else
                 &nbsp;
             @endif

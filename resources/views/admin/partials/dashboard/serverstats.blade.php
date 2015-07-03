@@ -6,7 +6,7 @@
 <ul class="stats small">
     @foreach($serverData['servers'] as $server)
         <li class="{{ $server['online'] ? 'green' : 'red' }}">
-            {{ ucfirst($server['name']) }}
+            <a href="{{ $server['server'] }}">{{ ucfirst($server['name']) }}</a>
         </li>
     @endforeach
 </ul>

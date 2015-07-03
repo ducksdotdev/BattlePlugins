@@ -98,7 +98,8 @@ class PageController extends Controller {
             foreach (config('servers') as $name => $server) {
                 $serverData['servers'][] = [
                     'name' => $name,
-                    'online' => Domain::isOnline($server)
+                    'online' => Domain::isOnline($server),
+                    'url' => $server
                 ];
             }
 

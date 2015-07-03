@@ -1,4 +1,4 @@
-<h3>Tasks Overview</h3>
+<h3>Tasks Overview <a href="{{ action('Tasks\PageController@index') }}"><i class="icon external"></i></a></h3>
 <ul class="stats">
     <li class="yellow has-small">
         {{ count($tasks->where('assigned_to', auth()->user()->id)->where('status', false)->get()) }}

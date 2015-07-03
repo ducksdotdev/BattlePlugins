@@ -1,4 +1,4 @@
-<h3>Latest From the Blog</h3>
+<h3>Latest From the Blog <a href="{{ action('Blog\PageController@index') }}"><i class="icon external"></i></a></h3>
 
 <div class="ui middle aligned divided list segment">
     @foreach($blogList as $post)

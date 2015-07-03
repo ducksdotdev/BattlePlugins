@@ -25,15 +25,12 @@
     </div>
     @if(Auth::check())
         <div class="actions grid-10 text-right">
-            <div ng-click="completeTask($event, {{ $task->id }})"
-                 class="pull-left circular small ui positive icon button"
-                 ng-class="{disabled: {{ $task->status }} || {{$task->creator}} == 24}">
-                <i class="icon check"></i>
-            </div>
-            <div ng-click="deleteTask($event, {{ $task->id }})"
-                 class="delete-task pull-left circular red small ui icon button">
-                <i class="icon trash"></i>
-            </div>
+            {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
+            <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} || {{$task->creator}} == 24}"><i class="icon check"></i></button>
+            {!! Form::close() !!}
+            {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
+            <button class="circular red small ui icon button"><i class="icon trash"></i></button>
+            {!! Form::close() !!}
         </div>
     @endif
 </div>

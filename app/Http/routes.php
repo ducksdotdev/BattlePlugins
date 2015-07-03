@@ -34,13 +34,10 @@ foreach ($tlds as $tld) {
 
     Route::group(['domain' => $url], function () {
         Route::get('/', 'Blog\PageController@index');
-        Route::group(['before' => 'auth'], function () {
-            Route::get('/delete/{blog}', 'Blog\BlogController@deleteBlog');
-
-            Route::group(['before' => 'csrf'], function () {
-                Route::post('/create', 'Blog\BlogController@create');
-                Route::post('/{id}', 'Blog\BlogController@editBlog');
-            });
+        Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
+            Route::post('/delete/{blog}', 'Blog\BlogController@deleteBlog');
+            Route::post('/create', 'Blog\BlogController@create');
+            Route::post('/{id}', 'Blog\BlogController@editBlog');
         });
 
         Route::get('/{id}', 'Blog\PageController@getBlog');

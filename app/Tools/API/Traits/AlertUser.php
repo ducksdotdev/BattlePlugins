@@ -3,6 +3,7 @@
 namespace App\Tools\API\Traits;
 
 use App\Tools\Models\Alert;
+use App\Tools\Models\User;
 
 trait AlertUser {
 

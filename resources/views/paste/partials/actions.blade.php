@@ -1,10 +1,14 @@
 @if(Auth::check() && Auth::user()->id == $paste->creator)
     <div class="grid-100 text-right">
+        {!! Form::open(['url'=>URL::to('/togglepub/' . $paste->id, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
         @if($paste->public)
-            <a href="/togglepub/{{ $paste->id }}" class="ui button black">Make Private</a>
+            <button class="ui button black">Make Private</button>
         @else
-            <a href="/togglepub/{{ $paste->id }}" class="ui button green">Make Public</a>
+            <button class="ui button green">Make Public</button>
         @endif
-        <a href="/delete/{{ $paste->id }}" class="ui button red">Delete Paste</a>
+        {!! Form::close() !!}
+        {!! Form::open(['url'=>URL::to('/delete/' . $paste->id, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
+        <button class="ui button red">Delete Paste</button>
+        {!! Form::close() !!}
     </div>
 @endif

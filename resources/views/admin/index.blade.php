@@ -21,9 +21,7 @@
             @include('admin.partials.dashboard.blogposts')
         </div>
         @if($jenkins && count($rssFeed > 0))
-            <div class="grid-100 grid-parent">
                 @include('admin.partials.dashboard.jenkins')
-            </div>
         @endif
     </div>
 @stop

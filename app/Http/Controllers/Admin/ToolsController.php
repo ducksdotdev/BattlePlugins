@@ -7,6 +7,7 @@ use App\Tools\Models\Alert;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
 use App\Tools\Queries\CreateAlert;
+use App\Tools\Queries\ServerSetting;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,7 @@ class ToolsController extends Controller {
         $settingVal = ServerSettings::whereKey($setting)->first();
 
         if (count($settingVal) > 0) {
-            $value = ServerSettings::get($setting);
+            $value = ServerSetting::get($setting);
             ServerSettings::whereKey($setting)->update([
                 'value' => !$value
             ]);

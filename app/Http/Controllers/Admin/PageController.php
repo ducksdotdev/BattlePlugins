@@ -5,9 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Alert;
 use App\Tools\Models\Blog;
-use App\Tools\Models\ServerSettings;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
+use App\Tools\Queries\ServerSetting;
 use App\Tools\URL\Domain;
 use Auth;
 use Carbon\Carbon;
@@ -21,7 +21,7 @@ class PageController extends Controller {
         if (auth()->check())
             view()->share('alerts', Alert::whereUser(Auth::user()->id)->latest()->get());
 
-        view()->share('alert_bar', ServerSettings::get('alert_bar');
+        view()->share('alert_bar', ServerSetting::get('alert_bar'));
     }
 
     public static function index() {
@@ -30,7 +30,7 @@ class PageController extends Controller {
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;
 
-            $hits = ServerSettings::get('blogviews');
+            $hits = ServerSetting::get('blogviews');
 
             $hitChange = $hits - Cache::pull('hitChange');
             Cache::forget('hitChange');
@@ -46,7 +46,7 @@ class PageController extends Controller {
                 'failedJobs' => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::get('dash_jenkins'),
+                'jenkins' => ServerSetting::get('dash_jenkins'),
                 'hitChange' => $hitChange,
                 'hits' => $hits
             ]);
@@ -82,11 +82,11 @@ class PageController extends Controller {
     public function cms() {
         return view('admin.cms', [
             'title' => 'Manage Content',
-            'jenkins' => ServerSettings::get('jenkins'),
-            'dash_jenkins' => ServerSettings::get('dash_jenkins'),
-            'registration' => ServerSettings::get('registration'),
-            'footer' => ServerSettings::get('footer'),
-            'alert_bar' => ServerSettings::get('alert_bar')
+            'jenkins' => ServerSetting::get('jenkins'),
+            'dash_jenkins' => ServerSetting::get('dash_jenkins'),
+            'registration' => ServerSetting::get('registration'),
+            'footer' => ServerSetting::get('footer'),
+            'alert_bar' => ServerSetting::get('alert_bar')
         ]);
     }
 

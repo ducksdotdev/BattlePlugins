@@ -5,6 +5,7 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Blog;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
+use App\Tools\Queries\ServerSetting;
 
 class PageController extends Controller {
 
@@ -19,7 +20,7 @@ class PageController extends Controller {
         if (!$blog)
             return view('blog.index', [
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::get('jenkins')
+                'jenkins' => ServerSetting::get('jenkins')
             ]);
 
         return view('blog.index', static::retrieve($blog));
@@ -40,7 +41,7 @@ class PageController extends Controller {
                 'list' => Blog::latest()->take(4)->get(),
                 'users' => $displaynames,
                 'rssFeed' => Jenkins::getFeed('rssLatest'),
-                'jenkins' => ServerSettings::get('jenkins')
+                'jenkins' => ServerSetting::get('jenkins')
             ];
         }
     }

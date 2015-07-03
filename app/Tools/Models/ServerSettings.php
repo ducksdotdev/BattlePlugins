@@ -13,7 +13,4 @@ class ServerSettings extends Model {
 
     public $primaryKey = 'key';
 
-    public function scopeGet($key) {
-        return static::where($key)->pluck('value');
-    }
 }

@@ -1,4 +1,4 @@
-@if(ServerSettings::get('footer'))
+@if(ServerSetting::get('footer'))
     <footer>
         <p>
             <a href="http://battleplugins.com">Home</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a

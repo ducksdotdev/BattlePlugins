@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller {
+    protected $updateMins = 1;
+
     function __construct() {
         $this->middleware('auth', ['except' => ['index']]);
 
@@ -24,7 +26,7 @@ class PageController extends Controller {
         view()->share('alert_bar', ServerSetting::get('alert_bar'));
     }
 
-    public static function index() {
+    public function index() {
         if (Auth::check()) {
             $displaynames = [];
             foreach (User::all() as $user)
@@ -37,36 +39,37 @@ class PageController extends Controller {
             Cache::forever('hitChange', $hits);
 
             return view('admin.index', [
-                'title' => 'Dashboard',
-                'tasks' => count(Task::whereStatus(false)->get()),
-                'blogs' => Blog::latest()->get(),
-                'blogList' => Blog::latest()->limit(3)->get(),
-                'tasks' => new Task,
-                'queuedJobs' => count(DB::table('jobs')->get()),
-                'failedJobs' => count(DB::table('failed_jobs')->get()),
+                'title'        => 'Dashboard',
+                'tasks'        => count(Task::whereStatus(false)->get()),
+                'blogs'        => Blog::latest()->get(),
+                'blogList'     => Blog::latest()->limit(3)->get(),
+                'tasks'        => new Task,
+                'queuedJobs'   => count(DB::table('jobs')->get()),
+                'failedJobs'   => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
-                'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSetting::get('dash_jenkins'),
-                'hitChange' => $hitChange,
-                'hits' => $hits
+                'rssFeed'      => Jenkins::getFeed(),
+                'jenkins'      => ServerSetting::get('dash_jenkins'),
+                'hitChange'    => $hitChange,
+                'hits'         => $hits,
+                'updateMins'   => $this->updateMins
             ]);
         } else
             return view('admin.login');
     }
 
-    public static function settings() {
+    public function settings() {
         return view('admin.settings', [
             'title' => 'User Settings'
         ]);
     }
 
-    public static function createUser() {
+    public function createUser() {
         return view('admin.createuser', [
             'title' => 'Create User'
         ]);
     }
 
-    public static function modifyUser() {
+    public function modifyUser() {
         return view('admin.modifyuser', [
             'title' => 'Modify User',
             'users' => User::all()
@@ -81,25 +84,23 @@ class PageController extends Controller {
 
     public function cms() {
         return view('admin.cms', [
-            'title' => 'Manage Content',
-            'jenkins' => ServerSetting::get('jenkins'),
+            'title'        => 'Manage Content',
+            'jenkins'      => ServerSetting::get('jenkins'),
             'dash_jenkins' => ServerSetting::get('dash_jenkins'),
             'registration' => ServerSetting::get('registration'),
-            'footer' => ServerSetting::get('footer'),
-            'alert_bar' => ServerSetting::get('alert_bar')
+            'footer'       => ServerSetting::get('footer'),
+            'alert_bar'    => ServerSetting::get('alert_bar')
         ]);
     }
 
     public function serverStats() {
-        $updateMins = 3;
-
-        $serverData = Cache::remember('serverData', $updateMins, function () {
+        $serverData = Cache::remember('serverData', $this->updateMins, function () {
             $serverData = [];
             foreach (config('servers') as $name => $server) {
                 $serverData['servers'][] = [
-                    'name' => $name,
+                    'name'   => $name,
                     'online' => Domain::isOnline($server),
-                    'url' => $server
+                    'url'    => $server
                 ];
             }
 
@@ -110,7 +111,7 @@ class PageController extends Controller {
 
         return view('admin.partials.dashboard.serverstats', [
             'serverData' => $serverData,
-            'updateMins' => $updateMins,
+            'updateMins' => $this->updateMins,
         ]);
     }
 }

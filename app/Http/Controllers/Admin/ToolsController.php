@@ -7,6 +7,7 @@ use App\Tools\Models\Alert;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
 use App\Tools\Queries\CreateAlert;
+use App\Tools\Queries\ServerSetting;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,8 @@ class ToolsController extends Controller {
     }
 
     public function toggleSetting($setting) {
-        ServerSettings::firstOrCreate(['key' => $setting, 'value' => true]);
+        $value = !ServerSetting::get($setting);
+        ServerSettings::firstOrCreate(['key' => $setting])->update(['value' => $value]);
         return redirect()->back();
     }
 

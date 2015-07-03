@@ -20,6 +20,7 @@ class BlogsController extends ApiController {
      * @param BlogTransformer $blogTransformer
      * @param ApiStatusCode $statusCode
      * @param Webhooks $webhooks
+     * @param Request $request
      */
     function __construct(BlogTransformer $blogTransformer, ApiStatusCode $statusCode, Webhooks $webhooks, Request $request) {
         $this->middleware('auth.api', ['except' => ['show', 'index']]);

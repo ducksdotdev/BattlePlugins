@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Tools\Models\Alert;
 use App\Tools\Models\User;
+use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -40,7 +40,7 @@ class UserController extends Controller {
             );
 
             if ($validator && $validator->fails())
-                return redirect()->back()->withErrors($validator->errors());
+                return $this->redirectBackWithErrors($validator->errors());
 
             if ($request->has('password'))
                 $user->password = Hash::make($request->password);
@@ -51,7 +51,7 @@ class UserController extends Controller {
             $user->save();
             return self::logout();
         } else
-            return redirect()->back()->withErrors(['Invalid confirmation password.']);
+            return $this->redirectBackWithErrors(['Invalid confirmation password.']);
     }
 
     public function createUser(Request $request) {
@@ -59,9 +59,9 @@ class UserController extends Controller {
             $password = $request->password;
 
             if (User::whereEmail($request->input('email'))->first())
-                return redirect()->back()->withErrors('That email is already registered to a user.');
+                return $this->redirectBackWithErrors('That email is already registered to a user.');
             elseif(!filter_var($request->input('email'), FILTER_VALIDATE_EMAIL) !== false)
-                return redirect()->back()->withErrors('You must enter a proper email.');
+                return $this->redirectBackWithErrors('You must enter a proper email.');
 
             $id = User::insertGetId([
                 'email' => $request->input('email'),
@@ -70,12 +70,10 @@ class UserController extends Controller {
                 'admin' => $request->input('isadmin')
             ]);
 
-            Alert::create([
-                'user' => $id,
-                'content' => 'Welcome, ' . $request->input('displayname') . '. This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.'
-            ]);
+            $message = 'Welcome, ' . $request->input('displayname') . '. This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.';
+            CreateAlert::make($id, $message);
 
-            return redirect()->back()->with('success', 'User successfully created.');
+            return $this->redirectBackWithSuccess('User successfully created.');
         }
     }
 

@@ -6,23 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Tools\Models\Alert;
 use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
+use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Http\Request;
 
 class ToolsController extends Controller {
 
-    function __construct() {
+    private $request;
+
+    /**
+     * @param Request $request
+     */
+    function __construct(Request $request) {
         $this->middleware('auth');
+        $this->request = $request;
     }
 
-    public function alert(Request $request) {
+    public function alert() {
         if (Auth::user()->admin) {
             foreach (User::all() as $user) {
-                Alert::create([
-                    'user' => $user->id,
-                    'content' => $request->get('content'),
-                    'color' => strtolower($request->get('color'))
-                ]);
+                CreateAlert::make($user->id, $this->request->get('content'), $this->request->get('color'));
             }
 
             return redirect()->back()->with('success', 'Users have been alerted.');
@@ -45,11 +48,10 @@ class ToolsController extends Controller {
         if (count($settingVal) > 0) {
             $value = ServerSettings::get($setting);
             ServerSettings::whereKey($setting)->update([
-                'value'=> !$value
+                'value' => !$value
             ]);
         } else
-            ServerSettings::create(['key'=>$setting,'value'=>true]);
-
+            ServerSettings::create(['key' => $setting, 'value' => true]);
 
         return redirect()->back();
     }

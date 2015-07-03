@@ -21,7 +21,7 @@ class PageController extends Controller {
         if (auth()->check())
             view()->share('alerts', Alert::whereUser(Auth::user()->id)->latest()->get());
 
-        view()->share('alert_bar', ServerSettings::whereKey('alert_bar')->pluck('value'));
+        view()->share('alert_bar', ServerSettings::get('alert_bar');
     }
 
     public static function index() {
@@ -30,7 +30,7 @@ class PageController extends Controller {
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;
 
-            $hits = ServerSettings::whereKey('blogviews')->pluck('value');
+            $hits = ServerSettings::get('blogviews');
 
             $hitChange = $hits - Cache::pull('hitChange');
             Cache::forget('hitChange');
@@ -46,7 +46,7 @@ class PageController extends Controller {
                 'failedJobs' => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
+                'jenkins' => ServerSettings::get('dash_jenkins'),
                 'hitChange' => $hitChange,
                 'hits' => $hits
             ]);
@@ -82,11 +82,11 @@ class PageController extends Controller {
     public function cms() {
         return view('admin.cms', [
             'title' => 'Manage Content',
-            'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value'),
-            'dash_jenkins' => ServerSettings::whereKey('dash_jenkins')->pluck('value'),
-            'registration' => ServerSettings::whereKey('registration')->pluck('value'),
-            'footer' => ServerSettings::whereKey('footer')->pluck('value'),
-            'alert_bar' => ServerSettings::whereKey('alert_bar')->pluck('value')
+            'jenkins' => ServerSettings::get('jenkins'),
+            'dash_jenkins' => ServerSettings::get('dash_jenkins'),
+            'registration' => ServerSettings::get('registration'),
+            'footer' => ServerSettings::get('footer'),
+            'alert_bar' => ServerSettings::get('alert_bar')
         ]);
     }
 

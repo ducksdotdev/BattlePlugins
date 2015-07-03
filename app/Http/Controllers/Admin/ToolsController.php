@@ -43,7 +43,7 @@ class ToolsController extends Controller {
         $settingVal = ServerSettings::whereKey($setting)->first();
 
         if (count($settingVal) > 0) {
-            $value = ServerSettings::whereKey($setting)->pluck('value');
+            $value = ServerSettings::get($setting);
             ServerSettings::whereKey($setting)->update([
                 'value'=> !$value
             ]);

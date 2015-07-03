@@ -1,4 +1,4 @@
-@if(\App\Tools\Models\ServerSettings::whereKey('footer')->pluck('value'))
+@if(ServerSettings::get('footer'))
     <footer>
         <p>
             <a href="http://battleplugins.com">Home</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a

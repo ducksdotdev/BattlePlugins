@@ -12,4 +12,8 @@ class ServerSettings extends Model {
     protected $fillable = ['key', 'value'];
 
     public $primaryKey = 'key';
+
+    public function scopeGet($key) {
+        return static::where($key)->pluck('value');
+    }
 }

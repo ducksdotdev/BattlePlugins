@@ -19,7 +19,7 @@ class PageController extends Controller {
         if (!$blog)
             return view('blog.index', [
                 'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value')
+                'jenkins' => ServerSettings::get('jenkins')
             ]);
 
         return view('blog.index', static::retrieve($blog));
@@ -40,7 +40,7 @@ class PageController extends Controller {
                 'list' => Blog::latest()->take(4)->get(),
                 'users' => $displaynames,
                 'rssFeed' => Jenkins::getFeed('rssLatest'),
-                'jenkins' => ServerSettings::whereKey('jenkins')->pluck('value')
+                'jenkins' => ServerSettings::get('jenkins')
             ];
         }
     }

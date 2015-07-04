@@ -354,7 +354,6 @@ ul.stats {
   background: #2095F2;
   color: #fcfcfc;
   box-sizing: border-box;
-  margin-bottom: 30px;
 
   .red, .green, .blue, .yellow {
     border-bottom: 3px solid;
@@ -398,4 +397,10 @@ ul.stats {
 
 .inline {
   display: inline;
+}
+
+.titlebar {
+  background-color: rgb(228, 228, 228);
+  width: 100%;
+  margin-bottom: 20px;
 }

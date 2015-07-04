@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-100 grid-parent0">
-        <h2>{{ $title }}</h2>
-    </div>
     <div class="grid-25 grid-parent">
         <h3>All Sites</h3>
         {!! Form::open(['url'=>URL::to('/tools/cms/registration', [], env('HTTPS_ENABLED', true))]) !!}

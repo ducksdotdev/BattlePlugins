@@ -1,9 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="grid-100">
-        <h2>{{ $title }}</h2>
-    </div>
-    <div class="grid-100">
         <table class="ui celled striped table">
             <thead>
             <tr>

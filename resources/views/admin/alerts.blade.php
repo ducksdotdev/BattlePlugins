@@ -16,8 +16,6 @@
         </div>
     @endif
     <div class="grid-100">
-        <h2>{{ $title }}</h2>
-
         <div class="field">
             {!! Form::label('content', 'Alert Content') !!}
             {!! Form::textarea('content') !!}

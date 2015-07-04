@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-100">
-        <h1>{{ $title }}</h1>
-    </div>
     <div class="grid-60 grid-parent">
         <div class="grid-100" ng-controller="ServerStatusCtrl">
             <h3>Server Status</h3>

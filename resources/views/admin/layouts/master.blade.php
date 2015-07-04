@@ -25,6 +25,11 @@
     <div class="grid-100 grid-parent">
         @include('admin.partials.alerts')
         <div class="grid-85 pull-right grid-parent">
+            <div class="titlebar">
+                <div class="grid-100">
+                    <h1>{{ $title }}</h1>
+                </div>
+            </div>
             <div class="grid-container">
                 @yield('content')
                 <div class="grid-100">

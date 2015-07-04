@@ -16,8 +16,6 @@
         </div>
     @endif
     <div class="grid-100">
-        <h2>{{ $title }}</h2>
-
         <div class="field">
             {!! Form::label('email', 'Your Email (Can\'t be changed)') !!}
             {!! Form::text('email', Auth::user()->email, ['disabled'=>true]) !!}

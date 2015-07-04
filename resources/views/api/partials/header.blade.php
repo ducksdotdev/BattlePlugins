@@ -11,9 +11,9 @@
         <div class="grid-100" id="authentication">
             <h3>Authentication</h3>
             <p>Please use the X-API-Key header for all requests. If you cannot, use the _key get parameter. An example request:</p>
-            <pre>GET /v1/tasks HTTP/1.1<br/>Host: api.battleplugins.com<br/>X-API-Key: {{ $apiKey }}</pre>
+            <pre>GET /v1/tasks HTTP/1.1<br/>Host: {{ action('API\PageController@index') }}<br/>X-API-Key: {{ $apiKey }}</pre>
             <h4>OR</h4>
-            <pre>GET https://api.battleplugins.com/v1/tasks?_key={{ $apiKey }} HTTP/1.1</pre>
+            <pre>GET {{ action('API\PageController@index') }}/v1/tasks?_key={{ $apiKey }} HTTP/1.1</pre>
         </div>
     </div>
 </div>

@@ -1,15 +1,16 @@
 @if(ServerSetting::get('footer'))
     <footer>
         <p>
-            <a href="http://battleplugins.com">Home</a> | <a href="http://wiki.battleplugins.com">Wiki</a> | <a
+            <a href="{{ action('Blog\PageController@index') }}">Home</a> | <a
+                    href="http://wiki.battleplugins.com">Wiki</a> | <a
                     href="http://ci.battleplugins.com">Jenkins</a> | <a
                     href="http://github.com/BattlePlugins">GitHub</a><br/>
-            <a href="http://tasks.battleplugins.com">BattleTasks</a> | <a
-                    href="http://api.battleplugins.com">BattleWebAPI</a>
-            | <a href="http://paste.battleplugins.com">BattlePaste</a> | <a href="http://bplug.in">bplug.in</a>
+            <a href="{{ action('Tasks\PageController@index') }}">BattleTasks</a> | <a
+                    href="{{ action('API\PageController@index') }}">BattleWebAPI</a>
+            | <a href="{{ action('Paste\PageController@index') }}">BattlePaste</a> | <a href="{{ action('ShortUrls\PageController@index') }}">bplug.in</a>
             @if(Auth::check())
                 <br/>
-                <a href="https://admin.battleplugins.com/">BattleAdmin</a>
+                <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a>
                 | <a href="/logs">Log Viewer</a>
                 | <a href="/logout">Logout</a>
             @endif

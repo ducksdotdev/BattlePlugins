@@ -11,7 +11,7 @@ BattleAdmin.controller("AlertsCtrl", function ($scope, $http) {
     $http.get('/tools/alert/json').success(function (data) {
         $scope.alerts = data;
         $scope.alert = data[0];
-        $("#removeAlert").attr('href', '/tools/alert/delete/' + data[0]['id'])
+        $("#removeAlert").attr('action', '/tools/alert/delete/' + data[0]['id'])
     });
 
     $scope.nextAlert = function(){

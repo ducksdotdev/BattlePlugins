@@ -26,8 +26,10 @@
         @include('admin.partials.alerts')
         <div class="grid-85 pull-right grid-parent">
             <div class="titlebar">
-                <div class="grid-100">
-                    <h1>{{ $title }}</h1>
+                <div class="grid-container">
+                    <div class="grid-100">
+                        <h1>{{ $title }}</h1>
+                    </div>
                 </div>
             </div>
             <div class="grid-container">

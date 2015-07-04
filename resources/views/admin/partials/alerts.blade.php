@@ -4,7 +4,7 @@
             <table class="updates">
                 <tbody>
                 <tr>
-                    <td width="10%" class="text-center"><h3>Alerts: </h3></td>
+                    <td width="10%" class="text-center"><h3>Alerts ({{ count($alerts) }})</h3></td>
                     <td width="80%" ng-bind="alert['content']"></td>
                     <td width="10%" class="text-center">
                         <i ng-click="prevAlert()" ng-hide="alerts.length == 1" class="icon caret left pointer"></i>

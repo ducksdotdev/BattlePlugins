@@ -11,5 +11,6 @@
         @else
             <small>({{ $hitChange }})</small>
         @endif
+        <div class="small">Page Hits</div>
     </li>
 </ul>

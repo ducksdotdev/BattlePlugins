@@ -37,7 +37,7 @@
             {{--<button class="ui button primary">Enable Jenkins Feed</button>--}}
         {{--@endif--}}
         {{--{!! Form::close() !!}--}}
-        <br/>
+        {{--<br/>--}}
         {!! Form::open(['url'=>URL::to('/tools/cms/alert_bar', [], env('HTTPS_ENABLED', true))]) !!}
         @if($alert_bar)
             <button class="ui button red">Disable Alert Bar</button>

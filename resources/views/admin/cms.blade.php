@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-25 grid-parent">
+    <div class="grid-25">
         <h3>All Sites</h3>
         {!! Form::open(['url'=>URL::to('/tools/cms/registration', [], env('HTTPS_ENABLED', true))]) !!}
         @if($registration)
@@ -18,7 +18,7 @@
         @endif
         {!! Form::close() !!}
     </div>
-    <div class="grid-25 grid-parent">
+    <div class="grid-25">
         <h3>Blog</h3>
         {!! Form::open(['url'=>URL::to('/tools/cms/jenkins', [], env('HTTPS_ENABLED', true))]) !!}
         @if($jenkins)
@@ -28,13 +28,13 @@
         @endif
         {!! Form::close() !!}
     </div>
-    <div class="grid-25 grid-parent">
+    <div class="grid-25">
         <h3>BattleAdmin</h3>
         {{--{!! Form::open(['url'=>URL::to('/tools/cms/dash_jenkins', [], env('HTTPS_ENABLED', true))]) !!}--}}
         {{--@if($dash_jenkins)--}}
-            {{--<button class="ui button red">Disable Jenkins Feed</button>--}}
+        {{--<button class="ui button red">Disable Jenkins Feed</button>--}}
         {{--@else--}}
-            {{--<button class="ui button primary">Enable Jenkins Feed</button>--}}
+        {{--<button class="ui button primary">Enable Jenkins Feed</button>--}}
         {{--@endif--}}
         {{--{!! Form::close() !!}--}}
         {{--<br/>--}}

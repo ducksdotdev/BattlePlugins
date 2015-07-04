@@ -17,11 +17,14 @@ class PageController extends Controller {
     public function index() {
         $blog = Blog::latest()->first();
 
-        if (!$blog)
+        if (!$blog) {
+            $jenkins = ServerSetting::get('jenkins');
+
             return view('blog.index', [
-                'rssFeed' => Jenkins::getFeed(),
-                'jenkins' => ServerSetting::get('jenkins')
+                'rssFeed' => $jenkins ? Jenkins::getFeed() : null,
+                'jenkins' => $jenkins
             ]);
+        }
 
         return view('blog.index', static::retrieve($blog));
     }

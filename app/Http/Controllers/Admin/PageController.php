@@ -8,9 +8,7 @@ use App\Tools\Models\Blog;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
-use App\Tools\URL\Domain;
 use Auth;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +36,7 @@ class PageController extends Controller {
             Cache::forget('hitChange');
             Cache::forever('hitChange', $hits);
 
+            $dash_jenkins = ServerSetting::get('dash_jenkins');
             return view('admin.index', [
                 'title'        => 'Dashboard',
                 'tasks'        => count(Task::whereStatus(false)->get()),
@@ -47,8 +46,8 @@ class PageController extends Controller {
                 'queuedJobs'   => count(DB::table('jobs')->get()),
                 'failedJobs'   => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
-                'rssFeed'      => Jenkins::getFeed(),
-                'jenkins'      => ServerSetting::get('dash_jenkins'),
+                'rssFeed'      => $dash_jenkins ? Jenkins::getFeed() : null,
+                'jenkins'      => $dash_jenkins,
                 'hitChange'    => $hitChange,
                 'hits'         => $hits,
                 'updateMins'   => $this->updateMins
@@ -94,24 +93,11 @@ class PageController extends Controller {
     }
 
     public function serverStats() {
-        $serverData = Cache::remember('serverData', $this->updateMins, function () {
-            $serverData = [];
-            foreach (config('servers') as $name => $server) {
-                $serverData['servers'][] = [
-                    'name'   => $name,
-                    'online' => Domain::isOnline($server),
-                    'url'    => $server
-                ];
-            }
-
-            $serverData['updated_at'] = Carbon::now();
-
-            return $serverData;
-        });
+        $serverData = Cache::get('serverData');
 
         return view('admin.partials.dashboard.serverstats', [
             'serverData' => $serverData,
-            'updateMins' => $this->updateMins,
+            'updateMins' => $this->updateMins
         ]);
     }
 }

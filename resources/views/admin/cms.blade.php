@@ -33,13 +33,13 @@
     </div>
     <div class="grid-25 grid-parent">
         <h3>BattleAdmin</h3>
-        {!! Form::open(['url'=>URL::to('/tools/cms/dash_jenkins', [], env('HTTPS_ENABLED', true))]) !!}
-        @if($dash_jenkins)
-            <button class="ui button red">Disable Jenkins Feed</button>
-        @else
-            <button class="ui button primary">Enable Jenkins Feed</button>
-        @endif
-        {!! Form::close() !!}
+        {{--{!! Form::open(['url'=>URL::to('/tools/cms/dash_jenkins', [], env('HTTPS_ENABLED', true))]) !!}--}}
+        {{--@if($dash_jenkins)--}}
+            {{--<button class="ui button red">Disable Jenkins Feed</button>--}}
+        {{--@else--}}
+            {{--<button class="ui button primary">Enable Jenkins Feed</button>--}}
+        {{--@endif--}}
+        {{--{!! Form::close() !!}--}}
         <br/>
         {!! Form::open(['url'=>URL::to('/tools/cms/alert_bar', [], env('HTTPS_ENABLED', true))]) !!}
         @if($alert_bar)

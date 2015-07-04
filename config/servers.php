@@ -1,10 +1,10 @@
 <?php
 
 return [
-    's1' => 'http://s1.battleplugins.com',
-    's2' => 'http://s2.battleplugins.com',
-    's3' => 'http://s3.battleplugins.com',
-    'bukkit' => 'http://bukkit.org',
-    'sponge' => 'http://spongepowered.org',
-    'spigot' => 'http://spigotmc.org'
+    's1' => 's1.battleplugins.com',
+    's2' => 's2.battleplugins.com',
+    's3' => 's3.battleplugins.com',
+    'bukkit' => 'bukkit.org',
+    'sponge' => 'spongepowered.org',
+    'spigot' => 'spigotmc.org',
 ];

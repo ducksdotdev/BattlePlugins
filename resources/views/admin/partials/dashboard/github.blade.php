@@ -5,7 +5,7 @@
     @foreach($github as $item)
         <div class="ui message">
             <a href="http://github.com/{{ $item->actor->login }}">{{ $item->actor->login }}</a> {{ \App\Tools\Misc\GitHub::convertEvent($item->type). 'ed' }} {{ count($item->payload->commits) }}
-            commits to {{ $item->payload->ref }}
+            commits to {{ $item->repo->name }}{{ str_replace('refs/heads', '', $item->payload->ref) }}
             <ul>
                 @foreach($item->payload->commits as $commit)
                     <li>{{ str_limit($commit->message, 40) }} <a

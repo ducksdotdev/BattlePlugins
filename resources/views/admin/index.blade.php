@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-60 grid-parent">
+    <div class="grid-55 grid-parent">
         <div class="grid-100" ng-controller="ServerStatusCtrl">
             <h3>Server Status</h3>
 
@@ -13,7 +13,7 @@
             @include('admin.partials.dashboard.blog')
         </div>
     </div>
-    <div class="grid-40 grid-parent">
+    <div class="grid-45 grid-parent">
         @if(count($blogList))
             <div class="grid-100">
                 @include('admin.partials.dashboard.blogposts')

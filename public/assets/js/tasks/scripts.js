@@ -59,7 +59,7 @@ $(function () {
             $("#minimizeIssues i").addClass('expand');
         } else {
             $("#minimizeIssues i").removeClass('compress');
-            $("#minimizeIssues i").addClass('remove');
+            $("#minimizeIssues i").addClass('expand');
         }
     });
 });

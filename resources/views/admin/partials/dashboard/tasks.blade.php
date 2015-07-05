@@ -12,8 +12,8 @@
         {{ $issues }}
         <div class="small">GitHub Issues</div>
     </li>
-    <li class="{{ count($tasks->where('status', true)->get()) ? 'green' : 'red'}} has-small">
-        {{ count($tasks->where('status', true)->get()) }}
+    <li class="{{ $closedTasks ? 'green' : 'red'}} has-small">
+        {{ $closedTasks }}
         <div class="small">Completed</div>
     </li>
 </ul>

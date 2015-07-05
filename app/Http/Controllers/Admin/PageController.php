@@ -43,16 +43,25 @@ class PageController extends Controller {
             $tasks = Task::whereStatus(false);
 
             $myIssues = 0;
-            foreach(GitHub::getIssues() as $issue){
-                if($issue->assignee && $issue->assignee->login == auth()->user()->displayname)
+            $issues = 0;
+            $closed = 0;
+
+            foreach (GitHub::getIssues() as $issue) {
+                if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
                     $myIssues++;
+
+                if ($issue->state == 'open')
+                    $issues++;
+                else
+                    $closed++;
             }
 
+            $closed =  $closed + count(Task::where('status', true)->get());
             $myTasks = count($tasks->where('assigned_to', auth()->user()->id)->get()) + $myIssues;
 
             return view('admin.index', [
                 'title'        => 'Dashboard',
-                'issues'       => count(GitHub::getIssues()),
+                'issues'       => $issues,
                 'blogs'        => Blog::latest()->get(),
                 'blogList'     => Blog::latest()->limit(3)->get(),
                 'tasks'        => new Task,
@@ -65,7 +74,8 @@ class PageController extends Controller {
                 'hits'         => $hits,
                 'updateMins'   => $this->updateMins,
                 'github'       => GitHub::getEventsFeed(),
-                'myTasks'      => $myTasks
+                'myTasks'      => $myTasks,
+                'closedTasks' => $closed
             ]);
         } else
             return view('admin.login');

@@ -20,7 +20,7 @@
             </small>
         </div>
         <div class="description editable">
-            {!! strip_tags(Linkify::link($task->content), '<a><br>') !!}
+            {!! Markdown::convertToHTML(strip_tags($task->content)) !!}
         </div>
     </div>
     @if(Auth::check())

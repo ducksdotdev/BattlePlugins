@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Misc\GitHub;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Alert;
 use App\Tools\Models\Blog;
@@ -50,7 +51,8 @@ class PageController extends Controller {
                 'jenkins'      => $dash_jenkins,
                 'hitChange'    => $hitChange,
                 'hits'         => $hits,
-                'updateMins'   => $this->updateMins
+                'updateMins'   => $this->updateMins,
+                'github'       => GitHub::getFeed('battleplugins', 'org', 3)
             ]);
         } else
             return view('admin.login');

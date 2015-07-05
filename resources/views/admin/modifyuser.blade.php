@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="grid-100">
-        <table class="ui celled striped table">
+        <table class="ui striped table">
             <thead>
             <tr>
                 <th width="50%">Email</th>

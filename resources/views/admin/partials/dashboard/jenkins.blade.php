@@ -1,5 +1,5 @@
 <div class="grid-100">
-    <h3>Latest CI Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
+    <h3>Latest Jenkins Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
 </div>
 @if($rssFeed)
     @foreach($rssFeed as $item)
@@ -14,7 +14,7 @@
 @else
     <div class="grid-100">
         <div class="ui message red text-center">
-            There are no builds or we couldn't connect to the jenkins server.
+            There are no builds or we couldn't connect to the Jenkins server.
         </div>
     </div>
 @endif

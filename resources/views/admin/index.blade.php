@@ -22,5 +22,6 @@
         @if($jenkins && count($rssFeed > 0))
             @include('admin.partials.dashboard.jenkins')
         @endif
+        @include('admin.partials.dashboard.github')
     </div>
 @stop

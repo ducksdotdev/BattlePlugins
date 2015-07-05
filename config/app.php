@@ -152,6 +152,7 @@ return [
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
         'Awjudd\FeedReader\FeedReaderServiceProvider',
+        'Laravel\Socialite\SocialiteServiceProvider'
     ],
 
     /*
@@ -209,7 +210,8 @@ return [
         'User'          => 'App\Tools\Models\User',
         'Linkify'       => 'App\Tools\URL\Linkify',
         'Domain'        => 'App\Tools\URL\Domain',
-        'ServerSetting' => 'App\Tools\Queries\ServerSetting'
+        'ServerSetting' => 'App\Tools\Queries\ServerSetting',
+        'Socialite'     => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];

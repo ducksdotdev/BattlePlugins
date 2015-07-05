@@ -18,11 +18,12 @@ class PageController extends Controller {
     function __construct() {
         $this->middleware('auth', ['except' => ['index']]);
 
-        if (auth()->check())
+        if (auth()->check()) {
             view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
+            view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
+        }
 
         view()->share('alert_bar', ServerSetting::get('alert_bar'));
-        view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
     }
 
     public function index() {

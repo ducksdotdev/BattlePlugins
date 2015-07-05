@@ -40,7 +40,7 @@ class GitHub {
             $url = $url . '?' . http_build_query($params);
 
             $data = json_decode(static::getFeed($url));
-            Cache::put('avatar' . $user, $data, 30);
+            Cache::put('avatar' . $user, $data, 60);
 
             return $data->avatar_url;
         });
@@ -57,8 +57,7 @@ class GitHub {
         return $data;
     }
 
-    public
-    static function convertEvent($event) {
+    public static function convertEvent($event) {
         return config('github.events.' . $event);
     }
 

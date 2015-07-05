@@ -13,21 +13,8 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
-if (env('APP_ENV_URL') == 'localhost') {
-    $shurl = 'bplugin.localhost';
+if (env('APP_ENV_URL') == 'localhost')
     $tlds = [''];
-} else
-    $shurl = 'bplug.in';
-
-Route::group(['domain' => $shurl], function () {
-    Route::get('/', 'ShortUrls\PageController@index');
-
-    Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
-        Route::post('/create', 'ShortUrls\UrlController@create');
-    });
-
-    Route::get('/{url}', 'ShortUrls\UrlController@redirect');
-});
 
 foreach ($tlds as $tld) {
     $url .= $tld;
@@ -41,6 +28,16 @@ foreach ($tlds as $tld) {
         });
 
         Route::get('/{id}', 'Blog\PageController@getBlog');
+    });
+
+    Route::group(['domain' => 'short.' . $url], function () {
+        Route::get('/', 'ShortUrls\PageController@index');
+
+        Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
+            Route::post('/create', 'ShortUrls\UrlController@create');
+        });
+
+        Route::get('/{url}', 'ShortUrls\UrlController@redirect');
     });
 
     Route::group(['domain' => 'api.' . $url], function () {
@@ -122,6 +119,10 @@ foreach ($tlds as $tld) {
             Route::post('/settings', 'UserController@changeSettings');
         });
 
+    });
+
+    Route::group(['domain' => 'bplug.in'], function(){
+        return redirect()->action('ShortUrls\PageController@index');
     });
 
     $url = env('APP_ENV_URL');

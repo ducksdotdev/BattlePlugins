@@ -6,7 +6,7 @@
         <div class="header">
             <a href="#g{{ $issue->id }}" ng-click="setHighlighted('g{{ $issue->id }}')"><i class="icon linkify"></i></a>
             <a href="{{ $issue->html_url }}"><i class="icon external"></i></a>
-            [{{ $issue-> }}] {{$issue->title}}
+            {{$issue->title}}
             <small>Assigned
                 @if($issue->assignee)
                     to <span class="name">{{ $issue->assignee->login }}</span>

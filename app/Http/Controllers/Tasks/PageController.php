@@ -14,7 +14,7 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        if (Auth::check())\
+        if (Auth::check())
             $tasks = Task::all();
         else
             $tasks = Task::wherePublic(true)->get();

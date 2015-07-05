@@ -52,7 +52,7 @@ class PageController extends Controller {
                 'hitChange'    => $hitChange,
                 'hits'         => $hits,
                 'updateMins'   => $this->updateMins,
-                'github'       => GitHub::getFeed()
+                'github'       => GitHub::getEventsFeed()
             ]);
         } else
             return view('admin.login');

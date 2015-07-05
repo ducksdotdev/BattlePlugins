@@ -9,7 +9,6 @@ use App\Tools\Models\Blog;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
-use Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -20,13 +19,14 @@ class PageController extends Controller {
         $this->middleware('auth', ['except' => ['index']]);
 
         if (auth()->check())
-            view()->share('alerts', Alert::whereUser(Auth::user()->id)->latest()->get());
+            view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
 
         view()->share('alert_bar', ServerSetting::get('alert_bar'));
+        view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
     }
 
     public function index() {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $displaynames = [];
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;

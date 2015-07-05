@@ -21,7 +21,7 @@
             {!! Form::text('email', null, ['placeholder'=>'@battleplugins.com']) !!}
         </div>
         <div class="field">
-            {!! Form::label('displayname', 'Display Name (Minecraft Username)') !!}
+            {!! Form::label('displayname', 'Display Name (GitHub Username)') !!}
             {!! Form::text('displayname', null, ['placeholder'=>'Minecraft Username']) !!}
         </div>
         <div class="field">

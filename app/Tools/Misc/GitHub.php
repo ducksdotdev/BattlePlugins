@@ -8,20 +8,41 @@ use Illuminate\Support\Facades\Cache;
 
 class GitHub {
 
+
     public static function getEventsFeed($feed = 'battleplugins', $type = 'org', $limit = 3) {
         return Cache::get('github_feed', function () use ($feed, $type, $limit) {
             $url = 'https://api.github.com/' . str_plural($type) . '/' . $feed . '/events';
+
             $params = [
                 'client_id'     => env('GITHUB_APP_ID'),
                 'client_secret' => env('GITHUB_APP_SECRET'),
                 'per_page'      => $limit
             ];
+
             $url = $url . '?' . http_build_query($params);
 
             $data = json_decode(static::getFeed($url));
             Cache::put('github_feed', $data, 30);
 
             return $data;
+        });
+    }
+
+    public static function getAvatar($user) {
+        return Cache::get('avatar_' . $user, function () use ($user) {
+            $url = 'https://api.github.com/users/' . $user;
+
+            $params = [
+                'client_id'     => env('GITHUB_APP_ID'),
+                'client_secret' => env('GITHUB_APP_SECRET')
+            ];
+
+            $url = $url . '?' . http_build_query($params);
+
+            $data = json_decode(static::getFeed($url));
+            Cache::put('avatar' . $user, $data, 30);
+
+            return $data->avatar_url;
         });
     }
 

@@ -25,5 +25,6 @@
             <a href="/tools/cms" class="item">Manage Content</a>
         </div>
     </div>
-    <a href="/logout" class="item">Logout</a>
+    <a href="/logout" class="item">
+        <img src="{{ $avatar }}" class="ui mini avatar image"> <span>Logout</span></a>
 </div>

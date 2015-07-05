@@ -4,7 +4,6 @@
             <h2><i class="icon github"></i> issues</h2>
         </div>
         <div class="grid-15 tablet-grid-15 mobile-grid-15 text-right text-middle actions">
-            <button href="http://github.com/BattlePlugins" class="ui button circular icon"><i class="icon external"></i></button>
             <button id="minimizeIssues" class="circular small ui primary icon button"><i class="icon compress"></i></button>
         </div>
     </div>

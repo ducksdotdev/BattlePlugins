@@ -33,11 +33,4 @@ return [
         'model'  => 'App\Tools\Models\User',
         'secret' => '',
     ],
-
-    'github'   => [
-        'client_id'     => env('GITHUB_APP_ID'),
-        'client_secret' => env('GITHUB_APP_SECRET'),
-        'redirect'      => env('APP_ENV_URL') . '/login/callback',
-    ],
-
 ];

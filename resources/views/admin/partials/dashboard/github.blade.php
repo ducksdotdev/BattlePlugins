@@ -17,7 +17,7 @@
                             {{ $item->actor->login }}
                         </a>
                         {{ \App\Tools\Misc\GitHub::convertEvent($item->type). 'ed' }} {{ count($item->payload->commits) }} commits
-                        to {{ $item->repo->name }}{{ str_replace('refs/heads', '', $item->payload->ref) }}
+                        to <a href="http://github.com/{{ $item->repo->name }}{{ str_replace('refs/heads', '/tree', $item->payload->ref) }}">{{ $item->repo->name }}{{ str_replace('refs/heads', '', $item->payload->ref) }}</a>
                         <ul>
                             @foreach($item->payload->commits as $commit)
                                 <li>

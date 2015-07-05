@@ -5,10 +5,9 @@
         </div>
         <div class="grid-15 tablet-grid-15 mobile-grid-15 text-right text-middle actions">
             @if(Auth::check())
-                <button id="createTask" class="circular small ui positive icon button">
-                    <i class="icon plus"></i>
-                </button>
+                <button id="createTask" class="circular small ui positive icon button"><i class="icon plus"></i></button>
             @endif
+            <button id="minimizeTasks" class="circular small ui primary icon button"><i class="icon compress"></i></button>
         </div>
     </div>
 </div>

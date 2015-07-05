@@ -39,7 +39,27 @@ $(function () {
         $(".refresh").addClass('loading');
     });
 
-    $(".editable").dblclick(function () {
-        $(this).attr('contenteditable', true);
+    $("#minimizeTasks").click(function(){
+        $("#taskList").toggle();
+
+        if($("#minimizeTasks i").hasClass("compress")) {
+            $("#minimizeTasks i").removeClass('compress');
+            $("#minimizeTasks i").addClass('expand');
+        } else {
+            $("#minimizeTasks i").removeClass('compress');
+            $("#minimizeTasks i").addClass('remove');
+        }
+    });
+
+    $("#minimizeIssues").click(function(){
+        $("#issueList").toggle();
+
+        if($("#minimizeIssues i").hasClass("compress")) {
+            $("#minimizeIssues i").removeClass('compress');
+            $("#minimizeIssues i").addClass('expand');
+        } else {
+            $("#minimizeIssues i").removeClass('compress');
+            $("#minimizeIssues i").addClass('remove');
+        }
     });
 });

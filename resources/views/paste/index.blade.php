@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid-container">
         <div class="grid-65 grid-parent grid-center">
-            <div id="task-header">
+            <div class="task-header">
                 <div class="grid-container">
                     <div class="grid-100">
                         <h2>battlepaste</h2>

@@ -58,8 +58,8 @@ $(function () {
             $("#minimizeIssues i").removeClass('compress');
             $("#minimizeIssues i").addClass('expand');
         } else {
-            $("#minimizeIssues i").removeClass('compress');
-            $("#minimizeIssues i").addClass('expand');
+            $("#minimizeIssues i").removeClass('expand');
+            $("#minimizeIssues i").addClass('compress');
         }
     });
 });

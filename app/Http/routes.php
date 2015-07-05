@@ -61,8 +61,6 @@ foreach ($tlds as $tld) {
 
         Route::get('/', 'Tasks\PageController@index');
 
-        Route::post('/tasks/create/github', 'Tasks\TasksController@gitHubCreate');
-
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');
             Route::post('/tasks/delete/{id}', 'Tasks\TasksController@deleteTask');

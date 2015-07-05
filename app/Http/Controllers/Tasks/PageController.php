@@ -25,11 +25,15 @@ class PageController extends Controller {
         foreach ($users as $user)
             $displaynames[$user->id] = $user->displayname;
 
+        $gitIssues = array_sort(GitHub::getIssues(), function($value){
+            return $value->created_at;
+        });
+
         return view('tasks.index', [
             'tasks'        => $tasks,
             'users'        => $users,
             'displaynames' => $displaynames,
-            'gitIssues'    => GitHub::getIssues()
+            'gitIssues'    => $gitIssues
         ]);
     }
 

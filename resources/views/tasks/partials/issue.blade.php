@@ -8,7 +8,7 @@
                 @if($issue->assignee)
                     to <span class="name">{{ $issue->assignee->login }}</span>
                 @endif
-                by <span class="name">{{ $issue->user->login }}</span>
+                by <span class="name">{{ $issue->user->login }}</span> {{ (new \Carbon\Carbon($issue->created_at))->diffForHumans() }}
             </small>
         </div>
         <div class="description editable">

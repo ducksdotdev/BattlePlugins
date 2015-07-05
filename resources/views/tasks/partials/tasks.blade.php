@@ -1,10 +1,10 @@
-<div ng-controller="TasksCtrl">
+<div class="grid-container" ng-controller="TasksCtrl">
     @include('tasks.partials.settings')
-    <div class="grid-50">
+    <div class="grid-100">
         @include('tasks.partials.header')
         @include('tasks.partials.tasklist')
     </div>
-    <div class="grid-50">
+    <div class="grid-100">
         @include('tasks.partials.githeader')
         @include('tasks.partials.issuelist')
     </div>

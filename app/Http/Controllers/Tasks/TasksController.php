@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Controller;
 use App\Tools\Models\Task;
-use App\Tools\Models\User;
-use App\Tools\Security\VerifyHMAC;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -13,7 +11,7 @@ class TasksController extends Controller {
     private $webhooks;
 
     public function __construct(Webhooks $webhooks) {
-        $this->middleware('auth', ['except' => ['gitHubCreate']]);
+        $this->middleware('auth');
         $this->webhooks = $webhooks;
     }
 
@@ -41,39 +39,6 @@ class TasksController extends Controller {
     public function deleteTask($id) {
         Task::find($id)->delete();
         return redirect()->back();
-    }
-
-    public function gitHubCreate(Request $request) {
-        $payload = file_get_contents('php://input');
-        if (VerifyHMAC::validateSignature($request->header('X-Hub-Signature'), $payload)) {
-            Auth::loginUsingId(24);
-
-            $action = $request->json('action');
-
-            $title = '[Issue ' . $request->json('issue.id') . '] ' . $request->json('issue.title');
-            $task = Task::whereTitle($title)->first();
-
-            if ($action == 'opened') {
-                Task::create([
-                    'title' => $title,
-                    'creator' => 24,
-                    'assigned_to' => 0,
-                    'public' => true,
-                    'content' => $request->json('issue.html_url')
-                ]);
-            } else if ($action == 'closed')
-                $task->update(['status' => 1]);
-            else if ($action == 'assigned') {
-                $assigneeName = $request->json('assignee.login');
-                $assignee = User::whereDisplayname($assigneeName)->first();
-                if ($assignee)
-                    $task->update(['assigned_to' => $assignee->id]);
-            } else if ($action == 'unassigned')
-                $task->update(['assigned_to' => 0]);
-
-        } else
-            return redirect('/');
-
     }
 
     public function completeTask($id) {

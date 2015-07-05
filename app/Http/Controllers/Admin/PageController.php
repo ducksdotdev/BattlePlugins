@@ -39,9 +39,20 @@ class PageController extends Controller {
             Cache::forever('hitChange', $hits);
 
             $dash_jenkins = ServerSetting::get('dash_jenkins');
+
+            $tasks = Task::whereStatus(false);
+
+            $myIssues = 0;
+            foreach(GitHub::getIssues() as $issue){
+                if($issue->assignee && $issue->assignee->login == auth()->user()->displayname)
+                    $myIssues++;
+            }
+
+            $myTasks = count($tasks->where('assigned_to', auth()->user()->id)->get()) + $myIssues;
+
             return view('admin.index', [
                 'title'        => 'Dashboard',
-                'tasks'        => count(Task::whereStatus(false)->get()),
+                'issues'       => count(GitHub::getIssues()),
                 'blogs'        => Blog::latest()->get(),
                 'blogList'     => Blog::latest()->limit(3)->get(),
                 'tasks'        => new Task,
@@ -53,7 +64,8 @@ class PageController extends Controller {
                 'hitChange'    => $hitChange,
                 'hits'         => $hits,
                 'updateMins'   => $this->updateMins,
-                'github'       => GitHub::getEventsFeed()
+                'github'       => GitHub::getEventsFeed(),
+                'myTasks'      => $myTasks
             ]);
         } else
             return view('admin.login');

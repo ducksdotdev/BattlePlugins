@@ -26,10 +26,10 @@ BattleTasks.controller("TasksCtrl", function ($scope, $http) {
 
     $scope.getHighlighted = function () {
         var url = document.location.href;
-        var index = url.indexOf('#task');
+        var index = url.indexOf('#');
 
         if (index > -1) {
-            $scope.setHighlighted(url.substr(index + 5));
+            $scope.setHighlighted(url.substr(index + 1));
         }
     };
 

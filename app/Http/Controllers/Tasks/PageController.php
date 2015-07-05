@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Misc\GitHub;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use Auth;
@@ -25,9 +26,10 @@ class PageController extends Controller {
             $displaynames[$user->id] = $user->displayname;
 
         return view('tasks.index', [
-            'tasks' => $tasks,
-            'users' => $users,
-            'displaynames' => $displaynames
+            'tasks'        => $tasks,
+            'users'        => $users,
+            'displaynames' => $displaynames,
+            'gitIssues'    => GitHub::getIssues()
         ]);
     }
 

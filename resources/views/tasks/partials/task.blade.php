@@ -1,12 +1,12 @@
 <div class="item
 					@if($task->status)
 						completed
-					@endif" id="task{{ $task->id }}"
+					@endif" id="{{ $task->id }}"
      ng-class="{highlighted: {{ $task->id }} == highlighted}"
      ng-hide="{{ $task->status }} && !showCompleted">
     <div class="content @if(Auth::check()) grid-90 @else grid-100 @endif">
         <div class="header">
-            <a href="#task{{ $task->id }}" ng-click="setHighlighted({{ $task->id }})"><i
+            <a href="#{{ $task->id }}" ng-click="setHighlighted({{ $task->id }})"><i
                         class="icon linkify"></i></a>
             {{$task->title}}
             @if(Auth::check() && $task->public)

@@ -60,6 +60,7 @@ foreach ($tlds as $tld) {
     Route::group(['domain' => 'tasks.' . $url], function () {
 
         Route::get('/', 'Tasks\PageController@index');
+        Route::get('/refreshIssues', 'Tasks\TasksController@refreshIssues');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/tasks/complete/{id}', 'Tasks\TasksController@completeTask');

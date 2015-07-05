@@ -5,6 +5,7 @@ use App\Tools\Models\Task;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TasksController extends Controller {
 
@@ -26,11 +27,11 @@ class TasksController extends Controller {
             $public = false;
 
         Task::create([
-            'title' => $title,
-            'creator' => Auth::user()->id,
+            'title'       => $title,
+            'creator'     => Auth::user()->id,
             'assigned_to' => $request->input('assigned_to'),
-            'public' => $public,
-            'content' => $request->input('content')
+            'public'      => $public,
+            'content'     => $request->input('content')
         ]);
 
         return redirect('/');
@@ -43,6 +44,13 @@ class TasksController extends Controller {
 
     public function completeTask($id) {
         Task::find($id)->update(['status' => 1]);
+        return redirect()->back();
+    }
+
+    public function refreshIssues() {
+        if (Auth::check())
+            Cache::forget('gitIssues');
+
         return redirect()->back();
     }
 }

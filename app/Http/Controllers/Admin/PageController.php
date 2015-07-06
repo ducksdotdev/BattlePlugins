@@ -38,10 +38,6 @@ class PageController extends Controller {
 
 			$userId = auth()->user()->id;
 
-			$hitChange = $hits - Cache::pull('hitChange_' . $userId);
-			Cache::forget('hitChange_' . $userId);
-			Cache::forever('hitChange_' . $userId, $hits);
-
 			$dash_jenkins = ServerSetting::get('dash_jenkins');
 
 			$tasks = Task::whereStatus(false);
@@ -73,7 +69,6 @@ class PageController extends Controller {
 				'displaynames' => $displaynames,
 				'rssFeed' => $dash_jenkins ? Jenkins::getFeed('rssLatest', 3) : null,
 				'jenkins' => $dash_jenkins,
-				'hitChange' => $hitChange,
 				'hits' => $hits,
 				'updateMins' => $this->updateMins,
 				'github' => GitHub::getEventsFeed(),

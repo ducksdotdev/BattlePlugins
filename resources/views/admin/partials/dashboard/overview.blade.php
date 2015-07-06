@@ -12,8 +12,8 @@
         {{ $blogs }}
         <div class="small">Blog Posts</div>
     </li>
-    <li class="has-small @if($hitChange > 0) green @endif">
-        {{ $hits  }} ({{ $hitChange }})
+    <li class="has-small">
+        {{ $hits  }}
         <div class="small">Blog Hits</div>
     </li>
 </ul>

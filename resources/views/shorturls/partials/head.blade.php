@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+@include('mobilecolor')
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>bplug.in :: BattlePlugins URL Shortener</title>
 <link rel="icon" href="/assets/img/bp.png"/>

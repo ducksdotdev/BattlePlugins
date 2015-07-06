@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('paste.partials.head')
+    @include('mobilecolor')
     <title>BattlePaste :: BattlePlugins Paste Service</title>
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
 </head>

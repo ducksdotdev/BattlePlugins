@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @include('mobilecolor')
     <title>BattleWebAPI :: Website API for BattlePlugins</title>
     <link rel="icon" href="/assets/img/api.png"/>
     @include('api.partials.styles')

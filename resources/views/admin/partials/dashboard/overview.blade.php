@@ -11,6 +11,14 @@
         @else
             <small>({{ $hitChange }})</small>
         @endif
-        <div class="small">Page Hits</div>
+        <div class="small">Blog Hits</div>
+    </li>
+    <li class="blue has-small">
+        {{ $pastes }}
+        <div class="small">Pastes</div>
+    </li>
+    <li class="blue has-small">
+        {{ $urls }}
+        <div class="small">Short URLs</div>
     </li>
 </ul>

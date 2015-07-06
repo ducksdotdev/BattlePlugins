@@ -10,7 +10,7 @@
             @include('admin.partials.dashboard.tasks')
         </div>
         <div class="grid-100">
-            @include('admin.partials.dashboard.blog')
+            @include('admin.partials.dashboard.overview')
         </div>
     </div>
     <div class="grid-45 grid-parent">

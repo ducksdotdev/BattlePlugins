@@ -6,6 +6,8 @@ use App\Tools\Misc\GitHub;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Alert;
 use App\Tools\Models\Blog;
+use App\Tools\Models\Paste;
+use App\Tools\Models\ShortUrl;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
@@ -77,7 +79,9 @@ class PageController extends Controller {
 				'updateMins' => $this->updateMins,
 				'github' => GitHub::getEventsFeed(),
 				'myTasks' => $myTasks,
-				'closedTasks' => $closed
+				'closedTasks' => $closed,
+				'pastes' => count(Paste::all()),
+				'urls' => count(ShortUrl::all())
 			]);
 		} else
 			return view('admin.login');

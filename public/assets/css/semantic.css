@@ -21610,22 +21610,27 @@ Width
 
 .ui[class*="very thin"].left.sidebar,
 .ui[class*="very thin"].right.sidebar {
-    width: 60px;
+    min-width: 60px;
 }
 
 .ui.thin.left.sidebar,
 .ui.thin.right.sidebar {
-    width: 150px;
+    min-width: 150px;
+}
+
+.ui.left.sidebar,
+.ui.right.sidebar {
+    min-width: 260px;
 }
 
 .ui.wide.left.sidebar,
 .ui.wide.right.sidebar {
-    width: 350px;
+    min-width: 350px;
 }
 
 .ui[class*="very wide"].left.sidebar,
 .ui[class*="very wide"].right.sidebar {
-    width: 475px;
+    min-width: 475px;
 }
 
 /* Left Visible */

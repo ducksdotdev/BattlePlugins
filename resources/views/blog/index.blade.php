@@ -24,7 +24,7 @@
 @endif
 <nav>
     <div class="grid-container">
-        <div class="grid-30">
+        <div class="grid-20">
             <h1 class="brand"><a href="/">battleplugins</a></h1>
         </div>
         <div class="grid-60">
@@ -34,7 +34,7 @@
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
-        <div class="grid-10 text-right">
+        <div class="grid-20 text-right">
             @if(Auth::check())
                 <button id="createBlog" class="circular small ui positive icon button">
                     <i class="icon plus"></i>

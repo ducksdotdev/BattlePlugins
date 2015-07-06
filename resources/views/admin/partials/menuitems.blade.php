@@ -22,7 +22,6 @@
 <div class="item">
     <div class="header"><img src="{{ $avatar }}" class="ui mini avatar image"> {{ auth()->user()->displayname}}</div>
     <div class="menu">
-        <a href="/profile/{{ auth()->user()->id }}" class="item">My Profile</a>
         <a href="/logout" class="item">Logout</a>
     </div>
 </div>

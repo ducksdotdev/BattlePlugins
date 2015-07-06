@@ -13,125 +13,127 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller {
-    protected $updateMins = 1;
+	protected $updateMins = 1;
 
-    function __construct() {
-        $this->middleware('auth', ['except' => ['index']]);
+	function __construct () {
+		$this->middleware('auth', ['except' => ['index']]);
 
-        if (auth()->check()) {
-            view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
-            view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
-        }
+		if (auth()->check()) {
+			view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
+			view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
+		}
 
-        view()->share('alert_bar', ServerSetting::get('alert_bar'));
-    }
+		view()->share('alert_bar', ServerSetting::get('alert_bar'));
+	}
 
-    public function index() {
-        if (auth()->check()) {
-            $displaynames = [];
-            foreach (User::all() as $user)
-                $displaynames[$user->id] = $user->displayname;
+	public function index () {
+		if (auth()->check()) {
+			$displaynames = [];
+			foreach (User::all() as $user)
+				$displaynames[$user->id] = $user->displayname;
 
-            $hits = ServerSetting::get('blogviews');
+			$hits = ServerSetting::get('blogviews');
 
-            $hitChange = $hits - Cache::pull('hitChange');
-            Cache::forget('hitChange');
-            Cache::forever('hitChange', $hits);
+			$userId = auth()->user()->id;
 
-            $dash_jenkins = ServerSetting::get('dash_jenkins');
+			$hitChange = $hits - Cache::pull('hitChange_' . $userId);
+			Cache::forget('hitChange_' . $userId);
+			Cache::forever('hitChange_' . $userId, $hits);
 
-            $tasks = Task::whereStatus(false);
+			$dash_jenkins = ServerSetting::get('dash_jenkins');
 
-            $myIssues = 0;
-            $issues = 0;
-            $closed = 0;
+			$tasks = Task::whereStatus(false);
 
-            foreach (GitHub::getIssues() as $issue) {
-                if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
-                    $myIssues++;
+			$myIssues = 0;
+			$issues = 0;
+			$closed = 0;
 
-                if ($issue->state == 'open')
-                    $issues++;
-                else
-                    $closed++;
-            }
+			foreach (GitHub::getIssues() as $issue) {
+				if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
+					$myIssues++;
 
-            $closed = $closed + count(Task::where('status', true)->get());
-            $myTasks = count($tasks->where('assigned_to', auth()->user()->id)->get()) + $myIssues;
+				if ($issue->state == 'open')
+					$issues++;
+				else
+					$closed++;
+			}
 
-            return view('admin.index', [
-                'title'        => 'Dashboard',
-                'issues'       => $issues,
-                'blogs'        => Blog::latest()->get(),
-                'blogList'     => Blog::latest()->limit(3)->get(),
-                'tasks'        => new Task,
-                'queuedJobs'   => count(DB::table('jobs')->get()),
-                'failedJobs'   => count(DB::table('failed_jobs')->get()),
-                'displaynames' => $displaynames,
-                'rssFeed'      => $dash_jenkins ? Jenkins::getFeed('rssLatest') : null,
-                'jenkins'      => $dash_jenkins,
-                'hitChange'    => $hitChange,
-                'hits'         => $hits,
-                'updateMins'   => $this->updateMins,
-                'github'       => GitHub::getEventsFeed(),
-                'myTasks'      => $myTasks,
-                'closedTasks'  => $closed
-            ]);
-        } else
-            return view('admin.login');
-    }
+			$closed = $closed + count(Task::where('status', true)->get());
+			$myTasks = count($tasks->where('assigned_to', $userId)->get()) + $myIssues;
 
-    public function settings() {
-        return view('admin.settings', [
-            'title' => 'User Settings'
-        ]);
-    }
+			return view('admin.index', [
+				'title' => 'Dashboard',
+				'issues' => $issues,
+				'blogs' => Blog::latest()->get(),
+				'blogList' => Blog::latest()->limit(3)->get(),
+				'tasks' => new Task,
+				'queuedJobs' => count(DB::table('jobs')->get()),
+				'failedJobs' => count(DB::table('failed_jobs')->get()),
+				'displaynames' => $displaynames,
+				'rssFeed' => $dash_jenkins ? Jenkins::getFeed('rssLatest', 3) : null,
+				'jenkins' => $dash_jenkins,
+				'hitChange' => $hitChange,
+				'hits' => $hits,
+				'updateMins' => $this->updateMins,
+				'github' => GitHub::getEventsFeed(),
+				'myTasks' => $myTasks,
+				'closedTasks' => $closed
+			]);
+		} else
+			return view('admin.login');
+	}
 
-    public function createUser() {
-        return view('admin.createuser', [
-            'title' => 'Create User'
-        ]);
-    }
+	public function settings () {
+		return view('admin.settings', [
+			'title' => 'User Settings'
+		]);
+	}
 
-    public function modifyUser() {
-        return view('admin.modifyuser', [
-            'title' => 'Modify User',
-            'users' => User::all()
-        ]);
-    }
+	public function createUser () {
+		return view('admin.createuser', [
+			'title' => 'Create User'
+		]);
+	}
 
-    public function alerts() {
-        return view('admin.alerts', [
-            'title' => 'Create Alert'
-        ]);
-    }
+	public function modifyUser () {
+		return view('admin.modifyuser', [
+			'title' => 'Modify User',
+			'users' => User::all()
+		]);
+	}
 
-    public function cms() {
-        return view('admin.cms', [
-            'title'        => 'Manage Content',
-            'jenkins'      => ServerSetting::get('jenkins'),
-            'dash_jenkins' => ServerSetting::get('dash_jenkins'),
-            'registration' => ServerSetting::get('registration'),
-            'footer'       => ServerSetting::get('footer'),
-            'alert_bar'    => ServerSetting::get('alert_bar')
-        ]);
-    }
+	public function alerts () {
+		return view('admin.alerts', [
+			'title' => 'Create Alert'
+		]);
+	}
 
-    public function serverStats() {
-        $serverData = Cache::get('serverData');
+	public function cms () {
+		return view('admin.cms', [
+			'title' => 'Manage Content',
+			'jenkins' => ServerSetting::get('jenkins'),
+			'dash_jenkins' => ServerSetting::get('dash_jenkins'),
+			'registration' => ServerSetting::get('registration'),
+			'footer' => ServerSetting::get('footer'),
+			'alert_bar' => ServerSetting::get('alert_bar')
+		]);
+	}
 
-        return view('admin.partials.dashboard.serverstats', [
-            'serverData' => $serverData,
-            'updateMins' => $this->updateMins
-        ]);
-    }
+	public function serverStats () {
+		$serverData = Cache::get('serverData');
 
-    public function github() {
-        return view('admin.github', [
-            'title'   => 'GitHub Information',
-            'github'  => GitHub::getEventsFeed(100),
-            'members' => GitHub::getOrgMembers(),
-            'repos'   => GitHub::getRepositories()
-        ]);
-    }
+		return view('admin.partials.dashboard.serverstats', [
+			'serverData' => $serverData,
+			'updateMins' => $this->updateMins
+		]);
+	}
+
+	public function github () {
+		return view('admin.github', [
+			'title' => 'GitHub Information',
+			'github' => GitHub::getEventsFeed(100),
+			'members' => GitHub::getOrgMembers(),
+			'repos' => GitHub::getRepositories()
+		]);
+	}
 }

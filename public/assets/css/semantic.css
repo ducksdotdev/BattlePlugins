@@ -21610,12 +21610,12 @@ Width
 
 .ui[class*="very thin"].left.sidebar,
 .ui[class*="very thin"].right.sidebar {
-    min-width: 60px;
+    width: 60px;
 }
 
 .ui.thin.left.sidebar,
 .ui.thin.right.sidebar {
-    min-width: 150px;
+    width: 150px;
 }
 
 .ui.left.sidebar,
@@ -21625,12 +21625,12 @@ Width
 
 .ui.wide.left.sidebar,
 .ui.wide.right.sidebar {
-    min-width: 350px;
+    width: 350px;
 }
 
 .ui[class*="very wide"].left.sidebar,
 .ui[class*="very wide"].right.sidebar {
-    min-width: 475px;
+    width: 475px;
 }
 
 /* Left Visible */

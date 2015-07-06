@@ -20,6 +20,9 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/progress.js/0.1.0/progress.min.js"></script>
     <script type="text/javascript" src="/assets/js/admin/admin.js"></script>
+    <script>
+        progressJs().start();
+    </script>
     <!--       End Scripts -->
 </head>
 <body>

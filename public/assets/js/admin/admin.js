@@ -46,8 +46,6 @@ BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $inter
 });
 
 $(function () {
-    progressJs().start();
-
     $('.ui.checkbox').checkbox();
 
     $("#openMenu").click(function () {

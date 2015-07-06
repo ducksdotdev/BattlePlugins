@@ -1,37 +1,6 @@
-<div class="grid-20 mobile-grid-75 tablet-grid-30 ui left vertical inverted sidebar admin menu">
-    <div class="brand item">
-        <h1>
-            <i id="closeMenu" class="icon sidebar pointer hide-on-desktop"></i>
-            <a href="/">battleadmin</a>
-        </h1>
-    </div>
-
-    <a href="/" class="item">Dashboard</a>
-
-    @if(Auth::user()->admin)
-        <div class="item">
-            <div class="header">User Management</div>
-            <div class="menu">
-                <a href="/user/create" class="item">Create User</a>
-                <a href="/user/modify" class="item">Modify User</a>
-            </div>
-        </div>
-    @endif
-    <div class="item">
-        <div class="header">Tools</div>
-        <div class="menu">
-            @if(Auth::user()->admin)
-                <a href="/tools/alert" class="item">Create Alert</a>
-            @endif
-            <a href="/tools/cms" class="item">Manage Content</a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="header"><img src="{{ $avatar }}" class="ui mini avatar image"> {{ auth()->user()->displayname}}
-        </div>
-        <div class="menu">
-            <a href="/settings" class="item">Settings</a>
-            <a href="/logout" class="item">Logout</a>
-        </div>
-    </div>
+<div class="grid-20 mobile-grid-75 tablet-grid-30 ui left vertical inverted sidebar admin menu visible hide-on-mobile hide-on-tablet">
+    @include('admin.partials.menuitems')
+</div>
+<div id="mobileMenu" class="grid-20 mobile-grid-75 tablet-grid-30 ui left vertical inverted sidebar admin menu hide-on-desktop">
+    @include('admin.partials.menuitems')
 </div>

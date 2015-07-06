@@ -1,4 +1,4 @@
-<div class="grid-20 mobile-grid-75 tablet-grid-30 ui left vertical inverted sidebar menu">
+<div class="grid-20 mobile-grid-75 tablet-grid-30 ui left vertical inverted sidebar fixed menu">
     <div class="brand item">
         <h1>
             <i id="closeMenu" class="icon sidebar pointer hide-on-desktop"></i>

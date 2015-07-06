@@ -13,13 +13,6 @@ Route::group(['before' => 'auth'], function () {
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
-Route::group(['domain' => 'bplug.in'], function () {
-    return redirect()->action('ShortUrls\PageController@index');
-});
-
-if (env('APP_ENV_URL') == 'localhost')
-    $tlds = [''];
-
 if (env('APP_ENV_URL') == 'localhost')
     $tlds = [''];
 
@@ -133,7 +126,7 @@ foreach ($tlds as $tld) {
 
 Route::group(['domain' => 'bplug.in'], function () {
     Route::get('/', function () {
-        return redirect("http://short.battleplugins.com");
+        return redirect()->action('ShortUrls\PageController@index');
     });
 
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');

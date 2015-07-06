@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('content')
-    <div class="grid-70 grid-parent">
+    <div class="grid-65 grid-parent">
         <div class="grid-100">
             <h3>Events Feed (Last 100 events)</h3>
         </div>
@@ -8,7 +8,7 @@
             @include('admin.partials.github')
         </div>
     </div>
-    <div class="grid-30 grid-parent">
+    <div class="grid-35 grid-parent">
         <div class="grid-100">
             <h3>Organization Members</h3>
         </div>

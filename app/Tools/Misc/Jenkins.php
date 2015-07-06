@@ -12,5 +12,4 @@ class Jenkins {
         return $feed->get_items($start, $limit);
     }
 
-
 }

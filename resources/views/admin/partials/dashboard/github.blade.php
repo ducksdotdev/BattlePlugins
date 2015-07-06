@@ -6,7 +6,9 @@
         <div class="ui feed segment">
             <div class="event">
                 <div class="label">
-                    <img src="{{ $item->actor->avatar_url }}">
+                    <a href="http://github.com/{{ $item->actor->login }}">
+                        <img src="{{ $item->actor->avatar_url }}">
+                    </a>
                 </div>
                 <div class="content">
                     <div class="date">
@@ -25,4 +27,7 @@
             </div>
         </div>
     @endforeach
+    <div class="pull-right">
+        <a href="/github">More...</a>
+    </div>
 </div>

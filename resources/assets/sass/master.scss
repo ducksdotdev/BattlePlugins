@@ -403,6 +403,12 @@ ul.stats {
   }
 }
 
+.bottom-margin {
+  &.ten {
+    margin-bottom: 10px;
+  }
+}
+
 .inline {
   display: inline;
 }

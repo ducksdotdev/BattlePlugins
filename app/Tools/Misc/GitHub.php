@@ -11,15 +11,15 @@ class GitHub {
 
     protected static $base_url = 'https://api.github.com/';
 
-    public static function getEventsFeed($feed = 'battleplugins', $type = 'org', $limit = 3) {
-        return Cache::get('github_feed', function () use ($feed, $type, $limit) {
-            $url = str_plural($type) . '/' . $feed . '/events';
+    public static function getEventsFeed($limit = 3) {
+        return Cache::get('github_feed_' . $limit, function () use ($limit) {
+            $url = 'orgs/BattlePlugins/events';
             $params = [
                 'per_page' => $limit
             ];
 
             $data = static::getFeed($url, $params);
-            Cache::put('github_feed', $data, 30);
+            Cache::put('github_feed_' . $limit, $data, 30);
 
             return $data;
         });
@@ -40,7 +40,7 @@ class GitHub {
             $repos = static::getFeed($repos);
 
             $issues = [];
-            foreach($repos as $repo){
+            foreach ($repos as $repo) {
                 $url = 'repos/' . $repo->full_name . '/issues';
                 $issues = array_merge($issues, static::getFeed($url));
             }
@@ -48,6 +48,24 @@ class GitHub {
             Cache::put('gitIssues', $issues, 60);
 
             return $issues;
+        });
+    }
+
+    public static function getOrgMembers($org = 'battleplugins') {
+        return Cache::get('orgMembers_' . $org, function () use ($org) {
+            $url = 'orgs/' . $org . '/members';
+            $data = static::getFeed($url);
+            Cache::put('orgMembers', $data, 60);
+            return $data;
+        });
+    }
+
+    public static function getRepositories($type = 'org', $owner = 'battleplugins') {
+        return Cache::get('getRepositories_' . $owner, function () use ($type, $owner) {
+            $url = str_plural($type) . '/' . $owner . '/repos';
+            $data = static::getFeed($url);
+            Cache::put('getRepositories_' . $owner, $data, 1440);
+            return $data;
         });
     }
 

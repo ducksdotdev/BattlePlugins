@@ -56,7 +56,7 @@ class PageController extends Controller {
                     $closed++;
             }
 
-            $closed =  $closed + count(Task::where('status', true)->get());
+            $closed = $closed + count(Task::where('status', true)->get());
             $myTasks = count($tasks->where('assigned_to', auth()->user()->id)->get()) + $myIssues;
 
             return view('admin.index', [
@@ -75,7 +75,7 @@ class PageController extends Controller {
                 'updateMins'   => $this->updateMins,
                 'github'       => GitHub::getEventsFeed(),
                 'myTasks'      => $myTasks,
-                'closedTasks' => $closed
+                'closedTasks'  => $closed
             ]);
         } else
             return view('admin.login');
@@ -123,6 +123,15 @@ class PageController extends Controller {
         return view('admin.partials.dashboard.serverstats', [
             'serverData' => $serverData,
             'updateMins' => $this->updateMins
+        ]);
+    }
+
+    public function github() {
+        return view('admin.github', [
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(100),
+            'members' => GitHub::getOrgMembers(),
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 }

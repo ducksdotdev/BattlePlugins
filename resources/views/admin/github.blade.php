@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid-70 grid-parent">
         <div class="grid-100">
-            <h3>Events Feed</h3>
+            <h3>Events Feed (Last 100 events)</h3>
         </div>
         <div class="grid-100">
             @include('admin.partials.github')

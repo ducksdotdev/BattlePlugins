@@ -358,8 +358,16 @@ ul.stats {
 }
 
 @media screen and (max-width: 1300px) {
-  ul.stats li {
-    display: list-item;
+  ul.stats {
+    text-align: center;
+
+    li {
+      display: list-item;
+
+      & + li {
+        margin: 30px 0 0 0;
+      }
+    }
   }
 }
 

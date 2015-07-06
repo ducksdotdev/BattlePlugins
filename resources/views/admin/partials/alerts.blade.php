@@ -1,6 +1,6 @@
 @if(count($alerts) > 0)
     <div class="grid-100 grid-parent alerts">
-        <div class="grid-85 pull-right" ng-controller="AlertsCtrl" ng-class="alert['color']">
+        <div class="grid-80 pull-right" ng-controller="AlertsCtrl" ng-class="alert['color']">
             <table class="updates">
                 <tbody>
                 <tr>

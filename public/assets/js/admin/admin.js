@@ -44,3 +44,9 @@ BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $inter
     poll();
     $interval(poll, 1000);
 });
+
+$(function(){
+    $("#openMenu").click(function(){
+        $("#sideMenu").toggle();
+    });
+});

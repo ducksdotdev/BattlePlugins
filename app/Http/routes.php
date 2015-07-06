@@ -131,9 +131,9 @@ foreach ($tlds as $tld) {
     $url = env('APP_ENV_URL');
 }
 
-Route::group(['domain' => $shurl], function () {
+Route::group(['domain' => 'bplug.in'], function () {
     Route::get('/', function () {
-        return redirect()->action('ShortUrls\PageController@index');
+        return redirect("http://short.battleplugins.com");
     });
 
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');

@@ -54,6 +54,22 @@ nav {
   }
 }
 
+@media screen and (min-width: 768px) {
+  nav {
+    ul {
+      text-align: left;
+
+      li {
+        display: list-item;
+      }
+    }
+
+    button {
+      margin-bottom: 20px;
+    }
+  }
+}
+
 #header {
   background: white;
 }

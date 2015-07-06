@@ -360,7 +360,7 @@ ul.stats {
 @media screen and (max-width: 1300px) {
   ul.stats {
     li + li {
-      margin: 0;
+      margin-left: 0;
     }
   }
 }

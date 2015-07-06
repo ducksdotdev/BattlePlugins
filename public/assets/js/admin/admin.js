@@ -49,7 +49,7 @@ $(function () {
     $('.ui.checkbox').checkbox();
 
     $("#openMenu").click(function () {
-        $("#sideMenu").attr("style", "block !important");
+        $("#sideMenu").attr("style", "display: block !important");
     });
 
     $("#closeMenu").click(function () {

@@ -14,14 +14,14 @@
         </div>
     </div>
     <div class="grid-45 grid-parent">
+        @include('admin.partials.dashboard.github')
+        @if($jenkins && count($rssFeed > 0))
+            @include('admin.partials.dashboard.jenkins')
+        @endif
         @if(count($blogList))
             <div class="grid-100">
                 @include('admin.partials.dashboard.blogposts')
             </div>
         @endif
-        @if($jenkins && count($rssFeed > 0))
-            @include('admin.partials.dashboard.jenkins')
-        @endif
-        @include('admin.partials.dashboard.github')
     </div>
 @stop

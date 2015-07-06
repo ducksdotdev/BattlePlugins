@@ -1,4 +1,4 @@
-<h3>Blog Overview <a href="{{ action('Blog\PageController@index') }}"><i class="icon external"></i></a></h3>
+<h3>General Overview</h3>
 <ul class="stats">
     <li class="has-small">
         {{ count($blogs) }}

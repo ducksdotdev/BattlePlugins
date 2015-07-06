@@ -49,10 +49,10 @@ $(function () {
     $('.ui.checkbox').checkbox();
 
     $("#openMenu").click(function () {
-        $("#sideMenu").attr("style", "display: block !important");
+        $('#sideMenu').sidebar('toggle');
     });
 
     $("#closeMenu").click(function () {
-        $("#sideMenu").attr("style", null);
+        $('#sideMenu').sidebar('toggle');
     });
 });

@@ -23,6 +23,7 @@ nav {
 
   .ui.button {
     margin-top: 18px !important;
+    text-align: center;
   }
 
   ul {
@@ -58,14 +59,20 @@ nav {
   nav {
     ul {
       text-align: left;
+      magin-top: -10px;
 
       li {
         display: list-item;
+
+        & + li {
+          margin-left: 0;
+        }
       }
     }
 
-    button {
-      margin-bottom: 20px;
+    .ui.button {
+      margin: 20px 0;
+      text-align: left;
     }
   }
 }

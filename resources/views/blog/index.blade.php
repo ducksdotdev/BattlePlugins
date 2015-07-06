@@ -34,13 +34,13 @@
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
-        <div class="grid-20 tablet-grid-100 mobile-grid-100 text-center">
+        <div class="grid-20 tablet-grid-100 mobile-grid-100">
             @if(Auth::check())
                 <button id="createBlog" class="circular small ui positive icon button">
                     <i class="icon plus"></i>
                 </button>
             @else
-                <div id="loginDropDownButton" class="ui button primary">Login</div>
+                <button id="loginDropDownButton" class="ui button primary">Login</button>
             @endif
         </div>
     </div>

@@ -29,7 +29,7 @@
         <div class="grid-100">
             <h3>Repositories</h3>
         </div>
-        <div class="grid-100 grid-parent">
+        <div class="grid-100">
             <div class="ui segment">
                 @foreach($repos as $repo)
                     <div class="grid-50">

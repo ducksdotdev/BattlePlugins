@@ -24,17 +24,17 @@
 @endif
 <nav>
     <div class="grid-container">
-        <div class="grid-20">
+        <div class="grid-25 tablet-grid-100 mobile-grid-100">
             <h1 class="brand"><a href="/">battleplugins</a></h1>
         </div>
-        <div class="grid-60">
+        <div class="grid-55 tablet-grid-100 mobile-grid-100">
             <ul>
                 <li><a href="http://ci.battleplugins.com">Jenkins</a></li>
                 <li><a href="http://wiki.battleplugins.com">Wiki</a></li>
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
-        <div class="grid-20 text-right">
+        <div class="grid-20 tablet-grid-100 mobile-grid-100 text-center">
             @if(Auth::check())
                 <button id="createBlog" class="circular small ui positive icon button">
                     <i class="icon plus"></i>

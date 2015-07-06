@@ -9,13 +9,12 @@
                     Written by {{ $displaynames[$post->author] }} <span
                             title="{{ $post->created_at }}">{{ $post->created_at->diffForHumans() }}</span>
                     @if($post->updated_at != $post->created_at)
-                        <span title="Edited {{ $post->updated_at->diffForHumans()
-                                         }} ({{ $post->updated_at }})">*</span>
+                        <span title="Edited {{ $post->updated_at->diffForHumans() }} ({{ $post->updated_at }})">*</span>
                     @endif
                 </small>
             </div>
             <div class="description">
-                {{ str_limit($post->content, 75) }}
+                {{ str_limit($post->content, 60) }}
             </div>
         </div>
     @endforeach

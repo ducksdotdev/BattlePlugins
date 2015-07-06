@@ -22,10 +22,10 @@
 </head>
 <body>
 <div class="grid-100 grid-parent">
-    @include('admin.partials.menu')
     <div class="grid-100 grid-parent">
-        @include('admin.partials.alerts')
+        @include('admin.partials.menu')
         <div class="grid-80 tablet-grid-100 mobile-grid-100 pull-right grid-parent">
+            @include('admin.partials.alerts')
             <div class="titlebar">
                 <div class="grid-container">
                     <div class="grid-100">

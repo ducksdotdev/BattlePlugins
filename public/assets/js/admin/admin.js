@@ -53,8 +53,4 @@ $(function () {
     $("#openMenu").click(function () {
         menu.sidebar('show');
     });
-
-    $("#closeMenu").click(function () {
-        menu.sidebar('hide');
-    });
 });

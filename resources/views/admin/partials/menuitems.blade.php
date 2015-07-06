@@ -1,6 +1,5 @@
 <div class="brand item">
     <h1>
-        <i id="closeMenu" class="icon sidebar pointer hide-on-desktop"></i>
         <a href="/">battleadmin</a>
     </h1>
 </div>

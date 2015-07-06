@@ -17318,7 +17318,7 @@ Summary
     font-size: 1em;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.8);
-    word-wrap: break-word;
+    word-break: break-word;
 }
 
 /* Summary Image */

@@ -21618,9 +21618,9 @@ Width
     width: 150px;
 }
 
-.ui.left.sidebar,
-.ui.right.sidebar {
-    min-width: 260px;
+.ui.left.normal.sidebar,
+.ui.right.normal.sidebar {
+    width: 260px;
 }
 
 .ui.wide.left.sidebar,

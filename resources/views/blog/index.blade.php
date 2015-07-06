@@ -24,10 +24,10 @@
 @endif
 <nav>
     <div class="grid-container">
-        <div class="grid-50">
+        <div class="grid-30">
             <h1 class="brand"><a href="/">battleplugins</a></h1>
         </div>
-        <div class="grid-40">
+        <div class="grid-60">
             <ul>
                 <li><a href="http://ci.battleplugins.com">Jenkins</a></li>
                 <li><a href="http://wiki.battleplugins.com">Wiki</a></li>

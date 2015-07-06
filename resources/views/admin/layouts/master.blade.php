@@ -22,7 +22,7 @@
 </head>
 <body>
 <div class="grid-100 grid-parent">
-    <div class="hide-on-mobile hide-on-tablet">
+    <div class="grid-15 mobile-grid-100 tablet-grid-100 hide-on-mobile hide-on-tablet">
         @include('admin.partials.menu')
     </div>
     <div class="grid-100 grid-parent">
@@ -31,7 +31,7 @@
             <div class="titlebar">
                 <div class="grid-container">
                     <div class="grid-100">
-                        <h1>{{ $title }}</h1>
+                        <h1><i id="openMenu" class="icon sidebar pointer hide-on-desktop"></i> {{ $title }}</h1>
                     </div>
                 </div>
             </div>

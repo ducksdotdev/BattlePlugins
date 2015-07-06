@@ -359,14 +359,8 @@ ul.stats {
 
 @media screen and (max-width: 1300px) {
   ul.stats {
-    text-align: center;
-
-    li {
-      display: list-item;
-
-      & + li {
-        margin: 30px 0 0 0;
-      }
+    li + li {
+      margin: 0;
     }
   }
 }

@@ -44,8 +44,5 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $('.ui.checkbox').checkbox();
-</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var BattleAdmin = angular.module('BattleAdmin', [], function($interpolateProvider) {
+var BattleAdmin = angular.module('BattleAdmin', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('<%');
     $interpolateProvider.endSymbol('%>');
 });
@@ -14,17 +14,17 @@ BattleAdmin.controller("AlertsCtrl", function ($scope, $http) {
         $("#removeAlert").attr('action', '/tools/alert/delete/' + data[0]['id'])
     });
 
-    $scope.nextAlert = function(){
+    $scope.nextAlert = function () {
         $scope.alertId++;
-        if($scope.alertId >= $scope.alerts.length)
+        if ($scope.alertId >= $scope.alerts.length)
             $scope.alertId = 0;
 
         $scope.alert = $scope.alerts[$scope.alertId];
     };
 
-    $scope.prevAlert = function(){
+    $scope.prevAlert = function () {
         $scope.alertId--;
-        if($scope.alertId < 0)
+        if ($scope.alertId < 0)
             $scope.alertId = $scope.alerts.length - 1;
 
         $scope.alert = $scope.alerts[$scope.alertId];
@@ -35,7 +35,7 @@ BattleAdmin.controller("AlertsCtrl", function ($scope, $http) {
 BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $interval) {
     $scope.serverstats = '';
 
-    var poll = function() {
+    var poll = function () {
         $http.get('/tools/serverstats').success(function (data) {
             $scope.serverstats = $sce.trustAsHtml(data);
         });
@@ -45,8 +45,14 @@ BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $inter
     $interval(poll, 1000);
 });
 
-$(function(){
-    $("#openMenu").click(function(){
-        $("#sideMenu").toggle();
+$(function () {
+    $('.ui.checkbox').checkbox();
+
+    $("#openMenu").click(function () {
+        $("#sideMenu").css("display", "block !important");
+    });
+
+    $("#closeMenu").click(function () {
+        $("#sideMenu").css("display", "none");
     });
 });

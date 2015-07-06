@@ -18,10 +18,5 @@
         @if($jenkins && count($rssFeed > 0))
             @include('admin.partials.dashboard.jenkins')
         @endif
-        @if(count($blogList))
-            <div class="grid-100">
-                @include('admin.partials.dashboard.blogposts')
-            </div>
-        @endif
     </div>
 @stop

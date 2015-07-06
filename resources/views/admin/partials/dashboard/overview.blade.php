@@ -9,7 +9,7 @@
         <div class="small">Short URLs</div>
     </li>
     <li class="has-small">
-        {{ count($blogs) }}
+        {{ $blogs }}
         <div class="small">Blog Posts</div>
     </li>
     <li class="has-small @if($hitChange > 0) green @endif">

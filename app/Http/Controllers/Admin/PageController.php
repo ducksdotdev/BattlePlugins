@@ -66,8 +66,7 @@ class PageController extends Controller {
 			return view('admin.index', [
 				'title' => 'Dashboard',
 				'issues' => $issues,
-				'blogs' => Blog::latest()->get(),
-				'blogList' => Blog::latest()->limit(3)->get(),
+				'blogs' => count(Blog::all()),
 				'tasks' => new Task,
 				'queuedJobs' => count(DB::table('jobs')->get()),
 				'failedJobs' => count(DB::table('failed_jobs')->get()),

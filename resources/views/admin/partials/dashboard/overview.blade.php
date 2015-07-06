@@ -12,13 +12,8 @@
         {{ count($blogs) }}
         <div class="small">Blog Posts</div>
     </li>
-    <li class="blue has-small">
-        {{ $hits  }}
-        @if($hitChange > 0)
-            <small class="green">(+{{ $hitChange }})</small>
-        @else
-            <small>({{ $hitChange }})</small>
-        @endif
+    <li class="has-small @if($hitChange > 0) green @endif">
+        {{ $hits  }} <small>({{ $hitChange }})</small>
         <div class="small">Blog Hits</div>
     </li>
 </ul>

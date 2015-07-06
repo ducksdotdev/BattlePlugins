@@ -48,11 +48,13 @@ BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $inter
 $(function () {
     $('.ui.checkbox').checkbox();
 
+    var menu = $('.admin.menu').sidebar('setting', 'transition', 'overlay');
+
     $("#openMenu").click(function () {
-        $('.admin.menu').sidebar('toggle');
+        menu.sidebar('show');
     });
 
     $("#closeMenu").click(function () {
-        $('.admin.menu').sidebar('toggle');
+        menu.sidebar('hide');
     });
 });

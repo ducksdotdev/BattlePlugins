@@ -270,13 +270,12 @@ h1 {
 }
 
 .admin {
-  &.brand {
+  .brand {
     background: #2095F2;
     color: #fcfcfc;
     font-family: "Tenby Five", Lato, sans-serif;
     position: fixed;
     text-align: center;
-    z-index: 100;
     padding: 0;
 
     a {

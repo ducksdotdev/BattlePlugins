@@ -22,9 +22,7 @@
 </head>
 <body>
 <div class="grid-100 grid-parent">
-    <div id="sideMenu" class="hide-on-mobile hide-on-tablet">
-        @include('admin.partials.menu')
-    </div>
+    @include('admin.partials.menu')
     <div class="grid-100 grid-parent">
         @include('admin.partials.alerts')
         <div class="grid-80 tablet-grid-100 mobile-grid-100 pull-right grid-parent">

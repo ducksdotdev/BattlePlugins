@@ -85,9 +85,10 @@ foreach ($tlds as $tld) {
     });
 
     Route::group(['domain' => 'admin.' . $url], function () {
-        Route::get('/', 'Admin\PageController@index');
+	    Route::get('/', 'Admin\PageController@index');
         Route::get('/settings', 'Admin\PageController@settings');
         Route::get('/github', 'Admin\PageController@github');
+	    Route::get('/profile/{user}', 'Admin\PageController@profile');
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/create', 'Admin\PageController@createUser');

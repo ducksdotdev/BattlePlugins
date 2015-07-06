@@ -136,4 +136,13 @@ class PageController extends Controller {
 			'repos' => GitHub::getRepositories()
 		]);
 	}
+
+	public function profile ($user) {
+		$user = User::find($user);
+
+		return view('admin.profile', [
+			'title' => $user->displayname . '\'s Profile',
+			'user' => $user
+		]);
+	}
 }

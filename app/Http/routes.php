@@ -20,14 +20,6 @@ Route::group(['domain' => 'bplug.in'], function () {
 if (env('APP_ENV_URL') == 'localhost')
     $tlds = [''];
 
-Route::group(['domain' => $shurl], function () {
-    Route::get('/', function () {
-        return redirect()->action('ShortUrls\PageController@index');
-    });
-
-    Route::get('/{url}', 'ShortUrls\UrlController@redirect');
-});
-
 if (env('APP_ENV_URL') == 'localhost')
     $tlds = [''];
 
@@ -138,3 +130,11 @@ foreach ($tlds as $tld) {
 
     $url = env('APP_ENV_URL');
 }
+
+Route::group(['domain' => $shurl], function () {
+    Route::get('/', function () {
+        return redirect()->action('ShortUrls\PageController@index');
+    });
+
+    Route::get('/{url}', 'ShortUrls\UrlController@redirect');
+});

@@ -68,7 +68,7 @@ class PageController extends Controller {
                 'queuedJobs'   => count(DB::table('jobs')->get()),
                 'failedJobs'   => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
-                'rssFeed'      => $dash_jenkins ? Jenkins::getFeed() : null,
+                'rssFeed'      => $dash_jenkins ? Jenkins::getFeed('rssLatest') : null,
                 'jenkins'      => $dash_jenkins,
                 'hitChange'    => $hitChange,
                 'hits'         => $hits,

@@ -17,6 +17,8 @@
                         @include('admin.partials.dashboard.gittypes.issuecomment')
                     @elseif($item->type == 'IssuesEvent')
                         @include('admin.partials.dashboard.gittypes.issues')
+                    @elseif($item->type == 'CommitCommentEvent')
+                        @include('admin.partials.dashboard.gittypes.commitcomment')
                     @endif
                 </div>
             </div>

@@ -30,15 +30,18 @@
             <h3>Repositories</h3>
         </div>
         <div class="grid-100">
-            <div class="ui segment">
-                @foreach($repos as $repo)
-                    <div class="grid-50 mobile-grid-50 tablet-grid-50">
-                        <div class="content">
-                            <a class="header" href="{{ $repo->html_url }}">{{ $repo->name }}</a>
-                        </div>
+            @foreach($repos as $repo)
+                <div class="grid-100 bottom-margin ten">
+                    <div class="ui segment">
+                        <a class="header" href="{{ $repo->html_url }}">{{ $repo->name }}</a>
+
+                        <p>{{ $repo->description }}</p>
+                        @if($repo->open_issues > 0)
+                            <a href="{{ $repo->html_url }}/issues">This repo has {{ $repo->open_issues }} open issues.</a>
+                        @endif
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
     </div>
 @stop

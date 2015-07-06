@@ -29,7 +29,7 @@ class GitHub {
         return Cache::get('avatar_' . $user, function () use ($user) {
             $url = 'users/' . $user;
             $data = static::getFeed($url)->avatar_url;
-            Cache::put('avatar' . $user, $data, 60);
+            Cache::put('avatar' . $user, $data, 1440);
             return $data;
         });
     }
@@ -64,7 +64,7 @@ class GitHub {
         return Cache::get('getRepositories_' . $owner, function () use ($type, $owner) {
             $url = str_plural($type) . '/' . $owner . '/repos';
             $data = static::getFeed($url);
-            Cache::put('getRepositories_' . $owner, $data, 1440);
+            Cache::put('getRepositories_' . $owner, $data, 60);
             return $data;
         });
     }

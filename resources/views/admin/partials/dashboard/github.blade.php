@@ -4,6 +4,6 @@
 <div class="grid-100">
     @include('admin.partials.github')
     <div class="pull-right">
-        <a href="/github">More...</a>
+        <a href="{{ action('Admin\PageController@github') }}">More...</a>
     </div>
 </div>

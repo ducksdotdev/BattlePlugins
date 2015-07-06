@@ -18,7 +18,8 @@ class PageController extends Controller {
 	protected $updateMins = 1;
 
 	function __construct () {
-		$this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth.admin', ['except' => ['index','serverStats', 'github', 'settings']]);
 
 		if (auth()->check()) {
 			view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());

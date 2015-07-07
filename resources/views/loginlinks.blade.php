@@ -2,5 +2,5 @@
     @if(ServerSetting::get('registration'))
         <a href="#">Register</a> |
     @endif
-    <a href="#">Forgot Password</a>
+    <a href="/password/email">Forgot Password</a>
 </p>

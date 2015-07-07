@@ -7,7 +7,17 @@ Route::get('/logout', 'UserController@logout');
 
 Route::group(['before' => 'csrf'], function () {
     Route::post('/login', 'UserController@login');
+
+    // Password reset link request routes...
+    Route::post('/password/email', 'PasswordController@postEmail');
+    // Password reset routes...
+    Route::post('/password/reset', 'PasswordController@postReset');
 });
+
+// Password reset link request routes...
+Route::get('/password/email', 'PasswordController@getEmail');
+// Password reset routes...
+Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
 Route::group(['before' => 'auth'], function () {
     Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

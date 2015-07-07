@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="BattleTasks">
+<html lang="en">
 <head>
-    @include('shorturls.partials.head')
+    <meta charset="utf-8">
+    @include('mobilecolor')
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password :: BattlePlugins</title>
+    <link rel="icon" href="/assets/img/bp.png"/>
+    <!--        Styles -->
+    <link rel="stylesheet" href="/assets/css/semantic.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/components/accordion.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
+    <!--        End Styles -->
 </head>
 <body>
-<div class="grid-100 text-right">
-    <a id="logoutButton" href="/logout" class="ui button">Logout</a>
-</div>
 <div class="grid-container">
     <div class="grid-65 grid-parent grid-center">
         <div class="task-header">

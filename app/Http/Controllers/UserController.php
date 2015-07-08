@@ -18,7 +18,7 @@ class UserController extends Controller {
     }
 
     public function login() {
-        $email = $this->reqeust->input('email');
+        $email = $this->request->input('email');
         $password = $this->request->input('password');
         $rememberMe = $this->request->input('rememberMe');
 

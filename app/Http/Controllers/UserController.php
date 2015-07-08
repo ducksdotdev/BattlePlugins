@@ -16,9 +16,9 @@ class UserController extends Controller {
 
         $this->request = $request;
     }
-    
+
     public function login() {
-        $email = $this->request->input('email');
+        $email = $this->requst->input('email');
         $password = $this->request->input('password');
         $rememberMe = $this->request->input('rememberMe');
 
@@ -63,21 +63,30 @@ class UserController extends Controller {
     public function createUser() {
         if (Auth::user()->admin) {
             $password = $this->request->input('password');
+            $email = $this->request->input('email');
+            $displayname = $this->request->input('displayname');
 
-            if (User::whereEmail($this->request->input('email'))->first())
+            if (User::whereEmail($email)->first())
                 return $this->redirectBackWithErrors('That email is already registered to a user.');
-            elseif (!filter_var($this->request->input('email'), FILTER_VALIDATE_EMAIL) !== false)
+            elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
                 return $this->redirectBackWithErrors('You must enter a proper email.');
 
             $id = User::insertGetId([
-                'email'       => $this->request->input('email'),
+                'email'       => $email,
                 'password'    => Hash::make($password),
-                'displayname' => $this->request->input('displayname'),
+                'displayname' => $displayname,
                 'admin'       => $this->request->input('isadmin')
             ]);
 
-            $message = 'Welcome, ' . $this->request->input('displayname') . '. This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.';
+            $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
             CreateAlert::make($id, $message);
+
+            Mail::send('emails.welcome', array(
+                'password'    => $password,
+                'displayname' => $this->request->input('displayname')
+            ), function ($message) use ($email, $displayname) {
+                $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
+            });
 
             return $this->redirectBackWithSuccess('User successfully created.');
         }

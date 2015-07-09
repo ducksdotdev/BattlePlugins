@@ -3,8 +3,8 @@
     <div class="grid-80">
         @foreach($logs as $key => $log)
             <div class="ui message {{$log['level_class']}} log">
-                <strong title="{{ $log['date'] }}">{{ ucfirst($log['level']) }}
-                    - {{ (new Carbon($log['date']))->diffForHumans() }}</strong>
+                <strong>{{ ucfirst($log['level']) }} - {{ (new Carbon($log['date']))->diffForHumans() }}
+                    ({{ $log['date'] }})</strong>
 
                 <p>{{ $log['text'] }}
                     @if (isset($log['in_file']))
@@ -56,6 +56,7 @@
         </div>
         <div class="grid-100">
             <h4>More Logs:</h4>
+
             <div class="ui vertical menu">
                 @foreach($files as $file)
                     <a href="/feeds/logs/{{ base64_encode($file) }}"

@@ -19,10 +19,6 @@ Route::get('/password/email', 'PasswordController@getEmail');
 // Password reset routes...
 Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
-Route::group(['before' => 'auth'], function () {
-    Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-});
-
 if (env('APP_ENV_URL') == 'localhost')
     $tlds = [''];
 
@@ -95,11 +91,12 @@ foreach ($tlds as $tld) {
     });
 
     Route::group(['domain' => 'admin.' . $url], function () {
-	    Route::get('/', 'Admin\PageController@index');
+        Route::get('/', 'Admin\PageController@index');
         Route::get('/settings', 'Admin\PageController@settings');
 
         Route::group(['prefix' => 'feeds'], function () {
             Route::get('/github', 'Admin\PageController@github');
+            Route::get('/logs/{name?}', 'Admin\PageController@logs');
         });
 
         Route::group(['prefix' => 'user'], function () {

@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'all'   => [
+    'all' => [
         'Dashboard' => 'Admin\PageController@index',
-        'Feeds'     => [
+        'Feeds' => [
+            'Logs' => 'Admin\PageController@logs',
             'GitHub' => 'Admin\PageController@github'
         ]
     ],
@@ -12,8 +13,8 @@ return [
             'Create User' => 'Admin\PageController@createUser',
             'Modify User' => 'Admin\PageController@modifyUser'
         ],
-        'Tools'           => [
-            'Create Alert'   => 'Admin\PageController@alerts',
+        'Tools' => [
+            'Create Alert' => 'Admin\PageController@alerts',
             'Manage Content' => 'Admin\PageController@cms'
         ]
     ]

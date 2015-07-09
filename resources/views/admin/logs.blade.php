@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid-80">
         @foreach($logs as $key => $log)
-            <div class="ui message {{$log['level_class']}}">
+            <div class="ui message {{$log['level_class']}} log">
                 <strong title="{{ $log['date'] }}">{{ ucfirst($log['level']) }}
                     - {{ (new Carbon($log['date']))->diffForHumans() }}</strong>
 

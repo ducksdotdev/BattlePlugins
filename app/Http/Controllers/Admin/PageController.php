@@ -12,13 +12,19 @@ use App\Tools\Models\ShortUrl;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller {
     protected $updateMins = 1;
+    /**
+     * @var Request
+     */
+    private $request;
 
-    function __construct() {
+    function __construct(Request $request) {
         $this->middleware('auth', ['except' => ['index']]);
         $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings']]);
 
@@ -28,6 +34,8 @@ class PageController extends Controller {
         }
 
         view()->share('alert_bar', ServerSetting::get('alert_bar'));
+
+        $this->request = $request;
     }
 
     public function index() {
@@ -137,17 +145,20 @@ class PageController extends Controller {
         ]);
     }
 
-    public function logs($l = null) {
+    public function logs($l = null, $curPage = null, $perPage = 5) {
         if ($l)
             LaravelLogViewer::setFile(base64_decode($l));
 
-        $logs = LaravelLogViewer::all();
+        $logs = collect(LaravelLogViewer::all());
+        $logs = new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
 
         return view('admin.logs', [
             'title' => 'Logs',
             'logs' => $logs,
             'files' => LaravelLogViewer::getFiles(true),
-            'current_file' => LaravelLogViewer::getFileName()
+            'current_file' => LaravelLogViewer::getFileName(),
+            'perPage' => $perPage,
+            'url' => $this->request->url()
         ]);
     }
 }

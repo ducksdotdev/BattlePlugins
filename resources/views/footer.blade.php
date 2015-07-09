@@ -11,7 +11,7 @@
             @if(Auth::check())
                 <br/>
                 <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a>
-                | <a href="/logs">Log Viewer</a>
+                | <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a>
                 | <a href="/logout">Logout</a>
             @endif
         </p>

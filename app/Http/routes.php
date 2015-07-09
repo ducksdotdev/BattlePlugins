@@ -96,7 +96,7 @@ foreach ($tlds as $tld) {
 
         Route::group(['prefix' => 'feeds'], function () {
             Route::get('/github', 'Admin\PageController@github');
-            Route::get('/logs/{name?}', 'Admin\PageController@logs');
+            Route::get('/logs/{name?}/{currPage?}/{perPage?}', 'Admin\PageController@logs');
         });
 
         Route::group(['prefix' => 'user'], function () {

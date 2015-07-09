@@ -1,8 +1,3 @@
-table .error-text {
-  -ms-word-break: break-word;
-  word-break: break-word;
-}
-
 nav {
   background: #2095F2;
   color: #fcfcfc;
@@ -430,4 +425,8 @@ ul.stats {
   background-color: #DFDFDF;
   width: 100%;
   margin-bottom: 20px;
+}
+
+ul.pagination {
+  padding-left: 0;
 }

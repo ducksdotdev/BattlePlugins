@@ -26,7 +26,7 @@ class PageController extends Controller {
 
     function __construct(Request $request) {
         $this->middleware('auth', ['except' => ['index']]);
-        $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings']]);
+        $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings','logs']]);
 
         if (auth()->check()) {
             view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());

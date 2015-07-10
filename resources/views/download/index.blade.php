@@ -40,7 +40,7 @@
         <div class="ui message warning">
             <h3>Not all of these builds are production!</h3>
             These downloads are created from every change pushed to GitHub, which means these downloads may be unstable or cause problems. Unless you have been
-            instructed to use a specific download, please use a version that is labeled "Stable".
+            instructed to use a specific download, please use a version that is labeled <span class="ui label blue">Stable</span>.
         </div>
     </div>
     <div class="grid-70">
@@ -119,6 +119,10 @@
                     @endif
                     @if($current_job->healthReport)
                         {{ $current_job->healthReport{0}->description }}
+                    @else
+                        <div class="text-center">
+                            <strong>This job has never been built!</strong>
+                        </div>
                     @endif
                 </div>
             </div>

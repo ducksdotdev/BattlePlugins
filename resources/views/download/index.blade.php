@@ -37,9 +37,10 @@
 <div class="grid-container">
     <div class="grid-100">
         <div class="ui message warning">
-            <h3>Not all of these builds are production!</h3>
-            These downloads are created from every change pushed to GitHub, which means these downloads may be unstable or cause problems. Unless you have been
-            instructed to use a specific download, please use a version that is labeled <span class="ui label blue">Stable</span>.
+            <h3>NOTICE: Not all of these builds are stable!</h3>
+            Most of the files listed bellow are developer builds and are not meant to be run on live servers as they
+            have not been tested in depth. Only builds labeled <span class="ui label blue">Stable</span> have been
+            tested and approved.
         </div>
     </div>
     <div class="grid-70">
@@ -71,9 +72,11 @@
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar" class="ui button green mini">Download</a>
+                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar"
+                               class="ui button green mini">Download</a>
                             @if(auth()->check())
-                                {!! Form::open(['url'=>URL::to('/production/' . $build->timestamp, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
+                                {!! Form::open(['url'=>URL::to('/production/' . $build->timestamp, [],
+                                env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
                                 @if($production->find($build->timestamp))
                                     <button class="ui button mini red">Unmark Stable</button>
                                 @else
@@ -97,7 +100,8 @@
             <div class="ui vertical menu">
                 <a href="/" class="item @if(!$current_job) active @endif">All Jobs</a>
                 @foreach($jobs as $job)
-                    <a href="/job/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                    <a href="/job/{{ $job->name }}"
+                       class="item @if ($current_job && $current_job->name == $job->name) active @endif">
                         {{ $job->name }}
                     </a>
                 @endforeach
@@ -113,7 +117,8 @@
 
                         <div class="text-center top-margin ten bottom-margin">
                             <a href="{{ $current_job->lastStableBuild->url }}" class="ui button">Build Details</a>
-                            <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green">Download</a>
+                            <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar"
+                               class="ui button green">Download</a>
                         </div>
                     @endif
                     @if($current_job->healthReport)

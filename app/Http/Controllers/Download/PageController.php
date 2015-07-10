@@ -15,10 +15,21 @@ class PageController extends Controller {
         if($current_job)
             $current_job = Jenkins::getJobs($current_job);
 
+        $jobs = Jenkins::getJobs();
+
+        $latestBuilds = [];
+        foreach($jobs as $job){
+            $job = Jenkins::getJobs($job->name);
+
+            if($job->lastStableBuild)
+                $latestBuilds[$job->name] = $job->lastStableBuild;
+        }
+
         return view('download.index', [
-            'jobs' => Jenkins::getJobs(),
+            'jobs' => $jobs,
             'rssFeed' => Jenkins::getFeed('rssLatest'),
-            'current_job' => $current_job
+            'current_job' => $current_job,
+            'latestBuilds' => $latestBuilds
         ]);
     }
 

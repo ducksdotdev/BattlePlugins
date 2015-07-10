@@ -26,19 +26,19 @@
 <nav>
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="brand"><a href="/">battleplugins downloads</a></h1>
+            <h2 class="brand"><a href="/">battleplugins downloads</a></h2>
         </div>
     </div>
 </nav>
 <div class="grid-container">
     <div class="grid-70 grid-parent">
-        <h1>
+        <h2>
             Latest
             @if($current_job)
                 {{ $current_job->name }}
             @endif
             Builds:
-        </h1>
+        </h2>
         <table class="ui striped table">
             <tbody>
             @if($current_job)
@@ -52,13 +52,12 @@
                     </tr>
                 @endforeach
             @else
-                @foreach($rssFeed as $item)
+                @foreach($latestBuilds as $name => $build)
                     <tr>
-                        <td>{{ $item->get_title() }}</td>
-                        <td title="{{ $item->get_date() }}">{{ (new \Carbon\Carbon($item->get_date()))->diffForHumans() }}</td>
+                        <td>{{ $name }} - Build #{{ $build->number }}</td>
                         <td class="text-right">
-                            <a href="{{ $item->get_permalink() }}" class="ui button mini">Jenkins Link</a>
-                            <a href="{{ $item->get_permalink() }}artifact/target/{{ $item->get_title() }}.jar" class="ui button green mini">Download</a>
+                            <a href="{{ $build->url }}" class="ui button mini">Jenkins Link</a>
+                            <a href="{{ $build->url }}artifact/target/{{ $name }}.jar" class="ui button green mini">Download</a>
                         </td>
                     </tr>
                 @endforeach
@@ -69,7 +68,7 @@
     <div class="grid-30 grid-parent">
         @if($current_job)
             <div class="grid-100">
-                <h1>Project Status</h1>
+                <h2>Project Status</h2>
 
                 <div class="ui segment">
                     @if($current_job->lastStableBuild)

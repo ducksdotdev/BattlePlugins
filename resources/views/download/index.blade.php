@@ -43,13 +43,13 @@
             <tbody>
             @if($current_job)
                 @foreach($stableBuilds as $build)
-                        <tr>
-                            <td>{{ $build->fullDisplayName }}</td>
-                            <td class="text-right">
-                                <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                                <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $build->fullDisplayName }}</td>
+                        <td class="text-right">
+                            <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
+                            <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
+                        </td>
+                    </tr>
                 @endforeach
             @else
                 @foreach($latestBuilds as $name => $build)
@@ -66,6 +66,20 @@
         </table>
     </div>
     <div class="grid-30 grid-parent">
+        <div class="grid-100">
+            <h2>All Jobs:</h2>
+
+            <div class="ui vertical menu">
+                <a href="/" class="item @if(!$current_job) active @endif">All Jobs</a>
+                @foreach($jobs as $job)
+                    @if(array_key_exists($job->name, $latestBuilds))
+                        <a href="/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                            {{ $job->name }}
+                        </a>
+                    @endif
+                @endforeach
+            </div>
+        </div>
         @if($current_job)
             <div class="grid-100">
                 <h2>Project Status</h2>
@@ -85,20 +99,6 @@
                 </div>
             </div>
         @endif
-        <div class="grid-100">
-            <h2>All Jobs:</h2>
-
-            <div class="ui vertical menu">
-                @foreach($jobs as $job)
-                    @if(array_key_exists($job->name, $latestBuilds))
-                        <a href="/{{ $job->name }}"
-                           class="item @if ($current_job && $current_job->name == $job->name) active @endif">
-                            {{ $job->name }}
-                        </a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
     </div>
 </div>
 @include('footer')

@@ -34,7 +34,7 @@ class Jenkins {
         return json_decode(file_get_contents($url));
     }
 
-    public static function getStableBuilds($job = null) {
+    public static function getStableBuilds($job = null, $limit = 3, $start = 0) {
         $stableBuilds = [];
 
         foreach (static::getAllBuilds($job) as $build) {
@@ -42,12 +42,12 @@ class Jenkins {
                 $stableBuilds[] = $build;
         }
 
-        return array_sort($stableBuilds, function ($value) {
+        return array_slice(array_sort($stableBuilds, function ($value) {
             return -1 * $value->timestamp;
-        });
+        }), $start, $limit);
     }
 
-    public static function getAllBuilds($job = null) {
+    public static function getAllBuilds($job = null, $limit = 3, $start = 0) {
         $builds = [];
 
         if ($job) {
@@ -65,9 +65,9 @@ class Jenkins {
             }
         }
 
-        return array_sort($builds, function ($value) {
+        return array_slice(array_sort($builds, function ($value) {
             return -1 * $value->timestamp;
-        });
+        }), $start, $limit);
     }
 
 }

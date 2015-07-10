@@ -19,7 +19,7 @@ class PageController extends Controller {
 
         if (!$blog) {
             return view('blog.index', [
-                'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds() : null
+                'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null
             ]);
         }
 

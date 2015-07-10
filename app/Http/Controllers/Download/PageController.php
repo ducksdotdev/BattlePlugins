@@ -18,7 +18,7 @@ class PageController extends Controller {
             'jobs' => $jobs,
             'rssFeed' => Jenkins::getFeed('rssLatest'),
             'current_job' => $curr,
-            'stableBuilds' => Jenkins::getStableBuilds($current_job),
+            'stableBuilds' => Jenkins::getStableBuilds($current_job, 20),
             'production' => new ProductionBuilds()
         ]);
     }

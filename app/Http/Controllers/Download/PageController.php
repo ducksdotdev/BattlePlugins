@@ -29,8 +29,9 @@ class PageController extends Controller {
         foreach ($jobs as $job) {
             $job = Jenkins::getJobs($job->name);
 
-            if ($job->lastStableBuild)
-                $latestBuilds[$job->name] = $job->lastStableBuild;
+            if ($job->lastStableBuild) {
+                $latestBuilds[$job->name] = Jenkins::getBuild($job->name, $job->lastStableBuild->number);
+            }
         }
 
         return view('download.index', [

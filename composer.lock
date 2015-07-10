@@ -902,16 +902,16 @@
         },
         {
             "name": "laravel/socialite",
-            "version": "v2.0.7",
+            "version": "v2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/socialite.git",
-                "reference": "75e6275c5aaac8ddc9ab49f445c11cf1f9468396"
+                "reference": "2f77e4f4bc16a7984ab6f30409bdd05c55f9159c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/socialite/zipball/75e6275c5aaac8ddc9ab49f445c11cf1f9468396",
-                "reference": "75e6275c5aaac8ddc9ab49f445c11cf1f9468396",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/2f77e4f4bc16a7984ab6f30409bdd05c55f9159c",
+                "reference": "2f77e4f4bc16a7984ab6f30409bdd05c55f9159c",
                 "shasum": ""
             },
             "require": {
@@ -952,7 +952,7 @@
                 "laravel",
                 "oauth"
             ],
-            "time": "2015-06-30 15:59:08"
+            "time": "2015-07-09 23:55:17"
         },
         {
             "name": "league/commonmark",

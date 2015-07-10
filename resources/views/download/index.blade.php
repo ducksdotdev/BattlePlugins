@@ -26,7 +26,7 @@
 <nav>
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="brand"><a href="/">battleplugins downloads</a></h2>
+            <h1 class="brand"><a href="/">battleplugins downloads</a></h1>
         </div>
     </div>
 </nav>
@@ -51,8 +51,7 @@
             @if($current_job)
                 @foreach($stableBuilds as $build)
                     <tr>
-                        <td>{{ $build->fullDisplayName }}</td>
-                        <td>{{ (new \Carbon\Carbon(filemtime($build->url)))->diffForHumans() }}</td>
+                        <td><span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
@@ -62,7 +61,7 @@
             @else
                 @foreach($latestBuilds as $name => $build)
                     <tr>
-                        <td>{{ $name }} - Build #{{ $build->number }}</td>
+                        <td><span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $name }}.jar" class="ui button green mini">Download</a>

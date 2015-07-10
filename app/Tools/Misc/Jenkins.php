@@ -70,12 +70,21 @@ class Jenkins {
         return $builds;
     }
 
-    public static function updateJob() {
-        $url = '/api/json';
-        $content = file_get_contents(env('JENKINS_URL') . $url);
-        $content = json_decode($content);
+    public static function updateJobs($job = null) {
+        if ($job) {
+            $url = '/job/' . $job . '/api/json';
 
-        return $content->jobs;
+            $content = file_get_contents(env('JENKINS_URL') . $url);
+            $content = json_decode($content);
+
+            return $content;
+        } else {
+            $url = '/api/json';
+            $content = file_get_contents(env('JENKINS_URL') . $url);
+            $content = json_decode($content);
+
+            return $content->jobs;
+        }
     }
 
     public static function updateBuild($job, $build) {

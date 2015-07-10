@@ -38,7 +38,7 @@
             instructed to use these downloads, please use a stable version.
         </div>
     </div>
-    <div class="grid-70 grid-parent">
+    <div class="grid-70">
         <h2>
             Latest
             @if($current_job)
@@ -52,7 +52,7 @@
                 @foreach($stableBuilds as $build)
                     <tr>
                         <td>{{ $build->fullDisplayName }}</td>
-                        <td>{{ filemtime($build->url) }}</td>
+                        <td>{{ (new \Carbon\Carbon(filemtime($build->url)))->diffForHumans() }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>

@@ -46,7 +46,7 @@
         </div>
     </div>
 </nav>
-@if($jenkins && count($rssFeed > 0))
+@if($jenkins)
     @include('blog.partials.jenkins')
 @endif
 @if(isset($blog))

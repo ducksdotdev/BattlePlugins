@@ -56,7 +56,7 @@
                 <tr>
                     <th>Build Number</th>
                     <th>Created</th>
-                    <th>Links</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>

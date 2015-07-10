@@ -25,17 +25,22 @@
 @endif
 <nav>
     <div class="grid-container">
-        <div class="grid-100">
-            <h1 class="brand"><a href="/">battleplugins downloads</a></h1>
+        <div class="grid-90">
+            <h1 class="brand"><a href="/">battleplugins</a></h1>
+        </div>
+        <div class="grid-10">
+            @if(!Auth::check())
+                <button id="loginDropDownButton" class="ui button primary">Login</button>
+            @endif
         </div>
     </div>
 </nav>
 <div class="grid-container">
     <div class="grid-100">
         <div class="ui message warning">
-            <h3>These are not supported downloads!</h3>
+            <h3>Not all of these builds are production!</h3>
             These downloads are created from every change pushed to GitHub, which means these downloads may be unstable or cause problems. Unless you have been
-            instructed to use these downloads, please use a stable version.
+            instructed to use a specific download, please use a version that is labeled "Stable".
         </div>
     </div>
     <div class="grid-70">
@@ -46,31 +51,45 @@
             @endif
             Builds:
         </h2>
-        <table class="ui striped table">
-            <tbody>
-            @if($current_job)
+        @if(count($stableBuilds) > 0)
+            <table class="ui striped table">
+                <thead>
+                <tr>
+                    <th>Build Number</th>
+                    <th>Created</th>
+                    <th>Links</th>
+                </tr>
+                </thead>
+                <tbody>
                 @foreach($stableBuilds as $build)
-                    <tr>
-                        <td><span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}</td>
+                    <tr @if(!$production->find($build->timestamp)) class="warning" @endif>
+                        <td>
+                            @if($production->find($build->timestamp))
+                                <span class="ui label blue">Stable</span>
+                            @endif
+                            <span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}
+                        </td>
+                        <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                            <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
+                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar" class="ui button green mini">Download</a>
+                            @if(auth()->check())
+                                {!! Form::open(['url'=>URL::to('/production/' . $build->timestamp, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
+                                @if($production->find($build->timestamp))
+                                    <button class="ui button mini red">Unmark Stable</button>
+                                @else
+                                    <button class="ui button mini primary">Mark Stable</button>
+                                @endif
+                                {!! Form::close() !!}
+                            @endif
                         </td>
                     </tr>
                 @endforeach
-            @else
-                @foreach($latestBuilds as $name => $build)
-                    <tr>
-                        <td><span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}</td>
-                        <td class="text-right">
-                            <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                            <a href="{{ $build->url }}artifact/target/{{ $name }}.jar" class="ui button green mini">Download</a>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        @else
+            <div class="ui message info">There are no builds!</div>
+        @endif
     </div>
     <div class="grid-30 grid-parent">
         <div class="grid-100">
@@ -79,11 +98,9 @@
             <div class="ui vertical menu">
                 <a href="/" class="item @if(!$current_job) active @endif">All Jobs</a>
                 @foreach($jobs as $job)
-                    @if(array_key_exists($job->name, $latestBuilds))
-                        <a href="/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
-                            {{ $job->name }}
-                        </a>
-                    @endif
+                    <a href="/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                        {{ $job->name }}
+                    </a>
                 @endforeach
             </div>
         </div>

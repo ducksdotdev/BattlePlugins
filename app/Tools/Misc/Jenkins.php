@@ -33,5 +33,5 @@ class Jenkins {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
         return json_decode(file_get_contents($url));
     }
-    
+
 }

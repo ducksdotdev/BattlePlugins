@@ -9,10 +9,8 @@
         </div>
     </div>
     <div class="grid-35 grid-parent">
-        <div class="grid-100">
-            <h3>Organization Members</h3>
-        </div>
         <div class="grid-100 grid-parent">
+            <h3>Organization Members</h3>
             @foreach($members as $member)
                 <div class="grid-50 mobile-grid-50 tablet-grid-50 bottom-margin ten">
                     <div class="ui segment text-center">
@@ -28,8 +26,6 @@
         </div>
         <div class="grid-100">
             <h3>Repositories</h3>
-        </div>
-        <div class="grid-100">
             @foreach($repos as $repo)
                 <div class="grid-100 bottom-margin ten">
                     <div class="ui segment">

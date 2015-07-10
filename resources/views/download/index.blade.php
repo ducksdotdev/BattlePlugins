@@ -32,14 +32,23 @@
 </nav>
 <div class="grid-container">
     <div class="grid-70 grid-parent">
-        <h1>Latest Builds:</h1>
+        <h1>
+            Latest
+            @if($current_job)
+                {{ $current_job->name }}
+            @endif
+            Builds:
+        </h1>
         <table class="ui striped table">
             <tbody>
             @if($current_job)
                 @foreach($current_job->builds as $build)
                     <tr>
                         <td>Build #{{ $build->number }}</td>
-                        <td><a href="{{ $build->url }}">{{ $build->url }}</a></td>
+                        <td class="text-right">
+                            <a href="{{ $build->url }}" class="ui button mini">Jenkins Link</a>
+                            <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
+                        </td>
                     </tr>
                 @endforeach
             @else
@@ -47,23 +56,47 @@
                     <tr>
                         <td>{{ $item->get_title() }}</td>
                         <td title="{{ $item->get_date() }}">{{ (new \Carbon\Carbon($item->get_date()))->diffForHumans() }}</td>
-                        <td><a href="{{ $item->get_permalink() }}">{{ $item->get_permalink() }}</a></td>
+                        <td class="text-right">
+                            <a href="{{ $item->get_permalink() }}" class="ui button mini">Jenkins Link</a>
+                            <a href="{{ $item->get_permalink() }}artifact/target/{{ $item->get_title() }}.jar" class="ui button green mini">Download</a>
+                        </td>
                     </tr>
                 @endforeach
             @endif
             </tbody>
         </table>
     </div>
-    <div class="grid-30">
-        <h1>All Jobs:</h1>
+    <div class="grid-30 grid-parent">
+        @if($current_job)
+            <div class="grid-100">
+                <h1>Project Status</h1>
 
-        <div class="ui vertical menu">
-            @foreach($jobs as $job)
-                <a href="/{{ $job->name }}"
-                   class="item @if ($current_job && $current_job->name == $job->name) active @endif">
-                    {{ $job->name }}
-                </a>
-            @endforeach
+                <div class="ui segment">
+                    @if($current_job->lastStableBuild)
+                        <strong>Latest Stable Build:</strong>
+
+                        <div class="text-center top-margin ten bottom-margin">
+                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button">Jenkins Link</a>
+                            <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green">Download</a>
+                        </div>
+                    @endif
+                    @if($current_job->healthReport)
+                        {{ $current_job->healthReport{0}->description }}
+                    @endif
+                </div>
+            </div>
+        @endif
+        <div class="grid-100">
+            <h2>All Jobs:</h2>
+
+            <div class="ui vertical menu">
+                @foreach($jobs as $job)
+                    <a href="/{{ $job->name }}"
+                       class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                        {{ $job->name }}
+                    </a>
+                @endforeach
+            </div>
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Tools\Misc;
 
 use Awjudd\FeedReader\Facades\FeedReader;
+use Illuminate\Support\Facades\Cache;
 
 class Jenkins {
 
@@ -13,25 +14,14 @@ class Jenkins {
     }
 
     public static function getJobs($job = null) {
-        if ($job) {
-            $url = '/job/' . $job . '/api/json';
-
-            $content = file_get_contents(env('JENKINS_URL') . $url);
-            $content = json_decode($content);
-
-            return $content;
-        } else {
-            $url = '/api/json';
-            $content = file_get_contents(env('JENKINS_URL') . $url);
-            $content = json_decode($content);
-
-            return $content->jobs;
-        }
+        if ($job)
+            return Cache::pull($job . '_jobs');
+        else
+            return Cache::pull('_jobs');
     }
 
     public static function getBuild($job, $build) {
-        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
-        return json_decode(file_get_contents($url));
+        return Cache::pull($job.'_'.$build);
     }
 
     public static function getStableBuilds($job = null, $limit = null, $start = 0) {

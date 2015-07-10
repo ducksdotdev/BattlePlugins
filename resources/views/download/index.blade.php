@@ -72,11 +72,12 @@
                         </td>
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
                         <td class="text-right">
-                            <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i> Build Details</a>
+                            <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
+                                Build Details</a>
                             <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
-                                {!! Form::open(['url'=>URL::to('/production/' . $build->timestamp, [],
+                                {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
                                 env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
                                 @if($production->find($build->timestamp))
                                     <button class="ui button mini red">Unmark Stable</button>

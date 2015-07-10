@@ -23,14 +23,4 @@ class PageController extends Controller {
         ]);
     }
 
-    public function toggleProduction($job) {
-        $jobid = ProductionBuilds::find($job);
-        if($jobid)
-            $jobid->delete();
-        else
-            ProductionBuilds::create(['id'=>$job]);
-
-        return redirect()->back();
-    }
-
 }

@@ -90,6 +90,10 @@ foreach ($tlds as $tld) {
         Route::get('/{slug}/download', 'Paste\PasteController@downloadPaste');
     });
 
+    Route::group(['domain' => 'dl.' . $url], function () {
+        Route::get('/{job?}', 'Download\PageController@index');
+    });
+
     Route::group(['domain' => 'admin.' . $url], function () {
         Route::get('/', 'Admin\PageController@index');
         Route::get('/settings', 'Admin\PageController@settings');

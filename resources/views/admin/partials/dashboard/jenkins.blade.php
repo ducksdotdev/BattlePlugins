@@ -1,20 +1,16 @@
-<div class="grid-100">
-    <h3>Latest Jenkins Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
-</div>
-@if($rssFeed)
-    @foreach($rssFeed as $item)
+@if(count($jenkins) > 0)
+    <div class="grid-100">
+        <h3>Latest Jenkins Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
+    </div>
+    @foreach(array_slice($jenkins, 0, 3) as $build)
         <div class="grid-100">
-            <div class="ui small message {{ str_contains($item->get_title(), ['broken','aborted']) ? 'red' : 'green' }}">
-                <div class="header">
-                    <a href="{{ $item->get_permalink()}}">{{ $item->get_title() }}</a>
-                </div>
+            <div class="ui small message {{ $build->result == 'SUCCESS' ? 'green' : 'red' }}">
+                <a href="{{ $build->url }}">{{ $build->fullDisplayName }} -
+                    <span title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
+                        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}
+                    </span>
+                </a>
             </div>
         </div>
     @endforeach
-@else
-    <div class="grid-100">
-        <div class="ui message red text-center">
-            There are no builds or we couldn't connect to the Jenkins server.
-        </div>
-    </div>
 @endif

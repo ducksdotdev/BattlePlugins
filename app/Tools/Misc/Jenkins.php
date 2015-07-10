@@ -37,27 +37,35 @@ class Jenkins {
     public static function getStableBuilds($job = null) {
         $stableBuilds = [];
 
+        foreach (static::getAllBuilds($job) as $build) {
+            if ($build->result == 'SUCCESS')
+                $stableBuilds[] = $build;
+        }
+
+        return array_sort($stableBuilds, function ($value) {
+            return -1 * $value->timestamp;
+        });
+    }
+
+    public static function getAllBuilds($job = null) {
+        $builds = [];
+
         if ($job) {
             $job = Jenkins::getJobs($job);
 
-            foreach ($job->builds as $build) {
-                $build = Jenkins::getBuild($job->name, $build->number);
-                if ($build->result == 'SUCCESS')
-                    $stableBuilds[] = $build;
-            }
+            foreach ($job->builds as $build)
+                $build[] = Jenkins::getBuild($job->name, $build->number);
+
         } else {
             foreach (static::getJobs() as $job) {
                 $job = static::getJobs($job->name);
 
-                if ($job->lastStableBuild) {
-                    $build = static::getBuild($job->name, $job->lastStableBuild->number);
-                    if ($build->result == 'SUCCESS')
-                        $stableBuilds[] = $build;
-                }
+                foreach ($job->builds as $build)
+                    $builds[] = static::getBuild($job->name, $build->number);
             }
         }
 
-        return array_sort($stableBuilds, function ($value) {
+        return array_sort($builds, function ($value) {
             return -1 * $value->timestamp;
         });
     }

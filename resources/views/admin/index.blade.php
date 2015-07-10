@@ -15,8 +15,6 @@
     </div>
     <div class="grid-45 grid-parent">
         @include('admin.partials.dashboard.github')
-        @if($jenkins && count($rssFeed > 0))
             @include('admin.partials.dashboard.jenkins')
-        @endif
     </div>
 @stop

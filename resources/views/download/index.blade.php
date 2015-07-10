@@ -31,9 +31,16 @@
     </div>
 </nav>
 <div class="grid-container">
+    <div class="grid-100">
+        <div class="ui message warning">
+            <h3>These are not supported downloads!</h3>
+            These downloads are created from every change pushed to GitHub, which means these downloads may be unstable or cause problems. Unless you have been
+            instructed to use these downloads, please use a stable version.
+        </div>
+    </div>
     <div class="grid-70 grid-parent">
         <h2>
-            Latest Stable
+            Latest
             @if($current_job)
                 {{ $current_job->name }}
             @endif
@@ -45,6 +52,7 @@
                 @foreach($stableBuilds as $build)
                     <tr>
                         <td>{{ $build->fullDisplayName }}</td>
+                        <td>{{ filemtime($build->url) }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>

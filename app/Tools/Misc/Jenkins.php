@@ -54,7 +54,7 @@ class Jenkins {
             $job = Jenkins::getJobs($job);
 
             foreach ($job->builds as $build)
-                $build[] = Jenkins::getBuild($job->name, $build->number);
+                array_push($builds, Jenkins::getBuild($job->name, $build->number));
 
         } else {
             foreach (static::getJobs() as $job) {

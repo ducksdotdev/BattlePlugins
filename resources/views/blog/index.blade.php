@@ -47,9 +47,7 @@
         </div>
     </div>
 </nav>
-@if($jenkins && count($jenkins))
     @include('blog.partials.jenkins')
-@endif
 @if(isset($blog))
     @include('blog.partials.blog')
 @endif

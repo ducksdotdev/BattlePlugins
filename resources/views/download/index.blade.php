@@ -106,7 +106,7 @@
         </div>
         @if($current_job)
             <div class="grid-100">
-                <h2>Project Status</h2>
+                <h2>Job Status</h2>
 
                 <div class="ui segment">
                     @if($current_job->lastStableBuild)

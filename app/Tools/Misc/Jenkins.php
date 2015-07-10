@@ -34,4 +34,32 @@ class Jenkins {
         return json_decode(file_get_contents($url));
     }
 
+    public static function getStableBuilds($job = null) {
+        $stableBuilds = [];
+
+        if ($job) {
+            $job = Jenkins::getJobs($job);
+
+            foreach ($job->builds as $build) {
+                $build = Jenkins::getBuild($job->name, $build->number);
+                if ($build->result == 'SUCCESS')
+                    $stableBuilds[] = $build;
+            }
+        } else {
+            foreach (static::getJobs() as $job) {
+                $job = static::getJobs($job->name);
+
+                if ($job->lastStableBuild) {
+                    $build = static::getBuild($job->name, $job->lastStableBuild->number);
+                    if ($build->result == 'SUCCESS')
+                        $stableBuilds[] = $build;
+                }
+            }
+        }
+
+        return array_sort($stableBuilds, function ($value) {
+            return -1 * $value->timestamp;
+        });
+    }
+
 }

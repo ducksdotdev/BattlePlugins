@@ -21,7 +21,7 @@ class PageController extends Controller {
             $jenkins = ServerSetting::get('jenkins');
 
             return view('blog.index', [
-                'rssFeed' => $jenkins ? Jenkins::getFeed('rssLatest') : null,
+                'rssFeed' => $jenkins ? Jenkins::getStableBuilds() : null,
                 'jenkins' => $jenkins
             ]);
         }

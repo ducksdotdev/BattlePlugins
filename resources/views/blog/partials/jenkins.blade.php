@@ -14,8 +14,8 @@
                                     </span>
                                 </div>
                                 <div class="text-center top-margin ten">
-                                    <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                                    <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar" class="ui button green mini">Download</a>
+                                    <a href="{{ $build->url }}" class="ui button icon labeled mini"><i class="icon book"></i> Build Details</a>
+                                    <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar" class="ui mini button green labeled icon"><i class="icon download"></i> Download</a>
                                 </div>
                             </div>
                         </div>

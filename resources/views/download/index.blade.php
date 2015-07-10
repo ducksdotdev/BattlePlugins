@@ -46,7 +46,7 @@
                     <tr>
                         <td>Build #{{ $build->number }}</td>
                         <td class="text-right">
-                            <a href="{{ $build->url }}" class="ui button mini">Jenkins Link</a>
+                            <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
                         </td>
                     </tr>
@@ -56,7 +56,7 @@
                     <tr>
                         <td>{{ $name }} - Build #{{ $build->number }}</td>
                         <td class="text-right">
-                            <a href="{{ $build->url }}" class="ui button mini">Jenkins Link</a>
+                            <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
                             <a href="{{ $build->url }}artifact/target/{{ $name }}.jar" class="ui button green mini">Download</a>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@
                         <strong>Latest Stable Build:</strong>
 
                         <div class="text-center top-margin ten bottom-margin">
-                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button">Jenkins Link</a>
+                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button">Build Details</a>
                             <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green">Download</a>
                         </div>
                     @endif

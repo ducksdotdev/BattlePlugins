@@ -12,16 +12,24 @@ class PageController extends Controller {
      * @return Response
      */
     public function index($current_job = null) {
-        if($current_job)
+        $stableBuilds = [];
+        if ($current_job) {
             $current_job = Jenkins::getJobs($current_job);
+
+            foreach($current_job->builds as $build){
+                $build = Jenkins::getBuild($current_job->name, $build->number);
+                if($build->result == 'SUCCESS')
+                    $stableBuilds[] = $build;
+            }
+        }
 
         $jobs = Jenkins::getJobs();
 
         $latestBuilds = [];
-        foreach($jobs as $job){
+        foreach ($jobs as $job) {
             $job = Jenkins::getJobs($job->name);
 
-            if($job->lastStableBuild)
+            if ($job->lastStableBuild)
                 $latestBuilds[$job->name] = $job->lastStableBuild;
         }
 
@@ -29,7 +37,8 @@ class PageController extends Controller {
             'jobs' => $jobs,
             'rssFeed' => Jenkins::getFeed('rssLatest'),
             'current_job' => $current_job,
-            'latestBuilds' => $latestBuilds
+            'latestBuilds' => $latestBuilds,
+            'stableBuilds' => $stableBuilds
         ]);
     }
 

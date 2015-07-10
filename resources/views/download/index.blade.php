@@ -33,7 +33,7 @@
 <div class="grid-container">
     <div class="grid-70 grid-parent">
         <h2>
-            Latest
+            Latest Stable
             @if($current_job)
                 {{ $current_job->name }}
             @endif
@@ -42,14 +42,14 @@
         <table class="ui striped table">
             <tbody>
             @if($current_job)
-                @foreach($current_job->builds as $build)
-                    <tr>
-                        <td>Build #{{ $build->number }}</td>
-                        <td class="text-right">
-                            <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
-                            <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
-                        </td>
-                    </tr>
+                @foreach($stableBuilds as $build)
+                        <tr>
+                            <td>{{ $build->fullDisplayName }}</td>
+                            <td class="text-right">
+                                <a href="{{ $build->url }}" class="ui button mini">Build Details</a>
+                                <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar" class="ui button green mini">Download</a>
+                            </td>
+                        </tr>
                 @endforeach
             @else
                 @foreach($latestBuilds as $name => $build)
@@ -90,10 +90,12 @@
 
             <div class="ui vertical menu">
                 @foreach($jobs as $job)
-                    <a href="/{{ $job->name }}"
-                       class="item @if ($current_job && $current_job->name == $job->name) active @endif">
-                        {{ $job->name }}
-                    </a>
+                    @if(array_key_exists($job->name, $latestBuilds))
+                        <a href="/{{ $job->name }}"
+                           class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                            {{ $job->name }}
+                        </a>
+                    @endif
                 @endforeach
             </div>
         </div>

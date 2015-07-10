@@ -29,4 +29,9 @@ class Jenkins {
         }
     }
 
+    public static function getBuild($job, $build) {
+        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
+        return json_decode(file_get_contents($url));
+    }
+    
 }

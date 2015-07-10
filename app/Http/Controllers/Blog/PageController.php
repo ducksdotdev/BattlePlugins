@@ -18,10 +18,8 @@ class PageController extends Controller {
         $blog = Blog::latest()->first();
 
         if (!$blog) {
-            $jenkins = ServerSetting::get('jenkins');
-
             return view('blog.index', [
-                'jenkins' => $jenkins ? Jenkins::getStableBuilds() : null,
+                'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds() : null
             ]);
         }
 
@@ -42,8 +40,7 @@ class PageController extends Controller {
                 'blog' => $blog,
                 'list' => Blog::latest()->take(4)->get(),
                 'users' => $displaynames,
-                'rssFeed' => Jenkins::getFeed('rssLatest'),
-                'jenkins' => ServerSetting::get('jenkins')
+                'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds() : null,
             ];
         }
     }

@@ -97,7 +97,7 @@
             <div class="ui vertical menu">
                 <a href="/" class="item @if(!$current_job) active @endif">All Jobs</a>
                 @foreach($jobs as $job)
-                    <a href="/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
+                    <a href="/job/{{ $job->name }}" class="item @if ($current_job && $current_job->name == $job->name) active @endif">
                         {{ $job->name }}
                     </a>
                 @endforeach

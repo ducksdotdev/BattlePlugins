@@ -91,8 +91,9 @@ foreach ($tlds as $tld) {
     });
 
     Route::group(['domain' => 'dl.' . $url], function () {
-        Route::get('/{job?}', 'Download\PageController@index');
-
+        Route::get('/', 'Download\PageController@index');
+        Route::get('/job/{job?}', 'Download\PageController@index');
+        
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/production/{job}', 'Download\PageController@toggleProduction');
         });

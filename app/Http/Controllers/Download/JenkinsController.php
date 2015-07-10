@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Download;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Misc\Jenkins;
 use App\Tools\Models\ProductionBuilds;
 use Auth;
 use Illuminate\Support\Facades\Cache;
@@ -30,13 +31,7 @@ class JenkinsController extends Controller {
         });
 
         Cache::forget('_jobs');
-        Cache::forever('_jobs', function () {
-            $url = '/api/json';
-            $content = file_get_contents(env('JENKINS_URL') . $url);
-            $content = json_decode($content);
-
-            return $content->jobs;
-        });
+        Cache::forever('_jobs', Jenkins::updateJob());
 
         if ($build)
             static::updateBuild($job, $build);
@@ -46,10 +41,7 @@ class JenkinsController extends Controller {
         $key = $job . '_' . $build;
 
         Cache::forget($key);
-        Cache::forever($key, function () use ($job, $build) {
-            $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
-            return json_decode(file_get_contents($url));
-        });
+        Cache::forever($key, Jenkins::updateBuild($job, $build);
     }
 
 }

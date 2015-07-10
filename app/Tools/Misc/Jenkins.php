@@ -21,7 +21,7 @@ class Jenkins {
     }
 
     public static function getBuild($job, $build) {
-        return Cache::pull($job.'_'.$build);
+        return Cache::pull($job . '_' . $build);
     }
 
     public static function getStableBuilds($job = null, $limit = null, $start = 0) {
@@ -68,6 +68,19 @@ class Jenkins {
             return array_slice($builds, $start, $limit);
 
         return $builds;
+    }
+
+    public static function updateJob() {
+        $url = '/api/json';
+        $content = file_get_contents(env('JENKINS_URL') . $url);
+        $content = json_decode($content);
+
+        return $content->jobs;
+    }
+
+    public static function updateBuild($job, $build) {
+        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
+        return json_decode(file_get_contents($url));
     }
 
 }

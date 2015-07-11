@@ -118,7 +118,7 @@
                         <strong>Latest Stable Build:</strong>
 
                         <div class="text-center top-margin ten bottom-margin">
-                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button mini icon labeled"><i class="icon book"></i> Build Details</a>
+                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon labeled"><i class="icon book"></i> Build Details</a>
                             <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar"
                                class="ui button green labeled icon"><i class="icon download"></i> Download</a>
                         </div>

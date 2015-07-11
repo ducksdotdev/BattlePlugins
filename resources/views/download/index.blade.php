@@ -74,7 +74,7 @@
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar"
+                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],

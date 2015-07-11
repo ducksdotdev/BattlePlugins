@@ -27,6 +27,7 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
 <script type="text/javascript">
     $('.ui.checkbox').checkbox();
+    $('.accordion').accordion();
 </script>
 @yield('extraScripts')
 </body>

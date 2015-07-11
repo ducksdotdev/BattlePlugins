@@ -75,7 +75,7 @@
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ $build->url }}artifact/*zip*/archive.zip"
+                            <a href="{{ Jenkins::downloadJar($build) }}"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
@@ -121,7 +121,7 @@
                         <div class="text-center top-margin ten bottom-margin">
                             <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i
                                         class="icon book"></i> Build Details</a>
-                            <a href="{{ $current_job->lastStableBuild->url }}artifact/*zip*/archive.zip"
+                            <a href="{{ Jenkins::downloadJar($current_job->lastStableBuild) }}"
                                class="ui button green labeled small icon"><i class="icon download"></i> Download</a>
                         </div>
                     @endif

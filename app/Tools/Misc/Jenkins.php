@@ -134,4 +134,11 @@ class Jenkins {
         }
     }
 
+    public static function downloadJar($build) {
+        foreach ($build->artifacts as $artifact) {
+            if (ends_with($artifact->fileName, '.jar'))
+                return $build->url . 'artifact/' . $artifact->relativePath;
+        }
+    }
+
 }

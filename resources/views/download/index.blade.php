@@ -116,7 +116,7 @@
 
                 <div class="ui segment">
                     @if($current_job->lastStableBuild)
-                        <strong>Latest Stable Build:</strong>
+                        <strong>Latest Build:</strong>
 
                         <div class="text-center top-margin ten bottom-margin">
                             <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i

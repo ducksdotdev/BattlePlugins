@@ -114,13 +114,24 @@ class Jenkins {
     }
 
     public static function getBuildVersion($job, $build) {
+        $content = Cache::get($job . '_' . $build . '_vers', static::updateBuildVersion($job, $build));
+
+        if (is_integer($content))
+            return '#' . $content;
+
+        return 'v' . $content;
+    }
+
+    private static function updateBuildVersion($job, $build) {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
         if (Domain::remoteFileExists($url)) {
             $content = new \SimpleXMLElement(file_get_contents($url));
-
-            return 'v' . $content->version;
-        } else
-            return '#' . static::getBuild($job, $build)->number;
+            Cache::forever($job . '_' . $build . '_vers', (string)$content->version);
+            return $content->version;
+        } else {
+            Cache::forever($job . '_' . $build . '_vers', static::getBuild($job, $build)->number);
+            return static::getBuild($job, $build)->number;
+        }
     }
 
 }

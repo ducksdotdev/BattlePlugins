@@ -20,6 +20,7 @@ class JenkinsController extends Controller {
 
     public function updateJobs($job, $build = null) {
         $key = $job . '_jobs';
+
         Cache::forget($key);
         Cache::forever($key, Jenkins::updateJobs($job));
 

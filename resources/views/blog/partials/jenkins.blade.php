@@ -18,9 +18,8 @@
                                     <div class="text-center top-margin ten">
                                         <a href="{{ $build->url }}" class="ui button icon labeled mini"><i
                                                     class="icon book"></i> Build Details</a>
-                                        <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}.jar"
-                                           class="ui mini button green labeled icon"><i class="icon download"></i>
-                                            Download</a>
+                                        <a href="{{ $build->url }}{{ $current_job->number }}/artifact/*zip*/archive.zip"
+                                           class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                                     </div>
                                 </div>
                             </div>

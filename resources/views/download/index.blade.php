@@ -54,7 +54,7 @@
         </h2>
         @if(count($stableBuilds) > 0)
             <table class="ui striped table">
-                <thead>
+                <thead class="hide-on-mobile">
                 <tr>
                     <th>Build Number</th>
                     <th>Created</th>
@@ -73,7 +73,7 @@
                             {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
                         </td>
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
-                        <td>{{ Jenkins::getDownloadCount($build) }}</td>
+                        <td><span class="hide-on-desktop">Downloads:</span> {{ Jenkins::getDownloadCount($build) }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>

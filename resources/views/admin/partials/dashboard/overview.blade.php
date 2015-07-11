@@ -13,7 +13,7 @@
         <div class="small">Blog Posts</div>
     </li>
     <li class="has-small">
-        {{ $hits  }}
-        <div class="small">Blog Hits</div>
+        {{ $downloads  }}
+        <div class="small">Downloads</div>
     </li>
 </ul>

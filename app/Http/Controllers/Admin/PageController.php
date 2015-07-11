@@ -7,6 +7,7 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Misc\LaravelLogViewer;
 use App\Tools\Models\Alert;
 use App\Tools\Models\Blog;
+use App\Tools\Models\BuildDownloads;
 use App\Tools\Models\Paste;
 use App\Tools\Models\ShortUrl;
 use App\Tools\Models\Task;
@@ -26,7 +27,7 @@ class PageController extends Controller {
 
     function __construct(Request $request) {
         $this->middleware('auth', ['except' => ['index']]);
-        $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings','logs']]);
+        $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings', 'logs']]);
 
         if (auth()->check()) {
             view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
@@ -43,8 +44,6 @@ class PageController extends Controller {
             $displaynames = [];
             foreach (User::all() as $user)
                 $displaynames[$user->id] = $user->displayname;
-
-            $hits = ServerSetting::get('blogviews');
 
             $userId = auth()->user()->id;
 
@@ -69,22 +68,26 @@ class PageController extends Controller {
             $closed = $closed + count(Task::where('status', true)->get());
             $myTasks = count($tasks->where('assigned_to', $userId)->get()) + $myIssues;
 
+            $downloads = 0;
+            foreach (BuildDownloads::all() as $d)
+                $downloads += $d->downloads;
+
             return view('admin.index', [
-                'title' => 'Dashboard',
-                'issues' => $issues,
-                'blogs' => count(Blog::all()),
-                'tasks' => new Task,
-                'queuedJobs' => count(DB::table('jobs')->get()),
-                'failedJobs' => count(DB::table('failed_jobs')->get()),
+                'title'        => 'Dashboard',
+                'issues'       => $issues,
+                'blogs'        => count(Blog::all()),
+                'tasks'        => new Task,
+                'queuedJobs'   => count(DB::table('jobs')->get()),
+                'failedJobs'   => count(DB::table('failed_jobs')->get()),
                 'displaynames' => $displaynames,
-                'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
-                'hits' => $hits,
-                'updateMins' => $this->updateMins,
-                'github' => GitHub::getEventsFeed(),
-                'myTasks' => $myTasks,
-                'closedTasks' => $closed,
-                'pastes' => count(Paste::all()),
-                'urls' => count(ShortUrl::all())
+                'jenkins'      => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
+                'updateMins'   => $this->updateMins,
+                'github'       => GitHub::getEventsFeed(),
+                'myTasks'      => $myTasks,
+                'closedTasks'  => $closed,
+                'pastes'       => count(Paste::all()),
+                'urls'         => count(ShortUrl::all()),
+                'downloads'    => $downloads
             ]);
         } else
             return view('admin.login');
@@ -117,12 +120,12 @@ class PageController extends Controller {
 
     public function cms() {
         return view('admin.cms', [
-            'title' => 'Manage Content',
-            'jenkins' => ServerSetting::get('jenkins'),
+            'title'        => 'Manage Content',
+            'jenkins'      => ServerSetting::get('jenkins'),
             'dash_jenkins' => ServerSetting::get('dash_jenkins'),
             'registration' => ServerSetting::get('registration'),
-            'footer' => ServerSetting::get('footer'),
-            'alert_bar' => ServerSetting::get('alert_bar')
+            'footer'       => ServerSetting::get('footer'),
+            'alert_bar'    => ServerSetting::get('alert_bar')
         ]);
     }
 
@@ -137,10 +140,10 @@ class PageController extends Controller {
 
     public function github() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
-            'github' => GitHub::getEventsFeed(100),
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(100),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 
@@ -152,12 +155,12 @@ class PageController extends Controller {
         $logs = new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
 
         return view('admin.logs', [
-            'title' => 'Logs',
-            'logs' => $logs,
-            'files' => LaravelLogViewer::getFiles(true),
+            'title'        => 'Logs',
+            'logs'         => $logs,
+            'files'        => LaravelLogViewer::getFiles(true),
             'current_file' => LaravelLogViewer::getFileName(),
-            'perPage' => $perPage,
-            'url' => $this->request->url()
+            'perPage'      => $perPage,
+            'url'          => $this->request->url()
         ]);
     }
 }

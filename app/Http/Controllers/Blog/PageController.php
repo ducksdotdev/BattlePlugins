@@ -3,7 +3,6 @@
 use App\Http\Controllers\Controller;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Blog;
-use App\Tools\Models\ServerSettings;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
 
@@ -33,8 +32,6 @@ class PageController extends Controller {
 
             foreach ($users as $user)
                 $displaynames[$user->id] = $user->displayname;
-
-            ServerSettings::firstOrCreate(['key' => 'blogviews'])->increment('value');
 
             return [
                 'blog'    => $blog,

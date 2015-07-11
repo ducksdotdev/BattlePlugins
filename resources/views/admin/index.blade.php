@@ -15,6 +15,6 @@
     </div>
     <div class="grid-45 grid-parent">
         @include('admin.partials.dashboard.github')
-            @include('admin.partials.dashboard.jenkins')
+        @include('admin.partials.dashboard.jenkins')
     </div>
 @stop

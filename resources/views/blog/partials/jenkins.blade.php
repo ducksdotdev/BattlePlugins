@@ -7,8 +7,8 @@
                         <div class="ui segment">
                             <div class="item">
                                 <div class="content">
-                                    <span class="header">{{ $build->fullDisplayName }}</span>
-
+                                    {{ explode(' ', $build->fullDisplayName)[0] }}
+                                    {{ \App\Tools\Misc\Jenkins::getBuildVersion(explode(' ', $build->fullDisplayName)[0], $build->number) }}
                                     <div class="description">
                                         Last updated <span
                                                 title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
@@ -18,7 +18,7 @@
                                     <div class="text-center top-margin ten">
                                         <a href="{{ $build->url }}" class="ui button icon labeled mini"><i
                                                     class="icon book"></i> Build Details</a>
-                                        <a href="{{ $build->url }}{{ $current_job->number }}/artifact/*zip*/archive.zip"
+                                        <a href="{{ $build->url }}artifact/*zip*/archive.zip"
                                            class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                                     </div>
                                 </div>

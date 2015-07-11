@@ -2,6 +2,7 @@
 
 namespace App\Tools\Misc;
 
+use App\Tools\URL\Domain;
 use Awjudd\FeedReader\Facades\FeedReader;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -110,6 +111,16 @@ class Jenkins {
     public static function updateBuild($job, $build) {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
         return json_decode(file_get_contents($url));
+    }
+
+    public static function getBuildVersion($job, $build) {
+        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
+        if (Domain::remoteFileExists($url)) {
+            $content = new \SimpleXMLElement(file_get_contents($url));
+
+            return 'v' . $content->version;
+        } else
+            return '#' . static::getBuild($job, $build)->number;
     }
 
 }

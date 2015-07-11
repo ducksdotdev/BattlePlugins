@@ -68,13 +68,14 @@
                             @if($production->find($build->timestamp))
                                 <span class="ui label blue">Stable</span>
                             @endif
-                            <span class="ui label">{{ $build->changeSet->kind }}</span> {{ $build->fullDisplayName }}
+                            {{ explode(' ', $build->fullDisplayName)[0] }}
+                            {{ \App\Tools\Misc\Jenkins::getBuildVersion(explode(' ', $build->fullDisplayName)[0], $build->number) }}
                         </td>
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ $build->url }}/artifact/*zip*/archive.zip"
+                            <a href="{{ $build->url }}artifact/*zip*/archive.zip"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],

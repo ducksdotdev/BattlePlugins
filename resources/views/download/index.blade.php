@@ -74,7 +74,7 @@
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ $build->url }}{{ $current_job->number }}/artifact/*zip*/archive.zip"
+                            <a href="{{ $build->url }}{{ $build->number }}/artifact/*zip*/archive.zip"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],

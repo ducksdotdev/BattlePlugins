@@ -74,7 +74,7 @@
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ $build->url }}artifact/{{ $build->artifacts{0}->relativePath }}"
+                            <a href="{{ $build->url }}artifact/target/{{ $current_job->name }}.jar"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
@@ -118,13 +118,16 @@
                         <strong>Latest Stable Build:</strong>
 
                         <div class="text-center top-margin ten bottom-margin">
-                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i class="icon book"></i> Build Details</a>
+                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i
+                                        class="icon book"></i> Build Details</a>
                             <a href="{{ $current_job->lastStableBuild->url }}artifact/target/{{ $current_job->name }}.jar"
                                class="ui button green labeled small icon"><i class="icon download"></i> Download</a>
                         </div>
                     @endif
                     @if($current_job->healthReport)
-                        {{ $current_job->healthReport{0}->description }}
+                        @foreach($current_job->healthReport{0} as $report)
+                            {{ $report->description }}
+                        @endforeach
                     @else
                         <div class="text-center">
                             <strong>This job has never been built!</strong>

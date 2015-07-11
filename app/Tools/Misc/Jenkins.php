@@ -2,6 +2,7 @@
 
 namespace App\Tools\Misc;
 
+use App\Tools\Models\BuildDownloads;
 use App\Tools\URL\Domain;
 use Awjudd\FeedReader\Facades\FeedReader;
 use Illuminate\Support\Facades\Cache;
@@ -136,9 +137,24 @@ class Jenkins {
 
     public static function downloadJar($build) {
         foreach ($build->artifacts as $artifact) {
-            if (ends_with($artifact->fileName, '.jar'))
+            if (ends_with($artifact->fileName, '.jar')) {
+                $downloads = BuildDownloads::firstOrCreate([
+                    'build' => $build->fullDisplayName
+                ]);
+                $downloads->increment('downloads');
+
                 return $build->url . 'artifact/' . $artifact->relativePath;
+            }
         }
+    }
+
+    public static function getDownloadCount($build) {
+        $downloads = BuildDownloads::find($build->fullDisplayName);
+        return $downloads ? $downloads->downloads : 0;
+    }
+
+    public static function getJobFromBuild($build) {
+        return explode(' ', $build->fullDisplayName)[0];
     }
 
 }

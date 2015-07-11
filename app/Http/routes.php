@@ -96,6 +96,7 @@ foreach ($tlds as $tld) {
         Route::group(['prefix' => 'job'], function () {
             Route::get('/{job?}', 'Download\PageController@index');
             Route::get('/{job}/update/{build?}', 'Download\JenkinsController@updateJobs');
+            Route::get('/{job}/download/{build?}', 'Download\JenkinsController@download');
 
             Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
                 Route::post('/{job}/production', 'Download\JenkinsController@toggleProduction');

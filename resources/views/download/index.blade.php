@@ -58,6 +58,7 @@
                 <tr>
                     <th>Build Number</th>
                     <th>Created</th>
+                    <th>Downloads</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -69,13 +70,14 @@
                                 <span class="ui label blue">Stable</span>
                             @endif
                             {{ explode(' ', $build->fullDisplayName)[0] }}
-                            {{ \App\Tools\Misc\Jenkins::getBuildVersion(explode(' ', $build->fullDisplayName)[0], $build->number) }}
+                            {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
                         </td>
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
+                        <td>{{ Jenkins::getDownloadCount($build) }}</td>
                         <td class="text-right">
                             <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>
                                 Build Details</a>
-                            <a href="{{ Jenkins::downloadJar($build) }}"
+                            <a href="/job/{{ explode(' ', $build->fullDisplayName)[0] }}/download/{{ $build->number }}"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
@@ -121,7 +123,7 @@
                         <div class="text-center top-margin ten bottom-margin">
                             <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i
                                         class="icon book"></i> Build Details</a>
-                            <a href="{{ Jenkins::downloadJar($current_job->lastStableBuild) }}"
+                            <a href="/job/{{ $current_job->name }}/download/{{ $current_job->lastStableBuild->number }}"
                                class="ui button green labeled small icon"><i class="icon download"></i> Download</a>
                         </div>
                     @endif

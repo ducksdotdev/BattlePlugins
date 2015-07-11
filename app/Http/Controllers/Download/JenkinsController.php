@@ -42,4 +42,8 @@ class JenkinsController extends Controller {
         Cache::forever($key, Jenkins::updateBuildVersion($job, $build));
     }
 
+    public function download($job, $build){
+        $build = Jenkins::getBuild($job, $build);
+        return redirect(Jenkins::downloadJar($build));
+    }
 }

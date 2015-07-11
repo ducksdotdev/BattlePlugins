@@ -8,7 +8,7 @@
                             <div class="item">
                                 <div class="content">
                                     {{ explode(' ', $build->fullDisplayName)[0] }}
-                                    {{ Jenkins::getBuildVersion(explode(' ', $build->fullDisplayName)[0], $build->number) }}
+                                    {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
                                     <div class="description">
                                         Last updated <span
                                                 title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
@@ -18,7 +18,7 @@
                                     <div class="text-center top-margin ten">
                                         <a href="{{ $build->url }}" class="ui button icon labeled mini"><i
                                                     class="icon book"></i> Build Details</a>
-                                        <a href="{{ Jenkins::downloadJar($build) }}"
+                                        <a href="{{ action('Download\JenkinsController@download', ['job'=>explode(' ', $build->fullDisplayName)[0], 'build'=>$build->number]) }}"
                                            class="ui button green mini labeled icon"><i class="icon download"></i>
                                             Download</a>
                                     </div>

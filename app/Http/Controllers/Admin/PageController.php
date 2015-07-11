@@ -147,7 +147,7 @@ class PageController extends Controller {
         ]);
     }
 
-    public function logs($l = null, $curPage = null, $perPage = 15) {
+    public function logs($l = null, $curPage = 1, $perPage = 15) {
         if ($l)
             LaravelLogViewer::setFile(base64_decode($l));
 

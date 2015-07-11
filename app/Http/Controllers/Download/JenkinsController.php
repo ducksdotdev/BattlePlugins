@@ -36,6 +36,10 @@ class JenkinsController extends Controller {
 
         Cache::forget($key);
         Cache::forever($key, Jenkins::updateBuild($job, $build));
+
+        $key = $job . '_' . $build . '_vers';
+        Cache::forget($key);
+        Cache::forever($key, Jenkins::updateBuildVersion($job, $build));
     }
 
 }

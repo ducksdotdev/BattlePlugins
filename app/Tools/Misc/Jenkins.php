@@ -122,7 +122,7 @@ class Jenkins {
         return 'v' . $content;
     }
 
-    private static function updateBuildVersion($job, $build) {
+    public static function updateBuildVersion($job, $build) {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
         if (Domain::remoteFileExists($url)) {
             $content = new \SimpleXMLElement(file_get_contents($url));

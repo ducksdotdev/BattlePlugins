@@ -10,6 +10,13 @@
                         {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}
                     </span>
                 </a>
+                @if(Jenkins::getJobs(Jenkins::getJobFromBuild($build))->healthReport)
+                    <p>
+                        @foreach(Jenkins::getJobs(Jenkins::getJobFromBuild($build))->healthReport as $report)
+                            {{ $report->description }}
+                        @endforeach
+                    </p>
+                @endif
             </div>
         </div>
     @endforeach

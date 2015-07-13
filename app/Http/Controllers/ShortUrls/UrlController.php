@@ -29,8 +29,8 @@ class UrlController extends Controller {
         $req = $request->get('url');
         $path = Domain::shorten($req);
 
-        if (!$path)
-            redirect('/')->with('error', 'Please use a proper URL.');
+        if (!$path || !Domain::remoteFileExists($path))
+            redirect('/')->with('error', 'Please use a proper (and existing) URL.');
 
         return redirect('/')->with('url_path', $path);
     }

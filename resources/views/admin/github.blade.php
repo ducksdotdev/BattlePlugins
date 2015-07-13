@@ -24,8 +24,10 @@
                 </div>
             @endforeach
         </div>
-        <div class="grid-100">
-            <h3>Repositories</h3>
+        <div class="grid-100 grid-parent">
+            <div class="grid-100">
+                <h3>Repositories</h3>
+            </div>
             @foreach($repos as $repo)
                 <div class="grid-100 bottom-margin ten">
                     <div class="ui segment">

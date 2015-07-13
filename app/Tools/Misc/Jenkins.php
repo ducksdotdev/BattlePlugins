@@ -6,7 +6,6 @@ use App\Tools\Models\BuildDownloads;
 use App\Tools\URL\Domain;
 use Awjudd\FeedReader\Facades\FeedReader;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 class Jenkins {
 
@@ -136,6 +135,9 @@ class Jenkins {
     }
 
     public static function downloadJar($build) {
+        $job = static::getJobFromBuild($build);
+        $build = static::getBuild($job, $build);
+
         foreach ($build->artifacts as $artifact) {
             if (ends_with($artifact->fileName, '.jar')) {
                 $downloads = BuildDownloads::firstOrCreate([

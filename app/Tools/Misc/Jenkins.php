@@ -126,8 +126,8 @@ class Jenkins {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
         if (Domain::remoteFileExists($url)) {
             $content = new \SimpleXMLElement(file_get_contents($url));
-            Cache::forever($job . '_' . $build . '_vers', (string)$content->version);
-            return (string)$content->version;
+            Cache::forever($job . '_' . $build . '_vers', (string)$content->version . '-' . $build);
+            return (string)$content->version . '-' . $build;
         } else {
             Cache::forever($job . '_' . $build . '_vers', static::getBuild($job, $build)->number);
             return static::getBuild($job, $build)->number;

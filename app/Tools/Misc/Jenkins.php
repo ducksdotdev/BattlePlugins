@@ -119,19 +119,18 @@ class Jenkins {
         if (is_integer($content))
             return '#' . $content;
 
-        return 'v' . $content;
+        return 'v' . $content . '-' . $build;
     }
 
     public static function updateBuildVersion($job, $build) {
         $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
-        $number = static::getBuild($job, $build)->number;
         if (Domain::remoteFileExists($url)) {
             $content = new \SimpleXMLElement(file_get_contents($url));
-            Cache::forever($job . '_' . $build . '_vers', (string)$content->version . '-' . $number);
-            return (string)$content->version . '-' . $number;
+            Cache::forever($job . '_' . $build . '_vers', (string)$content->version);
+            return (string)$content->version;
         } else {
             Cache::forever($job . '_' . $build . '_vers', static::getBuild($job, $build)->number);
-            return $number;
+            return static::getBuild($job, $build)->number;
         }
     }
 

@@ -32,7 +32,7 @@ class Domain {
                 $path = SlugGenerator::generate();
 
                 ShortUrl::create([
-                    'url'  => $req,
+                    'url' => $req,
                     'path' => $path
                 ]);
 
@@ -69,7 +69,7 @@ class Domain {
             //if request was ok, check response code
             $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-            if ($statusCode == 200) {
+            if ($statusCode >= 200 && $statusCode <= 400) {
                 $ret = true;
             }
         }

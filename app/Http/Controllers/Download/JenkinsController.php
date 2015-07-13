@@ -49,7 +49,7 @@ class JenkinsController extends Controller {
         if ($download)
             return redirect($download);
         else {
-            Cache::forget($job . '_' . $build);
+            Cache::forget($job . '_' . $build->number);
             return redirect()->back();
         }
     }

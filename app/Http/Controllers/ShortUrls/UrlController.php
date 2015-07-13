@@ -16,8 +16,10 @@ class UrlController extends Controller {
     public function redirect($path) {
         $url = ShortUrl::wherePath($path)->first();
 
-        if ($url)
+        if ($url && Domain::remoteFileExists($url))
             return redirect($url->url);
+        elseif ($url && !Domain::remoteFileExists($url))
+            ShortUrl::wherePath($path)->delete();
 
         return abort(404);
     }

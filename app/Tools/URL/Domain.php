@@ -61,7 +61,6 @@ class Domain {
 
         //do request
         $result = curl_exec($curl);
-
         $ret = false;
 
         //if request did not fail
@@ -69,9 +68,8 @@ class Domain {
             //if request was ok, check response code
             $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-            if ($statusCode >= 200 && $statusCode <= 400) {
+            if ($statusCode >= 200 && $statusCode <= 400)
                 $ret = true;
-            }
         }
 
         curl_close($curl);

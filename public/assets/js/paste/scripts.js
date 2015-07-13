@@ -5,12 +5,10 @@ $(function () {
     $('.ui.checkbox').checkbox();
     $('textarea.monospace').autosize();
 
-    $('textarea.monospace').on('keypress', function (e) {
-        if (e.keyCode == 9) {
+    $('textarea.monospace').on('keydown', function (e) {
+        if (e.which == 9) {
             this.value += "    ";
-            if (e.preventDefault)
-                e.preventDefault();
-
+            e.preventDefault();
             return false;
         }
     });

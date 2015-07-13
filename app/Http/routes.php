@@ -39,11 +39,9 @@ foreach ($tlds as $tld) {
     Route::group(['domain' => 'short.' . $url], function () {
         Route::get('/', 'ShortUrls\PageController@index');
 
-        Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
+        Route::group(['before' => 'csrf'], function () {
             Route::post('/create', 'ShortUrls\UrlController@create');
         });
-
-        Route::get('/{url}', 'ShortUrls\UrlController@redirect');
     });
 
     Route::group(['domain' => 'api.' . $url], function () {

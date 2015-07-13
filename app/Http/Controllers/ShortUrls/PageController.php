@@ -11,9 +11,6 @@ class PageController extends Controller {
      * @return Response
      */
     public function index() {
-        if (Auth::check())
-            return view('shorturls.index');
-        else
-            return view('shorturls.login');
+        return view('shorturls.index');
     }
 }

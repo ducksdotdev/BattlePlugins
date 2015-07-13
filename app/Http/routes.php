@@ -36,14 +36,6 @@ foreach ($tlds as $tld) {
         Route::get('/{id}', 'Blog\PageController@getBlog');
     });
 
-    Route::group(['domain' => 'short.' . $url], function () {
-        Route::get('/', 'ShortUrls\PageController@index');
-
-        Route::group(['before' => 'csrf'], function () {
-            Route::post('/create', 'ShortUrls\UrlController@create');
-        });
-    });
-
     Route::group(['domain' => 'api.' . $url], function () {
         Route::get('/', 'API\PageController@index');
 
@@ -147,9 +139,11 @@ foreach ($tlds as $tld) {
 }
 
 Route::group(['domain' => 'bplug.in'], function () {
-    Route::get('/', function () {
-        return redirect()->action('ShortUrls\PageController@index');
-    });
+    Route::get('/', 'ShortUrls\PageController@index');
 
+    Route::group(['before' => 'csrf'], function () {
+        Route::post('/create', 'ShortUrls\UrlController@create');
+    });
+    
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');
 });

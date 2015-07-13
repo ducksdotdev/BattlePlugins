@@ -35,7 +35,7 @@
 			{!! Form::close() !!}
 		</div>
 		<div class="grid-30">
-            @include('loginliwnks')
+            @include('loginlinks')
             <p>BattlePlugins is a Minecraft plugin development team founded in 2012. You must be authorized to login.</p>
 		</div>
 	</div>

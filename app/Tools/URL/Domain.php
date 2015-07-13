@@ -24,6 +24,8 @@ class Domain {
 
     public static function shorten($req) {
         $req = static::stripTrailingSlash($req);
+        if (!starts_with($req, ['https://', 'http://']))
+            $req = 'http://' . $req;
 
         if (static::isUrl($req)) {
             $url = ShortUrl::whereUrl($req)->first();
@@ -32,7 +34,7 @@ class Domain {
                 $path = SlugGenerator::generate();
 
                 ShortUrl::create([
-                    'url' => $req,
+                    'url'  => $req,
                     'path' => $path
                 ]);
 

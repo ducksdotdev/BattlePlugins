@@ -29,10 +29,6 @@ class UrlController extends Controller {
             redirect('/')->with('error', 'Please use a proper URL.');
 
         $req = $request->get('url');
-
-        if (!starts_with($req, ['https://', 'http://']))
-            $req = 'http://' . $req;
-
         $path = Domain::shorten($req);
 
         if (!$path || !Domain::remoteFileExists($req))

@@ -127,7 +127,7 @@ class Jenkins {
         if (Domain::remoteFileExists($url)) {
             $content = new \SimpleXMLElement(file_get_contents($url));
             Cache::forever($job . '_' . $build . '_vers', (string)$content->version);
-            return $content->version;
+            return (string)$content->version;
         } else {
             Cache::forever($job . '_' . $build . '_vers', static::getBuild($job, $build)->number);
             return static::getBuild($job, $build)->number;
@@ -135,9 +135,6 @@ class Jenkins {
     }
 
     public static function downloadJar($build) {
-        $job = static::getJobFromBuild($build);
-        $build = static::getBuild($job, $build);
-
         foreach ($build->artifacts as $artifact) {
             if (ends_with($artifact->fileName, '.jar')) {
                 $downloads = BuildDownloads::firstOrCreate([
@@ -148,6 +145,8 @@ class Jenkins {
                 return $build->url . 'artifact/' . $artifact->relativePath;
             }
         }
+
+        return null;
     }
 
     public static function getDownloadCount($build) {

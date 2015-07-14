@@ -31,6 +31,11 @@
         </div>
         <div class="ui divided list">
             <div class="item">
+                @if(session()->has('error'))
+                    <div id="loginError" class="alert error">
+                        {{session('error')}}
+                    </div>
+                @endif
                 {!! Form::open(['url'=>URL::to('/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
                 <div class="two fields">
                     <div class="field">

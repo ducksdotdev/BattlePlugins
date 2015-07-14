@@ -27,14 +27,14 @@ class Domain {
         if (!starts_with($req, ['https://', 'http://']))
             $req = 'http://' . $req;
 
-        if (static::isUrl($req)) {
+        if (static::isUrl($req) && static::remoteFileExists($req)) {
             $url = ShortUrl::whereUrl($req)->first();
 
             if (!$url) {
                 $path = SlugGenerator::generate();
 
                 ShortUrl::create([
-                    'url'  => $req,
+                    'url' => $req,
                     'path' => $path
                 ]);
 

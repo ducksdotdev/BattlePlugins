@@ -30,7 +30,7 @@ class PageController extends Controller {
         $req = $request->get('url');
         $path = Domain::shorten($req);
 
-        if (!$path || !Domain::remoteFileExists($req))
+        if (!$path)
             view('shorturls.index', ['error'=>'Please make sure that URL exists.']);
 
         return view('shorturls.index', ['url_path'=>$path]);

@@ -22,7 +22,7 @@ class WebhookController extends Controller {
         $event = $request->input('event');
 
         if (!$event || $event == -1)
-            return redirect('/');
+            return redirect()->back();
 
         $uid = Auth::user()->id;
 
@@ -42,7 +42,7 @@ class WebhookController extends Controller {
             }
         }
 
-        return redirect('/');
+        return redirect()->back();
     }
 
 }

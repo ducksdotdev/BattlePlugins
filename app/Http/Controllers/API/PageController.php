@@ -31,7 +31,7 @@ class PageController extends Controller {
                 'myHooks' => $webhooks
             ]);
         } else
-            return view('auth.login');
+            return redirect('/login');
     }
 
     public function generateKey() {
@@ -41,7 +41,7 @@ class PageController extends Controller {
             $user->save();
         }
 
-        return redirect('/');
+        return redirect()->back();
     }
 
 }

@@ -26,15 +26,15 @@ class UrlController extends Controller {
 
     public function create(Request $request) {
         if (!$request->has('url'))
-            redirect('/')->with('error', 'Please use a proper URL.');
+            redirect()->back()->with('error', 'Please use a proper URL.');
 
         $req = $request->get('url');
         $path = Domain::shorten($req);
 
         if (!$path || !Domain::remoteFileExists($req))
-            redirect('/')->with('error', 'Please make sure that URL exists.');
+            redirect()->back()->with('error', 'Please make sure that URL exists.');
 
-        return redirect('/')->with('url_path', $path);
+        return redirect()->back()->with('url_path', $path);
     }
 
 }

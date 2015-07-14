@@ -34,7 +34,7 @@ class TasksController extends Controller {
             'content'     => $request->input('content')
         ]);
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     public function deleteTask($id) {

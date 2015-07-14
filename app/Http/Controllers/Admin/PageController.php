@@ -90,7 +90,7 @@ class PageController extends Controller {
                 'downloads'    => $downloads
             ]);
         } else
-            return view('auth.login');
+            return redirect('/login');
     }
 
     public function settings() {

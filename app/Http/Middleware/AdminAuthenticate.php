@@ -19,7 +19,7 @@ class AdminAuthenticate {
      */
     public function handle($request, Closure $next) {
         if (auth()->guest() || !auth()->user()->admin)
-            return redirect('/');
+            return redirect('/login');
 
         return $next($request);
     }

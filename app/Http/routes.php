@@ -20,8 +20,11 @@ Route::get('/password/email', 'PasswordController@getEmail');
 // Password reset routes...
 Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
-if (env('APP_ENV_URL') == 'localhost')
+if (env('APP_ENV_URL') == 'localhost') {
     $tlds = [''];
+    $short = 'short.localhost';
+} else
+    $short = 'bplug.in';
 
 foreach ($tlds as $tld) {
     $url .= $tld;
@@ -139,7 +142,7 @@ foreach ($tlds as $tld) {
     $url = env('APP_ENV_URL');
 }
 
-Route::group(['domain' => 'bplug.in'], function () {
+Route::group(['domain' => $short], function () {
     Route::get('/', 'ShortUrls\PageController@index');
 
     Route::group(['before' => 'csrf'], function () {

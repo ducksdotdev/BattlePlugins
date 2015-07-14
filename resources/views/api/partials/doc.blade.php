@@ -8,9 +8,7 @@
                 {{ $doc['title'] }}
                 <p>
                     @foreach($doc['methods'] as $method)
-                        <span class="ui horizontal label {{ $method['color'] }}">
-                                            {{ strtoupper($method['name']) }}
-                                        </span>
+                        <span class="ui horizontal label {{ $method['color'] }}">{{ strtoupper($method['name']) }}</span>
                     @endforeach
                 </p>
             </h2>

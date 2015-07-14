@@ -15,7 +15,9 @@
         <strong>{{ explode(' ', $build->fullDisplayName)[0] }}
             {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}</strong>
     </td>
-    <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
+    <td title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
+        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}
+    </td>
     <td><span class="hide-on-desktop">Downloads:</span> {{ Jenkins::getDownloadCount($build) }}</td>
     <td class="text-right">
         <a href="{{ $build->url }}" class="ui button mini icon labeled"><i class="icon book"></i>

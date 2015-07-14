@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
     <link rel="stylesheet" href="/assets/css/semantic.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.0/components/icon.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.0.1/components/dropdown.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <!--        End Styles -->
     <!--        Scripts -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
-    <script type="text/javascript" src="/assets/js/blog/scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/download/scripts.js"></script>
     <!--       End Scripts -->
 </head>
 <body>
@@ -79,6 +80,13 @@
                                 Build Details</a>
                             <a href="/job/{{ explode(' ', $build->fullDisplayName)[0] }}/download/{{ $build->number }}"
                                class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
+
+                            <div class="ui dropdown inline">
+                                <button class="ui button mini icon"><i class="icon share alternate"></i></button>
+                                <div class="menu hidden">
+                                    @include('download.partials.share')
+                                </div>
+                            </div>
                             @if(auth()->check())
                                 {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
                                 env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}

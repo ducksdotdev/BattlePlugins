@@ -3,6 +3,7 @@
 $url = env('APP_ENV_URL');
 $tlds = ['.org', '.net', '.com'];
 
+Route::get('/login', 'UserController@getLogin');
 Route::get('/logout', 'UserController@logout');
 
 Route::group(['before' => 'csrf'], function () {
@@ -144,6 +145,6 @@ Route::group(['domain' => 'bplug.in'], function () {
     Route::group(['before' => 'csrf'], function () {
         Route::post('/create', 'ShortUrls\UrlController@create');
     });
-    
+
     Route::get('/{url}', 'ShortUrls\UrlController@redirect');
 });

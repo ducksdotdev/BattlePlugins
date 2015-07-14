@@ -20,9 +20,6 @@
     <!--       End Scripts -->
 </head>
 <body>
-@if(!Auth::check())
-    @include('blog.partials.login')
-@endif
 <nav>
     <div class="grid-container">
         <div class="grid-30 tablet-grid-100 mobile-grid-100">
@@ -42,7 +39,7 @@
                     <i class="icon plus"></i>
                 </button>
             @else
-                <button id="loginDropDownButton" class="ui button primary">Login</button>
+                <a href="/login" class="ui button primary">Login</a>
             @endif
         </div>
     </div>

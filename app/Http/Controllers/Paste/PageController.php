@@ -19,7 +19,7 @@ class PageController extends Controller {
                 'pastes' => $pastes
             ]);
         } else
-            return view('paste.login');
+            return view('auth.login');
     }
 
 }

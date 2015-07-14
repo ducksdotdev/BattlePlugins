@@ -4,18 +4,6 @@ $(function () {
 
     $('.ui.checkbox').checkbox();
 
-    $("#loginDropDownButton").click(function () {
-        $("#login").sidebar({
-            onVisible: function () {
-                $("#email").focus();
-            }
-        }).sidebar('toggle');
-    });
-
-    $("#loginButton").click(function () {
-        $(this).addClass("loading");
-    });
-    
     $("#createBlog").click(function () {
         $("#createBlog").addClass("loading");
         $("#createBlogModal").modal({

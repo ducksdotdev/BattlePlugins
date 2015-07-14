@@ -31,7 +31,7 @@ class PageController extends Controller {
                 'myHooks' => $webhooks
             ]);
         } else
-            return view('api.login');
+            return view('auth.login');
     }
 
     public function generateKey() {

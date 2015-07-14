@@ -21,9 +21,6 @@
     <!--       End Scripts -->
 </head>
 <body>
-@if(!Auth::check())
-    @include('blog.partials.login')
-@endif
 <nav>
     <div class="grid-container">
         <div class="grid-90">
@@ -31,7 +28,7 @@
         </div>
         <div class="grid-10">
             @if(!Auth::check())
-                <button id="loginDropDownButton" class="ui button primary">Login</button>
+                <a href="/login" class="ui button primary">Login</a>
             @endif
         </div>
     </div>

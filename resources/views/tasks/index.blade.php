@@ -6,7 +6,9 @@
 <body>
 <div id="top"></div>
 @if(!Auth::check())
-    @include('tasks.partials.login')
+    <div class="grid-100 text-right">
+        <a id="loginButton" href="/login" class="ui button">Login</a>
+    </div>
 @else
     <div class="grid-100 text-right">
         <a id="logoutButton" href="/logout" class="ui button">Logout</a>

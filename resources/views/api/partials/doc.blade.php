@@ -1,5 +1,7 @@
 <div class="grid-100 grid-parent" id="{{ $docType['name'] }}">
-    <h1>{{ $docType['name'] }}</h1>
+    <div class="grid-100">
+        <h1>{{ $docType['name'] }}</h1>
+    </div>
     @foreach($docType['methods'] as $doc)
         <div class="grid-100" id="{{ $doc['title'] }}">
             <h2 id="{{ $docType['name'] }}-{{ $doc['title'] }}">
@@ -16,16 +18,14 @@
 
             <p><strong>URL: </strong><code>/{{env('API_VERSION')}}/{{ $doc['url']}}</code></p>
             @if(array_has($doc, 'params'))
-                <p>
-                    <strong>Params:</strong>
+                <strong>Params:</strong>
                 <p>
                     @foreach($doc['params'] as $param)
                         <span class="ui horizontal label {{strpos($param,'REQUIRED') ? 'red' : 'black'}}">{{ $param }}</span>
                     @endforeach
                 </p>
-                </p>
             @endif
-            @include('api.partials.example')
         </div>
+        @include('api.partials.example')
     @endforeach
 </div>

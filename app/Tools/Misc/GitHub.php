@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Cache;
 
 class GitHub {
 
-
     protected static $base_url = 'https://api.github.com/';
 
     public static function getEventsFeed($limit = 3) {
@@ -73,7 +72,7 @@ class GitHub {
         $url = static::$base_url . $url;
 
         $params = array_merge([
-            'client_id'     => env('GITHUB_APP_ID'),
+            'client_id' => env('GITHUB_APP_ID'),
             'client_secret' => env('GITHUB_APP_SECRET')
         ], $params);
 

@@ -7,3 +7,4 @@
 <p>
     If you did not ask to reset your password, please ignore this email.
 </p>
+<small>The reset link will expire one hour from creation.</small>

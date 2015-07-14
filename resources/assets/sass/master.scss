@@ -440,3 +440,14 @@ ul.pagination {
   -ms-word-break: break-word;
   word-break: break-word;
 }
+
+button.ui.button.link {
+  background-color: transparent;
+  padding: 1px;
+  color: #009fda;
+  font-weight: normal;
+
+  &:hover {
+    color: #00b2f3;
+  }
+}

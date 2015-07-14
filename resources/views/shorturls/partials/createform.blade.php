@@ -1,15 +1,15 @@
 <div class="ui divided list">
     <div class="item">
-        @if(isset($error))
+        @if(session()->has('error'))
             <div class="ui negative message">
                 <div class="content">
-                    {{ $error }}
+                    {{ session()->get('error') }}
                 </div>
             </div>
-        @elseif(isset($url_path))
+        @elseif(session()->has('url_path'))
             <div class="ui positive message text-center">
-                <a href="https://bplug.in/{{ $url_path }}" class="short-link">
-                    http://bplug.in/{{ $url_path }}
+                <a href="https://bplug.in/{{ session()->get('url_path') }}" class="short-link">
+                    http://bplug.in/{{ session()->get('url_path') }}
                 </a>
             </div>
         @endif

@@ -1,10 +1,7 @@
 <?php namespace App\Http\Controllers\ShortUrls;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\ShortUrl;
-use App\Tools\URL\Domain;
 use Auth;
-use Illuminate\Http\Request;
 
 class PageController extends Controller {
 
@@ -25,14 +22,14 @@ class PageController extends Controller {
 
     public function create(Request $request) {
         if (!$request->has('url'))
-            view('shorturls.index', ['error'=>'Please use a proper URL.']);
+            redirect()->back()->with('error', 'Please use a proper URL.');
 
         $req = $request->get('url');
         $path = Domain::shorten($req);
 
         if (!$path)
-            view('shorturls.index', ['error'=>'Please make sure that URL exists.']);
+            redirect()->back()->with('error', 'Please make sure that URL exists.');
 
-        return view('shorturls.index', ['url_path'=>$path]);
+        return redirect()->back()->with('url_path', $path);
     }
 }

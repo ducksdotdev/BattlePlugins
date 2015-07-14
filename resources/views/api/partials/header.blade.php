@@ -10,8 +10,10 @@
             <button class="ui button link">generate a new one.</button>
             {!! Form::close() !!}
 
-            <a class="top-margin ten" href="https://github.com/BattlePlugins/BattleWebApi.java">Use BattleWebAPI.java in your plugins in order to make a connection to the API
-                for your plugins.</a>
+            <p class="top-margin ten">
+                <a href="https://github.com/BattlePlugins/BattleWebApi.java">Use BattleWebAPI.java in your plugins in order to make a connection to the API for your
+                    plugins.</a>
+            </p>
         </div>
         <div class="grid-100" id="authentication">
             <h3>Authentication</h3>

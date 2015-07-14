@@ -64,11 +64,20 @@
                 @foreach($stableBuilds as $build)
                     <tr @if(!$production->find($build->timestamp)) class="warning" @endif>
                         <td>
-                            @if($production->find($build->timestamp))
+                            @if(auth()->check())
+                                {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
+                                env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
+                                @if($production->find($build->timestamp))
+                                    <button class="ui button mini red">Mark Unstable</button>
+                                @else
+                                    <button class="ui button mini primary">Mark Stable</button>
+                                @endif
+                                {!! Form::close() !!}
+                            @elseif($production->find($build->timestamp))
                                 <span class="ui label blue">Stable</span>
                             @endif
-                            {{ explode(' ', $build->fullDisplayName)[0] }}
-                            {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
+                            <strong>{{ explode(' ', $build->fullDisplayName)[0] }}
+                                {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}</strong>
                         </td>
                         <td>{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</td>
                         <td><span class="hide-on-desktop">Downloads:</span> {{ Jenkins::getDownloadCount($build) }}</td>
@@ -84,16 +93,6 @@
                                     @include('download.partials.share')
                                 </div>
                             </div>
-                            @if(auth()->check())
-                                {!! Form::open(['url'=>URL::to('/job/' . $build->timestamp .'/production', [],
-                                env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
-                                @if($production->find($build->timestamp))
-                                    <button class="ui button mini red">Unmark Stable</button>
-                                @else
-                                    <button class="ui button mini primary">Mark Stable</button>
-                                @endif
-                                {!! Form::close() !!}
-                            @endif
                         </td>
                     </tr>
                 @endforeach

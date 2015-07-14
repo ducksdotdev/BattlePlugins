@@ -16,7 +16,6 @@ use App\Tools\Queries\ServerSetting;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller {
     protected $updateMins = 1;
@@ -26,7 +25,7 @@ class PageController extends Controller {
     private $request;
 
     function __construct(Request $request) {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth');
         $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings', 'logs']]);
 
         if (auth()->check()) {
@@ -40,57 +39,52 @@ class PageController extends Controller {
     }
 
     public function index() {
-        if (auth()->check()) {
-            $displaynames = [];
-            foreach (User::all() as $user)
-                $displaynames[$user->id] = $user->displayname;
+        $displaynames = [];
+        foreach (User::all() as $user)
+            $displaynames[$user->id] = $user->displayname;
 
-            $userId = auth()->user()->id;
+        $userId = auth()->user()->id;
 
-            $dash_jenkins = ServerSetting::get('dash_jenkins');
+        $dash_jenkins = ServerSetting::get('dash_jenkins');
 
-            $tasks = Task::whereStatus(false);
+        $tasks = Task::whereStatus(false);
 
-            $myIssues = 0;
-            $issues = 0;
-            $closed = 0;
+        $myIssues = 0;
+        $issues = 0;
+        $closed = 0;
 
-            foreach (GitHub::getIssues() as $issue) {
-                if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
-                    $myIssues++;
+        foreach (GitHub::getIssues() as $issue) {
+            if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
+                $myIssues++;
 
-                if ($issue->state == 'open')
-                    $issues++;
-                else
-                    $closed++;
-            }
+            if ($issue->state == 'open')
+                $issues++;
+            else
+                $closed++;
+        }
 
-            $closed = $closed + count(Task::where('status', true)->get());
-            $myTasks = count($tasks->where('assigned_to', $userId)->get()) + $myIssues;
+        $closed = $closed + count(Task::where('status', true)->get());
+        $myTasks = count($tasks->where('assigned_to', $userId)->get()) + $myIssues;
 
-            $downloads = 0;
-            foreach (BuildDownloads::all() as $d)
-                $downloads += $d->downloads;
+        $downloads = 0;
+        foreach (BuildDownloads::all() as $d)
+            $downloads += $d->downloads;
 
-            return view('admin.index', [
-                'title'        => 'Dashboard',
-                'issues'       => $issues,
-                'blogs'        => count(Blog::all()),
-                'tasks'        => new Task,
-                'queuedJobs'   => count(DB::table('jobs')->get()),
-                'failedJobs'   => count(DB::table('failed_jobs')->get()),
-                'displaynames' => $displaynames,
-                'jenkins'      => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
-                'updateMins'   => $this->updateMins,
-                'github'       => GitHub::getEventsFeed(),
-                'myTasks'      => $myTasks,
-                'closedTasks'  => $closed,
-                'pastes'       => count(Paste::all()),
-                'urls'         => count(ShortUrl::all()),
-                'downloads'    => $downloads
-            ]);
-        } else
-            return redirect('/login');
+        return view('admin.index', [
+            'title' => 'Dashboard',
+            'issues' => $issues,
+            'blogs' => count(Blog::all()),
+            'tasks' => new Task,
+            'displaynames' => $displaynames,
+            'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
+            'updateMins' => $this->updateMins,
+            'github' => GitHub::getEventsFeed(),
+            'myTasks' => $myTasks,
+            'closedTasks' => $closed,
+            'pastes' => count(Paste::all()),
+            'urls' => count(ShortUrl::all()),
+            'downloads' => $downloads
+        ]);
     }
 
     public function settings() {
@@ -120,12 +114,12 @@ class PageController extends Controller {
 
     public function cms() {
         return view('admin.cms', [
-            'title'        => 'Manage Content',
-            'jenkins'      => ServerSetting::get('jenkins'),
+            'title' => 'Manage Content',
+            'jenkins' => ServerSetting::get('jenkins'),
             'dash_jenkins' => ServerSetting::get('dash_jenkins'),
             'registration' => ServerSetting::get('registration'),
-            'footer'       => ServerSetting::get('footer'),
-            'alert_bar'    => ServerSetting::get('alert_bar')
+            'footer' => ServerSetting::get('footer'),
+            'alert_bar' => ServerSetting::get('alert_bar')
         ]);
     }
 
@@ -140,10 +134,10 @@ class PageController extends Controller {
 
     public function github() {
         return view('admin.github', [
-            'title'   => 'GitHub Information',
-            'github'  => GitHub::getEventsFeed(100),
+            'title' => 'GitHub Information',
+            'github' => GitHub::getEventsFeed(100),
             'members' => GitHub::getOrgMembers(),
-            'repos'   => GitHub::getRepositories()
+            'repos' => GitHub::getRepositories()
         ]);
     }
 
@@ -155,12 +149,12 @@ class PageController extends Controller {
         $logs = new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
 
         return view('admin.logs', [
-            'title'        => 'Logs',
-            'logs'         => $logs,
-            'files'        => LaravelLogViewer::getFiles(true),
+            'title' => 'Logs',
+            'logs' => $logs,
+            'files' => LaravelLogViewer::getFiles(true),
             'current_file' => LaravelLogViewer::getFileName(),
-            'perPage'      => $perPage,
-            'url'          => $this->request->url()
+            'perPage' => $perPage,
+            'url' => $this->request->url()
         ]);
     }
 }

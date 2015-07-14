@@ -146,8 +146,8 @@ Route::group(['domain' => $short], function () {
     Route::get('/', 'ShortUrls\PageController@index');
 
     Route::group(['before' => 'csrf'], function () {
-        Route::post('/create', 'ShortUrls\UrlController@create');
+        Route::post('/create', 'ShortUrls\PageController@create');
     });
 
-    Route::get('/{url}', 'ShortUrls\UrlController@redirect');
+    Route::get('/{url}', 'ShortUrls\PageController@redirect');
 });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use Auth;
+use Illuminate\Http\Request;
 
 class PageController extends Controller {
 

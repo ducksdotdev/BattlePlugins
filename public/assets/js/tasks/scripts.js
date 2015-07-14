@@ -16,16 +16,6 @@ $(function () {
         }).modal('show');
     });
 
-    $("#loginDropDownButton").click(function () {
-        $("#login").sidebar({
-            onVisible: function () {
-                $("#email").focus();
-            }
-        }).sidebar('toggle');
-    });
-
-    $('.ui.checkbox').checkbox();
-
     $(".delete-task").click(function () {
         $(this).parent().parent().addClass("deleted");
         $(this).addClass("loading");

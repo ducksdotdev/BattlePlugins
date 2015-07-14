@@ -6,16 +6,4 @@ $(function () {
     $('.ui.dropdown').dropdown({
         transition: 'drop'
     });
-
-    $("#loginDropDownButton").click(function () {
-        $("#login").sidebar({
-            onVisible: function () {
-                $("#email").focus();
-            }
-        }).sidebar('toggle');
-    });
-
-    $("#loginButton").click(function () {
-        $(this).addClass("loading");
-    });
 });

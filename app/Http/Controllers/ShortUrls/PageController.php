@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\ShortUrls;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Models\ShortUrl;
 use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;

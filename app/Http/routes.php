@@ -19,7 +19,6 @@ Route::get('/password/email', 'PasswordController@getEmail');
 // Password reset routes...
 Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
-
 Route::group(['domain' => $url], function () {
     Route::get('/', 'Blog\PageController@index');
     Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
@@ -138,18 +137,11 @@ Route::group(['domain' => 'short.' . $url], function () {
     Route::get('/', 'ShortUrls\PageController@index');
 });
 
+
 Route::group(['domain' => 'bplug.in'], function () {
     Route::get('/', function () {
-        return redirect()->action('ShortUrls\PageController@create');
+        return redirect()->action('ShortUrls\PageController@index');
     });
 
     Route::get('/{url}', 'ShortUrls\PageController@redirect');
-});
-
-Route::group(['domain'=>'battleplugins.net'], function(){
-    return redirect()->action('Blog\PageController@index');
-});
-
-Route::group(['domain'=>'battleplugins.org'], function(){
-    return redirect()->action('Blog\PageController@index');
 });

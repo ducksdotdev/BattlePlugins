@@ -76,7 +76,7 @@ Route::group(['domain' => 'paste.' . $url], function () {
 
 Route::group(['domain' => 'dl.' . $url], function () {
     Route::get('/', 'Download\PageController@index');
-    Route::get('/update', 'Download\JenkinsController@updateJenkins');
+    Route::any('/update', 'Download\JenkinsController@updateJenkins');
 
     Route::group(['prefix' => 'job'], function () {
         Route::get('/{job?}', 'Download\PageController@index');

@@ -26,7 +26,7 @@
         @else
             <button class="ui button primary">Enable Jenkins Feed</button>
         @endif
-        {!! Form::close() !!}
+        {!! Form::close() !!}<br />
         {!! Form::open(['url'=>URL::to('/tools/cms/comment_feed', [], env('HTTPS_ENABLED', true))]) !!}
         @if($comment_feed)
             <button class="ui button red">Disable Comment Feed</button>

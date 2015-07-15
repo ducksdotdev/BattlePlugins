@@ -20,14 +20,13 @@ Route::get('/password/email', 'PasswordController@getEmail');
 Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
 Route::group(['domain' => $url], function () {
-    Route::get('/', 'Blog\PageController@index');
     Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
         Route::post('/delete/{blog}', 'Blog\BlogController@deleteBlog');
         Route::post('/create', 'Blog\BlogController@create');
         Route::post('/{id}', 'Blog\BlogController@editBlog');
     });
 
-    Route::get('/{id}', 'Blog\PageController@getBlog');
+    Route::get('/{id?}', 'Blog\PageController@index');
 });
 
 Route::group(['domain' => 'api.' . $url], function () {

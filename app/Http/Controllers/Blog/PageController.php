@@ -9,12 +9,16 @@ use App\Tools\URL\Domain;
 
 class PageController extends Controller {
 
-    public function index() {
-        $blog = Blog::latest()->first();
+    public function index($id = null) {
+        if ($id)
+            $blog = Blog::find($id);
+        else
+            $blog = Blog::latest()->first();
+
         $obj = [
-            'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
+            'jenkins'         => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
             'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'comment_feed' => ServerSetting::get('comment_feed')
+            'comment_feed'    => ServerSetting::get('comment_feed')
         ];
 
         if (!$blog)
@@ -32,19 +36,10 @@ class PageController extends Controller {
                 $displaynames[$user->id] = $user->displayname;
 
             return array_merge([
-                'blog' => $blog,
-                'list' => Blog::latest()->take(4)->get(),
+                'blog'  => $blog,
+                'list'  => Blog::latest()->take(4)->get(),
                 'users' => $displaynames,
             ], $obj);
         }
-    }
-
-    public function getBlog($id) {
-        $blog = Blog::find($id);
-
-        if (!$blog)
-            return abort(404);
-
-        return view('blog.index', static::retrieve($blog));
     }
 }

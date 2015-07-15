@@ -23,8 +23,11 @@
     <div class="grid-65 grid-parent grid-center">
         <div class="task-header">
             <div class="grid-container">
-                <div class="grid-100">
+                <div class="grid-85 tablet-grid-85 mobile-grid-85">
                     <h2>teamspeak</h2>
+                </div>
+                <div class="grid-15 tablet-grid-15 mobile-grid-15 text-right text-middle actions">
+                    <a href="ts3://voice.battleplugins.com" class="circular small ui primary icon button"><i class="icon forward mail"></i></a>
                 </div>
             </div>
         </div>

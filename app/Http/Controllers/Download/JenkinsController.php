@@ -20,7 +20,7 @@ class JenkinsController extends Controller {
     }
 
     public function updateJenkins() {
-        if (Domain::isOnline('ci.battleplugins.com'))
+        if (Domain::remoteFileExists('ci.battleplugins.com'))
             $this->dispatch(new UpdateJobs());
         else
             return "The CI server is offline.";

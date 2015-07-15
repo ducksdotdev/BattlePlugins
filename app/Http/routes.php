@@ -137,6 +137,10 @@ Route::group(['domain' => 'short.' . $url], function () {
     Route::get('/', 'ShortUrls\PageController@index');
 });
 
+Route::group(['domain' => 'voice.' . $url], function () {
+    Route::get('/', 'Voice\PageController@index');
+});
+
 
 Route::group(['domain' => 'bplug.in'], function () {
     Route::get('/', function () {

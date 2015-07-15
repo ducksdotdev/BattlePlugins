@@ -6,24 +6,20 @@
                     <div class="grid-25">
                         <div class="ui segment">
                             <div class="item">
-                                <div class="content text-center">
+                                <div class="content">
                                     <strong>
                                         {{ explode(' ', $build->fullDisplayName)[0] }}
                                         {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
                                     </strong>
 
-                                    <div class="description">
-                                        Last updated <span
-                                                title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
-                                        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}
-                                    </span>
-                                    </div>
-                                    <div class="top-margin ten">
-                                        <a href="{{ $build->url }}" class="ui button icon labeled mini"><i
-                                                    class="icon book"></i> Build Details</a>
+                                    <span class="pull-right">
                                         <a href="{{ action('Download\JenkinsController@download', ['job'=>explode(' ', $build->fullDisplayName)[0], 'build'=>$build->number]) }}"
-                                           class="ui button green mini labeled icon"><i class="icon download"></i>
-                                            Download</a>
+                                           class="ui button green mini circular icon"><i class="icon download"></i></a>
+                                    </span>
+                                    <div class="description">
+                                        Last updated
+                                            <span title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
+                                        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</span>
                                     </div>
                                 </div>
                             </div>

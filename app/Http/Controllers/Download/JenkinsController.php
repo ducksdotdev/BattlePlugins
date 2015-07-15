@@ -6,6 +6,7 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Models\ProductionBuilds;
 use App\Tools\URL\Domain;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class JenkinsController extends Controller {
 
@@ -19,7 +20,9 @@ class JenkinsController extends Controller {
         return redirect()->back();
     }
 
-    public function updateJenkins() {
+    public function updateJenkins($event = "Manual") {
+        Log::info("Updating Jenkins Jobs from webhook event: $event");
+
         if (Domain::remoteFileExists("http://ci.battleplugins.com"))
             $this->dispatch(new UpdateJobs());
         else

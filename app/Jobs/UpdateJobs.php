@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Tools\Misc\Jenkins;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Support\Facades\Log;
 
 class UpdateJobs extends Job implements SelfHandling {
     use DispatchesJobs;
@@ -16,8 +15,6 @@ class UpdateJobs extends Job implements SelfHandling {
      * @return void
      */
     public function handle() {
-        Log::info("Updating Jenkins Jobs");
-
         $path = storage_path() . "/jenkins/";
         if (is_dir($path))
             exec("rm -fdr $path");

@@ -97,7 +97,9 @@ class Jenkins {
         return 'v' . $content . '-' . $build;
     }
 
-    public static function downloadJar($build) {
+    public static function downloadJar($job, $build) {
+        $build = static::getBuild($job, $build);
+
         foreach ($build->artifacts as $artifact) {
             if (ends_with($artifact->fileName, '.jar')) {
                 $downloads = BuildDownloads::firstOrCreate([
@@ -117,12 +119,7 @@ class Jenkins {
         return $downloads ? $downloads->downloads : 0;
     }
 
-    public static function getJobFromBuild($build) {
+    public static function getJobFromBuild(\stdClass $build) {
         return explode(' ', $build->fullDisplayName)[0];
     }
-
-    public static function deleteBuild($job, $build) {
-        unlink(storage_path() . "/jenkins/$job/$build.json");
-    }
-
 }

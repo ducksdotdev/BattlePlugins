@@ -30,14 +30,12 @@ class JenkinsController extends Controller {
     }
 
     public function download($job, $build) {
-        $build = Jenkins::getBuild($job, $build);
-        $download = Jenkins::downloadJar($build);
+        $download = Jenkins::downloadJar($job, $build);
 
         if ($download)
             return redirect($download);
-        else {
-            Jenkins::deleteBuild($job, $build);
-            return redirect()->back();
-        }
+
+        $this->dispatch(new UpdateJobs());
+        return redirect()->back();
     }
 }

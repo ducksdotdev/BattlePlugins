@@ -32,19 +32,21 @@ class UpdateBuild extends Job implements SelfHandling {
      * @return void
      */
     public function handle() {
-        $url = env('JENKINS_URL') . '/job/' . $this->job . '/' . $this->build . '/api/json';
-        $content = file_get_contents($url);
-
-        $path = storage_path() . "/jenkins/$this->job/";
-        if (!is_dir($path))
-            mkdir($path, 0777, true);
-
-        file_put_contents($path . $this->build . ".json", $content);
-
-        $url = env('JENKINS_URL') . '/job/' . $this->job . '/' . $this->build . '/artifact/pom.xml';
-        if (Domain::remoteFileExists($url)) {
+        if (Domain::remoteFileExists("http://ci.battleplugins.com")) {
+            $url = env('JENKINS_URL') . '/job/' . $this->job . '/' . $this->build . '/api/json';
             $content = file_get_contents($url);
-            file_put_contents($path . $this->build . ".xml", $content);
+
+            $path = storage_path() . "/jenkins/$this->job/";
+            if (!is_dir($path))
+                mkdir($path, 0777, true);
+
+            file_put_contents($path . $this->build . ".json", $content);
+
+            $url = env('JENKINS_URL') . '/job/' . $this->job . '/' . $this->build . '/artifact/pom.xml';
+            if (Domain::remoteFileExists($url)) {
+                $content = file_get_contents($url);
+                file_put_contents($path . $this->build . ".xml", $content);
+            }
         }
     }
 }

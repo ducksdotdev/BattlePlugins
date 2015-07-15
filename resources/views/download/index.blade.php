@@ -61,7 +61,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if($stableBuilds)
+                @if(count($stableBuilds))
                     @foreach($stableBuilds as $build)
                         @include('download.partials.build')
                     @endforeach

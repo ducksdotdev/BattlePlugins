@@ -23,7 +23,7 @@ class Jenkins {
             $path = storage_path() . "/jenkins/jobs.json";
             if (file_exists($path))
                 return json_decode(file_get_contents($path));
-            else return null;
+            else return [];
         }
     }
 
@@ -55,20 +55,18 @@ class Jenkins {
         if ($job) {
             $job = Jenkins::getJobs($job);
 
-            foreach ($job->builds as $build)
-                array_push($builds, Jenkins::getBuild($job->name, $build->number));
+            if ($job) {
+                foreach ($job->builds as $build)
+                    array_push($builds, Jenkins::getBuild($job->name, $build->number));
+            }
         } else {
             $jobs = static::getJobs();
+            foreach ($jobs as $job) {
+                $job = static::getJobs($job->name);
 
-            if ($jobs) {
-                foreach ($jobs as $job) {
-                    $job = static::getJobs($job->name);
-
-                    foreach ($job->builds as $build)
-                        $builds[] = static::getBuild($job->name, $build->number);
-                }
-            } else
-                return null;
+                foreach ($job->builds as $build)
+                    $builds[] = static::getBuild($job->name, $build->number);
+            }
         }
 
         $builds = array_sort($builds, function ($value) {

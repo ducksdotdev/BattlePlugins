@@ -39,7 +39,8 @@
                 <script type="text/javascript">
                     /* * * CONFIGURATION VARIABLES * * */
                     var disqus_shortname = 'battleplugins';
-                    var disqus_identifier = 'blog{{ $blog->id }}';
+                    var disqus_title = '{{ $blog->title }}';
+                    var disqus_url = '{{ action('Blog\PageController@index', ['id'=>$blog->id])  }}';
 
                     /* * * DON'T EDIT BELOW THIS LINE * * */
                     (function () {

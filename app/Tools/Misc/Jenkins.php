@@ -14,10 +14,17 @@ class Jenkins {
     }
 
     public static function getJobs($job = null) {
-        if ($job)
-            return json_decode(file_get_contents(storage_path() . "/jenkins/$job.json"));
-        else
-            return json_decode(file_get_contents(storage_path() . "/jenkins/jobs.json"));
+        if ($job) {
+            $path = storage_path() . "/jenkins/$job.json";
+            if (file_exists($path))
+                return json_decode(file_get_contents($path));
+            else return null;
+        } else {
+            $path = storage_path() . "/jenkins/jobs.json";
+            if (file_exists($path))
+                return json_decode(file_get_contents($path));
+            else return null;
+        }
     }
 
     public static function getBuild($job, $build) {

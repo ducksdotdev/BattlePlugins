@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\UpdateJobs;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Models\ProductionBuilds;
+use App\Tools\URL\Domain;
 use Auth;
 
 class JenkinsController extends Controller {
@@ -19,7 +20,7 @@ class JenkinsController extends Controller {
     }
 
     public function updateJenkins() {
-        if (Cache::get('serverData')['servers'][0]['online'])
+        if (Domain::isOnline('ci.battleplugins.com'))
             $this->dispatch(new UpdateJobs());
         else
             return "The CI server is offline.";

@@ -58,12 +58,17 @@ class Jenkins {
             foreach ($job->builds as $build)
                 array_push($builds, Jenkins::getBuild($job->name, $build->number));
         } else {
-            foreach (static::getJobs() as $job) {
-                $job = static::getJobs($job->name);
+            $jobs = static::getJobs();
 
-                foreach ($job->builds as $build)
-                    $builds[] = static::getBuild($job->name, $build->number);
-            }
+            if ($jobs) {
+                foreach ($jobs as $job) {
+                    $job = static::getJobs($job->name);
+
+                    foreach ($job->builds as $build)
+                        $builds[] = static::getBuild($job->name, $build->number);
+                }
+            } else
+                return null;
         }
 
         $builds = array_sort($builds, function ($value) {

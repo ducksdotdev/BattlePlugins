@@ -111,6 +111,15 @@
                 </div>
             </div>
         @endif
+        <div class="grid-100 text-center">
+            <strong>
+                @if($server_online)
+                    <div class="ui message positive">The download server is online.</div>
+                @else
+                    <div class="ui message negative">The download server is offline.</div>
+                @endif
+            </strong>
+        </div>
     </div>
 </div>
 @include('footer')

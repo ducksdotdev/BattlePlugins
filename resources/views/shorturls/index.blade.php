@@ -41,7 +41,7 @@
                 {!! Form::open(['url'=>URL::to('/create', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
                 <div class="fields">
                     <div class="thirteen wide field">
-                        {!! Form::text('url', '', ['id'=>'url','placeholder'=>'URL to Shorten']) !!}
+                        {!! Form::text('url', '', ['id'=>'url','placeholder'=>'URL to Shorten', 'autofocus'=>'autofocus']) !!}
                     </div>
                     <div class="text-right three wide field">
                         <button class="ui button green">Shorten URL</button>

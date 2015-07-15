@@ -34,11 +34,15 @@ class Jenkins {
     public static function getStableBuilds($job = null, $limit = null, $start = 0) {
         $stableBuilds = [];
 
-        foreach (static::getAllBuilds($job) as $build) {
-            if ($build->result == 'SUCCESS')
-                $stableBuilds[] = $build;
-        }
+        $builds = static::getAllBuilds($job);
 
+        if ($builds) {
+            foreach ($builds as $build) {
+                if ($build->result == 'SUCCESS')
+                    $stableBuilds[] = $build;
+            }
+        }
+        
         $stableBuilds = array_sort($stableBuilds, function ($value) {
             return -1 * $value->timestamp;
         });

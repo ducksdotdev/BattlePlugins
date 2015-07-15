@@ -13,7 +13,7 @@
 
 <div class="item">
     <div class="header">
-        <img src="{{ $avatar }}" class="ui mini avatar image"> {{ auth()->user()->displayname}}
+        {{ auth()->user()->displayname}}
     </div>
     <div class="menu">
         <a href="{{ action('Admin\PageController@settings') }}" class="item">Settings</a>

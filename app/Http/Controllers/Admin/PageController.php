@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller {
     protected $updateMins = 1;
+
     /**
      * @var Request
      */
@@ -30,10 +31,8 @@ class PageController extends Controller {
 
         if (auth()->check()) {
             view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
-            view()->share('avatar', GitHub::getAvatar(auth()->user()->displayname));
+            view()->share('alert_bar', ServerSetting::get('alert_bar'));
         }
-
-        view()->share('alert_bar', ServerSetting::get('alert_bar'));
 
         $this->request = $request;
     }

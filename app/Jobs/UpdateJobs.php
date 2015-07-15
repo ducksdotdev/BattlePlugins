@@ -16,8 +16,10 @@ class UpdateJobs extends Job implements SelfHandling {
      */
     public function handle() {
         $path = storage_path() . "/jenkins/";
-        if (!is_dir($path))
-            mkdir($path, 0777, true);
+        if (is_dir($path))
+            delete($path);
+
+        mkdir($path, 0777, true);
 
         $url = env('JENKINS_URL') . '/api/json';
         $content = json_decode(file_get_contents($url))->jobs;

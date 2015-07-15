@@ -139,6 +139,7 @@ Route::group(['domain' => 'short.' . $url], function () {
 
 Route::group(['domain' => 'voice.' . $url], function () {
     Route::get('/', 'Voice\PageController@index');
+    Route::get('/feed', 'Voice\PageController@feed');
 });
 
 

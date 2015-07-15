@@ -19,7 +19,10 @@ class JenkinsController extends Controller {
     }
 
     public function updateJenkins() {
-        $this->dispatch(new UpdateJobs());
+        if (Cache::get('serverData')['servers'][0]['online'])
+            $this->dispatch(new UpdateJobs());
+        else
+            return "The CI server is offline.";
     }
 
     public function download($job, $build) {

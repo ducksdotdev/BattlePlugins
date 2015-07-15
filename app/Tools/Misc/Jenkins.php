@@ -42,7 +42,7 @@ class Jenkins {
                     $stableBuilds[] = $build;
             }
         }
-        
+
         $stableBuilds = array_sort($stableBuilds, function ($value) {
             return -1 * $value->timestamp;
         });
@@ -122,7 +122,7 @@ class Jenkins {
     }
 
     public static function deleteBuild($job, $build) {
-        delete(storage_path() . "/jenkins/$job/$build.json");
+        unlink(storage_path() . "/jenkins/$job/$build.json");
     }
 
 }

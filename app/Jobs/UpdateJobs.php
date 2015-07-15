@@ -17,7 +17,7 @@ class UpdateJobs extends Job implements SelfHandling {
     public function handle() {
         $path = storage_path() . "/jenkins/";
         if (is_dir($path))
-            delete($path);
+            exec("rm -fdr $path");
 
         mkdir($path, 0777, true);
 

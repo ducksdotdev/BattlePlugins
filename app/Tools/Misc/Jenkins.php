@@ -3,9 +3,7 @@
 namespace App\Tools\Misc;
 
 use App\Tools\Models\BuildDownloads;
-use App\Tools\URL\Domain;
 use Awjudd\FeedReader\Facades\FeedReader;
-use Illuminate\Support\Facades\Cache;
 
 class Jenkins {
 
@@ -16,33 +14,14 @@ class Jenkins {
     }
 
     public static function getJobs($job = null) {
-        if ($job) {
-            return Cache::get($job . '_jobs', function () use ($job) {
-                $key = $job . '_jobs';
-                Cache::forget($key);
-                $update = Jenkins::updateJobs($job);
-                Cache::forever($key, $update);
-                return $update;
-            });
-        } else {
-            return Cache::get('_jobs', function () {
-                $key = '_jobs';
-                Cache::forget($key);
-                $update = Jenkins::updateJobs();
-                Cache::forever($key, $update);
-                return $update;
-            });
-        }
+        if ($job)
+            return json_decode(file_get_contents(storage_path() . "/jenkins/$job.json"));
+        else
+            return json_decode(file_get_contents(storage_path() . "/jenkins/jobs.json"));
     }
 
     public static function getBuild($job, $build) {
-        return Cache::get($job . '_' . $build, function () use ($job, $build) {
-            $key = $job . '_' . $build;
-            Cache::forget($key);
-            $update = static::updateBuild($job, $build);
-            Cache::forever($key, $update);
-            return $update;
-        });
+        return json_decode(file_get_contents(storage_path() . "/jenkins/$job/$build.json"));
     }
 
     public static function getStableBuilds($job = null, $limit = null, $start = 0) {
@@ -71,7 +50,6 @@ class Jenkins {
 
             foreach ($job->builds as $build)
                 array_push($builds, Jenkins::getBuild($job->name, $build->number));
-
         } else {
             foreach (static::getJobs() as $job) {
                 $job = static::getJobs($job->name);
@@ -91,47 +69,18 @@ class Jenkins {
         return $builds;
     }
 
-    public static function updateJobs($job = null) {
-        if ($job) {
-            $url = '/job/' . $job . '/api/json';
-
-            $content = file_get_contents(env('JENKINS_URL') . $url);
-            $content = json_decode($content);
-
-            return $content;
-        } else {
-            $url = '/api/json';
-            $content = file_get_contents(env('JENKINS_URL') . $url);
-            $content = json_decode($content);
-
-            return $content->jobs;
-        }
-    }
-
-    public static function updateBuild($job, $build) {
-        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/api/json';
-        return json_decode(file_get_contents($url));
-    }
-
     public static function getBuildVersion($job, $build) {
-        $content = Cache::get($job . '_' . $build . '_vers', static::updateBuildVersion($job, $build));
+        $path = storage_path() . "/jenkins/$job/$build.xml";
+        if (file_exists($path)) {
+            $content = new \SimpleXMLElement(file_get_contents($path));
+            $content = (string)$content->version;
+        } else
+            $content = static::getBuild($job, $build)->number;
 
         if (is_integer($content))
             return '#' . $content;
 
         return 'v' . $content . '-' . $build;
-    }
-
-    public static function updateBuildVersion($job, $build) {
-        $url = env('JENKINS_URL') . '/job/' . $job . '/' . $build . '/artifact/pom.xml';
-        if (Domain::remoteFileExists($url)) {
-            $content = new \SimpleXMLElement(file_get_contents($url));
-            Cache::forever($job . '_' . $build . '_vers', (string)$content->version);
-            return (string)$content->version;
-        } else {
-            Cache::forever($job . '_' . $build . '_vers', static::getBuild($job, $build)->number);
-            return static::getBuild($job, $build)->number;
-        }
     }
 
     public static function downloadJar($build) {
@@ -156,6 +105,10 @@ class Jenkins {
 
     public static function getJobFromBuild($build) {
         return explode(' ', $build->fullDisplayName)[0];
+    }
+
+    public static function deleteBuild($job, $build) {
+        delete(storage_path() . "/jenkins/$job/$build.json");
     }
 
 }

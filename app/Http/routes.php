@@ -76,10 +76,10 @@ Route::group(['domain' => 'paste.' . $url], function () {
 
 Route::group(['domain' => 'dl.' . $url], function () {
     Route::get('/', 'Download\PageController@index');
+    Route::get('/update', 'Download\JenkinsController@updateJenkins');
 
     Route::group(['prefix' => 'job'], function () {
         Route::get('/{job?}', 'Download\PageController@index');
-        Route::get('/{job}/update/{build?}', 'Download\JenkinsController@updateJobs');
         Route::get('/{job}/download/{build?}', 'Download\JenkinsController@download');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {

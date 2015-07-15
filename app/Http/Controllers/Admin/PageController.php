@@ -70,19 +70,19 @@ class PageController extends Controller {
             $downloads += $d->downloads;
 
         return view('admin.index', [
-            'title' => 'Dashboard',
-            'issues' => $issues,
-            'blogs' => count(Blog::all()),
-            'tasks' => new Task,
+            'title'        => 'Dashboard',
+            'issues'       => $issues,
+            'blogs'        => count(Blog::all()),
+            'tasks'        => new Task,
             'displaynames' => $displaynames,
-            'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
-            'updateMins' => $this->updateMins,
-            'github' => GitHub::getEventsFeed(),
-            'myTasks' => $myTasks,
-            'closedTasks' => $closed,
-            'pastes' => count(Paste::all()),
-            'urls' => count(ShortUrl::all()),
-            'downloads' => $downloads
+            'jenkins'      => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
+            'updateMins'   => $this->updateMins,
+            'github'       => GitHub::getEventsFeed(),
+            'myTasks'      => $myTasks,
+            'closedTasks'  => $closed,
+            'pastes'       => count(Paste::all()),
+            'urls'         => count(ShortUrl::all()),
+            'downloads'    => $downloads
         ]);
     }
 
@@ -113,12 +113,13 @@ class PageController extends Controller {
 
     public function cms() {
         return view('admin.cms', [
-            'title' => 'Manage Content',
-            'jenkins' => ServerSetting::get('jenkins'),
+            'title'        => 'Manage Content',
+            'jenkins'      => ServerSetting::get('jenkins'),
             'dash_jenkins' => ServerSetting::get('dash_jenkins'),
             'registration' => ServerSetting::get('registration'),
-            'footer' => ServerSetting::get('footer'),
-            'alert_bar' => ServerSetting::get('alert_bar')
+            'footer'       => ServerSetting::get('footer'),
+            'alert_bar'    => ServerSetting::get('alert_bar'),
+            'comment_feed' => ServerSetting::get('comment_feed')
         ]);
     }
 
@@ -133,10 +134,10 @@ class PageController extends Controller {
 
     public function github() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
-            'github' => GitHub::getEventsFeed(100),
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(100),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 
@@ -148,12 +149,12 @@ class PageController extends Controller {
         $logs = new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
 
         return view('admin.logs', [
-            'title' => 'Logs',
-            'logs' => $logs,
-            'files' => LaravelLogViewer::getFiles(true),
+            'title'        => 'Logs',
+            'logs'         => $logs,
+            'files'        => LaravelLogViewer::getFiles(true),
             'current_file' => LaravelLogViewer::getFileName(),
-            'perPage' => $perPage,
-            'url' => $this->request->url()
+            'perPage'      => $perPage,
+            'url'          => $this->request->url()
         ]);
     }
 }

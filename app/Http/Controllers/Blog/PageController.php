@@ -13,7 +13,8 @@ class PageController extends Controller {
         $blog = Blog::latest()->first();
         $obj = [
             'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
-            'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com')
+            'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com'),
+            'comment_feed' => ServerSetting::get('comment_feed')
         ];
 
         if (!$blog)

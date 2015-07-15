@@ -61,15 +61,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @if(count($stableBuilds))
-                    @foreach($stableBuilds as $build)
-                        @include('download.partials.build')
-                    @endforeach
-                @else
-                    <tr>
-                        <td colspan="4">There are no builds!</td>
-                    </tr>
-                @endif
+                @foreach($stableBuilds as $build)
+                    @include('download.partials.build')
+                @endforeach
                 </tbody>
             </table>
         @else

@@ -50,24 +50,28 @@
             @endif
             Builds:
         </h2>
-        @if(count($stableBuilds) > 0)
-            <table class="ui striped table">
-                <thead class="hide-on-mobile">
-                <tr>
-                    <th>Build Number</th>
-                    <th>Created</th>
-                    <th>Downloads</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($stableBuilds as $build)
-                    @include('download.partials.build')
-                @endforeach
-                </tbody>
-            </table>
+        @if($server_online)
+            @if(count($stableBuilds) > 0)
+                <table class="ui striped table">
+                    <thead class="hide-on-mobile">
+                    <tr>
+                        <th>Build Number</th>
+                        <th>Created</th>
+                        <th>Downloads</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($stableBuilds as $build)
+                        @include('download.partials.build')
+                    @endforeach
+                    </tbody>
+                </table>
+            @else
+                <div class="ui message info">There are no builds!</div>
+            @endif
         @else
-            <div class="ui message info">There are no builds!</div>
+            <div class="ui message negative">The download server is offline!</div>
         @endif
     </div>
     <div class="grid-30 grid-parent">
@@ -111,15 +115,6 @@
                 </div>
             </div>
         @endif
-        <div class="grid-100 text-center">
-            <strong>
-                @if($server_online)
-                    <div class="ui message positive">The download server is online.</div>
-                @else
-                    <div class="ui message negative">The download server is offline.</div>
-                @endif
-            </strong>
-        </div>
     </div>
 </div>
 @include('footer')

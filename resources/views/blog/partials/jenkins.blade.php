@@ -1,4 +1,4 @@
-@if(count($jenkins) > 0)
+@if($download_server && count($jenkins) > 0)
     <div class="grid-container">
         <div class="grid-100 grid-parent">
             <div class="ui items">

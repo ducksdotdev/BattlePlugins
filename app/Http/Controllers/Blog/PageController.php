@@ -5,12 +5,16 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Models\Blog;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
+use App\Tools\URL\Domain;
 
 class PageController extends Controller {
 
     public function index() {
         $blog = Blog::latest()->first();
-        $obj = ['jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null];
+        $obj = [
+            'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
+            'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com')
+        ];
 
         if (!$blog)
             return view('blog.index', $obj);

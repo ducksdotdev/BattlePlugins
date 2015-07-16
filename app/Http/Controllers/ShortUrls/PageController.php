@@ -16,14 +16,13 @@ class PageController extends Controller {
     public function redirect($path) {
         $url = ShortUrl::wherePath($path)->first();
 
-        if ($url && Domain::remoteFileExists($url->url)) {
+        if ($url) {
             ShortUrl::wherePath($path)->update([
                 'last_used' => Carbon::now()
             ]);
 
             return redirect($url->url);
-        } elseif ($url && !Domain::remoteFileExists($url->url))
-            ShortUrl::wherePath($path)->delete();
+        }
 
         return abort(404);
     }

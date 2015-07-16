@@ -167,7 +167,6 @@ class PageController extends Controller {
         return view('admin.shorturls', [
             'title' => 'Short URLs',
             'urls' => $urls,
-            'urlCount' => count(ShortUrl::all()),
             'perPage' => $perPage
         ]);
     }

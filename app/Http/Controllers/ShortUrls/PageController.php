@@ -17,7 +17,7 @@ class PageController extends Controller {
         $url = ShortUrl::wherePath($path)->first();
 
         if ($url && Domain::remoteFileExists($url->url)) {
-            ShortUrl::whereUrl($path)->update([
+            ShortUrl::wherePath($path)->update([
                 'last_used' => Carbon::now()
             ]);
 

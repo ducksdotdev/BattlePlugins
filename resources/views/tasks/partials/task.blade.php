@@ -16,7 +16,9 @@
                 @if($task->assigned_to != 0)
                     to <span class="name">{{ $displaynames[$task->assigned_to] }}</span>
                 @endif
-                by <span class="name">{{ $displaynames[$task->creator] }}</span>
+                @if(array_key_exists($task->creator, $displaynames))
+                    by <span class="name">{{ $displaynames[$task->creator] }}</span>
+                @endif
             </small>
         </div>
         <div class="description editable">

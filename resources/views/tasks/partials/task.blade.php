@@ -12,14 +12,14 @@
             @if(Auth::check() && $task->public)
                 (Public)
             @endif
-            <small>Assigned
-                @if($task->assigned_to != 0)
-                    to <span class="name">{{ $displaynames[$task->assigned_to] }}</span>
-                @endif
-                @if(array_key_exists($task->creator, $displaynames))
+            @if(array_key_exists($task->creator, $displaynames))
+                <small>Assigned
+                    @if($task->assigned_to != 0)
+                        to <span class="name">{{ $displaynames[$task->assigned_to] }}</span>
+                    @endif
                     by <span class="name">{{ $displaynames[$task->creator] }}</span>
-                @endif
-            </small>
+                </small>
+            @endif
         </div>
         <div class="description editable">
             {!! Markdown::convertToHTML(strip_tags($task->content)) !!}

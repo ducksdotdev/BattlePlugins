@@ -70,7 +70,13 @@ class PasteController extends Controller {
         else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
             return abort(403);
 
-        $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+        $file = storage_path() . "/app/pastes/" . $paste->slug . ".txt";
+        if (!file_exists($file)) {
+            Paste::whereSlug($slug)->delete();
+            return abort(404);
+        }
+
+        $content = file_get_contents($file);
 
         $lines_arr = preg_split('/\n/', $content);
         $lines = count($lines_arr);

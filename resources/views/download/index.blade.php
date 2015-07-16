@@ -88,7 +88,7 @@
                 @endforeach
             </div>
         </div>
-        @if($current_job)
+        @if($current_job && $server_online)
             <div class="grid-100">
                 <h2>Job Status</h2>
 

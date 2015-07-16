@@ -6,6 +6,9 @@ return [
         'Feeds' => [
             'Logs' => 'Admin\PageController@logs',
             'GitHub' => 'Admin\PageController@github'
+        ],
+        'Statistics' => [
+            'Short URLs' => 'Admin\PageController@shortUrls'
         ]
     ],
     'admin' => [

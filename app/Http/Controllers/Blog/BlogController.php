@@ -27,7 +27,7 @@ class BlogController extends Controller {
             'author' => Auth::user()->id
         ]);
 
-        return redirect('/');
+        return redirect()->back();
     }
 
     public function deleteBlog($id) {

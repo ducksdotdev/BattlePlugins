@@ -107,6 +107,14 @@ Route::group(['domain' => 'admin.' . $url], function () {
         });
     });
 
+    Route::group(['prefix' => 'statistics'], function () {
+        Route::get('/shorturls/{currPage?}/{perPage?}', 'Admin\PageController@shortUrls');
+
+        Route::group(['before' => 'csrf'], function () {
+            Route::post('/shorturls/delete/{id}', 'Admin\StatisticsController@deleteShortUrl');
+        });
+    });
+
     Route::group(['prefix' => 'tools'], function () {
         Route::get('/alert', 'Admin\PageController@alerts');
         Route::get('/alert/json', 'Admin\ToolsController@jsonAlerts');

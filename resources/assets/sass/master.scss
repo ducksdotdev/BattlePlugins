@@ -451,3 +451,8 @@ button.ui.button.link {
     color: #00b2f3;
   }
 }
+
+.break-all {
+  -ms-word-break: break-all;
+  word-break: break-all;
+}

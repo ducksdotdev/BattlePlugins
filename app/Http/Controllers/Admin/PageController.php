@@ -13,6 +13,7 @@ use App\Tools\Models\ShortUrl;
 use App\Tools\Models\Task;
 use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
+use App\Tools\URL\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
@@ -82,7 +83,8 @@ class PageController extends Controller {
             'closedTasks'  => $closed,
             'pastes'       => count(Paste::all()),
             'urls'         => count(ShortUrl::all()),
-            'downloads'    => $downloads
+            'downloads'    => $downloads,
+            'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
     }
 
@@ -135,7 +137,7 @@ class PageController extends Controller {
     public function github() {
         return view('admin.github', [
             'title'   => 'GitHub Information',
-            'github'  => GitHub::getEventsFeed(100),
+            'github'  => GitHub::getEventsFeed(25),
             'members' => GitHub::getOrgMembers(),
             'repos'   => GitHub::getRepositories()
         ]);

@@ -1,27 +1,25 @@
-@foreach($github as $item)
-    <div class="ui feed segment">
-        <div class="event">
-            <div class="label">
-                <a href="http://github.com/{{ $item->actor->login }}">
-                    <img src="{{ $item->actor->avatar_url }}">
-                </a>
-            </div>
-            <div class="content">
-                <div class="date">
-                    {{ (new \Carbon\Carbon($item->created_at))->diffForHumans() }}
+@if($github)
+    @foreach($github as $item)
+        <div class="ui feed segment">
+            <div class="event">
+                <div class="label">
+                    <a href="http://github.com/{{ $item->actor->login }}">
+                        <img src="{{ $item->actor->avatar_url }}">
+                    </a>
                 </div>
-                <div class="summary">
-                    @if($item->type == 'PushEvent')
-                        @include('admin.partials.dashboard.gittypes.push')
-                    @elseif($item->type == 'IssueCommentEvent')
-                        @include('admin.partials.dashboard.gittypes.issuecomment')
-                    @elseif($item->type == 'IssuesEvent')
-                        @include('admin.partials.dashboard.gittypes.issues')
-                    @elseif($item->type == 'CommitCommentEvent')
-                        @include('admin.partials.dashboard.gittypes.commitcomment')
-                    @endif
+                <div class="content">
+                    <div class="date">
+                        {{ (new \Carbon\Carbon($item->created_at))->diffForHumans() }}
+                    </div>
+                    <div class="summary">
+                        @include('admin.partials.dashboard.gittypes.'.$item->type)
+                    </div>
                 </div>
             </div>
         </div>
+    @endforeach
+@else
+    <div class="ui message negative text-center">
+        <strong>We can't connect GitHub's api!</strong>
     </div>
-@endforeach
+@endif

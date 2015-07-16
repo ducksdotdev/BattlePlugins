@@ -3,7 +3,6 @@
 
 namespace App\Tools\Misc;
 
-use App\Tools\URL\Domain;
 use Illuminate\Support\Facades\Cache;
 
 class GitHub {
@@ -63,21 +62,16 @@ class GitHub {
 
             $url = $url . '?' . http_build_query($params);
 
-            if (Domain::remoteFileExists($url)) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'apache');
+            $data = curl_exec($ch);
+            curl_close($ch);
 
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_USERAGENT, 'apache');
-                $data = curl_exec($ch);
-                curl_close($ch);
+            Cache::put($name, $data, 30);
 
-                Cache::put($name, $data, 30);
-
-                return $data;
-            }
-
-            return null;
+            return $data;
         });
 
         return json_decode($data);

@@ -26,7 +26,7 @@
     @if(Auth::check())
         <div class="actions grid-10 text-right">
             {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
-            <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} || {{$task->creator}} == 24}"><i class="icon check"></i></button>
+            <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} }"><i class="icon check"></i></button>
             {!! Form::close() !!}
             {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
             <button class="circular red small ui icon button"><i class="icon trash"></i></button>

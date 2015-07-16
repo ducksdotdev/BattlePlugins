@@ -29,22 +29,22 @@
             <div class="text-center">
                 @if ($urls->lastPage() > 1)
                     <div class="ui menu pagination">
-                        <a href="/statistics/shorturls/1"
+                        <a href="/statistics/shorturls/1/{{ $perPage }}"
                            class="ui item {{ ($urls->currentPage() == 1) ? ' disabled' : '' }}">
                             <i class="icon angle double left"></i>
                         </a>
-                        <a href="/statistics/shorturls/{{ $urls->currentPage()-1 }}"
+                        <a href="/statistics/shorturls/{{ $urls->currentPage()-1 }}/{{ $perPage }}"
                            class="ui item {{ ($urls->currentPage() == 1) ? ' disabled' : '' }}">
                             <i class="icon angle left"></i>
                         </a>
                     <span class="ui item disabled">
                         {{ $urls->currentPage() }}
                     </span>
-                        <a href="/statistics/shorturls/{{ $urls->currentPage()+1 }}"
+                        <a href="/statistics/shorturls/{{ $urls->currentPage()+1 }}/{{ $perPage }}"
                            class="ui item {{ ($urls->currentPage() == $urls->lastPage()) ? ' disabled' : '' }}">
                             <i class="icon angle right"></i>
                         </a>
-                        <a href="/statistics/shorturls/{{ $urls->lastPage() }}"
+                        <a href="/statistics/shorturls/{{ $urls->lastPage() }}/{{ $perPage }}"
                            class="ui item {{ ($urls->currentPage() == $urls->lastPage()) ? ' disabled' : '' }}">
                             <i class="icon angle double right"></i>
                         </a>

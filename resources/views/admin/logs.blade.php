@@ -21,22 +21,22 @@
         <div class="text-center">
             @if ($logs->lastPage() > 1)
                 <div class="ui menu pagination">
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/1"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/1/{{ $perPage }}"
                        class="ui item {{ ($logs->currentPage() == 1) ? ' disabled' : '' }}">
                         <i class="icon angle double left"></i>
                     </a>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()-1 }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()-1 }}/{{ $perPage }}"
                        class="ui item {{ ($logs->currentPage() == 1) ? ' disabled' : '' }}">
                         <i class="icon angle left"></i>
                     </a>
                     <span class="ui item disabled">
                         {{ $logs->currentPage() }}
                     </span>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()+1 }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()+1 }}/{{ $perPage }}"
                        class="ui item {{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }}">
                         <i class="icon angle right"></i>
                     </a>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->lastPage() }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->lastPage() }}/{{ $perPage }}"
                             class="ui item {{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }}">
                         <i class="icon angle double right"></i>
                     </a>

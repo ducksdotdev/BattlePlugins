@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Tools\Models\ShortUrl;
 use App\Tools\URL\Domain;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PageController extends Controller {

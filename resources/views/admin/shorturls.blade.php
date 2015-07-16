@@ -7,7 +7,7 @@
                 <tr>
                     <th>Short URL</th>
                     <th>Redirect</th>
-                    <th>Last Used</th>
+                    <th width="15%">Last Used</th>
                     <th></th>
                 </tr>
                 </thead>

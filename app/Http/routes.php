@@ -80,6 +80,7 @@ Route::group(['domain' => 'dl.' . $url], function () {
     Route::group(['prefix' => 'job'], function () {
         Route::get('/{job?}', 'Download\PageController@index');
         Route::get('/{job}/download/{build?}', 'Download\JenkinsController@download');
+        Route::get('/{job}/latestVersionImage/{w?}/{h?}/{font_size?}', 'Download\PageController@getLatestVersionImage');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/{job}/production', 'Download\JenkinsController@toggleProduction');

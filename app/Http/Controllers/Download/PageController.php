@@ -5,6 +5,7 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Models\ProductionBuilds;
 use App\Tools\URL\Domain;
 use Auth;
+use Intervention\Image\Facades\Image;
 
 class PageController extends Controller {
 
@@ -22,6 +23,23 @@ class PageController extends Controller {
             'production'    => new ProductionBuilds(),
             'server_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
+    }
+
+    public function getLatestVersionImage($job, $w = 100, $h = 20, $font_size = 20) {
+        $build = Jenkins::getStableBuilds($job);
+
+        if ($build)
+            $vers = Jenkins::getBuildVersion($job, $build[0]->number);
+        else
+            $vers = 'null';
+
+        $img = Image::canvas($w, $h)->text($vers, 0, 2, function ($font) use ($font_size) {
+            $font->file('../public/assets/fonts/tenby-five.otf');
+            $font->size($font_size);
+            $font->valign('top');
+        })->encode('png');
+
+        return response($img, 200, ['Content-Type' => 'image/png']);
     }
 
 }

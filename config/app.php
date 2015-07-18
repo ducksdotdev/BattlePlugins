@@ -151,7 +151,8 @@ return [
          */
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
         'Awjudd\FeedReader\FeedReaderServiceProvider',
-        'Laravel\Socialite\SocialiteServiceProvider'
+        'Laravel\Socialite\SocialiteServiceProvider',
+        'Intervention\Image\ImageServiceProvider'
     ],
 
     /*
@@ -213,6 +214,7 @@ return [
         'ServerSetting' => 'App\Tools\Queries\ServerSetting',
         'Jenkins'       => 'App\Tools\Misc\Jenkins',
         'Socialite'     => Laravel\Socialite\Facades\Socialite::class,
+        'Image'         => 'Intervention\Image\Facades\Image'
     ],
 
 ];

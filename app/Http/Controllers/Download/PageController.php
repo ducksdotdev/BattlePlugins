@@ -26,8 +26,16 @@ class PageController extends Controller {
     }
 
     public function getLatestVersionImage($job, $w = 130, $h = 50, $font_size = 20) {
-        $build = Jenkins::getStableBuilds($job);
+        $build = Jenkins::getAllBuilds($job);
+        return static::getVersionImage($job, $build, $w, $h, $font_size);
+    }
 
+    public function getLatestStableVersionImage($job, $w = 130, $h = 50, $font_size = 20) {
+        $build = Jenkins::getStableBuilds($job);
+        return static::getVersionImage($job, $build, $w, $h, $font_size);
+    }
+
+    private function getVersionImage($job, $build, $w, $h, $font_size) {
         if ($build)
             $vers = Jenkins::getBuildVersion($job, $build[0]->number);
         else

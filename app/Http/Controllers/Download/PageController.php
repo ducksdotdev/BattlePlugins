@@ -5,7 +5,6 @@ use App\Tools\Misc\Jenkins;
 use App\Tools\Models\ProductionBuilds;
 use App\Tools\URL\Domain;
 use Auth;
-use Intervention\Image\Facades\Image;
 
 class PageController extends Controller {
 
@@ -27,26 +26,13 @@ class PageController extends Controller {
 
     public function getLatestVersionImage($job, $w = 130, $h = 50, $font_size = 20) {
         $build = Jenkins::getAllBuilds($job);
-        return static::getVersionImage($job, $build, $w, $h, $font_size);
+        $img = Jenkins::getVersionImage($job, $build, $w, $h, $font_size);
+        return response($img, 200, ['Content-Type' => 'image/png']);
     }
 
     public function getLatestStableVersionImage($job, $w = 130, $h = 50, $font_size = 20) {
         $build = Jenkins::getStableBuilds($job);
-        return static::getVersionImage($job, $build, $w, $h, $font_size);
-    }
-
-    private function getVersionImage($job, $build, $w, $h, $font_size) {
-        if ($build)
-            $vers = Jenkins::getBuildVersion($job, $build[0]->number);
-        else
-            $vers = 'null';
-
-        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
-            $font->file('../public/assets/fonts/tenby-five.otf');
-            $font->size($font_size);
-            $font->valign('top');
-        })->encode('png');
-
+        $img = Jenkins::getVersionImage($job, $build, $w, $h, $font_size);
         return response($img, 200, ['Content-Type' => 'image/png']);
     }
 

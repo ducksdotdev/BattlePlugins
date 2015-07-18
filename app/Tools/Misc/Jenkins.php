@@ -97,6 +97,21 @@ class Jenkins {
         return 'v' . $content . '-' . $build;
     }
 
+    public function getVersionImage($job, $build, $w, $h, $font_size) {
+        if ($build)
+            $vers = static::getBuildVersion($job, $build[0]->number);
+        else
+            $vers = 'null';
+
+        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
+            $font->file('../public/assets/fonts/tenby-five.otf');
+            $font->size($font_size);
+            $font->valign('top');
+        })->encode('png');
+
+        return $img;
+    }
+
     public static function downloadJar($job, $build) {
         $build = static::getBuild($job, $build);
 

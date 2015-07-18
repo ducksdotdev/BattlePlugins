@@ -25,7 +25,7 @@ class PageController extends Controller {
         ]);
     }
 
-    public function getLatestVersionImage($job, $w = 100, $h = 20, $font_size = 20) {
+    public function getLatestVersionImage($job, $w = 130, $h = 50, $font_size = 20) {
         $build = Jenkins::getStableBuilds($job);
 
         if ($build)
@@ -33,7 +33,7 @@ class PageController extends Controller {
         else
             $vers = 'null';
 
-        $img = Image::canvas($w, $h)->text($vers, 0, 2, function ($font) use ($font_size) {
+        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
             $font->file('../public/assets/fonts/tenby-five.otf');
             $font->size($font_size);
             $font->valign('top');

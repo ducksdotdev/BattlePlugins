@@ -159,3 +159,7 @@ Route::group(['domain' => 'bplug.in'], function () {
 
     Route::get('/{url}', 'ShortUrls\PageController@redirect');
 });
+
+Route::group(['domain' => 'battleplugins.org'], function () {
+    return redirect()->action('Blog\PageController@index');
+});

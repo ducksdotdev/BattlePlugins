@@ -5,6 +5,7 @@ namespace App\Tools\URL;
 use App\Tools\Models\ShortUrl;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class Domain {
@@ -55,7 +56,18 @@ class Domain {
         return (0 == $status);
     }
 
-    public static function remoteFileExists($url) {
+    public static function remoteFileExists($url, $cache = false, $cacheLength = 60) {
+        if ($cache) {
+            Cache::get($url . '_file_exists', function () use ($url, $cacheLength) {
+                $status = static::checkFileExists($url);
+                Cache::put($url . '_file_exists', $status, $cacheLength);
+                return $status;
+            });
+        } else
+            return static::checkFileExists($url);
+    }
+
+    private static function checkFileExists($url) {
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_NOBODY, true);

@@ -1,0 +1,2 @@
+<a href="http://github.com/{{ $item->actor->login }}">{{ $item->actor->login }}</a> forked repo <a
+        href="{{ $item->payload->forkee->html_url }}">{{ str_limit($item->payload->forkee->name, 7) }}</a>.

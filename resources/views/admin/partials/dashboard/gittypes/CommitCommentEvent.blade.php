@@ -1,2 +1,2 @@
 <a href="http://github.com/{{ $item->actor->login }}">{{ $item->actor->login }}</a> commented on commit <a
-        href="{{ $item->payload->comment->html_url }}">{{ $item->payload->comment->commit_id }}</a>.
+        href="{{ $item->payload->comment->html_url }}">{{ str_limit($item->payload->comment->commit_id, 7) }}</a>.

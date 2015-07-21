@@ -27,18 +27,6 @@ class LaravelLogViewer
         'alert' => 'red',
     ];
 
-    private static $levels_imgs = [
-        'debug' => 'blue',
-        'info' => 'blue',
-        'notice' => 'blue',
-        'warning' => 'yellow',
-        'error' => 'yellow',
-        'critical' => 'yellow',
-        'alert' => 'yellow',
-    ];
-
-
-
     /**
      * @param string $file
      */
@@ -100,7 +88,6 @@ class LaravelLogViewer
                         $log[] = array(
                             'level' => $level_value,
                             'level_class' => self::$levels_classes[$level_value],
-                            'level_img' => self::$levels_imgs[$level_value],
                             'date' => $current[1],
                             'text' => $current[2],
                             'in_file' => isset($current[3]) ? $current[3] : null,

@@ -33,8 +33,10 @@ class UserController extends Controller {
 
         if (Auth::attempt(['email' => $email, 'password' => $password], $rememberMe))
             return redirect()->intended();
-        else
-            return redirect()->back()->with('error', 'There was an error logging you in. Please make sure your email is correct (and is an @battleplugins.com email). Also, remember that your password is case sensitive.');
+        else {
+            $this->incrementLoginAttempts($this->request);
+            return redirect()->back()->with('error', 'There was an error logging you in. Please make sure your email is correct (and is an @battleplugins.com email). Also, remember that your password is case sensitive.\n' . $this->getLoginAttempts() . ' attempts.');
+        }
     }
 
     public function logout() {

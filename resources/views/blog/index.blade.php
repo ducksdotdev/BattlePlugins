@@ -52,10 +52,5 @@
     @include('blog.modals.createBlog')
 @endif
 @include('footer')
-@if(session()->has('error'))
-    <script type="text/javascript">
-        $("#login").sidebar({duration: 0}).sidebar('toggle')
-    </script>
-@endif
 </body>
 </html>

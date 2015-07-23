@@ -11,10 +11,5 @@
     </div>
 @endif
 @include('tasks.partials.tasks')
-@if(session()->has('error'))
-    <script type="text/javascript">
-        $("#login").sidebar({duration: 0}).sidebar('toggle')
-    </script>
-@endif
 </body>
 </html>

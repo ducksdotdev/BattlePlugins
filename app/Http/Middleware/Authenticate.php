@@ -31,7 +31,7 @@ class Authenticate {
      */
     public function handle($request, Closure $next) {
         if ($this->auth->guest())
-            return redirect()->guest('/login');
+            return redirect()->guest('/auth/login');
 
         return $next($request);
     }

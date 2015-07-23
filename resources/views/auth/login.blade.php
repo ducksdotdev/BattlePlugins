@@ -31,12 +31,18 @@
         </div>
         <div class="ui divided list">
             <div class="item">
-                @if(session()->has('error'))
+                @if(count($errors) > 0)
                     <div id="loginError" class="ui message error">
-                        {{ session('error') }}
+                        There was an error logging you in!
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <p>You have {{ 5 - $attempts }} attempts remaining!</p>
                     </div>
                 @endif
-                {!! Form::open(['url'=>URL::to('/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+                {!! Form::open(['url'=>URL::to('/auth/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
                 <div class="two fields">
                     <div class="field">
                         <label>Email</label>
@@ -49,7 +55,7 @@
                 </div>
                 <div class="ui toggle checkbox">
                     <label>Remember Me?</label>
-                    {!! Form::checkbox('rememberMe') !!}
+                    {!! Form::checkbox('remember') !!}
                 </div>
                 <span class="pull-right">
                     @if(ServerSetting::get('registration'))

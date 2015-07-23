@@ -2,22 +2,18 @@
 
 $url = env('APP_ENV_URL');
 
-Route::get('/login', 'UserController@getLogin');
-Route::get('/logout', 'UserController@logout');
+Route::get('/auth/login', 'Auth\AuthController@getLogin');
+Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+
+Route::get('/password/email', 'PasswordController@getEmail');
+Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
 Route::group(['before' => 'csrf'], function () {
-    Route::post('/login', 'UserController@login');
+    Route::post('/auth/login', 'Auth\AuthController@postLogin');
 
-    // Password reset link request routes...
-    Route::post('/password/email', 'PasswordController@postEmail');
-    // Password reset routes...
-    Route::post('/password/reset', 'PasswordController@postReset');
+    Route::post('/password/email', 'Auth\PasswordController@postEmail');
+    Route::post('/password/reset', 'Auth\PasswordController@postReset');
 });
-
-// Password reset link request routes...
-Route::get('/password/email', 'PasswordController@getEmail');
-// Password reset routes...
-Route::get('/password/reset/{token}', 'PasswordController@getReset');
 
 Route::group(['domain' => $url], function () {
     Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
@@ -103,9 +99,9 @@ Route::group(['domain' => 'admin.' . $url], function () {
         Route::get('/modify', 'Admin\PageController@modifyUser');
 
         Route::group(['before' => 'csrf'], function () {
-            Route::post('/modify/{id}/delete', 'UserController@deleteUser');
-            Route::post('/modify/{id}/admin', 'UserController@toggleAdmin');
-            Route::post('/create', 'UserController@createUser');
+            Route::post('/modify/{id}/delete', 'Auth\Auth\UserController@deleteUser');
+            Route::post('/modify/{id}/admin', 'Auth\UserController@toggleAdmin');
+            Route::post('/create', 'Auth\UserController@createUser');
         });
     });
 
@@ -133,7 +129,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
     });
 
     Route::group(['before' => 'csrf'], function () {
-        Route::post('/settings', 'UserController@changeSettings');
+        Route::post('/settings', 'Auth\UserController@changeSettings');
     });
 
 });

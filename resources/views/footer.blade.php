@@ -16,7 +16,7 @@
                 <br/>
                 <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a>
                 | <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a>
-                | <a href="/logout">Logout</a>
+                | <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
             @endif
         </p>
 

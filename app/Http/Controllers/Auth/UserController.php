@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Tools\Models\User;
 use App\Tools\Queries\CreateAlert;
 use Auth;
@@ -21,27 +22,6 @@ class UserController extends Controller {
 
     public function getLogin() {
         return view('auth.login');
-    }
-
-    public function login() {
-        $email = $this->request->input('email');
-        $password = $this->request->input('password');
-        $rememberMe = $this->request->input('rememberMe');
-
-        if ($this->hasTooManyLoginAttempts($this->request))
-            return $this->sendLockoutResponse($this->request);
-
-        if (Auth::attempt(['email' => $email, 'password' => $password], $rememberMe))
-            return redirect()->intended();
-        else {
-            $this->incrementLoginAttempts($this->request);
-            return redirect()->back()->with('error', 'There was an error logging you in. Please make sure your email is correct (and is an @battleplugins.com email). Also, remember that your password is case sensitive.\n' . $this->getLoginAttempts() . ' attempts.');
-        }
-    }
-
-    public function logout() {
-        Auth::logout();
-        return redirect()->back();
     }
 
     public function changeSettings() {

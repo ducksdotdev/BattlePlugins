@@ -39,7 +39,7 @@
                     <i class="icon plus"></i>
                 </button>
             @else
-                <a href="/login" class="ui button primary">Login</a>
+                <a href="/auth/login" class="ui button primary">Login</a>
             @endif
         </div>
     </div>

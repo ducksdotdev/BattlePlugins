@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Tools\Models\User;
 use App\Tools\Queries\CreateAlert;
 use Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
 
+    use ThrottlesLogins;
+
     private $request;
 
     function __construct(Request $request) {
-
         $this->request = $request;
     }
 
@@ -25,6 +27,9 @@ class UserController extends Controller {
         $email = $this->request->input('email');
         $password = $this->request->input('password');
         $rememberMe = $this->request->input('rememberMe');
+
+        if ($this->hasTooManyLoginAttempts($this->request))
+            return $this->sendLockoutResponse($this->request);
 
         if (Auth::attempt(['email' => $email, 'password' => $password], $rememberMe))
             return redirect()->intended();

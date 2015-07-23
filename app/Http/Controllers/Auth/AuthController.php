@@ -30,7 +30,13 @@ class AuthController extends Controller {
      */
     public function __construct(Request $request) {
         $this->middleware('guest', ['except' => 'getLogout']);
-        view()->share('attempts', $this->getLoginAttempts($request));
+
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles) {
+            view()->share('throttles', $throttles);
+            view()->share('attempts', $this->getLoginAttempts($request));
+        }
     }
 
     /**

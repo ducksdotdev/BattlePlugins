@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="BattleTasks">
+<html lang="en">
 <head>
     @include('mobilecolor')
     @include('paste.partials.head')

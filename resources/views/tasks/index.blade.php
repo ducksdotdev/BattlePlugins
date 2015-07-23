@@ -9,10 +9,6 @@
     <div class="grid-100 text-right">
         <a id="loginButton" href="/login" class="ui button">Login</a>
     </div>
-@else
-    <div class="grid-100 text-right">
-        <a id="logoutButton" href="/logout" class="ui button">Logout</a>
-    </div>
 @endif
 @include('tasks.partials.tasks')
 @if(session()->has('error'))

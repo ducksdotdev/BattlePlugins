@@ -11,14 +11,9 @@
 <body>
 <nav class="header-follow">
     <div class="grid-container">
-        <div class="grid-50 tablet-grid-50 mobile-grid-50 brand">
+        <div class="grid-100 brand">
             <h1>battlewebapi</h1>
         </div>
-        @if(Auth::check())
-            <div class="grid-50 tablet-grid-50 mobile-grid-50 text-right">
-                <a href="/logout" class="ui button primary">Logout</a>
-            </div>
-        @endif
     </div>
 </nav>
 @yield('content')

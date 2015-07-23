@@ -17,6 +17,6 @@
     </div>
     <div class="menu">
         <a href="{{ action('Admin\PageController@settings') }}" class="item">Settings</a>
-        <a href="{{ action('UserController@logout') }}" class="item">Logout</a>
+        <a href="{{ action('Auth\AuthController@getLogout') }}" class="item">Logout</a>
     </div>
 </div>

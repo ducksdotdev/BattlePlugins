@@ -21,7 +21,7 @@
                 </small>
             @endif
         </div>
-        <div class="description editable">
+        <div class="description">
             {!! Markdown::convertToHTML(strip_tags($task->content)) !!}
         </div>
     </div>
@@ -30,7 +30,7 @@
             {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
             <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} }"><i class="icon check"></i></button>
             {!! Form::close() !!}
-            {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
+            {!! Form::open(['url'=>URL::to('/tasks/delete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
             <button class="circular red small ui icon button"><i class="icon trash"></i></button>
             {!! Form::close() !!}
         </div>

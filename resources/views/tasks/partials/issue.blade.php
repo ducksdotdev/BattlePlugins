@@ -15,7 +15,7 @@
                         class="name">{{ $issue->user->login }}</span> {{ (new \Carbon\Carbon($issue->created_at))->diffForHumans() }}
             </small>
         </div>
-        <div class="description editable">
+        <div class="description">
             @if(count($issue->labels) > 0)
                 <p>
                     @foreach($issue->labels as $label)

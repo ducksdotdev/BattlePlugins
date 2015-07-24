@@ -47,7 +47,7 @@ class UserController extends Controller {
             $user->displayname = $displayname;
 
             $user->save();
-            return self::logout();
+            auth()->logout();
         } else
             return $this->redirectBackWithErrors(['Invalid confirmation password.']);
     }

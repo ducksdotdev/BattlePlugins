@@ -42,11 +42,7 @@ class PageController extends Controller {
         foreach (User::all() as $user)
             $displaynames[$user->id] = $user->displayname;
 
-        $userId = auth()->user()->id;
-
         $dash_jenkins = ServerSetting::get('dash_jenkins');
-
-        $tasks = Task::whereCompleted(false);
 
         $myIssues = 0;
         $issues = 0;
@@ -77,7 +73,7 @@ class PageController extends Controller {
             'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
             'updateMins' => $this->updateMins,
             'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks),
+            'myTasks' => count(auth()->user()->tasks()->whereCompleted(false)),
             'closedTasks' => $closed,
             'pastes' => count(Paste::all()),
             'urls' => count(ShortUrl::all()),

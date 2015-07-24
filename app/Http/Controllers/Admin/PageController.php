@@ -50,7 +50,7 @@ class PageController extends Controller {
             'jenkins' => Jenkins::getAllBuilds(null, 3),
             'updateMins' => $this->updateMins,
             'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks()->whereCompleted(false)),
+            'myTasks' => count(auth()->user()->tasks),
             'closedTasks' => count(Task::whereCompleted(true)->get()),
             'pastes' => count(Paste::all()),
             'urls' => count(ShortUrl::all()),

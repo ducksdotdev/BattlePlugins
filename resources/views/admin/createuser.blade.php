@@ -18,7 +18,7 @@
     <div class="grid-100">
         <div class="field">
             {!! Form::label('email', 'Email') !!}
-            {!! Form::text('email', null, ['placeholder'=>'@battleplugins.com']) !!}
+            {!! Form::text('email', null, ['placeholder'=>'Email']) !!}
         </div>
         <div class="field">
             {!! Form::label('displayname', 'Display Name (GitHub Username)') !!}

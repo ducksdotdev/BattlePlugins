@@ -48,7 +48,7 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Email</label>
-                        {!! Form::text('email', '', ['id'=>'email','placeholder'=>'@battleplugins.com']) !!}
+                        {!! Form::text('email', '', ['id'=>'email','placeholder'=>'Email']) !!}
                     </div>
                     <div class="field">
                         <label>Password</label>

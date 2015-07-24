@@ -5,8 +5,8 @@ $url = env('APP_ENV_URL');
 Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 
-Route::get('/password/email', 'PasswordController@getEmail');
-Route::get('/password/reset/{token}', 'PasswordController@getReset');
+Route::get('/password/email', 'Auth\PasswordController@getEmail');
+Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 
 Route::group(['before' => 'csrf'], function () {
     Route::post('/auth/login', 'Auth\AuthController@postLogin');
@@ -99,7 +99,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
         Route::get('/modify', 'Admin\PageController@modifyUser');
 
         Route::group(['before' => 'csrf'], function () {
-            Route::post('/modify/{id}/delete', 'Auth\Auth\UserController@deleteUser');
+            Route::post('/modify/{id}/delete', 'Auth\UserController@deleteUser');
             Route::post('/modify/{id}/admin', 'Auth\UserController@toggleAdmin');
             Route::post('/create', 'Auth\UserController@createUser');
         });

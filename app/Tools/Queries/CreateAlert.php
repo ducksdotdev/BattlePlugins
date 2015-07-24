@@ -2,16 +2,21 @@
 
 namespace App\Tools\Queries;
 
-use App\Tools\Models\Alert;
+use App\Models\Alert;
+use App\Models\User;
+use App\Models\UserAlert;
 
 class CreateAlert {
 
-    public static function make($user, $content, $color = 'default') {
-        Alert::create([
-            'user'    => $user,
-            'content' => $content,
-            'color'   => strtolower($color)
-        ]);
+    public static function make($user, $content) {
+        if ($user instanceof User)
+            $user = $user->id;
+
+        $alert = new Alert();
+        $alert->content = $content;
+        $alert->save();
+
+        $alert->users()->attach($user);
     }
 
 }

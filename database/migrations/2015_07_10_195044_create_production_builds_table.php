@@ -10,7 +10,7 @@ class CreateProductionBuildsTable extends Migration {
      */
     public function up() {
         Schema::create('production_builds', function ($table) {
-            $table->string('id')->unique();
+            $table->string('build')->unique();
         });
     }
 
@@ -20,6 +20,6 @@ class CreateProductionBuildsTable extends Migration {
      * @return void
      */
     public function down() {
-        //
+        Schema::drop('production_builds');
     }
 }

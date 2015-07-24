@@ -7,7 +7,7 @@
 <div id="top"></div>
 @if(!Auth::check())
     <div class="grid-100 text-right">
-        <a id="loginButton" href="/login" class="ui button">Login</a>
+        <a id="loginButton" href="{{ action('Auth\AuthController@getLogin') }}" class="ui button">Login</a>
     </div>
 @endif
 @include('tasks.partials.tasks')

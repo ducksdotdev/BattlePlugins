@@ -3,7 +3,7 @@
 namespace App\Tools\Webhooks;
 
 use App\Jobs\SendPayload;
-use App\Tools\Models\Webhook;
+use App\Models\Webhook;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Webhooks {

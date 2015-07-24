@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Alert;
-use App\Tools\Models\ServerSettings;
-use App\Tools\Models\User;
+use App\Models\ServerSettings;
+use App\Models\User;
 use App\Tools\Queries\CreateAlert;
 use App\Tools\Queries\ServerSetting;
 use Auth;
@@ -26,7 +25,7 @@ class ToolsController extends Controller {
     public function alert() {
         if (Auth::user()->admin) {
             foreach (User::all() as $user) {
-                CreateAlert::make($user->id, $this->request->get('content'), $this->request->get('color'));
+                CreateAlert::make($user, $this->request->get('content'));
             }
 
             return redirect()->back()->with('success', 'Users have been alerted.');
@@ -35,21 +34,25 @@ class ToolsController extends Controller {
     }
 
     public function deleteAlert($id) {
-        $alert = Alert::find($id);
-
-        if ($alert->user == Auth::user()->id)
-            $alert->delete();
-
+        auth()->user()->alerts()->detach($id);
         return redirect()->back();
     }
 
     public function toggleSetting($setting) {
         $value = !ServerSetting::get($setting);
-        ServerSettings::firstOrCreate(['key' => $setting])->update(['value' => $value]);
+
+        ServerSettings::firstOrCreate([
+            'key' => $setting
+        ])->update([
+            'value' => $value,
+            'updated_by' => auth()->user()->id
+        ]);
+
         return redirect()->back();
     }
 
     public function jsonAlerts() {
-        return response()->json(Alert::whereUser(Auth::user()->id)->latest()->get());
+        $alerts = auth()->user()->alerts;
+        return response()->json($alerts);
     }
 }

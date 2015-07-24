@@ -20,19 +20,6 @@
             {!! Form::label('content', 'Alert Content') !!}
             {!! Form::text('content') !!}
         </div>
-        {{--<div class="field">--}}
-            {{--{!! Form::label('color', 'Color') !!}--}}
-            {{--@foreach(config('colors') as $color)--}}
-                {{--<div class="grid-25 top-margin ten">--}}
-                    {{--<div class="ui message {{ $color }}">--}}
-                        {{--<div class="ui radio checkbox">--}}
-                            {{--{!! Form::radio('color', ucfirst($color)) !!}--}}
-                            {{--<label>{{ ucfirst($color) }}</label>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--@endforeach--}}
-        {{--</div>--}}
     </div>
     <div class="grid-100 text-right">
         {!! Form::submit('Save Changes', ['class'=>'ui button primary']) !!}

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Models\Task;
+use App\Models\User;
 use App\Tools\Misc\GitHub;
-use App\Tools\Models\Task;
-use App\Tools\Models\User;
 use Auth;
 
 class PageController extends Controller {

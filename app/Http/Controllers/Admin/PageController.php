@@ -2,16 +2,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\BuildDownloads;
+use App\Models\Paste;
+use App\Models\ShortUrl;
+use App\Models\Task;
+use App\Models\User;
 use App\Tools\Misc\GitHub;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Misc\LaravelLogViewer;
-use App\Tools\Models\Alert;
-use App\Tools\Models\Blog;
-use App\Tools\Models\BuildDownloads;
-use App\Tools\Models\Paste;
-use App\Tools\Models\ShortUrl;
-use App\Tools\Models\Task;
-use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
 use App\Tools\URL\Domain;
 use Illuminate\Http\Request;
@@ -31,7 +30,7 @@ class PageController extends Controller {
         $this->middleware('auth.admin', ['except' => ['index', 'serverStats', 'github', 'settings', 'logs']]);
 
         if (auth()->check()) {
-            view()->share('alerts', Alert::whereUser(auth()->user()->id)->latest()->get());
+            view()->share('alerts', auth()->user()->alerts);
             view()->share('alert_bar', ServerSetting::get('alert_bar'));
         }
 
@@ -47,7 +46,7 @@ class PageController extends Controller {
 
         $dash_jenkins = ServerSetting::get('dash_jenkins');
 
-        $tasks = Task::whereStatus(false);
+        $tasks = Task::whereCompleted(false);
 
         $myIssues = 0;
         $issues = 0;
@@ -63,8 +62,7 @@ class PageController extends Controller {
                 $closed++;
         }
 
-        $closed = $closed + count(Task::where('status', true)->get());
-        $myTasks = count($tasks->where('assigned_to', $userId)->get()) + $myIssues;
+        $closed = $closed + count(Task::whereCompleted(true)->get());
 
         $downloads = 0;
         foreach (BuildDownloads::all() as $d)
@@ -79,7 +77,7 @@ class PageController extends Controller {
             'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
             'updateMins' => $this->updateMins,
             'github' => GitHub::getEventsFeed(),
-            'myTasks' => $myTasks,
+            'myTasks' => count(auth()->user()->tasks),
             'closedTasks' => $closed,
             'pastes' => count(Paste::all()),
             'urls' => count(ShortUrl::all()),

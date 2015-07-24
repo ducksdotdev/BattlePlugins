@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Task;
+use App\Models\Task;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -26,13 +26,15 @@ class TasksController extends Controller {
         if (!$public)
             $public = false;
 
-        Task::create([
-            'title'       => $title,
-            'creator'     => Auth::user()->id,
-            'assigned_to' => $request->input('assigned_to'),
-            'public'      => $public,
-            'content'     => $request->input('content')
-        ]);
+        $assignee = $request->input('assignee_id');
+
+        $task = new Task();
+        $task->title = $title;
+        $task->user_id = Auth::user()->id;
+        $task->assignee_id = $assignee;
+        $task->public = $public;
+        $task->content = $request->input('content');
+        $task->save();
 
         return redirect()->back();
     }

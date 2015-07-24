@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Tools\API\Transformers\BlogTransformer;
-use App\Tools\Models\Blog;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;

@@ -4,8 +4,8 @@
         {{ $myTasks }}
         <div class="small">Assigned to You</div>
     </li>
-    <li class="{{ count($tasks->where('status', false)->get()) ? 'yellow' : 'green' }} has-small">
-        {{ count($tasks->where('status', false)->get()) }}
+    <li class="{{ count($tasks->whereCompleted(false)->get()) ? 'yellow' : 'green' }} has-small">
+        {{ count($tasks->whereCompleted(false)->get()) }}
         <div class="small">Incomplete</div>
     </li>
     <li class="{{ $issues ? 'red' : 'green' }} has-small">

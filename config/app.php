@@ -208,7 +208,7 @@ return [
          * Custom Aliases
          */
         'Markdown'      => 'GrahamCampbell\Markdown\Facades\Markdown',
-        'User'          => 'App\Tools\Models\User',
+        'User'          => 'App\Models\User',
         'Linkify'       => 'App\Tools\URL\Linkify',
         'Domain'        => 'App\Tools\URL\Domain',
         'ServerSetting' => 'App\Tools\Queries\ServerSetting',

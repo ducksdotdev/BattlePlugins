@@ -8,9 +8,9 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
+use App\Models\User;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\UserTransformer;
-use App\Tools\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends ApiController {

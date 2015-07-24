@@ -28,7 +28,7 @@
         </div>
         <div class="grid-10">
             @if(!Auth::check())
-                <a href="/login" class="ui button primary">Login</a>
+                <a href="{{ action('Auth\AuthController@getLogin') }}" class="ui button primary">Login</a>
             @endif
         </div>
     </div>

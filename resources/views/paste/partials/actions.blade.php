@@ -1,4 +1,4 @@
-@if(Auth::check() && Auth::user()->id == $paste->creator)
+@if(Auth::check() && Auth::user()->id == $paste->creator->id)
     <div class="grid-100 text-right">
         {!! Form::open(['url'=>URL::to('/togglepub/' . $paste->id, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
         @if($paste->public)

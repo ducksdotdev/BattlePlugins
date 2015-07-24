@@ -11,7 +11,7 @@ class CreateBuildDownloadCountTable extends Migration {
      */
     public function up() {
         Schema::create('build_downloads', function (Blueprint $table) {
-            $table->string('build')->unique();
+            $table->string('build')->unique()->index();
             $table->integer('downloads');
         });
     }
@@ -22,6 +22,6 @@ class CreateBuildDownloadCountTable extends Migration {
      * @return void
      */
     public function down() {
-        //
+        Schema::drop('build_downloads');
     }
 }

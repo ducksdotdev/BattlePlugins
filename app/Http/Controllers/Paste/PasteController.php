@@ -1,9 +1,8 @@
 <?php namespace App\Http\Controllers\Paste;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Paste;
-use App\Tools\Models\ShortUrl;
-use App\Tools\Models\User;
+use App\Models\Paste;
+use App\Models\ShortUrl;
 use App\Tools\URL\SlugGenerator;
 use Auth;
 use Carbon\Carbon;
@@ -25,7 +24,7 @@ class PasteController extends Controller {
 
         ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
-            'path' => $slug
+            'slug' => $slug
         ]);
 
         file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
@@ -33,7 +32,7 @@ class PasteController extends Controller {
 
         Paste::create([
             'slug' => $slug,
-            'creator' => Auth::user()->id,
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'public' => $request->has('public')
         ]);
@@ -49,7 +48,7 @@ class PasteController extends Controller {
 
         $paste = Paste::find($request->id);
 
-        if ($paste->creator == Auth::user()->id) {
+        if ($paste->user_id == Auth::user()->id) {
             $slug = $paste->slug;
 
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
@@ -67,7 +66,7 @@ class PasteController extends Controller {
 
         if (!$paste)
             return abort(404);
-        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
+        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->user_id))
             return abort(403);
 
         $file = storage_path() . "/app/pastes/" . $paste->slug . ".txt";
@@ -92,8 +91,7 @@ class PasteController extends Controller {
 
         return view('paste.paste', [
             'paste' => $paste,
-            'author' => User::find($paste->creator)->displayname,
-            'url' => ShortUrl::wherePath($slug)->first(),
+            'url' => ShortUrl::whereSlug($slug)->first(),
             'lines' => $lines,
             'content' => $content,
             'lang' => $lang
@@ -105,7 +103,7 @@ class PasteController extends Controller {
 
         if (!$paste)
             return abort(404);
-        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
+        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->user_id))
             return abort(403);
 
         $content = file_get_contents(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
@@ -115,8 +113,8 @@ class PasteController extends Controller {
     public function deletePaste($id) {
         $paste = Paste::find($id);
 
-        if ($paste->creator == Auth::user()->id) {
-            ShortUrl::wherePath($paste->slug)->delete();
+        if ($paste->user_id == Auth::user()->id) {
+            ShortUrl::whereSlug($paste->slug)->delete();
             unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
             $paste->delete();
         }
@@ -129,7 +127,7 @@ class PasteController extends Controller {
 
         if (!$paste)
             return abort(404);
-        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->creator))
+        else if (!$paste->public && !(Auth::check() && Auth::user()->id == $paste->user_id))
             return abort(403);
 
         return response()->download(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
@@ -138,7 +136,7 @@ class PasteController extends Controller {
     public function togglePublic($id) {
         $paste = Paste::find($id);
 
-        if ($paste->creator == Auth::user()->id) {
+        if ($paste->user_id == Auth::user()->id) {
             $paste->public = !$paste->public;
             $paste->save();
         }

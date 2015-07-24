@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
+use App\Models\Paste;
+use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\PasteTransformer;
-use App\Tools\Models\Paste;
-use App\Tools\Models\ShortUrl;
 use App\Tools\URL\SlugGenerator;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
@@ -60,7 +60,7 @@ class PastesController extends ApiController {
         if (!$paste)
             return $this->statusCode->respondNotFound("Paste does not exist!");
         else if (!$paste->public) {
-            if (!(Auth::check() && $paste->creator == Auth::user()->id))
+            if (!(Auth::check() && $paste->user_id == Auth::user()->id))
                 return $this->statusCode->respondValidationFailed("You don't have permission to view this paste.");
         }
 
@@ -86,7 +86,7 @@ class PastesController extends ApiController {
 
         ShortUrl::create([
             'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
-            'path' => $slug
+            'slug' => $slug
         ]);
 
         file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
@@ -108,8 +108,8 @@ class PastesController extends ApiController {
     public function destroy($id) {
         $paste = Paste::find($id);
 
-        if ($paste->creator == Auth::user()->id) {
-            ShortUrl::wherePath($paste->slug)->delete();
+        if ($paste->user_id == Auth::user()->id) {
+            ShortUrl::whereSlug($paste->slug)->delete();
             $paste->delete();
             return $this->statusCode->respondWithSuccess("Paste has been deleted.");
         }

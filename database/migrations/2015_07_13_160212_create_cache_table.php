@@ -2,16 +2,14 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCacheTable extends Migration
-{
+class CreateCacheTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('cache', function($table) {
+    public function up() {
+        Schema::create('cache', function ($table) {
             $table->string('key')->unique();
             $table->text('value');
             $table->integer('expiration');
@@ -23,8 +21,7 @@ class CreateCacheTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        Schema::drop('cache');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Webhook;
+use App\Models\Webhook;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -27,19 +27,14 @@ class WebhookController extends Controller {
         $uid = Auth::user()->id;
 
         if (!$url)
-            Webhook::whereUser($uid)->whereEvent($event)->delete();
+            auth()->user()->webhooks()->whereEvent($event)->delete();
         else {
-            $query = Webhook::whereUser($uid)->whereEvent($event);
-            $exists = $query->first();
-            if ($exists) {
-                $query->update(['url' => $url]);
-            } else {
-                Webhook::create([
-                    'user' => $uid,
-                    'url' => $url,
-                    'event' => $event
-                ]);
-            }
+            Webhook::updateOrCreate([
+                'event' => $event,
+                'user_id' => $uid
+            ])->update([
+                'url' => $url
+            ]);
         }
 
         return redirect()->back();

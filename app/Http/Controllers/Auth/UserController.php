@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\User;
+use App\Models\User;
+use App\Tools\API\GenerateApiKey;
 use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -66,7 +67,8 @@ class UserController extends Controller {
                 'email' => $email,
                 'password' => Hash::make($password),
                 'displayname' => $displayname,
-                'admin' => $this->request->input('isadmin')
+                'admin' => $this->request->has('isadmin'),
+                'api_key' => GenerateApiKey::generateKey()
             ]);
 
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
@@ -95,6 +97,8 @@ class UserController extends Controller {
 
     public function deleteUser($user) {
         $user = User::find($user);
+        $user->alerts()->detach();
+
         if ($user->id != 1 && Auth::user()->admin)
             $user->delete();
 

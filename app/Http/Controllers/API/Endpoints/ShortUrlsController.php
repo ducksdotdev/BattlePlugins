@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
+use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\ShortUrlTransformer;
-use App\Tools\Models\ShortUrl;
 use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
@@ -32,11 +32,11 @@ class ShortUrlsController extends ApiController {
         if (!$this->request->has('url') || !Domain::isUrl($req))
             return $this->statusCode->respondWithError("Please enter a proper URL.");
 
-        $path = Domain::shorten($req);
-        if (!$path)
+        $slug = Domain::shorten($req);
+        if (!$slug)
             return $this->statusCode->respondWithError("Please enter a proper URL.");
 
-        return $this->statusCode->respondCreated($path);
+        return $this->statusCode->respondCreated($slug);
     }
 
     /**

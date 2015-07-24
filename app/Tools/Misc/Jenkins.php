@@ -2,7 +2,7 @@
 
 namespace App\Tools\Misc;
 
-use App\Tools\Models\BuildDownloads;
+use App\Models\BuildDownloads;
 use Awjudd\FeedReader\Facades\FeedReader;
 
 class Jenkins {

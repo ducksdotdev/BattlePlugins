@@ -2,7 +2,7 @@
 
 namespace App\Tools\URL;
 
-use App\Tools\Models\ShortUrl;
+use App\Models\ShortUrl;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -36,7 +36,7 @@ class Domain {
 
                 ShortUrl::create([
                     'url'  => $req,
-                    'path' => $path
+                    'slug' => $path
                 ]);
 
                 return $path;

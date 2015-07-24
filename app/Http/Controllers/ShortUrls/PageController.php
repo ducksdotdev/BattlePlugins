@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\ShortUrls;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\ShortUrl;
+use App\Models\ShortUrl;
 use App\Tools\URL\Domain;
 use Auth;
 use Carbon\Carbon;
@@ -13,11 +13,11 @@ class PageController extends Controller {
         return view('shorturls.index');
     }
 
-    public function redirect($path) {
-        $url = ShortUrl::wherePath($path)->first();
+    public function redirect($slug) {
+        $url = ShortUrl::whereSlug($slug)->first();
 
         if ($url) {
-            ShortUrl::wherePath($path)->update([
+            ShortUrl::whereSlug($slug)->update([
                 'last_used' => Carbon::now()
             ]);
 
@@ -32,11 +32,11 @@ class PageController extends Controller {
             redirect()->back()->with('error', 'Please use a proper URL.');
 
         $req = $request->get('url');
-        $path = Domain::shorten($req);
+        $slug = Domain::shorten($req);
 
-        if (!$path)
+        if (!$slug)
             redirect()->back()->with('error', 'Please make sure that URL exists.');
 
-        return redirect()->back()->with('url_path', $path);
+        return redirect()->back()->with('url_path', $slug);
     }
 }

@@ -12,7 +12,7 @@
             </div>
             <div class="five wide field">
                 <label>Assign to User</label>
-                <select name="assigned_to" class="ui search dropdown">
+                <select name="assignee_id" class="ui search dropdown">
                     <option value="0">Unassigned</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">{{ $user->displayname }}</option>

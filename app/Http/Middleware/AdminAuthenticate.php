@@ -19,7 +19,7 @@ class AdminAuthenticate {
      */
     public function handle($request, Closure $next) {
         if (auth()->guest() || !auth()->user()->admin)
-            return redirect('/login');
+            return view('admin.noperms', ['title'=>'No Permission']);
 
         return $next($request);
     }

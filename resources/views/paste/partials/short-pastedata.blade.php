@@ -3,8 +3,9 @@
         <label>
             Short URL:
         </label>
+
         <div class="ui action input">
-            <input type="text" onclick="select()" value="http://bplug.in/{{ $paste->slug }}" readonly />
+            <input type="text" onclick="select()" value="http://bplug.in/{{ $paste->slug }}" readonly/>
             <a class="ui right icon button" href="http://bplug.in/{{ $paste->slug }}">
                 <i class="external icon"></i>
             </a>
@@ -14,10 +15,10 @@
         <label>
             Short Raw URL:
         </label>
+
         <div class="ui action input">
-            <input type="text" onclick="select()" value="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/raw')) }}" readonly />
-            <a class="ui right icon button" href="http://bplug.in/{{ Domain::shorten(url($paste->slug
-                .'/raw')) }}">
+            <input type="text" onclick="select()" value="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/raw')) }}" readonly/>
+            <a class="ui right icon button" href="http://bplug.in/{{ Domain::shorten(url($paste->slug.'/raw')) }}">
                 <i class="external icon"></i>
             </a>
         </div>
@@ -26,8 +27,9 @@
         <label>
             Short Download Link:
         </label>
+
         <div class="ui action input">
-            <input type="text" onclick="select()" value="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/download')) }}" readonly />
+            <input type="text" onclick="select()" value="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/download')) }}" readonly/>
             <a class="ui right icon button" href="http://bplug.in/{{ Domain::shorten(url($paste->slug .'/download')) }}">
                 <i class="external icon"></i>
             </a>

@@ -2,7 +2,7 @@
 
 namespace App\Tools\API\Transformers;
 
-use App\Tools\Models\User;
+use App\Models\User;
 use Auth;
 
 /**
@@ -16,16 +16,16 @@ class TaskTransformer extends Transformer {
      * @return array
      */
     public function transform($task) {
-        $assigned_to = null;
-        if ($task['assigned_to'] != 0)
-            $assigned_to = User::find($task['assigned_to'])['displayname'];
+        $assignee_id = null;
+        if ($task['assignee_id'] != 0)
+            $assignee_id = User::find($task['assignee_id'])['displayname'];
 
         return [
             'id' => $task['id'],
             'title' => $task['title'],
             'content' => $task['content'],
             'creator' => User::find($task['creator'])['displayname'],
-            'assigned_to' => $assigned_to,
+            'assignee_id' => $assignee_id,
             'public' => (boolean)$task['public'],
             'completed' => (boolean)$task['status']
         ];

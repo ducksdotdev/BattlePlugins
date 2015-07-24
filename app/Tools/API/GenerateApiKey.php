@@ -3,7 +3,7 @@
 namespace App\Tools\API;
 
 
-use App\Tools\Models\User;
+use App\Models\User;
 
 class GenerateApiKey {
 

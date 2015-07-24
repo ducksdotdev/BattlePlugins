@@ -57,7 +57,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":[{"id":"36","title":"Firmissimum eu","content":"Ullamco occaecat deserunt illustriora consectetur tractavissent sint dolore culpa esse occaecat consectetur commodo relinqueret sunt magna ex praesentibus nostrud quibusdam cupidatat sunt esse veniam hic quibusdam lorem laboris a malis","creator":"lDucks","assigned_to":"Zach443","public":false,"completed":false}],"paginator":{"total_count":34,"total_pages":2,"current_page":1,"limit":20}}',
+                        'success' => '{"data":[{"id":"36","title":"Firmissimum eu","content":"Ullamco occaecat deserunt illustriora consectetur tractavissent sint dolore culpa esse occaecat consectetur commodo relinqueret sunt magna ex praesentibus nostrud quibusdam cupidatat sunt esse veniam hic quibusdam lorem laboris a malis","creator":"lDucks","assignee_id":"Zach443","public":false,"completed":false}],"paginator":{"total_count":34,"total_pages":2,"current_page":1,"limit":20}}',
                         'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
                     ),
                     'description' => 'This endpoint will return all tasks, regardless of status (open or completed). Limited 20 tasks per page.',
@@ -77,7 +77,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":{"id":"36","title":"Firmissimum eu","content":"Ullamco occaecat deserunt illustriora consectetur tractavissent sint dolore culpa esse occaecat consectetur commodo relinqueret sunt magna ex praesentibus nostrud quibusdam cupidatat sunt esse veniam hic quibusdam lorem laboris a malis","creator":"lDucks","assigned_to":"Zach443","public":false,"completed":false}}',
+                        'success' => '{"data":{"id":"36","title":"Firmissimum eu","content":"Ullamco occaecat deserunt illustriora consectetur tractavissent sint dolore culpa esse occaecat consectetur commodo relinqueret sunt magna ex praesentibus nostrud quibusdam cupidatat sunt esse veniam hic quibusdam lorem laboris a malis","creator":"lDucks","assignee_id":"Zach443","public":false,"completed":false}}',
                         'error' => '{"error":{"message":"Task does not exist!","status_code":404}}'
                     ),
                     'description' => 'This endpoint will return a single specified task, regardless of status (open or completed).',
@@ -100,7 +100,7 @@ return array(
                         'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
                     ),
                     'description' => 'This endpoint will create a new task.',
-                    'params' => array('title VARCHAR(64)', 'assigned_to INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
+                    'params' => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
                 ),
                 array(
                     'title' => 'Edit Task',
@@ -120,7 +120,7 @@ return array(
                         'error' => '{"error":{"message":"Task does not exist!","status_code":404}}'
                     ),
                     'description' => 'This endpoint will edit an existing task.',
-                    'params' => array('title VARCHAR(64)', 'assigned_to INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
+                    'params' => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
                 ),
                 array(
                     'title' => 'Delete Task',

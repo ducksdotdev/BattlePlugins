@@ -2,15 +2,13 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSessionTable extends Migration
-{
+class CreateSessionTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('sessions', function ($table) {
             $table->string('id')->unique();
             $table->text('payload');
@@ -23,8 +21,7 @@ class CreateSessionTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        Schema::drop('sessions');
     }
 }

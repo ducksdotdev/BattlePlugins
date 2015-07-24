@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,12 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 class Webhook extends Model {
 
     /**
-     * @var bool
-     */
-    public $timestamps = false;
-    /**
      * @var array
      */
-    protected $fillable = ['user', 'url', 'event'];
+    protected $fillable = ['user_id', 'url', 'event'];
 
 }

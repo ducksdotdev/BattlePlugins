@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\User;
 use App\Tools\Misc\Jenkins;
-use App\Tools\Models\Blog;
-use App\Tools\Models\User;
 use App\Tools\Queries\ServerSetting;
 use App\Tools\URL\Domain;
 

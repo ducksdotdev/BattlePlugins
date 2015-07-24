@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Download;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProductionBuilds;
 use App\Tools\Misc\Jenkins;
-use App\Tools\Models\ProductionBuilds;
 use App\Tools\URL\Domain;
 use Auth;
 

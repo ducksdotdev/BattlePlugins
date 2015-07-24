@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\ShortUrl;
+use App\Models\ShortUrl;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -19,8 +19,8 @@ class StatisticsController extends Controller {
         $this->request = $request;
     }
 
-    public function deleteShortUrl($url) {
-        ShortUrl::wherePath($url)->delete();
+    public function deleteShortUrl($slug) {
+        ShortUrl::whereSlug($slug)->delete();
         return redirect()->back();
     }
 }

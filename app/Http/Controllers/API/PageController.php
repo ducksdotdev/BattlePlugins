@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Tools\API\GenerateApiKey;
-use App\Tools\Models\User;
-use App\Tools\Models\Webhook;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Support\Facades\Config;
@@ -25,13 +24,11 @@ class PageController extends Controller {
             ]);
         }
 
-        $webhooks = Webhook::whereUser(Auth::user()->id)->get();
-
         return view('api.docs', [
             'apiKey' => $apiKey,
             'docs' => Config::get('api.docs'),
             'webhooks' => Webhooks::getTypes(),
-            'myHooks' => $webhooks
+            'myHooks' => auth()->user()->webhooks
         ]);
     }
 

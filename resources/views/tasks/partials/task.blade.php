@@ -12,12 +12,12 @@
             @if(Auth::check() && $task->public)
                 (Public)
             @endif
-            @if(array_key_exists($task->creator, $displaynames))
+            @if(array_key_exists($task->user_id, $displaynames))
                 <small>Assigned
-                    @if($task->assigned_to != 0)
-                        to <span class="name">{{ $displaynames[$task->assigned_to] }}</span>
+                    @if($task->assignee_id != 0)
+                        to <span class="name">{{ $displaynames[$task->assignee_id] }}</span>
                     @endif
-                    by <span class="name">{{ $displaynames[$task->creator] }}</span>
+                    by <span class="name">{{ $displaynames[$task->user_id] }}</span>
                 </small>
             @endif
         </div>

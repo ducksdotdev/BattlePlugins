@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Models;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -23,7 +23,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'displayname', 'api_key'];
+    protected $fillable = ['name', 'email', 'password', 'admin', 'displayname', 'api_key'];
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -31,4 +31,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function alerts() {
+        return $this->belongsToMany('App\Models\Alert');
+    }
+
+    public function blogs() {
+        return $this->hasMany('App\Models\Blog');
+    }
+
+    public function pastes() {
+        return $this->hasMany('App\Models\Paste');
+    }
+
+    public function webhooks() {
+        return $this->hasMany('App\Models\Webhook');
+    }
+
+    public function tasks() {
+        return $this->hasMany('App\Models\Task', 'assignee_id');
+    }
+
+    public function createdTasks() {
+        return $this->hasMany('App\Models\Task');
+    }
 }

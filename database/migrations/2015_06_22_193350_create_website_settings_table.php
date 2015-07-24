@@ -1,20 +1,20 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateWebsiteSettingsTable extends Migration
-{
+class CreateWebsiteSettingsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-        \Illuminate\Support\Facades\Schema::create('server_settings', function ($table) {
+    public function up() {
+        Schema::create('server_settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
             $table->string('key')->unique()->index();
             $table->string('value');
-
         });
     }
 
@@ -23,8 +23,7 @@ class CreateWebsiteSettingsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        Schema::drop('server_settings');
     }
 }

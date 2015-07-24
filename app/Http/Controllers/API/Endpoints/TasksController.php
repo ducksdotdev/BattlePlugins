@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Endpoints;
 
+use App\Models\Task;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\TaskTransformer;
-use App\Tools\Models\Task;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -67,8 +67,8 @@ class TasksController extends ApiController {
     public function store() {
         $insert = [
             'title' => $this->request->input('title') ?: 'Untitled',
-            'creator' => Auth::user()->id,
-            'assigned_to' => $this->request->input('assigned_to') ?: 0,
+            'user_id' => Auth::user()->id,
+            'assignee_id' => $this->request->input('assignee_id') ?: 0,
             'public' => $this->request->input('public') ?: false,
             'content' => $this->request->input('content') ?: ''
         ];

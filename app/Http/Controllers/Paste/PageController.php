@@ -1,7 +1,6 @@
 <?php namespace App\Http\Controllers\Paste;
 
 use App\Http\Controllers\Controller;
-use App\Tools\Models\Paste;
 use Auth;
 
 class PageController extends Controller {
@@ -11,10 +10,8 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $pastes = Paste::whereCreator(Auth::user()->id)->latest()->get();
-
         return view('paste.index', [
-            'pastes' => $pastes
+            'pastes' => auth()->user()->pastes
         ]);
     }
 

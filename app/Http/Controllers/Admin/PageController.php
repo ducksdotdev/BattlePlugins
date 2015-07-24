@@ -38,43 +38,20 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $displaynames = [];
-        foreach (User::all() as $user)
-            $displaynames[$user->id] = $user->displayname;
-
-        $dash_jenkins = ServerSetting::get('dash_jenkins');
-
-        $myIssues = 0;
-        $issues = 0;
-        $closed = 0;
-
-        foreach (GitHub::getIssues() as $issue) {
-            if ($issue->assignee && $issue->assignee->login == auth()->user()->displayname && $issue->state == 'open')
-                $myIssues++;
-
-            if ($issue->state == 'open')
-                $issues++;
-            else
-                $closed++;
-        }
-
-        $closed = $closed + count(Task::whereCompleted(true)->get());
-
         $downloads = 0;
         foreach (BuildDownloads::all() as $d)
             $downloads += $d->downloads;
 
         return view('admin.index', [
             'title' => 'Dashboard',
-            'issues' => $issues,
+            'issues' => count(GitHub::getIssues()),
             'blogs' => count(Blog::all()),
             'tasks' => new Task,
-            'displaynames' => $displaynames,
-            'jenkins' => $dash_jenkins ? Jenkins::getAllBuilds(null, 3) : null,
+            'jenkins' => Jenkins::getAllBuilds(null, 3),
             'updateMins' => $this->updateMins,
             'github' => GitHub::getEventsFeed(),
             'myTasks' => count(auth()->user()->tasks()->whereCompleted(false)),
-            'closedTasks' => $closed,
+            'closedTasks' => count(Task::whereCompleted(true)->get()),
             'pastes' => count(Paste::all()),
             'urls' => count(ShortUrl::all()),
             'downloads' => $downloads,
@@ -111,7 +88,6 @@ class PageController extends Controller {
         return view('admin.cms', [
             'title' => 'Manage Content',
             'jenkins' => ServerSetting::get('jenkins'),
-            'dash_jenkins' => ServerSetting::get('dash_jenkins'),
             'registration' => ServerSetting::get('registration'),
             'footer' => ServerSetting::get('footer'),
             'alert_bar' => ServerSetting::get('alert_bar'),

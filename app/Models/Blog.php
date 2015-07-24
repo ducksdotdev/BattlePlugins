@@ -9,7 +9,7 @@ class Blog extends Model {
 
     protected $fillable = ['title', 'content', 'author'];
 
-    public function author() {
-        return $this->belongTo('App\Models\User');
+    public function user() {
+        return $this->belongsTo('App\Models\User', 'author', 'id');
     }
 }

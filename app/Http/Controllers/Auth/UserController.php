@@ -49,6 +49,7 @@ class UserController extends Controller {
 
             $user->save();
             auth()->logout();
+            return redirect()->back();
         } else
             return $this->redirectBackWithErrors(['Invalid confirmation password.']);
     }

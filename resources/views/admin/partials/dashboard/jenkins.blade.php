@@ -1,4 +1,4 @@
-@if(count($jenkins) > 0)
+@if($jenkins)
     <div class="grid-100">
         <h3>Latest Jenkins Builds <a href="http://ci.battleplugins.com"><i class="icon external"></i></a></h3>
     </div>

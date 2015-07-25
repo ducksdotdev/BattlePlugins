@@ -1,6 +1,6 @@
 <div class="item">
     <div class="content">
-        <a href="/{{ $bp->id }}" class="header">{{ $bp->title }}</a>
+        <a href="/{{ $bp->id }}-{{ str_slug($bp->title) }}" class="header">{{ $bp->title }}</a>
 
         <div class="description">
             <small>

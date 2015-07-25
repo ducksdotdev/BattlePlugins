@@ -28,11 +28,12 @@ class PageController extends Controller {
     }
 
     public function create(Request $request) {
-        if (!$request->has('url'))
+        $url = $request->get('url');
+
+        if (!$url)
             redirect()->back()->with('error', 'Please use a proper URL.');
 
-        $req = $request->get('url');
-        $slug = Domain::shorten($req);
+        $slug = Domain::shorten($url);
 
         if (!$slug)
             redirect()->back()->with('error', 'Please make sure that URL exists.');

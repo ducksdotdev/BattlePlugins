@@ -137,4 +137,16 @@ class Jenkins {
     public static function getJobFromBuild(\stdClass $build) {
         return explode(' ', $build->fullDisplayName)[0];
     }
+
+    public static function getBuildDownloadCount($buildName = null) {
+        $downloads = 0;
+        if ($buildName)
+            $downloads = BuildDownloads::whereBuild($buildName);
+        else {
+            foreach (BuildDownloads::all() as $d)
+                $downloads += $d->downloads;
+        }
+
+        return $downloads;
+    }
 }

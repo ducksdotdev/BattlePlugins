@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  */
 class Task extends Model {
+
     use DispatchPayload;
 
     protected $fillable = ['title', 'user_id', 'content', 'assignee_id', 'public', 'status'];

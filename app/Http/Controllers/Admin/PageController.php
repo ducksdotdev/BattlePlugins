@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\BuildDownloads;
 use App\Models\Paste;
 use App\Models\ShortUrl;
 use App\Models\Task;
@@ -38,23 +37,19 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $downloads = 0;
-        foreach (BuildDownloads::all() as $d)
-            $downloads += $d->downloads;
-
         return view('admin.index', [
-            'title' => 'Dashboard',
-            'issues' => count(GitHub::getIssues()),
-            'blogs' => count(Blog::all()),
-            'tasks' => new Task,
-            'jenkins' => Jenkins::getAllBuilds(null, 3),
-            'updateMins' => $this->updateMins,
-            'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks),
-            'closedTasks' => count(Task::whereCompleted(true)->get()),
-            'pastes' => count(Paste::all()),
-            'urls' => count(ShortUrl::all()),
-            'downloads' => $downloads,
+            'title'          => 'Dashboard',
+            'issues'         => count(GitHub::getIssues()),
+            'blogs'          => count(Blog::all()),
+            'tasks'          => new Task,
+            'jenkins'        => Jenkins::getAllBuilds(null, 3),
+            'updateMins'     => $this->updateMins,
+            'github'         => GitHub::getEventsFeed(),
+            'myTasks'        => count(auth()->user()->tasks),
+            'closedTasks'    => count(Task::whereCompleted(true)->get()),
+            'pastes'         => count(Paste::all()),
+            'urls'           => count(ShortUrl::all()),
+            'downloads'      => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
     }
@@ -86,47 +81,39 @@ class PageController extends Controller {
 
     public function cms() {
         return view('admin.cms', [
-            'title' => 'Manage Content',
-            'jenkins' => ServerSetting::get('jenkins'),
+            'title'        => 'Manage Content',
+            'jenkins'      => ServerSetting::get('jenkins'),
             'registration' => ServerSetting::get('registration'),
-            'footer' => ServerSetting::get('footer'),
-            'alert_bar' => ServerSetting::get('alert_bar'),
+            'footer'       => ServerSetting::get('footer'),
+            'alert_bar'    => ServerSetting::get('alert_bar'),
             'comment_feed' => ServerSetting::get('comment_feed')
         ]);
     }
 
     public function serverStats() {
-        $serverData = Cache::get('serverData');
-
         return view('admin.partials.dashboard.serverstats', [
-            'serverData' => $serverData,
+            'serverData' => Cache::get('serverData'),
             'updateMins' => $this->updateMins
         ]);
     }
 
     public function github() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
-            'github' => GitHub::getEventsFeed(25),
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(25),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 
     public function logs($l = null, $curPage = 1, $perPage = 15) {
-        if ($l)
-            LaravelLogViewer::setFile(base64_decode($l));
-
-        $logs = collect(LaravelLogViewer::all());
-        $logs = new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
-
         return view('admin.logs', [
-            'title' => 'Logs',
-            'logs' => $logs,
-            'files' => LaravelLogViewer::getFiles(true),
+            'title'        => 'Logs',
+            'logs'         => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
+            'files'        => LaravelLogViewer::getFiles(true),
             'current_file' => LaravelLogViewer::getFileName(),
-            'perPage' => $perPage,
-            'url' => $this->request->url()
+            'perPage'      => $perPage,
+            'url'          => $this->request->url()
         ]);
     }
 
@@ -135,8 +122,8 @@ class PageController extends Controller {
         $urls = new LengthAwarePaginator($urls->forPage($curPage, $perPage), $urls->count(), $perPage, $curPage);
 
         return view('admin.shorturls', [
-            'title' => 'Short URLs',
-            'urls' => $urls,
+            'title'   => 'Short URLs',
+            'urls'    => $urls,
             'perPage' => $perPage
         ]);
     }

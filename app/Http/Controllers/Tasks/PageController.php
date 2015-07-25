@@ -20,10 +20,6 @@ class PageController extends Controller {
             $tasks = Task::wherePublic(true)->get();
 
         $users = User::all();
-        $displaynames = [];
-
-        foreach ($users as $user)
-            $displaynames[$user->id] = $user->displayname;
 
         $gitIssues = array_sort(GitHub::getIssues(), function($value){
             return $value->created_at;
@@ -32,7 +28,6 @@ class PageController extends Controller {
         return view('tasks.index', [
             'tasks'        => $tasks,
             'users'        => $users,
-            'displaynames' => $displaynames,
             'gitIssues'    => $gitIssues
         ]);
     }

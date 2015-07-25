@@ -32,18 +32,21 @@ class Domain {
             $url = ShortUrl::whereUrl($req)->first();
 
             if (!$url) {
-                $path = SlugGenerator::generate();
+                $slug = SlugGenerator::generate();
 
                 ShortUrl::create([
-                    'url'  => $req,
-                    'slug' => $path
+                    'url'       => $req,
+                    'slug'      => $slug,
+                    'last_used' => Carbon::now()
                 ]);
 
-                return $path;
+                return $slug;
             } else {
+
                 ShortUrl::whereUrl($req)->update([
                     'last_used' => Carbon::now()
                 ]);
+
                 return $url->path;
             }
         }

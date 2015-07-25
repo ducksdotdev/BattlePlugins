@@ -1,7 +1,4 @@
-<div class="item
-					@if($task->status)
-						completed
-					@endif" id="{{ $task->id }}"
+<div class="item @if($task->status) completed @endif" id="{{ $task->id }}"
      ng-class="{highlighted: {{ $task->id }} == highlighted}"
      ng-hide="{{ $task->status ? '!showCompleted' : 'false' }}">
     <div class="content @if(Auth::check()) grid-90 @else grid-100 @endif">
@@ -12,14 +9,12 @@
             @if(Auth::check() && $task->public)
                 (Public)
             @endif
-            @if(array_key_exists($task->user_id, $displaynames))
-                <small>Assigned
-                    @if($task->assignee_id != 0)
-                        to <span class="name">{{ $displaynames[$task->assignee_id] }}</span>
-                    @endif
-                    by <span class="name">{{ $displaynames[$task->user_id] }}</span>
-                </small>
-            @endif
+            <small>Assigned
+                @if($task->assignee_id)
+                    to <span class="name">{{ $task->assignee()->displayname }}</span>
+                @endif
+                by <span class="name">{{ $task->creator()->displayname }}</span>
+            </small>
         </div>
         <div class="description">
             {!! Markdown::convertToHTML(strip_tags($task->content)) !!}

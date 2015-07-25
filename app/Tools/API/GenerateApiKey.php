@@ -17,4 +17,12 @@ class GenerateApiKey {
         return $apiKey;
     }
 
+    public static function changeKey($user) {
+        if (!($user instanceof User))
+            $user = User::find($user);
+
+        $user->api_key = GenerateApiKey::generateKey();
+        $user->save();
+    }
+
 }

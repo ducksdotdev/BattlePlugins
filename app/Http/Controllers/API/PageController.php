@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Tools\API\GenerateApiKey;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
@@ -16,27 +15,16 @@ class PageController extends Controller {
     }
 
     public function index() {
-        $apiKey = Auth::user()->api_key;
-        if (!$apiKey) {
-            $apiKey = GenerateApiKey::generateKey();
-            User::find(Auth::user()->id)->update([
-                'api_key' => $apiKey
-            ]);
-        }
-
         return view('api.docs', [
-            'apiKey' => $apiKey,
-            'docs' => Config::get('api.docs'),
+            'apiKey'   => Auth::user()->api_key,
+            'docs'     => Config::get('api.docs'),
             'webhooks' => Webhooks::getTypes(),
-            'myHooks' => auth()->user()->webhooks
+            'myHooks'  => auth()->user()->webhooks
         ]);
     }
 
     public function generateKey() {
-        $user = Auth::user();
-        $user->api_key = GenerateApiKey::generateKey();
-        $user->save();
-
+        GenerateApiKey::changeKey(auth()->user());
         return redirect()->back();
     }
 

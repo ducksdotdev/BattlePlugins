@@ -1,6 +1,7 @@
 <?php
 namespace App\Tools\Misc;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
 use Psr\Log\LogLevel;
 use ReflectionClass;

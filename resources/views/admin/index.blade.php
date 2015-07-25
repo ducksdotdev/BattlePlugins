@@ -17,4 +17,7 @@
         @include('admin.partials.dashboard.github')
         @include('admin.partials.dashboard.jenkins')
     </div>
+    <div class="grid-100">
+        @include('admin.partials.dashboard.log')
+    </div>
 @stop

@@ -23,6 +23,7 @@
 <script type="text/javascript">
     $('.ui.checkbox').checkbox();
     $('.accordion').accordion();
+    $('.ui.sticky').sticky({context: '#docs'});
 </script>
 @yield('extraScripts')
 </body>

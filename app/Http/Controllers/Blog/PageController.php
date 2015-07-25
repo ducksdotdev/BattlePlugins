@@ -3,7 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Tools\Misc\Jenkins;
-use App\Tools\Queries\ServerSetting;
+use App\Tools\Misc\Settings;
 use App\Tools\URL\Domain;
 
 class PageController extends Controller {
@@ -17,9 +17,9 @@ class PageController extends Controller {
         return view('blog.index', [
             'blog' => $blog,
             'list' => Blog::latest()->take(4)->get(),
-            'jenkins' => ServerSetting::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
+            'jenkins' => Settings::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
             'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'comment_feed' => ServerSetting::get('comment_feed')
+            'comment_feed' => Settings::get('comment_feed')
         ]);
     }
 }

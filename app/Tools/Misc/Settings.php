@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App\Tools\Misc;
 
+use App\Models\ServerSettings;
 
 class Settings {
     public static function get($key) {
@@ -10,7 +10,7 @@ class Settings {
     }
 
     public static function toggle($setting) {
-        $value = !ServerSetting::get($setting);
+        $value = !static::get($setting);
 
         ServerSettings::firstOrCreate([
             'key' => $setting

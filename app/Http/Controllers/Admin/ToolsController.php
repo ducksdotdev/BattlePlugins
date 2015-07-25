@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Tools\Misc\Settings;
 use App\Tools\Queries\CreateAlert;
-use App\Tools\Queries\ServerSetting;
 use Auth;
 use Illuminate\Http\Request;
 

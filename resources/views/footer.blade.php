@@ -1,4 +1,4 @@
-@if(ServerSetting::get('footer'))
+@if(Settings::get('footer'))
     <footer>
         <p>
             <a href="{{ action('Blog\PageController@index') }}">Home</a>

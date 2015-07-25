@@ -60,7 +60,7 @@
                     {!! Form::checkbox('remember') !!}
                 </div>
                 <span class="pull-right">
-                    @if(ServerSetting::get('registration'))
+                    @if(Settings::get('registration'))
                         <a href="#">Register</a> |
                     @endif
                     <a href="/password/email">Forgot Password</a>

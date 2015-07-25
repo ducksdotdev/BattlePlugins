@@ -57,4 +57,18 @@ class Webhooks {
         curl_close($ch);
     }
 
+    public static function create($url, $event) {
+        $uid = Auth::user()->id;
+
+        if (!$url)
+            auth()->user()->webhooks()->whereEvent($event)->delete();
+        else {
+            Webhook::updateOrCreate([
+                'event'   => $event,
+                'user_id' => $uid
+            ])->update([
+                'url' => $url
+            ]);
+        }
+    }
 }

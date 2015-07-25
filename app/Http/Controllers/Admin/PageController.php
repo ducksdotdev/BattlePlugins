@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Tools\Misc\GitHub;
 use App\Tools\Misc\Jenkins;
 use App\Tools\Misc\LaravelLogViewer;
-use App\Tools\Queries\ServerSetting;
+use App\Tools\Misc\Settings;
 use App\Tools\URL\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -30,7 +30,7 @@ class PageController extends Controller {
 
         if (auth()->check()) {
             view()->share('alerts', auth()->user()->alerts);
-            view()->share('alert_bar', ServerSetting::get('alert_bar'));
+            view()->share('alert_bar', Settings::get('alert_bar'));
         }
 
         $this->request = $request;
@@ -83,11 +83,11 @@ class PageController extends Controller {
     public function cms() {
         return view('admin.cms', [
             'title'        => 'Manage Content',
-            'jenkins'      => ServerSetting::get('jenkins'),
-            'registration' => ServerSetting::get('registration'),
-            'footer'       => ServerSetting::get('footer'),
-            'alert_bar'    => ServerSetting::get('alert_bar'),
-            'comment_feed' => ServerSetting::get('comment_feed')
+            'jenkins'      => Settings::get('jenkins'),
+            'registration' => Settings::get('registration'),
+            'footer'       => Settings::get('footer'),
+            'alert_bar'    => Settings::get('alert_bar'),
+            'comment_feed' => Settings::get('comment_feed')
         ]);
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ServerSettings;
 use App\Models\User;
+use App\Tools\Misc\Settings;
 use App\Tools\Queries\CreateAlert;
 use App\Tools\Queries\ServerSetting;
 use Auth;
@@ -39,15 +39,7 @@ class ToolsController extends Controller {
     }
 
     public function toggleSetting($setting) {
-        $value = !ServerSetting::get($setting);
-
-        ServerSettings::firstOrCreate([
-            'key' => $setting
-        ])->update([
-            'value' => $value,
-            'updated_by' => auth()->user()->id
-        ]);
-
+        Settings::toggle($setting);
         return redirect()->back();
     }
 

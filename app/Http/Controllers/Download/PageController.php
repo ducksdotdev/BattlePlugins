@@ -9,12 +9,9 @@ use Auth;
 class PageController extends Controller {
 
     public function index($current_job = null) {
-        if ($current_job)
-            $current_job = Jenkins::getJobs($current_job);
-
         return view('download.index', [
             'jobs'          => Jenkins::getJobs(),
-            'current_job'   => $current_job,
+            'current_job'   => $current_job ? Jenkins::getJobs($current_job) : null,
             'stableBuilds'  => Jenkins::getStableBuilds($current_job, 20),
             'production'    => new ProductionBuilds(),
             'server_online' => Domain::remoteFileExists('http://ci.battleplugins.com')

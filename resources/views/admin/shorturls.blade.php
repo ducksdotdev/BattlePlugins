@@ -5,7 +5,7 @@
             <table class="ui table">
                 <thead>
                 <tr>
-                    <th>Short URL</th>
+                    <th>Slug</th>
                     <th>Redirect</th>
                     <th width="15%">Last Used</th>
                     <th></th>
@@ -14,11 +14,11 @@
                 <tbody>
                 @foreach($urls as $url)
                     <tr>
-                        <td>http://bplug.in/{{ $url->path }}</td>
+                        <td>{{ $url->slug }}</td>
                         <td class="break-all"><a href="{{ $url->url }}">{{ $url->url }}</a></td>
                         <td title="{{ $url->last_used }}">{{ (new Carbon($url->last_used))->diffForhumans() }}</td>
                         <td>
-                            {!! Form::open(['url'=>URL::to('/statistics/shorturls/delete/'.$url->path, [], env('HTTPS_ENABLED', true))]) !!}
+                            {!! Form::open(['url'=>URL::to('/statistics/shorturls/delete/'.$url->slug, [], env('HTTPS_ENABLED', true))]) !!}
                             <button class="ui button icon circular red"><i class="icon remove"></i></button>
                             {!! Form::close() !!}
                         </td>

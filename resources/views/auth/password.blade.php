@@ -1,4 +1,4 @@
-@extends('auth.layout')
+@extends('auth.layouts.layout')
 @section('content')
 @if(count($errors) > 0)
     <div class="ui message red">

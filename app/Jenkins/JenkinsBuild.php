@@ -1,0 +1,141 @@
+<?php
+
+
+namespace App\Jenkins;
+
+
+use App\Models\BuildDownloads;
+use App\Models\ProductionBuilds;
+use Carbon\Carbon;
+use Intervention\Image\Facades\Image;
+
+/**
+ * Class JenkinsBuild
+ * @package App\Jenkins
+ */
+class JenkinsBuild {
+
+    /**
+     * @var JenkinsJob
+     */
+    private $job;
+    /**
+     * @var
+     */
+    private $build;
+
+    /**
+     * @param $job
+     * @param $build
+     */
+    function __construct($job, $build) {
+        if (!($job instanceof JenkinsJob))
+            $job = new JenkinsJob($job);
+
+        $this->job = $job;
+        $this->build = $build;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData() {
+        $json_decode = json_decode(file_get_contents(storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.json"));
+        return $json_decode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersion() {
+        $path = storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.xml";
+
+        if (file_exists($path)) {
+            $content = new \SimpleXMLElement(file_get_contents($path));
+            $content = (string)$content->version;
+        } else
+            $content = $this->getData()->number;
+
+        if (is_integer($content))
+            return '#' . $content;
+
+        return 'v' . $content . '-' . $this->build;
+    }
+
+    /**
+     * @param $w
+     * @param $h
+     * @param $font_size
+     * @return Image
+     */
+    public function getVersionImage($w, $h, $font_size) {
+        $vers = $this->getVersion();
+
+        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
+            $font->file('../public/assets/fonts/tenby-five.otf');
+            $font->size($font_size);
+            $font->valign('top');
+        })->encode('png');
+
+        return $img;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function downloadPlugin() {
+        foreach ($this->getData()->artifacts as $artifact) {
+            if (ends_with($artifact->fileName, '.jar')) {
+                $downloads = BuildDownloads::firstOrCreate([
+                    'build' => $this->getData()->fullDisplayName
+                ]);
+                $downloads->increment('downloads');
+
+                return $this->getData()->url . 'artifact/' . $artifact->relativePath;
+            }
+        }
+
+        return null;
+    }
+
+    public function getDownloadUrl() {
+        return action('Download\JenkinsController@download', ['job' => $this->getJob()->getName(), 'build' => $this->getBuild()]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDownloadCount() {
+        $dl = BuildDownloads::whereBuild($this->getData()->fullDisplayName)->pluck('downloads');
+        if ($dl)
+            return $dl;
+
+        return 0;
+    }
+
+    /**
+     * @return JenkinsJob
+     */
+    public function getJob() {
+        return $this->job;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBuild() {
+        return $this->build;
+    }
+
+    /**
+     * @return static
+     */
+    public function createdAt() {
+        $timestamp = $this->getData()->timestamp;
+        return Carbon::createFromTimestampUTC(str_limit($timestamp, 10));
+    }
+
+    public function isStable() {
+        return ProductionBuilds::find($this->getData()->timestamp);
+    }
+}

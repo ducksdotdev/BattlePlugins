@@ -11,15 +11,15 @@
     @else
         @foreach($jenkins as $build)
             <div class="grid-100">
-                <div class="ui small message {{ $build->result == 'SUCCESS' ? 'green' : 'red' }}">
-                    <a href="{{ $build->url }}">{{ $build->fullDisplayName }} -
-                    <span title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
-                        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}
+                <div class="ui small message {{ $build->getData()->result == 'SUCCESS' ? 'green' : 'red' }}">
+                    <a href="{{ $build->getData()->url }}">{{ $build->getData()->fullDisplayName }} -
+                    <span title="{{ $build->createdAt() }}">
+                        {{ $build->createdAt()->diffForHumans() }}
                     </span>
                     </a>
-                    @if(Jenkins::getJobs(Jenkins::getJobFromBuild($build))->healthReport)
+                    @if($build->getJob()->getData()->healthReport)
                         <p>
-                            @foreach(Jenkins::getJobs(Jenkins::getJobFromBuild($build))->healthReport as $report)
+                            @foreach($build->getJob()->getData()->healthReport as $report)
                                 {{ $report->description }}
                             @endforeach
                         </p>

@@ -1,6 +1,6 @@
 <?php
-$url = urlencode('http://bplug.in/' . Domain::shorten(action('Download\JenkinsController@download', ['job' => explode(' ', $build->fullDisplayName)[0], 'build' => $build->number])));
-$urlTitle = urlencode(explode(' ', $build->fullDisplayName)[0] . ' ' . Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number));
+$url = urlencode('http://bplug.in/' . Domain::shorten($build->getDownloadUrl()));
+$urlTitle = urlencode($build->getJob()->getName() . ' ' . $build->getVersion());
 ?>
 
 <a class="item" href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}&t={{ $urlTitle }}" target="_blank" title="Share on Facebook">

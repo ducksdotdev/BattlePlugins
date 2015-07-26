@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Jenkins\Jenkins;
 use App\Models\Blog;
-use App\Tools\Misc\Jenkins;
 use App\Tools\Misc\Settings;
 use App\Tools\URL\Domain;
 

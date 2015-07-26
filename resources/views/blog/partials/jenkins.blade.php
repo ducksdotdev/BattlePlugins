@@ -8,18 +8,19 @@
                             <div class="item">
                                 <div class="content">
                                     <strong>
-                                        {{ explode(' ', $build->fullDisplayName)[0] }}
-                                        {{ Jenkins::getBuildVersion(Jenkins::getJobFromBuild($build), $build->number) }}
+                                        {{ $build->getJob()->getName() }}
+                                        {{ $build->getVersion() }}
                                     </strong>
 
                                     <span class="pull-right">
-                                        <a href="{{ action('Download\JenkinsController@download', ['job'=>explode(' ', $build->fullDisplayName)[0], 'build'=>$build->number]) }}"
+                                        <a href="{{ $build->getDownloadUrl() }}"
                                            class="ui button green mini circular icon"><i class="icon download"></i></a>
                                     </span>
+
                                     <div class="description">
                                         Last updated
-                                            <span title="{{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10)) }}">
-                                        {{ Carbon::createFromTimestampUTC(str_limit($build->timestamp, 10))->diffForHumans() }}</span>
+                                            <span title="{{ $build->createdAt() }}">
+                                        {{ $build->createdAt()->diffForHumans() }}</span>
                                     </div>
                                 </div>
                             </div>

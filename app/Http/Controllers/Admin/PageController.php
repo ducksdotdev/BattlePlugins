@@ -2,13 +2,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jenkins\Jenkins;
 use App\Models\Blog;
 use App\Models\Paste;
 use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
 use App\Tools\Misc\GitHub;
-use App\Tools\Misc\Jenkins;
 use App\Tools\Misc\LaravelLogViewer;
 use App\Tools\Misc\Settings;
 use App\Tools\URL\Domain;
@@ -42,7 +42,7 @@ class PageController extends Controller {
             'issues'         => count(GitHub::getIssues()),
             'blogs'          => count(Blog::all()),
             'tasks'          => new Task,
-            'jenkins'        => Jenkins::getAllBuilds(null, 3),
+            'jenkins'        => Jenkins::getAllBuilds(3),
             'updateMins'     => $this->updateMins,
             'github'         => GitHub::getEventsFeed(),
             'myTasks'        => count(auth()->user()->tasks),

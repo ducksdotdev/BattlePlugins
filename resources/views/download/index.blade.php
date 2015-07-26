@@ -45,7 +45,7 @@
         <h2>
             Latest
             @if($current_job)
-                {{ $current_job->name }}
+                {{ $current_job->getName() }}
             @endif
             Builds:
         </h2>
@@ -80,9 +80,9 @@
             <div class="ui vertical menu">
                 <a href="/" class="item @if(!$current_job) active @endif">All Jobs</a>
                 @foreach($jobs as $job)
-                    <a href="/job/{{ $job->name }}"
-                       class="item @if ($current_job && $current_job->name == $job->name) active @endif">
-                        {{ $job->name }}
+                    <a href="/job/{{ $job->getName() }}"
+                       class="item @if ($current_job && $current_job->getName() == $job->getName()) active @endif">
+                        {{ $job->getName() }}
                     </a>
                 @endforeach
             </div>
@@ -92,18 +92,20 @@
                 <h2>Job Status</h2>
 
                 <div class="ui segment">
-                    @if($current_job->lastStableBuild)
+                    @if($stableBuilds)
                         <strong>Latest Build:</strong>
 
                         <div class="text-center top-margin ten bottom-margin">
-                            <a href="{{ $current_job->lastStableBuild->url }}" class="ui button icon small labeled"><i
-                                        class="icon book"></i> Build Details</a>
-                            <a href="/job/{{ $current_job->name }}/download/{{ $current_job->lastStableBuild->number }}"
-                               class="ui button green labeled small icon"><i class="icon download"></i> Download</a>
+                            <a href="{{ $stableBuilds[0]->getData()->url }}" class="ui button icon small labeled">
+                                <i class="icon book"></i> Build Details
+                            </a>
+                            <a href="{{ $stableBuilds[0]->downloadPlugin() }}" class="ui button green labeled small icon">
+                                <i class="icon download"></i> Download
+                            </a>
                         </div>
                     @endif
-                    @if($current_job->healthReport)
-                        @foreach($current_job->healthReport as $report)
+                    @if($current_job->getData()->healthReport)
+                        @foreach($current_job->getData()->healthReport as $report)
                             {{ $report->description }}
                         @endforeach
                     @else

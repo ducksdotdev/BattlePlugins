@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Download;
 
 use App\Http\Controllers\Controller;
+use App\Jenkins\JenkinsBuild;
 use App\Jobs\UpdateJobs;
 use App\Models\ProductionBuilds;
-use App\Tools\Misc\Jenkins;
 use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -30,12 +30,7 @@ class JenkinsController extends Controller {
     }
 
     public function download($job, $build) {
-        $download = Jenkins::downloadJar($job, $build);
-
-        if ($download)
-            return redirect($download);
-
-        $this->dispatch(new UpdateJobs());
-        return redirect()->back();
+        $build = new JenkinsBuild($job, $build);
+        return redirect($build->downloadPlugin());
     }
 }

@@ -19,6 +19,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <script type="text/javascript" src="/assets/js/tasks/ng-scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/scripts.js"></script>
     <!-- End Scripts -->
 </head>
 <body>
@@ -32,7 +33,19 @@
     <div ng-controller="TasksCtrl">
         <div class="grid-100">
             @include('tasks.partials.header')
-            @include('tasks.partials.tasklist')
+            <div id="taskList">
+                @if(!$tasks)
+                    <div class="have-tasks">
+                        There are no tasks to show!
+                    </div>
+                @else
+                    <div class="ui divided list">
+                        @foreach($tasks as $task)
+                            @include('tasks.partials.task')
+                        @endforeach
+                    </div>
+                @endif
+            </div>
         </div>
         <div class="grid-100">
             <div class="field">

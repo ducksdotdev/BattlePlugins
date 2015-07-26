@@ -11,9 +11,9 @@
             @endif
             <small>Assigned
                 @if($task->assignee_id)
-                    to <span class="name">{{ $task->assignee()->displayname }}</span>
+                    to <span class="name">{{ $task->assignee->displayname }}</span>
                 @endif
-                by <span class="name">{{ $task->creator()->displayname }}</span>
+                by <span class="name">{{ $task->creator->displayname }}</span>
             </small>
         </div>
         <div class="description">

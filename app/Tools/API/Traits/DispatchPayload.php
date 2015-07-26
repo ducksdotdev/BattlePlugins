@@ -23,7 +23,7 @@ trait DispatchPayload {
     protected function getDispatchActivityName($action) {
         $name = (new ReflectionClass($this))->getShortName();
 
-        return strtoupper($action . '_' . $name);
+        return strtoupper($name . '_' . $action);
     }
 
 }

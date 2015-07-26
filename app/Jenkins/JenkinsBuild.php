@@ -40,8 +40,14 @@ class JenkinsBuild {
      * @return mixed
      */
     public function getData() {
-        $json_decode = json_decode(file_get_contents(storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.json"));
-        return $json_decode;
+        $file = storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.json";
+
+        if (file_exists($file)) {
+            $json_decode = json_decode(file_get_contents($file));
+            return $json_decode;
+        }
+
+        return null;
     }
 
     /**

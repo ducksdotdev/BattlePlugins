@@ -53,7 +53,8 @@ class JenkinsJob {
             array_push($builds, $this->getBuild($build));
 
         $builds = array_sort($builds, function ($value) {
-            return -1 * $value->getData()->timestamp;
+            if ($value->getData())
+                return -1 * $value->getData()->timestamp;
         });
 
         if ($limit)

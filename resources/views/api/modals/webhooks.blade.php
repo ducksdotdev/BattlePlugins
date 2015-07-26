@@ -8,7 +8,9 @@
             {!! Form::open(['id'=>'manageWebhooksForm','url'=>URL::to('/webhooks', [], env('HTTPS_ENABLED', true)),
             'class'=>'ui form']) !!}
             <div class="thirteen wide field">
-                <label>URL <small>Leave blank to delete webhook.</small></label>
+                <label>URL
+                    <small>Leave blank to delete webhook.</small>
+                </label>
                 {!! Form::text('url', '', ['id'=>'urlInput']) !!}
             </div>
             <div class="eight wide field">
@@ -52,7 +54,7 @@
         myHooks['{{ $hook->event }}'] = '{{$hook->url}}';
         @endforeach
 
-        $("#eventSelect").change(function(){
+        $("#eventSelect").change(function () {
                     var val = $("option:selected", this).val();
                     $("#urlInput").val(myHooks[val]);
                 });

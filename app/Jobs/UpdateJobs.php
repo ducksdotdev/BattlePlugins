@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Jenkins\JenkinsJob;
 use App\Tools\Misc\Jenkins;
 use App\Tools\URL\Domain;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -32,8 +33,9 @@ class UpdateJobs extends Job implements SelfHandling {
                 $job_content = file_get_contents($url);
                 file_put_contents($path . $job->name . ".json", $job_content);
 
-                foreach (Jenkins::getJobs($job->name)->builds as $build)
-                    $this->dispatch(new UpdateBuild($job->name, $build->number));
+                $job = new JenkinsJob($job->name);
+                foreach ($job->getAllBuilds() as $build)
+                    $this->dispatch(new UpdateBuild($build));
             }
         }
     }

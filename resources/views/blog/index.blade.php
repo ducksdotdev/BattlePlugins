@@ -17,6 +17,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <script type="text/javascript" src="/assets/js/blog/scripts.js"></script>
+    <script type="text/javascript" src="/assets/js/scripts.js"></script>
     <!--       End Scripts -->
 </head>
 <body>

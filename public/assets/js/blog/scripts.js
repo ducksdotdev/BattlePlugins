@@ -2,8 +2,6 @@
 $(function () {
     'use strict';
 
-    $('.ui.checkbox').checkbox();
-
     $("#createBlog").click(function () {
         $("#createBlog").addClass("loading");
         $("#createBlogModal").modal({

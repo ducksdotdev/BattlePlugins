@@ -4,7 +4,6 @@ $(function(){
         $(".short-pastedata").toggleClass('hidden');
     });
 
-    $('.ui.checkbox').checkbox();
     $('textarea.monospace').autosize();
 
     $('textarea.monospace').on('keydown', function (e) {

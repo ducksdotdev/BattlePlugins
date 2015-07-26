@@ -28,8 +28,6 @@ BattleTasks.controller("TasksCtrl", function ($scope) {
 $(function () {
     'use strict';
 
-    $(".ui.checkbox").checkbox();
-
     $("#createTask").click(function () {
         $("#createTask").addClass("loading");
         $("#createTaskModal").modal({

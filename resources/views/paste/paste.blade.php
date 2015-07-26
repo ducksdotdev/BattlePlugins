@@ -24,12 +24,9 @@
         @include('paste.partials.editpaste')
     @endif
 @stop
-@if($lang != 'txt')
 @section('extraStyles')
-    <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
-@stop
-@endif
-@section('extraScripts')
-    <script type="text/javascript" src="/assets/js/paste/prettify.js"></script>
+    @if($lang != 'txt')
+        <link rel="stylesheet" href="/assets/css/paste/prettify.css"/>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/lang-{{ $lang }}.min.js"/>
+    @endif
 @stop

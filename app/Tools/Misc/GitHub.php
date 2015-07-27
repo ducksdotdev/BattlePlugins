@@ -5,10 +5,21 @@ namespace App\Tools\Misc;
 
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Class GitHub
+ * @package App\Tools\Misc
+ */
 class GitHub {
 
+    /**
+     * @var string
+     */
     protected static $base_url = 'https://api.github.com/';
 
+    /**
+     * @param int $limit
+     * @return mixed
+     */
     public static function getEventsFeed($limit = 3) {
         $url = 'orgs/BattlePlugins/events';
         $limit = $limit > 100 ? 100 : $limit;
@@ -21,6 +32,9 @@ class GitHub {
         return $data;
     }
 
+    /**
+     * @return array
+     */
     public static function getIssues() {
         $repos = 'orgs/BattlePlugins/repos';
         $repos = static::getFeed($repos);
@@ -34,18 +48,32 @@ class GitHub {
         return $issues;
     }
 
+    /**
+     * @param string $org
+     * @return mixed
+     */
     public static function getOrgMembers($org = 'battleplugins') {
         $url = 'orgs/' . $org . '/members';
         $data = static::getFeed($url);
         return $data;
     }
 
+    /**
+     * @param string $type
+     * @param string $owner
+     * @return mixed
+     */
     public static function getRepositories($type = 'org', $owner = 'battleplugins') {
         $url = str_plural($type) . '/' . $owner . '/repos';
         $data = static::getFeed($url);
         return $data;
     }
 
+    /**
+     * @param $url
+     * @param array $params
+     * @return mixed
+     */
     private static function getFeed($url, $params = []) {
         $name = str_replace('/', '_', $url);
 
@@ -77,6 +105,10 @@ class GitHub {
         return json_decode($data);
     }
 
+    /**
+     * @param $event
+     * @return mixed
+     */
     public static function convertEvent($event) {
         return config('github.events.' . $event);
     }

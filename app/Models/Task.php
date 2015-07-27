@@ -14,6 +14,9 @@ class Task extends Model {
 
     use DispatchPayload;
 
+    /**
+     * @var array
+     */
     protected $fillable = ['title', 'user_id', 'content', 'assignee_id', 'public', 'status'];
 
     public static function boot() {
@@ -29,10 +32,16 @@ class Task extends Model {
         }
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function creator() {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function assignee() {
         return $this->belongsTo('App\Models\User', 'assignee_id');
     }

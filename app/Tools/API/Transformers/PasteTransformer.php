@@ -5,6 +5,10 @@ namespace App\Tools\API\Transformers;
 use App\Models\User;
 use Auth;
 
+/**
+ * Class PasteTransformer
+ * @package App\Tools\API\Transformers
+ */
 class PasteTransformer extends Transformer {
 
     /**

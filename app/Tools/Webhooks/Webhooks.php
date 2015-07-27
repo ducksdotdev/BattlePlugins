@@ -6,6 +6,10 @@ use App\Jobs\SendPayload;
 use App\Models\Webhook;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
+/**
+ * Class Webhooks
+ * @package App\Tools\Webhooks
+ */
 class Webhooks {
 
     use DispatchesJobs;
@@ -17,11 +21,18 @@ class Webhooks {
     const BLOG_DELETED = 'BLOG_DELETED';
     const BLOG_UPDATED = 'BLOG_UPDATED';
 
+    /**
+     * @return array
+     */
     public static function getTypes() {
         $oClass = new \ReflectionClass(__CLASS__);
         return $oClass->getConstants();
     }
 
+    /**
+     * @param $payload
+     * @param $event
+     */
     public function triggerWebhook($payload, $event) {
         $urls = Webhook::whereEvent($event)->lists('url');
 
@@ -30,6 +41,11 @@ class Webhooks {
         }
     }
 
+    /**
+     * @param $url
+     * @param $method
+     * @param array $payload
+     */
     public function sendPayload($url, $method, $payload = []) {
         $headers = array(
             'X-API-Key: ' . Auth::user()->api_key
@@ -57,6 +73,10 @@ class Webhooks {
         curl_close($ch);
     }
 
+    /**
+     * @param $url
+     * @param $event
+     */
     public static function create($url, $event) {
         $uid = Auth::user()->id;
 
@@ -64,7 +84,7 @@ class Webhooks {
             auth()->user()->webhooks()->whereEvent($event)->delete();
         else {
             Webhook::updateOrCreate([
-                'event'   => $event,
+                'event' => $event,
                 'user_id' => $uid
             ])->update([
                 'url' => $url

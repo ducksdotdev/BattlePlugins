@@ -5,8 +5,15 @@ namespace App\Tools\API;
 
 use App\Models\User;
 
+/**
+ * Class GenerateApiKey
+ * @package App\Tools\API
+ */
 class GenerateApiKey {
 
+    /**
+     * @return string
+     */
     public static function generateKey() {
         $apiKey = str_random(32);
 
@@ -17,6 +24,9 @@ class GenerateApiKey {
         return $apiKey;
     }
 
+    /**
+     * @param $user
+     */
     public static function changeKey($user) {
         if (!($user instanceof User))
             $user = User::find($user);

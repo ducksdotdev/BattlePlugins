@@ -3,8 +3,8 @@
 namespace App\Tools\API\Transformers;
 
 /**
- * Class TaskTransformer
- * @package App\Tools\Transformers
+ * Class ShortUrlTransformer
+ * @package App\Tools\API\Transformers
  */
 class ShortUrlTransformer extends Transformer {
 

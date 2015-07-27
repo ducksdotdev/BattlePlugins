@@ -8,21 +8,41 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Class Domain
+ * @package App\Tools\URL
+ */
 class Domain {
 
+    /**
+     * @param Request $request
+     * @return string
+     */
     public static function getTld(Request $request) {
         return substr($request, strrpos($request, ".") + 1);
     }
 
+    /**
+     * @param $url
+     * @return bool
+     */
     public static function isUrl($url) {
         $validator = Validator::make(['url' => $url], ['url' => 'url']);
         return !$validator->fails();
     }
 
+    /**
+     * @param $url
+     * @return string
+     */
     public static function stripTrailingSlash($url) {
         return rtrim($url, "/");
     }
 
+    /**
+     * @param $req
+     * @return null|string
+     */
     public static function shorten($req) {
         $req = static::stripTrailingSlash($req);
         if (!starts_with($req, ['https://', 'http://']))
@@ -54,11 +74,21 @@ class Domain {
         return null;
     }
 
+    /**
+     * @param $host
+     * @return bool
+     */
     public static function isOnline($host) {
         exec("ping -c 4 " . $host, $outcome, $status);
         return (0 == $status);
     }
 
+    /**
+     * @param $url
+     * @param bool|false $cache
+     * @param int $cacheLength
+     * @return bool
+     */
     public static function remoteFileExists($url, $cache = false, $cacheLength = 60) {
         if ($cache) {
             Cache::get($url . '_file_exists', function () use ($url, $cacheLength) {
@@ -70,6 +100,10 @@ class Domain {
             return static::checkFileExists($url);
     }
 
+    /**
+     * @param $url
+     * @return bool
+     */
     private static function checkFileExists($url) {
         $curl = curl_init($url);
 

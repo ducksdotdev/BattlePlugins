@@ -8,6 +8,10 @@ namespace App\Jenkins;
  * Class JenkinsJob
  * @package App\Jenkins
  */
+/**
+ * Class JenkinsJob
+ * @package App\Jenkins
+ */
 class JenkinsJob {
 
     /**

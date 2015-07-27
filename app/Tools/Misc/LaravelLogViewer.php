@@ -17,6 +17,9 @@ class LaravelLogViewer {
      */
     private static $file;
 
+    /**
+     * @var array
+     */
     private static $levels_classes = [
         'debug'    => 'blue',
         'info'     => 'blue',
@@ -121,6 +124,12 @@ class LaravelLogViewer {
         return $class->getConstants();
     }
 
+    /**
+     * @param null $l
+     * @param int $curPage
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
     public static function getPaginated($l = null, $curPage = 1, $perPage = 15) {
         if ($l)
             static::setFile(base64_decode($l));

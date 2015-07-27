@@ -4,7 +4,7 @@ namespace App\Tools\API\Transformers;
 
 /**
  * Class Transformer
- * @package App\Tools\Transformers
+ * @package App\Tools\API\Transformers
  */
 abstract class Transformer {
 

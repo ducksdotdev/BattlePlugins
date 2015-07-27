@@ -4,14 +4,28 @@ namespace App\Jenkins;
 
 use Awjudd\FeedReader\Facades\FeedReader;
 
+/**
+ * Class Jenkins
+ * @package App\Jenkins
+ */
 class Jenkins {
 
+    /**
+     * @param string $endpoint
+     * @param int $limit
+     * @param int $start
+     * @return mixed
+     */
     public static function getFeed($endpoint = 'rssAll', $limit = 4, $start = 0) {
         $feed = FeedReader::read(env("JENKINS_URL") . '/' . $endpoint);
         $feed->enable_order_by_date();
         return $feed->get_items($start, $limit);
     }
 
+    /**
+     * @param null $job
+     * @return JenkinsJob|array
+     */
     public static function getJobs($job = null) {
         if ($job)
             return new JenkinsJob($job);
@@ -27,6 +41,10 @@ class Jenkins {
         return $jobs;
     }
 
+    /**
+     * @param $build
+     * @return JenkinsJob
+     */
     public static function getJobFromBuild($build) {
         if ($build instanceof JenkinsBuild)
             return $build->getJob();
@@ -34,6 +52,11 @@ class Jenkins {
         return explode(' ', $build->getData()->fullDisplayName)[0];
     }
 
+    /**
+     * @param null $limit
+     * @param int $start
+     * @return array
+     */
     public static function getAllBuilds($limit = null, $start = 0) {
         $builds = [];
 
@@ -46,6 +69,11 @@ class Jenkins {
         return $builds;
     }
 
+    /**
+     * @param null $limit
+     * @param int $start
+     * @return array
+     */
     public static function getStableBuilds($limit = null, $start = 0) {
         $builds = [];
 
@@ -60,6 +88,9 @@ class Jenkins {
         return $builds;
     }
 
+    /**
+     * @return int
+     */
     public static function getBuildDownloadCount() {
         $count = 0;
         foreach (static::getAllBuilds() as $build)

@@ -104,6 +104,9 @@ class JenkinsBuild {
         return null;
     }
 
+    /**
+     * @return string
+     */
     public function getDownloadUrl() {
         return action('Download\JenkinsController@download', ['job' => $this->getJob()->getName(), 'build' => $this->getBuild()]);
     }
@@ -141,6 +144,9 @@ class JenkinsBuild {
         return Carbon::createFromTimestampUTC(str_limit($timestamp, 10));
     }
 
+    /**
+     * @return mixed
+     */
     public function isStable() {
         return ProductionBuilds::find($this->getData()->timestamp);
     }

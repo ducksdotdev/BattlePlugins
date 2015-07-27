@@ -6,8 +6,15 @@ namespace App\Tools\URL;
 use App\Models\Paste;
 use App\Models\ShortUrl;
 
+/**
+ * Class SlugGenerator
+ * @package App\Tools\URL
+ */
 class SlugGenerator {
 
+    /**
+     * @return string
+     */
     public static function generate() {
         $slug = str_random(6);
 

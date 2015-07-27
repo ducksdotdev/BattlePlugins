@@ -2,8 +2,16 @@
 
 namespace App\Tools\Misc;
 
+/**
+ * Class JsonTools
+ * @package App\Tools\Misc
+ */
 class JsonTools {
 
+    /**
+     * @param $json
+     * @return string
+     */
     public static function jsonToReadable($json) {
         $tc = 0;        //tab count
         $r = '';        //result

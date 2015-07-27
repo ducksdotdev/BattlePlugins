@@ -42,11 +42,15 @@ class UserController extends Controller {
             if ($validator && $validator->fails())
                 return $this->redirectBackWithErrors($validator->errors());
 
-            if ($this->request->has('password'))
-                UserSettings::modify($user, 'password', $this->request->input('password'));
+            if ($this->request->has('password')) {
+                $password = $this->request->input('password');
+                UserSettings::modify($user, 'password', $password);
+            }
 
-            if ($this->request->has('displayname'))
-                UserSettings::modify($user, 'displayname', $this->request->input('displayname'));
+            if ($this->request->has('displayname')) {
+                $displayname = $this->request->input('displayname');
+                UserSettings::modify($user, 'displayname', $displayname);
+            }
 
             auth()->logout();
             return redirect()->back();

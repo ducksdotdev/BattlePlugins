@@ -3,6 +3,7 @@
 
 namespace App\Tools\Misc;
 
+use App\Models\User;
 
 class UserSettings {
 

@@ -4,6 +4,7 @@
 namespace App\Tools\Misc;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserSettings {
 

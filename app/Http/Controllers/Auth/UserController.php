@@ -35,22 +35,20 @@ class UserController extends Controller {
             $validator = $this->validate($this->request,
                 [
                     'displayname' => 'required|max:16',
-                    'password'    => 'confirmed'
+                    'password' => 'confirmed'
                 ]
             );
 
             if ($validator && $validator->fails())
                 return $this->redirectBackWithErrors($validator->errors());
 
-            if ($this->request->has('password')) {
-                $password = $this->request->input('password');
+            $password = $this->request->input('password');
+            if ($password)
                 UserSettings::modify($user, 'password', $password);
-            }
 
-            if ($this->request->has('displayname')) {
-                $displayname = $this->request->input('displayname');
+            $displayname = $this->request->input('displayname');
+            if ($displayname)
                 UserSettings::modify($user, 'displayname', $displayname);
-            }
 
             auth()->logout();
             return redirect()->back();
@@ -70,11 +68,11 @@ class UserController extends Controller {
                 return $this->redirectBackWithErrors('You must enter a proper email.');
 
             $id = User::insertGetId([
-                'email'       => $email,
-                'password'    => Hash::make($password),
+                'email' => $email,
+                'password' => Hash::make($password),
                 'displayname' => $displayname,
-                'admin'       => $this->request->has('isadmin'),
-                'api_key'     => GenerateApiKey::generateKey()
+                'admin' => $this->request->has('isadmin'),
+                'api_key' => GenerateApiKey::generateKey()
             ]);
 
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
@@ -82,7 +80,7 @@ class UserController extends Controller {
             CreateAlert::make($id, $message);
 
             Mail::send('emails.welcome', array(
-                'password'    => $password,
+                'password' => $password,
                 'displayname' => $this->request->input('displayname')
             ), function ($message) use ($email, $displayname) {
                 $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');

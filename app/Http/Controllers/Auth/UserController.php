@@ -103,7 +103,7 @@ class UserController extends Controller {
     public function deleteUser($user) {
         if ($user->id != 1 && Auth::user()->admin)
             UserSettings::delete($user);
-        
+
         return redirect()->back();
     }
 }

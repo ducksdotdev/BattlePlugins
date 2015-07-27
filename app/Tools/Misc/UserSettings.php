@@ -6,7 +6,7 @@ namespace App\Tools\Misc;
 
 class UserSettings {
 
-    public function modify($user, $key, $value) {
+    public static function modify($user, $key, $value) {
         if (!($user instanceof User))
             $user = User::find($user);
 
@@ -18,7 +18,7 @@ class UserSettings {
         ]);
     }
 
-    public function deleteUser($user) {
+    public static function deleteUser($user) {
         if (!($user instanceof User))
             $user = User::find($user);
 

@@ -86,6 +86,9 @@ class UserSettings {
         if (!($user instanceof User))
             $user = User::find($user);
 
+        $user->alerts()->detach();
+        $user->blogs()->delete();
+        $user->permission()->delete();
         $user->delete();
     }
 

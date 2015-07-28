@@ -1,5 +1,5 @@
 @if(!array_has($value, 'action'))
-    <div class="item">
+    <div class="item top-level">
         <div class="header">
             {{ $name }}
         </div>

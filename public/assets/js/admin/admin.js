@@ -51,4 +51,9 @@ $(function () {
     $("#openMenu").click(function () {
         menu.sidebar('show');
     });
+
+    $(".top-level").each(function () {
+        if ($(this).children('.menu').children('a').length == 0)
+            $(this).hide();
+    });
 });

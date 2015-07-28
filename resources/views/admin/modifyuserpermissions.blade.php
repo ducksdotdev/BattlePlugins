@@ -20,7 +20,10 @@
             </div>
         @endforeach
     </div>
-    <div class="grid-100 text-right">
+    <div class="grid-50 mobile-grid-50">
+        <a href="{{ action('Admin\PageController@modifyUser') }}" class="ui button">Back</a>
+    </div>
+    <div class="grid-50 mobile-grid-50 text-right">
         <button class="ui button green">Save</button>
     </div>
     {!! Form::close() !!}

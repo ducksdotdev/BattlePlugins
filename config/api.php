@@ -1,5 +1,7 @@
 <?php
 
+use App\Tools\Misc\UserSettings;
+
 return array(
     "webhook_methods" => ['created', 'deleted', 'updated'],
     //  Basic API methods
@@ -85,6 +87,7 @@ return array(
                 array(
                     'title' => 'Create Task',
                     'url' => 'tasks',
+                    'node' => UserSettings::CREATE_TASK,
                     'methods' => array(
                         array(
                             'name' => 'post',
@@ -105,6 +108,7 @@ return array(
                 array(
                     'title' => 'Edit Task',
                     'url' => 'tasks/{id}',
+                    'node' => UserSettings::MODIFY_TASK,
                     'methods' => array(
                         array(
                             'name' => 'put/patch',
@@ -125,6 +129,7 @@ return array(
                 array(
                     'title' => 'Delete Task',
                     'url' => 'tasks/{id}',
+                    'node' => UserSettings::DELETE_TASK,
                     'methods' => array(
                         array(
                             'name' => 'destroy',
@@ -184,6 +189,7 @@ return array(
                 array(
                     'title' => 'Create Blog',
                     'url' => 'blogs',
+                    'node' => UserSettings::CREATE_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'post',
@@ -204,6 +210,7 @@ return array(
                 array(
                     'title' => 'Edit Blog',
                     'url' => 'blogs/{id}',
+                    'node' => UserSettings::MODIFY_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'put/patch',
@@ -224,6 +231,7 @@ return array(
                 array(
                     'title' => 'Delete Blog',
                     'url' => 'blogs/{id}',
+                    'node' => UserSettings::DELETE_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'destroy',
@@ -286,6 +294,7 @@ return array(
                 array(
                     'title' => 'Create Paste',
                     'url' => 'pastes',
+                    'node' => UserSettings::CREATE_PASTE,
                     'methods' => array(
                         array(
                             'name' => 'post',
@@ -310,6 +319,7 @@ return array(
                 array(
                     'title' => 'Delete Paste',
                     'url' => 'pastes/{id}',
+                    'node' => UserSettings::MODIFY_PASTE,
                     'methods' => array(
                         array(
                             'name' => 'destroy',

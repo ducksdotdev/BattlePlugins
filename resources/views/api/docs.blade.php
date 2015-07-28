@@ -27,9 +27,11 @@
                     </div>
                     <div class="content">
                         @foreach($docType['methods'] as $doc)
-                            <p>
-                                <a href="#{{ $docType['name'] }}-{{ $doc['title'] }}">{{ $doc['title'] }}</a>
-                            </p>
+                            @if(!array_has($doc, 'node') || \App\Tools\Misc\UserSettings::hasNode(auth()->user(), $doc['node']))
+                                <p>
+                                    <a href="#{{ $docType['name'] }}-{{ $doc['title'] }}">{{ $doc['title'] }}</a>
+                                </p>
+                            @endif
                         @endforeach
                     </div>
                 @endforeach

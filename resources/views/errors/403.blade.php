@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="lDucks">
-    <title>BattlePlugins :: 400 Error</title>
+    <title>BattlePlugins :: 403 Error</title>
     <link rel="icon" type="image/png" href="bp.png"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css">
     <link rel="stylesheet" href="/assets/css/errors.css"/>

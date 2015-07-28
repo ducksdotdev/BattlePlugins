@@ -5,7 +5,6 @@ use App\Tools\Misc\UserSettings;
 return [
     'Dashboard' => [
         'action' => 'Admin\PageController@index',
-        'node' => UserSettings::ADMIN_PANEL
     ],
     'Feeds' => [
         'Logs' => [
@@ -14,7 +13,6 @@ return [
         ],
         'GitHub' => [
             'action' => 'Admin\PageController@github',
-            'node' => UserSettings::ADMIN_PANEL
         ]
     ],
     'Statistics' => [
@@ -41,6 +39,14 @@ return [
         'Manage Content' => [
             'action' => 'Admin\PageController@cms',
             'node' => UserSettings::MANAGE_CONTENT
+        ]
+    ],
+    'Your Settings' => [
+        'Settings' => [
+            'action' => 'Admin\PageController@settings',
+        ],
+        'Logout' => [
+            'action' => 'Auth\AuthController@getLogout'
         ]
     ]
 ];

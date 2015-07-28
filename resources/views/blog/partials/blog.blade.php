@@ -12,16 +12,19 @@
             </h1>
         </div>
         <div class="grid-15">
-            @if(Auth::check())
-                <button id="editBlog" class="circular black ui icon button">
-                    <i class="icon pencil"></i>
-                </button>
-                {!! Form::open(['url'=>URL::to('/delete/'.$blog->id, [], env('HTTPS_ENABLED', true)),
-                'class'=>'inline']) !!}
-                <button id="delete" href="" class="circular red ui icon button"><i class="icon trash"></i></button>
-                {!! Form::close() !!}
-            @else
-                &nbsp;
+            @if(auth()->check())
+                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::MODIFY_BLOG))
+                    <button id="editBlog" class="circular black ui icon button">
+                        <i class="icon pencil"></i>
+                    </button>
+                @endif
+                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_BLOG))
+                    {!! Form::open(['url'=>URL::to('/delete/'.$blog->id, [], env('HTTPS_ENABLED', true)),
+                    'class'=>'inline']) !!}
+                    <button id="delete" href="" class="circular red ui icon button"><i class="icon trash"></i></button>
+                    {!! Form::close() !!}
+                    &nbsp;
+                @endif
             @endif
         </div>
         <div class="grid-100">

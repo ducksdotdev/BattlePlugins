@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Models\Paste;
 use App\Models\ShortUrl;
+use App\Tools\Misc\UserSettings;
 use App\Tools\URL\SlugGenerator;
 use Auth;
 use Carbon\Carbon;
@@ -15,50 +16,54 @@ class PasteController extends Controller {
     }
 
     public function createPaste(Request $request) {
-        $content = $request->get('content');
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
+            $content = $request->get('content');
 
-        if (!$content)
-            return redirect("/")->with('error', 'Do not leave the content field blank.');
+            if (!$content)
+                return redirect("/")->with('error', 'Do not leave the content field blank.');
 
-        $slug = SlugGenerator::generate();
+            $slug = SlugGenerator::generate();
 
-        ShortUrl::create([
-            'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
-            'slug' => $slug
-        ]);
-
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
-            500000)));
-
-        Paste::create([
-            'slug' => $slug,
-            'user_id' => Auth::user()->id,
-            'title' => $request->title,
-            'public' => $request->has('public')
-        ]);
-
-        return redirect('/' . $slug);
-    }
-
-    public function editPaste(Request $request) {
-        $content = $request->get('content');
-
-        if (!$content)
-            return redirect("/");
-
-        $paste = Paste::find($request->id);
-
-        if ($paste->user_id == Auth::user()->id) {
-            $slug = $paste->slug;
+            ShortUrl::create([
+                'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
+                'slug' => $slug
+            ]);
 
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
                 500000)));
 
-            $paste->updated_at = Carbon::now();
-            $paste->save();
-        }
+            Paste::create([
+                'slug' => $slug,
+                'user_id' => Auth::user()->id,
+                'title' => $request->title,
+                'public' => $request->has('public')
+            ]);
 
-        return redirect('/' . $slug);
+            return redirect('/' . $slug);
+        }
+    }
+
+    public function editPaste(Request $request) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE)) {
+            $content = $request->get('content');
+
+            if (!$content)
+                return redirect("/");
+
+            $paste = Paste::find($request->id);
+
+            if ($paste->user_id == Auth::user()->id) {
+                $slug = $paste->slug;
+
+                file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
+                    500000)));
+
+                $paste->updated_at = Carbon::now();
+                $paste->save();
+            }
+
+            return redirect('/' . $slug);
+        }
     }
 
     public function getPaste($slug) {
@@ -111,15 +116,17 @@ class PasteController extends Controller {
     }
 
     public function deletePaste($id) {
-        $paste = Paste::find($id);
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE)) {
+            $paste = Paste::find($id);
 
-        if ($paste->user_id == Auth::user()->id) {
-            ShortUrl::whereSlug($paste->slug)->delete();
-            unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
-            $paste->delete();
+            if ($paste->user_id == Auth::user()->id) {
+                ShortUrl::whereSlug($paste->slug)->delete();
+                unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
+                $paste->delete();
+            }
+
+            return redirect("/");
         }
-
-        return redirect("/");
     }
 
     public function downloadPaste($slug) {

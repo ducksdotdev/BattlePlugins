@@ -36,9 +36,8 @@ class Webhooks {
     public function triggerWebhook($payload, $event) {
         $urls = Webhook::whereEvent($event)->lists('url');
 
-        foreach ($urls as $url) {
+        foreach ($urls as $url)
             $this->dispatch(new SendPayload($url, 'POST', $payload));
-        }
     }
 
     /**
@@ -47,10 +46,6 @@ class Webhooks {
      * @param array $payload
      */
     public function sendPayload($url, $method, $payload = []) {
-        $headers = array(
-            'X-API-Key: ' . Auth::user()->api_key
-        );
-
         if ($method == 'PATCH' || $method == 'PUT') {
             array_push($headers, 'Content-Type: x-www-form-urlencoded');
             $payload = http_build_query($payload);

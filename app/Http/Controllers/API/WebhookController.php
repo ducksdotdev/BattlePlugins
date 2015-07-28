@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,8 +19,10 @@ class WebhookController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function create(Request $request) {
-        Webhooks::create($request->get('url'), $request->get('event'));
-        return redirect()->back();
-    }
+        if (UserSettings::hasNode(auth()->user(), UserSettings::USE_WEBHOOKS)) {
 
+            Webhooks::create($request->get('url'), $request->get('event'));
+            return redirect()->back();
+        }
+    }
 }

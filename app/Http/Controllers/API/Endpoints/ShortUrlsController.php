@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Endpoints;
 use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\ShortUrlTransformer;
+use App\Tools\Misc\UserSettings;
 use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
@@ -44,9 +45,12 @@ class ShortUrlsController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($url) {
-        $url = ShortUrl::whereUrl($url)->first();
-        $url->delete();
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
+            $url = ShortUrl::whereUrl($url)->first();
+            $url->delete();
 
-        return $this->statusCode->respondWithSuccess("Short URL has been deleted.");
+            return $this->statusCode->respondWithSuccess("Short URL has been deleted.");
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 }

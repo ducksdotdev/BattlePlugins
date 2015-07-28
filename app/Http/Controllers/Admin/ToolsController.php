@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Tools\Misc\Settings;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Http\Request;
@@ -17,19 +18,18 @@ class ToolsController extends Controller {
      * @param Request $request
      */
     function __construct(Request $request) {
-        $this->middleware('auth');
+        $this->middleware('auth.admin');
         $this->request = $request;
     }
 
     public function alert() {
-        if (Auth::user()->admin) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
             foreach (User::all() as $user) {
                 CreateAlert::make($user, $this->request->get('content'));
             }
 
             return redirect()->back()->with('success', 'Users have been alerted.');
-        } else
-            return redirect()->back();
+        }
     }
 
     public function deleteAlert($id) {

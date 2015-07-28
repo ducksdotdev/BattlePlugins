@@ -3,6 +3,7 @@
 
 namespace App\Tools\Misc;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,6 +12,34 @@ use Illuminate\Support\Facades\Hash;
  * @package App\Tools\Misc
  */
 class UserSettings {
+
+    const CREATE_BLOG = 'blog.create';
+    const MODIFY_BLOG = 'blog.modify';
+    const DELETE_BLOG = 'blog.delete';
+    const VIEW_TASK = 'task.view';
+    const CREATE_TASK = 'task.create';
+    const MODIFY_TASK = 'task.modify';
+    const DELETE_TASK = 'task.delete';
+    const ADMIN_PANEL = 'admin.access';
+    const CREATE_ALERT = 'admin.alert';
+    const CREATE_USER = 'admin.user.create';
+    const MODIFY_USER = 'admin.user.modify';
+    const DELETE_USER = 'admin.user.delete';
+    const DELETE_SHORTURL = 'admin.deleteshorturl';
+    const MANAGE_CONTENT = 'admin.cms';
+    const DEVELOPER = 'developer';
+    const CREATE_PASTE = 'paste.create';
+    const MODIFY_PASTE = 'paste.modify';
+    const USE_API = 'api.use';
+    const USE_WEBHOOKS = 'api.webhooks';
+
+    /**
+     * @return array
+     */
+    public static function getPossible() {
+        $oClass = new \ReflectionClass(__CLASS__);
+        return $oClass->getConstants();
+    }
 
     /**
      * @param $user
@@ -45,4 +74,24 @@ class UserSettings {
         $user->delete();
     }
 
+    public static function hasNode($user, $node) {
+        if ($user instanceof User)
+            $user = $user->id;
+
+        return (bool)count(Permission::whereUserId($user)->whereNode($node)->first());
+    }
+
+    public static function togglePermissionNode($user, $node) {
+        if (!($user instanceof User))
+            $user = User::find($user);
+
+        if (static::hasNode($user, $node))
+            $user->permission()->whereNode($node)->delete();
+        else {
+            Permission::create([
+                'user_id' => $user->id,
+                'node' => $node
+            ]);
+        }
+    }
 }

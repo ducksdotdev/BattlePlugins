@@ -6,6 +6,7 @@ use App\Models\Paste;
 use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\PasteTransformer;
+use App\Tools\Misc\UserSettings;
 use App\Tools\URL\SlugGenerator;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
@@ -73,32 +74,35 @@ class PastesController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store() {
-        $title = $this->request->input('title');
-        $content = $this->request->input('content');
-        $force = $this->request->input('force');
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
+            $force = $this->request->input('force');
 
-        if (!$content)
-            return $this->statusCode->respondWithError("A required field has been left blank.");
-        else if (strlen($content) > env("PASTE_MAX_LEN", 500000) && !$force)
-            return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit. Set the force param to true to cut your paste after " . env("PASTE_MAX_LEN", 500000) . "characters");
+            if (!$content)
+                return $this->statusCode->respondWithError("A required field has been left blank.");
+            else if (strlen($content) > env("PASTE_MAX_LEN", 500000) && !$force)
+                return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit. Set the force param to true to cut your paste after " . env("PASTE_MAX_LEN", 500000) . "characters");
 
-        $slug = SlugGenerator::generate();
+            $slug = SlugGenerator::generate();
 
-        ShortUrl::create([
-            'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
-            'slug' => $slug
-        ]);
+            ShortUrl::create([
+                'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
+                'slug' => $slug
+            ]);
 
-        file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
+            file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
-        Paste::create([
-            'slug' => $slug,
-            'creator' => Auth::user()->id,
-            'title' => $title,
-            'public' => $this->request->input('public')
-        ]);
+            Paste::create([
+                'slug' => $slug,
+                'creator' => Auth::user()->id,
+                'title' => $title,
+                'public' => $this->request->input('public')
+            ]);
 
-        return $this->statusCode->respondCreated($slug);
+            return $this->statusCode->respondCreated($slug);
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 
     /**

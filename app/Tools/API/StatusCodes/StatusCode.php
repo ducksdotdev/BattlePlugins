@@ -30,7 +30,7 @@ class StatusCode {
      * @param string $message
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function respondValidationFailed($message = 'Failed to validate request.') {
+    public function respondValidationFailed($message = 'Failed to validate request. You don\t have permission to do this.') {
         return $this->respondWithError($message, Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 

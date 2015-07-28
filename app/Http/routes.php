@@ -97,11 +97,12 @@ Route::group(['domain' => 'admin.' . $url], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/create', 'Admin\PageController@createUser');
         Route::get('/modify', 'Admin\PageController@modifyUser');
+        Route::get('/modify/{uid}', 'Admin\PageController@modifyUserPermissions');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/modify/{id}/delete', 'Auth\UserController@deleteUser');
-            Route::post('/modify/{id}/admin', 'Auth\UserController@toggleAdmin');
             Route::post('/create', 'Auth\UserController@createUser');
+            Route::post('/modify/{uid}/permissions', 'Auth\UserController@modifyUserPermissions');
         });
     });
 

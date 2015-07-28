@@ -57,7 +57,7 @@ class UserController extends Controller {
     }
 
     public function createUser() {
-        if (Auth::user()->admin) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
             $password = $this->request->input('password');
             $email = $this->request->input('email');
             $displayname = $this->request->input('displayname');
@@ -90,17 +90,24 @@ class UserController extends Controller {
         }
     }
 
-    public function toggleAdmin($user) {
-        $user = User::find($user);
-        if ($user->id != 1 && Auth::user()->admin)
-            UserSettings::modify($user, 'admin', !$user->admin);
+    public function deleteUser($user) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
+            UserSettings::delete($user);
 
         return redirect()->back();
     }
 
-    public function deleteUser($user) {
-        if ($user->id != 1 && Auth::user()->admin)
-            UserSettings::delete($user);
+    public function modifyUserPermissions($user) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER)) {
+            User::find($user)->permission()->delete();
+
+            $nodes = $this->request->all();
+            unset($nodes['_token']);
+
+
+            foreach ($nodes as $node => $value)
+                UserSettings::togglePermissionNode($user, str_replace('_', '.', $node));
+        }
 
         return redirect()->back();
     }

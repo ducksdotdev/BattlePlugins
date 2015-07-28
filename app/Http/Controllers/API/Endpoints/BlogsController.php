@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Endpoints;
 use App\Models\Blog;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\BlogTransformer;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -62,19 +63,22 @@ class BlogsController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store() {
-        $title = $this->request->input('title');
-        $content = $this->request->input('content');
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_BLOG)) {
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
 
-        if (!$title || !$content)
-            return $this->statusCode->respondWithError("A required field has been left blank.");
+            if (!$title || !$content)
+                return $this->statusCode->respondWithError("A required field has been left blank.");
 
-        Blog::create([
-            'title' => $title,
-            'author' => Auth::user()->id,
-            'content' => $content,
-        ]);
+            Blog::create([
+                'title' => $title,
+                'author' => Auth::user()->id,
+                'content' => $content,
+            ]);
 
-        return $this->statusCode->respondCreated('Blog successfully created.');
+            return $this->statusCode->respondCreated('Blog successfully created.');
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 
     /**
@@ -82,18 +86,24 @@ class BlogsController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id) {
-        Blog::find($id)->delete();
-        return $this->statusCode->respondWithSuccess("Blog has been deleted.");
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG)) {
+            Blog::find($id)->delete();
+            return $this->statusCode->respondWithSuccess("Blog has been deleted.");
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 
     public function update($id) {
-        $blog = Blog::find($id);
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG)) {
+            $blog = Blog::find($id);
 
-        if (!$blog)
-            return $this->statusCode->respondNotFound("Blog does not exist!");
+            if (!$blog)
+                return $this->statusCode->respondNotFound("Blog does not exist!");
 
-        $blog->update($this->request->all());
+            $blog->update($this->request->all());
 
-        return $this->statusCode->respondWithSuccess("Blog has been modified.");
+            return $this->statusCode->respondWithSuccess("Blog has been modified.");
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 }

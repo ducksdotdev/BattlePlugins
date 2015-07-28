@@ -19,6 +19,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
     <script type="text/javascript" src="/assets/js/admin/admin.js"></script>
     <script type="text/javascript" src="/assets/js/scripts.js"></script>
+    @yield('extraScripts')
     <!--       End Scripts -->
 </head>
 <body>

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\User;
 use App\Tools\API\StatusCodes\StatusCode;
+use App\Tools\Misc\UserSettings;
 use Auth;
 use Closure;
 
@@ -34,7 +35,9 @@ class ApiAuthenticate {
         $result = User::where('api_key', $key)->first();
         if ($result) {
             Auth::loginUsingId($result->id);
-            return $next($request);
+
+            if (UserSettings::hasNode(auth()->user(), UserSettings::USE_API))
+                return $next($request);
         }
 
         return $this->statusCode->respondValidationFailed('Failed to validate API-Key.');

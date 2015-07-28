@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Tools\API\Transformers\BlogTransformer;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,38 +19,43 @@ class BlogController extends Controller {
     }
 
     public function create() {
-        $title = $this->request->input('title');
-        $content = $this->request->input('content');
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_BLOG)) {
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
 
-        Blog::create([
-            'title' => $title,
-            'content' => $content,
-            'author' => Auth::user()->id
-        ]);
+            Blog::create([
+                'title' => $title,
+                'content' => $content,
+                'author' => Auth::user()->id
+            ]);
 
-        return redirect()->back();
+            return redirect()->back();
+        }
     }
 
     public function deleteBlog($id) {
-        Blog::find($id)->delete();
-        return redirect()->back();
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG)) {
+            Blog::find($id)->delete();
+            return redirect()->back();
+        }
     }
 
     public function editBlog($id) {
-        $title = $this->request->input('title');
-        $content = $this->request->input('content');
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG)) {
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
 
-        $blog = Blog::whereId($id);
+            $blog = Blog::whereId($id);
 
-        if (!$blog)
-            return redirect("/");
+            if (!$blog)
+                return redirect("/");
 
-        $blog->update([
-            'title' => $title,
-            'content' => $content,
-        ]);
+            $blog->update([
+                'title' => $title,
+                'content' => $content,
+            ]);
 
-        return redirect('/' . $id);
+            return redirect('/' . $id);
+        }
     }
-
 }

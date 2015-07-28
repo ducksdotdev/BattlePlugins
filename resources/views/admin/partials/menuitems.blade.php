@@ -13,7 +13,7 @@
 
 <div class="item">
     <div class="header">
-        {{ auth()->user()->displayname}}
+        {{ auth()->user()->displayname }}
     </div>
     <div class="menu">
         <a href="{{ action('Admin\PageController@settings') }}" class="item">Settings</a>

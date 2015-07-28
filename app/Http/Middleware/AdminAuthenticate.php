@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Tools\Misc\UserSettings;
 use Closure;
 
 /**
@@ -18,8 +19,11 @@ class AdminAuthenticate {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        if (auth()->guest() || !auth()->user()->admin)
-            return view('admin.noperms', ['title'=>'No Permission']);
+        if (auth()->guest())
+            return redirect()->guest('/auth/login');
+
+        if (!UserSettings::hasNode(auth()->user(), UserSettings::ADMIN_PANEL))
+            return view('admin.noperms', ['title' => 'No Permission']);
 
         return $next($request);
     }

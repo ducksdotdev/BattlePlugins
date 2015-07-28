@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Endpoints;
 use App\Models\Task;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\TaskTransformer;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
@@ -31,6 +32,9 @@ class TasksController extends ApiController {
         $this->statusCode = $statusCode;
         $this->webhooks = $webhooks;
         $this->request = $request;
+
+        if (!UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASKS))
+            return $this->statusCode->respondValidationFailed();
     }
 
     /**
@@ -65,17 +69,20 @@ class TasksController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function store() {
-        $insert = [
-            'title' => $this->request->input('title') ?: 'Untitled',
-            'user_id' => Auth::user()->id,
-            'assignee_id' => $this->request->input('assignee_id') ?: 0,
-            'public' => $this->request->input('public') ?: false,
-            'content' => $this->request->input('content') ?: ''
-        ];
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_TASK)) {
+            $insert = [
+                'title' => $this->request->input('title') ?: 'Untitled',
+                'user_id' => Auth::user()->id,
+                'assignee_id' => $this->request->input('assignee_id') ?: 0,
+                'public' => $this->request->input('public') ?: false,
+                'content' => $this->request->input('content') ?: ''
+            ];
 
-        Task::create($insert);
+            Task::create($insert);
 
-        return $this->statusCode->respondCreated('Task successfully created.');
+            return $this->statusCode->respondCreated('Task successfully created.');
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 
     /**
@@ -83,19 +90,24 @@ class TasksController extends ApiController {
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($id) {
-        Task::find($id)->delete();
-        return $this->statusCode->respondWithSuccess("Task has been deleted.");
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_TASK)) {
+            Task::find($id)->delete();
+            return $this->statusCode->respondWithSuccess("Task has been deleted.");
+        }
     }
 
     public function update($id) {
-        $task = Task::find($id);
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_TASK)) {
+            $task = Task::find($id);
 
-        if (!$task)
-            return $this->statusCode->respondNotFound("Task does not exist!");
+            if (!$task)
+                return $this->statusCode->respondNotFound("Task does not exist!");
 
-        $task->update($this->request->all());
+            $task->update($this->request->all());
 
-        return $this->statusCode->respondWithSuccess("Task has been modified.");
+            return $this->statusCode->respondWithSuccess("Task has been modified.");
+        } else
+            return $this->statusCode->respondValidationFailed();
     }
 
 }

@@ -12,14 +12,16 @@ class PageController extends Controller {
 
     function __construct() {
         $this->middleware('auth');
+        if (!UserSettings::hasNode(auth()->user(), UserSettings::USE_API))
+            return abort(422);
     }
 
     public function index() {
         return view('api.docs', [
-            'apiKey'   => Auth::user()->api_key,
-            'docs'     => Config::get('api.docs'),
+            'apiKey' => Auth::user()->api_key,
+            'docs' => Config::get('api.docs'),
             'webhooks' => Webhooks::getTypes(),
-            'myHooks'  => auth()->user()->webhooks
+            'myHooks' => auth()->user()->webhooks
         ]);
     }
 

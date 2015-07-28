@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ShortUrl;
+use App\Tools\Misc\UserSettings;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,9 @@ class StatisticsController extends Controller {
     }
 
     public function deleteShortUrl($slug) {
-        ShortUrl::whereSlug($slug)->delete();
-        return redirect()->back();
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
+            ShortUrl::whereSlug($slug)->delete();
+            return redirect()->back();
+        }
     }
 }

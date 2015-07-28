@@ -23,7 +23,7 @@ class AdminAuthenticate {
             return redirect()->guest('/auth/login');
 
         if (!UserSettings::hasNode(auth()->user(), UserSettings::ADMIN_PANEL))
-            return view('admin.noperms', ['title' => 'No Permission']);
+            abort(403);
 
         return $next($request);
     }

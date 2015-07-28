@@ -13,7 +13,7 @@ class PageController extends Controller {
     function __construct() {
         $this->middleware('auth');
         if (!UserSettings::hasNode(auth()->user(), UserSettings::USE_API))
-            return abort(422);
+            return abort(403);
     }
 
     public function index() {

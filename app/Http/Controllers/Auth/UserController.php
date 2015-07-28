@@ -87,7 +87,8 @@ class UserController extends Controller {
             });
 
             return redirect()->action('Admin\PageController@modifyUserPermissions', ['id' => $id]);
-        }
+        } else
+            abort(403);
     }
 
     public function deleteUser($user) {
@@ -107,8 +108,9 @@ class UserController extends Controller {
 
             foreach ($nodes as $node => $value)
                 UserSettings::togglePermissionNode($user, str_replace('_', '.', $node));
-        }
 
-        return redirect()->back();
+            return redirect()->back();
+        } else
+            abort(403);
     }
 }

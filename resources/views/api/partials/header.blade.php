@@ -2,7 +2,9 @@
     <div class="grid-container">
         <div class="grid-100">
             <h2>API Documentation (BattleWebAPI {{env('API_VERSION')}})
-                <button id="manageWebhooks" class="ui small button default">Manage Webhooks</button>
+                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::USE_WEBHOOKS))
+                    <button id="manageWebhooks" class="ui small button default">Manage Webhooks</button>
+                @endif
             </h2>
             Your API key is <strong>{{ $apiKey }}</strong>. Please do not share this key with anyone. It allows other users or servers to act on your behalf. If your key is
             compromised, you can

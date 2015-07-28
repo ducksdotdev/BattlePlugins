@@ -40,7 +40,8 @@ class PasteController extends Controller {
             ]);
 
             return redirect('/' . $slug);
-        }
+        } else
+            abort(403);
     }
 
     public function editPaste(Request $request) {
@@ -63,7 +64,8 @@ class PasteController extends Controller {
             }
 
             return redirect('/' . $slug);
-        }
+        } else
+            abort(403);
     }
 
     public function getPaste($slug) {
@@ -126,7 +128,8 @@ class PasteController extends Controller {
             }
 
             return redirect("/");
-        }
+        } else
+            abort(403);
     }
 
     public function downloadPaste($slug) {

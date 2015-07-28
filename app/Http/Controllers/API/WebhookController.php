@@ -23,6 +23,7 @@ class WebhookController extends Controller {
 
             Webhooks::create($request->get('url'), $request->get('event'));
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 }

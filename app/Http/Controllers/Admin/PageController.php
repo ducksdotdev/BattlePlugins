@@ -66,7 +66,8 @@ class PageController extends Controller {
             return view('admin.createuser', [
                 'title' => 'Create User'
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function modifyUser() {
@@ -75,7 +76,8 @@ class PageController extends Controller {
                 'title' => 'Modify User',
                 'users' => User::all()
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function modifyUserPermissions($id) {
@@ -89,7 +91,8 @@ class PageController extends Controller {
                     return $value;
                 })
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function alerts() {
@@ -97,7 +100,8 @@ class PageController extends Controller {
             return view('admin.alerts', [
                 'title' => 'Create Alert'
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function cms() {
@@ -110,7 +114,8 @@ class PageController extends Controller {
                 'alert_bar' => Settings::get('alert_bar'),
                 'comment_feed' => Settings::get('comment_feed')
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function serverStats() {
@@ -139,7 +144,8 @@ class PageController extends Controller {
                 'perPage' => $perPage,
                 'url' => $this->request->url()
             ]);
-        }
+        } else
+            abort(403);
     }
 
     public function shortUrls($curPage = 1, $perPage = 35) {
@@ -152,6 +158,7 @@ class PageController extends Controller {
                 'urls' => $urls,
                 'perPage' => $perPage
             ]);
-        }
+        } else
+            abort(403);
     }
 }

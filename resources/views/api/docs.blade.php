@@ -36,5 +36,7 @@
             </div>
         </div>
     </div>
-    @include('api.modals.webhooks')
+    @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::USE_WEBHOOKS))
+        @include('api.modals.webhooks')
+    @endif
 @stop

@@ -24,6 +24,7 @@ class StatisticsController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
             ShortUrl::whereSlug($slug)->delete();
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 }

@@ -30,14 +30,16 @@ class BlogController extends Controller {
             ]);
 
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 
     public function deleteBlog($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG)) {
             Blog::find($id)->delete();
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 
     public function editBlog($id) {
@@ -56,6 +58,7 @@ class BlogController extends Controller {
             ]);
 
             return redirect('/' . $id);
-        }
+        } else
+            abort(403);
     }
 }

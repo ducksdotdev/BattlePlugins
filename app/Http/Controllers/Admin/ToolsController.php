@@ -29,7 +29,8 @@ class ToolsController extends Controller {
             }
 
             return redirect()->back()->with('success', 'Users have been alerted.');
-        }
+        } else
+            abort(403);
     }
 
     public function deleteAlert($id) {

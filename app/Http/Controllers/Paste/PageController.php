@@ -15,6 +15,7 @@ class PageController extends Controller {
             return view('paste.index', [
                 'pastes' => auth()->user()->pastes
             ]);
-        }
+        } else
+            abort(403);
     }
 }

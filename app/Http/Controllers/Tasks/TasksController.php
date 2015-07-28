@@ -39,21 +39,24 @@ class TasksController extends Controller {
             $task->save();
 
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 
     public function deleteTask($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_TASK)) {
             Task::find($id)->delete();
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 
     public function completeTask($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_TASK)) {
             Task::find($id)->update(['status' => 1]);
             return redirect()->back();
-        }
+        } else
+            abort(403);
     }
 
     public function refreshIssues() {

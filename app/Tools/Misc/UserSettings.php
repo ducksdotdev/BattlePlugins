@@ -81,6 +81,13 @@ class UserSettings {
         return (bool)count(Permission::whereUserId($user)->whereNode($node)->first());
     }
 
+    public static function delete($user) {
+        if(!($user instanceof User))
+            $user = User::find($user);
+
+        $user->delete();
+    }
+    
     public static function togglePermissionNode($user, $node) {
         if (!($user instanceof User))
             $user = User::find($user);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Tools\API\GenerateApiKey;
+use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Support\Facades\Config;

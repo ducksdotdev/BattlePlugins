@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use App\Jenkins\JenkinsBuild;
 use App\Jobs\UpdateJobs;
 use App\Models\ProductionBuilds;
+use App\Tools\Misc\UserSettings;
 use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Support\Facades\Log;
@@ -11,13 +12,16 @@ use Illuminate\Support\Facades\Log;
 class JenkinsController extends Controller {
 
     public function toggleProduction($job) {
-        $jobid = ProductionBuilds::find($job);
-        if ($jobid)
-            $jobid->delete();
-        else
-            ProductionBuilds::create(['build' => $job]);
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MANAGE_BUILDS)) {
+            $jobid = ProductionBuilds::find($job);
+            if ($jobid)
+                $jobid->delete();
+            else
+                ProductionBuilds::create(['build' => $job]);
 
-        return redirect()->back();
+            return redirect()->back();
+        } else
+            abort(403);
     }
 
     public function updateJenkins($event = "Manual") {

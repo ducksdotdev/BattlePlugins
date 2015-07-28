@@ -14,9 +14,13 @@
             | <a href="{{ action('ShortUrls\PageController@index') }}">bplug.in</a>
             @if(Auth::check())
                 <br/>
-                <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a>
-                | <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a>
-                | <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
+                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
+                    <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a> |
+                @endif
+                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
+                    <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a> |
+                @endif
+                <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
             @endif
         </p>
 

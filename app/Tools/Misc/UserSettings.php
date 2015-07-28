@@ -32,6 +32,7 @@ class UserSettings {
     const MODIFY_PASTE = 'paste.modify';
     const USE_API = 'api.use';
     const USE_WEBHOOKS = 'api.webhooks';
+    const MANAGE_BUILDS = 'download.togglestable';
 
     /**
      * @return array
@@ -82,12 +83,12 @@ class UserSettings {
     }
 
     public static function delete($user) {
-        if(!($user instanceof User))
+        if (!($user instanceof User))
             $user = User::find($user);
 
         $user->delete();
     }
-    
+
     public static function togglePermissionNode($user, $node) {
         if (!($user instanceof User))
             $user = User::find($user);

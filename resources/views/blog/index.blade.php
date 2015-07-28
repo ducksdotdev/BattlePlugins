@@ -39,7 +39,7 @@
                 <button id="createBlog" class="circular small ui positive icon button">
                     <i class="icon plus"></i>
                 </button>
-            @else
+            @elseif(!Auth::check())
                 <a href="/auth/login" class="ui button primary">Login</a>
             @endif
         </div>

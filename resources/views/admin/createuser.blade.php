@@ -30,12 +30,6 @@
             {!! Form::label('password', 'Enter Password') !!}
             {!! Form::text('password', str_random(10), ['placeholder'=>'Password']) !!}
         </div>
-        <div class="field">
-            <div class="ui toggle checkbox">
-                {!! Form::label('isadmin', 'Is user an admin?') !!}
-                {!! Form::checkbox('isadmin') !!}
-            </div>
-        </div>
         <div class="grid-100 text-right">
             {!! Form::submit('Add User', ['class'=>'ui button primary']) !!}
         </div>

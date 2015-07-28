@@ -71,7 +71,6 @@ class UserController extends Controller {
                 'email' => $email,
                 'password' => Hash::make($password),
                 'displayname' => $displayname,
-                'admin' => $this->request->has('isadmin'),
                 'api_key' => GenerateApiKey::generateKey()
             ]);
 

@@ -86,7 +86,7 @@ class UserController extends Controller {
                 $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
             });
 
-            return $this->redirectBackWithSuccess('User successfully created.');
+            return redirect()->action('Admin\PageController@modifyUserPermissions', ['id' => $id]);
         }
     }
 

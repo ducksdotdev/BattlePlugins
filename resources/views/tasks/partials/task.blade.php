@@ -22,12 +22,16 @@
     </div>
     @if(Auth::check())
         <div class="actions grid-10 text-right">
-            {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
-            <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} }"><i class="icon check"></i></button>
-            {!! Form::close() !!}
-            {!! Form::open(['url'=>URL::to('/tasks/delete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
-            <button class="circular red small ui icon button"><i class="icon trash"></i></button>
-            {!! Form::close() !!}
+            @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::MODIFY_TASK))
+                {!! Form::open(['url'=>URL::to('/tasks/complete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
+                <button class="circular small ui positive icon button" ng-class="{disabled: {{ $task->status }} }"><i class="icon check"></i></button>
+                {!! Form::close() !!}
+            @endif
+            @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_TASK))
+                {!! Form::open(['url'=>URL::to('/tasks/delete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
+                <button class="circular red small ui icon button"><i class="icon trash"></i></button>
+                {!! Form::close() !!}
+            @endif
         </div>
     @endif
 </div>

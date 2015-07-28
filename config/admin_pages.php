@@ -1,24 +1,46 @@
 <?php
 
+use App\Tools\Misc\UserSettings;
+
 return [
-    'all' => [
-        'Dashboard' => 'Admin\PageController@index',
-        'Feeds' => [
-            'Logs' => 'Admin\PageController@logs',
-            'GitHub' => 'Admin\PageController@github'
+    'Dashboard' => [
+        'action' => 'Admin\PageController@index',
+        'node' => UserSettings::ADMIN_PANEL
+    ],
+    'Feeds' => [
+        'Logs' => [
+            'action' => 'Admin\PageController@logs',
+            'node' => UserSettings::DEVELOPER
         ],
-        'Statistics' => [
-            'Short URLs' => 'Admin\PageController@shortUrls'
+        'GitHub' => [
+            'action' => 'Admin\PageController@github',
+            'node' => UserSettings::ADMIN_PANEL
         ]
     ],
-    'admin' => [
-        'User Management' => [
-            'Create User' => 'Admin\PageController@createUser',
-            'Modify User' => 'Admin\PageController@modifyUser'
+    'Statistics' => [
+        'Short URLs' => [
+            'action' => 'Admin\PageController@shortUrls',
+            'node' => UserSettings::DELETE_SHORTURL
+        ]
+    ],
+    'User Management' => [
+        'Create User' => [
+            'action' => 'Admin\PageController@createUser',
+            'node' => UserSettings::CREATE_USER
         ],
-        'Tools' => [
-            'Create Alert' => 'Admin\PageController@alerts',
-            'Manage Content' => 'Admin\PageController@cms'
+        'Modify User' => [
+            'action' => 'Admin\PageController@modifyUser',
+            'node' => UserSettings::MODIFY_USER
+        ]
+    ],
+    'Tools' => [
+        'Create Alert' => [
+            'action' => 'Admin\PageController@alerts',
+            'node' => UserSettings::CREATE_ALERT
+        ],
+        'Manage Content' => [
+            'action' => 'Admin\PageController@cms',
+            'node' => UserSettings::MANAGE_CONTENT
         ]
     ]
 ];

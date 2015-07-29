@@ -33,6 +33,10 @@ return [
         'Modify User' => [
             'action' => 'Admin\PageController@modifyUser',
             'node' => UserSettings::MODIFY_USER
+        ],
+        'Permission Overview' => [
+            'action' => 'Admin\PageController@permissionOverview',
+            'node' => UserSettings::VIEW_PERMISSIONS
         ]
     ],
     'Tools' => [

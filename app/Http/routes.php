@@ -103,6 +103,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
         Route::get('/create', 'Admin\PageController@createUser');
         Route::get('/modify', 'Admin\PageController@modifyUser');
         Route::get('/modify/{uid}', 'Admin\PageController@modifyUserPermissions');
+        Route::get('/permissions', 'Admin\PageController@permissionOverview');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/modify/{id}/delete', 'Auth\UserController@deleteUser');

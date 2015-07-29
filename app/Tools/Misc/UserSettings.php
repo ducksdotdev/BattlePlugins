@@ -25,6 +25,7 @@ class UserSettings {
     const CREATE_USER = 'admin.user.create';
     const MODIFY_USER = 'admin.user.modify';
     const DELETE_USER = 'admin.user.delete';
+    const VIEW_PERMISSIONS = 'admin.user.viewpermissions';
     const DELETE_SHORTURL = 'admin.deleteshorturl';
     const MANAGE_CONTENT = 'admin.cms';
     const VIEW_API_KEYS = 'admin.apikeys';

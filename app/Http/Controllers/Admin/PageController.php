@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Jenkins\Jenkins;
 use App\Models\Blog;
 use App\Models\Paste;
+use App\Models\Permission;
 use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
@@ -164,6 +165,16 @@ class PageController extends Controller {
             return view('admin.apikeys', [
                 'title' => 'API Keys',
                 'users' => User::all()
+            ]);
+        } else abort(403);
+    }
+
+    public function permissionOverview() {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::VIEW_PERMISSIONS)) {
+            return view('admin.permissionoverview', [
+                'title' => "Permission Overview",
+                'nodes' => UserSettings::getPossible(),
+                'permissions' => new Permission()
             ]);
         } else abort(403);
     }

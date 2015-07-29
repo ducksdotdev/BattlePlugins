@@ -59,7 +59,7 @@ class UserController extends Controller {
 
     public function createUser() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
-            $validator = $this->validate($this->request->all(), [
+            $validator = $this->validate($this->request, [
                 'displayname' => 'required|max:16',
                 'email' => 'required|email|unqiue:users,email',
                 'password' => 'required|confirmed'

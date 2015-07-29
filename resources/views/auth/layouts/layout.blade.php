@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/components/accordion.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css" type="text/css"/>
     <!--        End Styles -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
+    <script type="text/javascript" src="/assets/js/scripts.js"></script>
 </head>
 <body>
 <div class="grid-container">

@@ -1,6 +1,6 @@
 <div class="item @if($task->status) completed @endif" id="{{ $task->id }}"
      ng-class="{highlighted: {{ $task->id }} == highlighted}"
-     ng-hide="{{ $task->status ? '!showCompleted' : 'false' }}">
+     ng-if="{{ $task->status ? '!showCompleted' : 'false' }}">
     <div class="content @if(Auth::check()) grid-90 @else grid-100 @endif">
         <div class="header">
             <a href="#{{ $task->id }}" ng-click="setHighlighted({{ $task->id }})"><i

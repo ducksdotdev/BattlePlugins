@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Tools\API\GenerateApiKey;
+use App\Tools\Misc\Settings;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Queries\CreateAlert;
 use Auth;
@@ -117,30 +118,32 @@ class UserController extends Controller {
     }
 
     public function postRegister() {
-        $validator = $this->validate($this->request, [
-            'name' => 'required|max:16|unique:users,displayname',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed'
-        ]);
+        if (Settings::get('registration')) {
+            $validator = $this->validate($this->request, [
+                'name' => 'required|max:16|unique:users,displayname',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|confirmed'
+            ]);
 
-        $email = $this->request->input('email');
-        $name = $this->request->input('name');
-        if ($validator && $validator->fails())
-            return redirect()->back()->withInput(['name' => $name, 'email' => $email]);
+            $email = $this->request->input('email');
+            $name = $this->request->input('name');
+            if ($validator && $validator->fails())
+                return redirect()->back()->withInput(['name' => $name, 'email' => $email]);
 
-        User::insertGetId([
-            'email' => $email,
-            'password' => Hash::make($this->request->input('password')),
-            'displayname' => $name,
-            'api_key' => GenerateApiKey::generateKey()
-        ]);
+            User::insertGetId([
+                'email' => $email,
+                'password' => Hash::make($this->request->input('password')),
+                'displayname' => $name,
+                'api_key' => GenerateApiKey::generateKey()
+            ]);
 
-        Mail::send('emails.registration', array(
-            'name' => $this->request->input('name')
-        ), function ($message) use ($email, $name) {
-            $message->to($email, $name)->subject('BattlePlugins Registration Confirmation');
-        });
+            Mail::send('emails.registration', array(
+                'name' => $this->request->input('name')
+            ), function ($message) use ($email, $name) {
+                $message->to($email, $name)->subject('BattlePlugins Registration Confirmation');
+            });
 
-        return redirect('/auth/login')->withInput(['email' => $email]);
+            return redirect('/auth/login')->withInput(['email' => $email]);
+        } else abort(403);
     }
 }

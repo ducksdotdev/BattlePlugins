@@ -9,7 +9,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($urls as $url)
+            @foreach($users as $user)
                 <tr>
                     <td>{{ $user->email }} - {{ $user->displayname }}</td>
                     <td>{{ $user->api_key }}</td>

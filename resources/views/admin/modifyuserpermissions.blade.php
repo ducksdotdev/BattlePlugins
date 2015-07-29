@@ -1,16 +1,18 @@
 @extends('admin.layouts.master')
 @section('content')
     {!! Form::open(['url'=>URL::to('/user/modify/'.$user->id.'/permissions', [], env('HTTPS_ENABLED', true))]) !!}
-    <div class="grid-100">
-        <h3>Permission Nodes</h3>
-    </div>
-    <div class="grid-100 bottom-margin ten">
-        <div id="selectAll" class="ui checkbox">
-            <input type="checkbox" tabindex="0" class="hidden">
-            <label>Select All</label>
+    <div class="grid-container">
+        <div class="grid-100">
+            <h3>Permission Nodes</h3>
+        </div>
+        <div class="grid-100">
+            <div id="selectAll" class="ui checkbox">
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>Select All</label>
+            </div>
         </div>
     </div>
-    <div id="nodes" clas="grid-100 grid-parent">
+    <div id="nodes" class="grid-container">
         @foreach($nodes as $node)
             <div class="grid-20 bottom-margin ten">
                 <div class="ui checkbox">
@@ -20,12 +22,14 @@
             </div>
         @endforeach
     </div>
-    <div class="grid-50 mobile-grid-50">
-        <a href="{{ action('Admin\PageController@modifyUser') }}" class="ui button">Back</a>
-    </div>
-    <div class="grid-50 mobile-grid-50 text-right">
-        <a onclick="window.location.reload()" class="ui button black">Reset to Previous</a>
-        <button class="ui button green">Save</button>
+    <div class="grid-container">
+        <div class="grid-50 mobile-grid-50">
+            <a href="{{ action('Admin\PageController@modifyUser') }}" class="ui button">Back</a>
+        </div>
+        <div class="grid-50 mobile-grid-50 text-right">
+            <a onclick="window.location.reload()" class="ui button black">Reset to Previous</a>
+            <button class="ui button green">Save</button>
+        </div>
     </div>
     {!! Form::close() !!}
 @stop

@@ -62,7 +62,7 @@ class UserController extends Controller {
             $validator = $this->validate($this->request, [
                 'displayname' => 'required|max:16|unique:users,displayname',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required|confirmed'
+                'password' => 'required'
             ]);
 
             if ($validator->fails())

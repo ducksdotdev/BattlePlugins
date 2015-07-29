@@ -28,12 +28,14 @@ class TasksController extends Controller {
             if (!$public)
                 $public = false;
 
-            $assignee = $request->input('assignee_id');
-
             $task = new Task();
+
+            $assignee = $request->input('assignee_id');
+            if ($assignee)
+                $task->assignee_id = $assignee;
+
             $task->title = $title;
             $task->user_id = Auth::user()->id;
-            $task->assignee_id = $assignee;
             $task->public = $public;
             $task->content = $request->input('content');
             $task->save();
@@ -53,7 +55,10 @@ class TasksController extends Controller {
 
     public function completeTask($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_TASK)) {
-            Task::find($id)->update(['status' => 1]);
+            Task::find($id)->update([
+                'completed' => true
+            ]);
+
             return redirect()->back();
         } else
             abort(403);

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
     @foreach($nodes as $node)
-        <div class="grid-20">
+        <div class="grid-25">
             <h3>{{ $node }}</h3>
             @if(count($permissions->whereNode($node)->get()) > 0)
                 <ul>

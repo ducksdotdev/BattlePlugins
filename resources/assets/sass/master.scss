@@ -456,3 +456,14 @@ button.ui.button.link {
   -ms-word-break: break-all;
   word-break: break-all;
 }
+
+.spoiler {
+  background-color: red !important;
+  color: red !important;
+  cursor: pointer;
+
+  &:hover {
+    color: black !important;
+    background: transparent !important;
+  }
+}

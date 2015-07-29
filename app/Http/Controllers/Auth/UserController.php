@@ -65,7 +65,7 @@ class UserController extends Controller {
                 'password' => 'required'
             ]);
 
-            if ($validator->fails())
+            if ($validator && $validator->fails())
                 return redirect()->back()->withInput(['displayname', 'email']);
 
             $displayname = $this->request->input('displayname');

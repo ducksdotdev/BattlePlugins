@@ -10,7 +10,7 @@
             <label>Select All</label>
         </div>
     </div>
-    <div id="nodes">
+    <div id="nodes" clas="grid-100 grid-parent">
         @foreach($nodes as $node)
             <div class="grid-20 bottom-margin ten">
                 <div class="ui checkbox">

@@ -23,12 +23,5 @@
     <td class="text-right">
         <a href="{{ $build->getData()->url }}" class="ui button mini icon labeled"><i class="icon book"></i> Build Details</a>
         <a href="{{ $build->getDownloadUrl() }}" class="ui button green mini labeled icon"><i class="icon download"></i> Download</a>
-
-        <div class="ui dropdown inline">
-            <button class="ui button mini icon"><i class="icon share alternate"></i></button>
-            <div class="menu hidden">
-                @include('download.partials.share')
-            </div>
-        </div>
     </td>
 </tr>

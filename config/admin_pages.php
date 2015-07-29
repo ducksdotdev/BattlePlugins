@@ -41,12 +41,7 @@ return [
             'node' => UserSettings::MANAGE_CONTENT
         ]
     ],
-    'Your Settings' => [
-        'Settings' => [
-            'action' => 'Admin\PageController@settings',
-        ],
-        'Logout' => [
-            'action' => 'Auth\AuthController@getLogout'
-        ]
+    'Logout' => [
+        'action' => 'Auth\AuthController@getLogout'
     ]
 ];

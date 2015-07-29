@@ -20,7 +20,8 @@
                 @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
                     <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a> |
                 @endif
-                <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
+                <a href="{{ action('Auth\UserController@getSettings') }}">Your Settings</a>
+                | <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
             @elseif(\App\Tools\Misc\Settings::get('registration'))
                 <br/><a href="{{ action('Auth\AuthController@getLogin') }}">Login</a>
                 | <a href="{{ action('Auth\AuthController@getRegister') }}">Register</a>

@@ -28,6 +28,13 @@ class UserController extends Controller {
         return view('auth.login');
     }
 
+    public function getSettings() {
+        if (auth()->check())
+            return view('auth.settings');
+
+        return redirect()->guest('/auth/login');
+    }
+
     public function changeSettings() {
         $user = Auth::user();
         $confirmation = $this->request->input('confirmation');
@@ -35,7 +42,7 @@ class UserController extends Controller {
         if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
             $validator = $this->validate($this->request,
                 [
-                    'displayname' => 'required|max:16',
+                    'displayname' => 'required|max:16|unique:users,displayname',
                     'password' => 'confirmed'
                 ]
             );

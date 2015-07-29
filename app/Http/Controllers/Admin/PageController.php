@@ -20,9 +20,6 @@ use Illuminate\Support\Facades\Cache;
 class PageController extends Controller {
     protected $updateMins = 1;
 
-    /**
-     * @var Request
-     */
     private $request;
 
     function __construct(Request $request) {
@@ -38,20 +35,20 @@ class PageController extends Controller {
 
     public function index() {
         return view('admin.index', [
-            'title' => 'Dashboard',
-            'issues' => count(GitHub::getIssues()),
-            'blogs' => count(Blog::all()),
-            'tasks' => new Task,
-            'jenkins' => Jenkins::getAllBuilds(3),
-            'updateMins' => $this->updateMins,
-            'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks),
-            'closedTasks' => count(Task::whereCompleted(true)->get()),
-            'pastes' => count(Paste::all()),
-            'urls' => count(ShortUrl::all()),
-            'downloads' => Jenkins::getBuildDownloadCount(),
+            'title'          => 'Dashboard',
+            'issues'         => count(GitHub::getIssues()),
+            'blogs'          => count(Blog::all()),
+            'tasks'          => new Task,
+            'jenkins'        => Jenkins::getAllBuilds(3),
+            'updateMins'     => $this->updateMins,
+            'github'         => GitHub::getEventsFeed(),
+            'myTasks'        => count(auth()->user()->tasks()->whereCompleted(false)->get()),
+            'closedTasks'    => count(Task::whereCompleted(true)->get()),
+            'pastes'         => count(Paste::all()),
+            'urls'           => count(ShortUrl::all()),
+            'downloads'      => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'log' => LaravelLogViewer::getPaginated(null, 1, 1)[0]
+            'log'            => LaravelLogViewer::getPaginated(null, 1, 1)[0]
         ]);
     }
 
@@ -86,7 +83,7 @@ class PageController extends Controller {
 
             return view('admin.modifyuserpermissions', [
                 'title' => 'Modify ' . $user->displayname,
-                'user' => $user,
+                'user'  => $user,
                 'nodes' => array_sort(UserSettings::getPossible(), function ($value) {
                     return $value;
                 })
@@ -107,11 +104,11 @@ class PageController extends Controller {
     public function cms() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MANAGE_CONTENT)) {
             return view('admin.cms', [
-                'title' => 'Manage Content',
-                'jenkins' => Settings::get('jenkins'),
+                'title'        => 'Manage Content',
+                'jenkins'      => Settings::get('jenkins'),
                 'registration' => Settings::get('registration'),
-                'footer' => Settings::get('footer'),
-                'alert_bar' => Settings::get('alert_bar'),
+                'footer'       => Settings::get('footer'),
+                'alert_bar'    => Settings::get('alert_bar'),
                 'comment_feed' => Settings::get('comment_feed')
             ]);
         } else
@@ -127,22 +124,22 @@ class PageController extends Controller {
 
     public function github() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
-            'github' => GitHub::getEventsFeed(25),
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(25),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 
     public function logs($l = null, $curPage = 1, $perPage = 15) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER)) {
             return view('admin.logs', [
-                'title' => 'Logs',
-                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
-                'files' => LaravelLogViewer::getFiles(true),
+                'title'        => 'Logs',
+                'logs'         => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
+                'files'        => LaravelLogViewer::getFiles(true),
                 'current_file' => LaravelLogViewer::getFileName(),
-                'perPage' => $perPage,
-                'url' => $this->request->url()
+                'perPage'      => $perPage,
+                'url'          => $this->request->url()
             ]);
         } else
             abort(403);
@@ -154,8 +151,8 @@ class PageController extends Controller {
             $urls = new LengthAwarePaginator($urls->forPage($curPage, $perPage), $urls->count(), $perPage, $curPage);
 
             return view('admin.shorturls', [
-                'title' => 'Short URLs',
-                'urls' => $urls,
+                'title'   => 'Short URLs',
+                'urls'    => $urls,
                 'perPage' => $perPage
             ]);
         } else

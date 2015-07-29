@@ -15,10 +15,12 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->email }} - {{ $user->displayname }}</td>
-                    <td><span class="spoiler">{{ $user->api_key }}</span></td>
-                </tr>
+                @if(!\App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::HIDE_API_KEY))
+                    <tr>
+                        <td>{{ $user->email }} - {{ $user->displayname }}</td>
+                        <td><span class="spoiler">{{ $user->api_key }}</span></td>
+                    </tr>
+                @endif
             @endforeach
             </tbody>
         </table>

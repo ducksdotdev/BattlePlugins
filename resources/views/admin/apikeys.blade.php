@@ -1,6 +1,11 @@
 @extends('admin.layouts.master')
 @section('content')
     <div class="grid-100">
+        <div class="ui message">
+            Please remember that these API keys would allow someone to make actions as a user. Do not give these keys out to anyone.
+        </div>
+    </div>
+    <div class="grid-100">
         <table class="ui table">
             <thead>
             <tr>

@@ -96,7 +96,10 @@ class UserController extends Controller {
                 $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
             });
 
-            return redirect()->action('Admin\PageController@modifyUserPermissions', ['id' => $id]);
+            if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
+                return redirect()->action('Admin\PageController@modifyUserPermissions', ['id' => $id]);
+            else
+                return $this->redirectBackWithSuccess('User has been created and notified');
         } else
             abort(403);
     }

@@ -58,15 +58,18 @@ class UserController extends Controller {
 
     public function createUser() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
-            $password = $this->request->input('password');
-            $email = $this->request->input('email');
+            $validator = $this->validate($this->request->all(), [
+                'displayname' => 'required|max:16',
+                'email' => 'required|email|unqiue:users,email',
+                'password' => 'required|confirmed'
+            ]);
+
+            if ($validator->fails())
+                return redirect()->back()->withInput(['displayname', 'email']);
+
             $displayname = $this->request->input('displayname');
-
-            if (User::whereEmail($email)->first())
-                return $this->redirectBackWithErrors('That email is already registered to a user.');
-            elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) !== false)
-                return $this->redirectBackWithErrors('You must enter a proper email.');
-
+            $email = $this->request->input('email');
+            $password = $this->request->input('password');
             $id = User::insertGetId([
                 'email' => $email,
                 'password' => Hash::make($password),
@@ -111,5 +114,33 @@ class UserController extends Controller {
             return redirect()->back();
         } else
             abort(403);
+    }
+
+    public function postRegister() {
+        $validator = $this->validate($this->request, [
+            'name' => 'required|max:16|unique:users,displayname',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed'
+        ]);
+
+        $email = $this->request->input('email');
+        $name = $this->request->input('name');
+        if ($validator && $validator->fails())
+            return redirect()->back()->withInput(['name' => $name, 'email' => $email]);
+
+        User::insertGetId([
+            'email' => $email,
+            'password' => Hash::make($this->request->input('password')),
+            'displayname' => $name,
+            'api_key' => GenerateApiKey::generateKey()
+        ]);
+
+        Mail::send('emails.registration', array(
+            'name' => $this->request->input('name')
+        ), function ($message) use ($email, $name) {
+            $message->to($email, $name)->subject('BattlePlugins Registration Confirmation');
+        });
+
+        return redirect('/auth/login')->withInput(['email' => $email]);
     }
 }

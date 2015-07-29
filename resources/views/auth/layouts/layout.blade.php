@@ -19,7 +19,7 @@
         <div class="task-header">
             <div class="grid-container">
                 <div class="grid-100">
-                    <h2>password reset</h2>
+                    <h2><a href="{{ action('Blog\PageController@index') }}">battleplugins</a></h2>
                 </div>
             </div>
         </div>

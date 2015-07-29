@@ -4,12 +4,14 @@ $url = env('APP_ENV_URL');
 
 Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+Route::get('/auth/register', 'Auth\AuthController@getRegister');
 
 Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 
 Route::group(['before' => 'csrf'], function () {
     Route::post('/auth/login', 'Auth\AuthController@postLogin');
+    Route::post('/auth/register', 'Auth\UserController@postRegister');
 
     Route::post('/password/email', 'Auth\PasswordController@postEmail');
     Route::post('/password/reset', 'Auth\PasswordController@postReset');

@@ -42,7 +42,8 @@ class UserController extends Controller {
         if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
             $validator = $this->validate($this->request,
                 [
-                    'displayname' => 'required|max:16|unique:users,displayname',
+                    'email' => 'email|unique:users,email',
+                    'displayname' => 'max:16|unique:users,displayname',
                     'password' => 'confirmed'
                 ]
             );
@@ -50,6 +51,10 @@ class UserController extends Controller {
             if ($validator && $validator->fails())
                 return $this->redirectBackWithErrors($validator->errors());
 
+            $email = $this->request->input('email');
+            if ($email)
+                UserSettings::modify($user, 'email', $email);
+            
             $password = $this->request->input('password');
             if ($password)
                 UserSettings::modify($user, 'password', $password);

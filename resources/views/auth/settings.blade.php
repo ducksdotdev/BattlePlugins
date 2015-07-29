@@ -16,28 +16,28 @@
         </div>
     @endif
     <div class="field">
-        {!! Form::label('email', 'Your Email (Can\'t be changed)') !!}
-        {!! Form::text('email', Auth::user()->email, ['disabled'=>true]) !!}
+        {!! Form::label('email', 'Your Email') !!}
+        {!! Form::text('email', null, ['placeholder'=>auth()->user()->email]) !!}
     </div>
     <div class="field">
-        {!! Form::label('displayname', 'Display Name') !!}
-        {!! Form::text('displayname', Auth::user()->displayname, []) !!}
+        {!! Form::label('displayname', 'Display Name (Minecraft Name)') !!}
+        {!! Form::text('displayname', null, ['placeholder'=>auth()->user()->displayname]) !!}
     </div>
     <h2>Password</h2>
 
     <div class="field">
         {!! Form::label('password', 'New Password') !!}
-        {!! Form::password('password', null, []) !!}
+        {!! Form::password('password') !!}
     </div>
     <div class="field">
         {!! Form::label('password_confirmation', 'Repeat New Password') !!}
-        {!! Form::password('password_confirmation', null, []) !!}
+        {!! Form::password('password_confirmation') !!}
     </div>
     <h2>Confirm Changes</h2>
 
     <div class="field">
         {!! Form::label('confirmation', 'Current Password') !!}
-        {!! Form::password('confirmation', null, []) !!}
+        {!! Form::password('confirmation') !!}
     </div>
     <div class="field text-right">
         {!! Form::submit('Save Changes', ['class'=>'ui button primary']) !!}

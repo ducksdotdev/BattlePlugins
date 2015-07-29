@@ -85,9 +85,7 @@ class PageController extends Controller {
             return view('admin.modifyuserpermissions', [
                 'title' => 'Modify ' . $user->displayname,
                 'user' => $user,
-                'nodes' => array_sort(UserSettings::getPossible(), function ($value) {
-                    return $value;
-                })
+                'nodes' => UserSettings::getPossible()
             ]);
         } else
             abort(403);

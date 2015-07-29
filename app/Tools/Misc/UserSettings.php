@@ -42,7 +42,10 @@ class UserSettings {
      */
     public static function getPossible() {
         $oClass = new \ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
+
+        return array_sort($oClass->getConstants(), function ($value) {
+            return $value;
+        });
     }
 
     /**

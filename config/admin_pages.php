@@ -19,6 +19,10 @@ return [
         'Short URLs' => [
             'action' => 'Admin\PageController@shortUrls',
             'node' => UserSettings::DELETE_SHORTURL
+        ],
+        'API Keys' => [
+            'action' => 'Admin\PageController@apiKeys',
+            'node' => UserSettings::VIEW_API_KEYS
         ]
     ],
     'User Management' => [

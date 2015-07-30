@@ -19,7 +19,7 @@
                 @foreach($pastes as $paste)
                     <tr>
                         <td>{{ $paste->creator->displayname }}</td>
-                        <td>@if($paste->public) <a href="http://bplug.in/{{ $paste->slug }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
+                        <td>@if($paste->public) <a href="{{ action('Paste\PasteController@getPaste', ['slug'=>$paste->slug]) }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>
                         @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))

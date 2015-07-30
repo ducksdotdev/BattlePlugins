@@ -7,7 +7,7 @@
 
                 <div style="height:150px; overflow:auto;">
                     @if(count($permissions->whereNode($node)->get()) > 0)
-                        <ul>
+                        <ul style="margin: 0;">
                             @foreach($permissions->whereNode($node)->get() as $perm)
                                 <li>{{ $perm->user->displayname }}</li>
                             @endforeach

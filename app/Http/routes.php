@@ -124,15 +124,15 @@ Route::group(['domain' => 'admin.' . $url], function () {
     Route::group(['prefix' => 'tools'], function () {
         Route::get('/alert', 'Admin\PageController@alerts');
         Route::get('/alert/json', 'Admin\ToolsController@jsonAlerts');
-
         Route::get('/cms', 'Admin\PageController@cms');
-
         Route::get('/serverstats', 'Admin\PageController@serverStats');
+        Route::get('/pastes', 'Admin\PageController@pastes');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/alert', 'Admin\ToolsController@alert');
             Route::post('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
             Route::post('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
+            Route::post('/pastes/filter', 'Admin\PageController@filterPastes');
         });
     });
 

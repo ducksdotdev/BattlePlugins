@@ -176,4 +176,42 @@ class PageController extends Controller {
             ]);
         } else abort(403);
     }
+
+    public function pastes() {
+        return view('admin.pastes', [
+            'title' => 'Pastes',
+            'pastes' => new Paste(),
+            'inputs' => $this->request
+        ]);
+    }
+
+    public function filterPastes() {
+        $pastes = new Paste();
+
+        $type = $this->request->has('strict') ? 'where' : 'orWhere';
+
+        if ($this->request->has('serverid'))
+            $pastes = $pastes->$type('title', 'LIKE', '%' . $this->request->input('serverid') . '%');
+
+        if ($this->request->has('slug'))
+            $pastes = $pastes->$type('slug', 'LIKE', '%' . $this->request->input('slug') . '%');
+
+        if ($this->request->has('author')) {
+            $user = User::whereDisplayname($this->request->input('author'))->first();
+
+            if ($user)
+                $pastes = $pastes->$type('user_id', $user->id);
+            elseif ($type == 'where')
+                $pastes = null;
+        }
+
+        if ($pastes)
+            $pastes = $pastes->get();
+
+        return view('admin.pastes', [
+            'title' => 'Pastes',
+            'pastes' => $pastes,
+            'inputs' => $this->request
+        ]);
+    }
 }

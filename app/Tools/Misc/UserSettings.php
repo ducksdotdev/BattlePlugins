@@ -30,6 +30,7 @@ class UserSettings {
     const MANAGE_CONTENT = 'admin.cms';
     const VIEW_API_KEYS = 'admin.apikeys';
     const HIDE_API_KEY = 'admin.apikeys.hide';
+    const VIEW_PASTES = 'admin.pastes';
     const DEVELOPER = 'developer';
     const CREATE_PASTE = 'paste.create';
     const MODIFY_PASTE = 'paste.modify';

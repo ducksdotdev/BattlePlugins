@@ -47,6 +47,10 @@ return [
         'Manage Content' => [
             'action' => 'Admin\PageController@cms',
             'node' => UserSettings::MANAGE_CONTENT
+        ],
+        'Pastes' => [
+            'action' => 'Admin\PageController@pastes',
+            'node' => UserSettings::VIEW_PASTES
         ]
     ],
     'Logout' => [

@@ -2,12 +2,7 @@
 @section('content')
     <div class="grid-container">
         <h1 class="grid-85">
-            @if($paste->title)
-                {{ $paste->title }}
-            @else
-                Paste {{ $paste->slug }}
-            @endif
-
+            {{ $paste->title ? $paste->title : $paste->slug }}
             @if($paste->public)
                 (Public)
             @endif

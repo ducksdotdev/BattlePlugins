@@ -190,8 +190,12 @@ class PageController extends Controller {
 
         $type = $this->request->has('strict') ? 'where' : 'orWhere';
 
-        if ($this->request->has('serverid'))
-            $pastes = $pastes->$type('title', 'LIKE', '%' . $this->request->input('serverid') . '%');
+        if ($this->request->has('serverid')) {
+            $serverid = $this->request->input('serverid');
+            $serverid = starts_with($serverid, '#sid') ? $serverid : '#sid' . $serverid;
+
+            $pastes = $pastes->$type('title', 'LIKE', '%' . $serverid . '%');
+        }
 
         if ($this->request->has('slug'))
             $pastes = $pastes->$type('slug', 'LIKE', '%' . $this->request->input('slug') . '%');
@@ -202,7 +206,7 @@ class PageController extends Controller {
             if ($user)
                 $pastes = $pastes->$type('user_id', $user->id);
             elseif ($type == 'where')
-                $pastes = null;
+                $pastes = [];
         }
 
         if ($pastes)

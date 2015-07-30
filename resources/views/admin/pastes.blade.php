@@ -43,7 +43,7 @@
         <h3>Filter</h3>
 
         <div class="ui segment">
-            {!! Form::open(['url'=>URL::to('/tools/pastes/filter', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+            {!! Form::open(['url'=>URL::to('/tools/pastes', [], env('HTTPS_ENABLED', true)),'class'=>'ui form', 'method'=>'get']) !!}
             <div class="field">
                 <label>Server ID
                     <small>(Starts with #sid)</small>
@@ -58,7 +58,7 @@
             </div>
             <div class="field">
                 <label>Paste ID
-                    <small>(Paste's slug)</small>
+                    <small>(Paste's slug, case sensitive)</small>
                 </label>
 
                 <div class="ui icon input">

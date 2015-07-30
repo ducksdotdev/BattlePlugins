@@ -7,7 +7,7 @@
                 <thead>
                 <tr>
                     <th>Author</th>
-                    <th>Link</th>
+                    <th>Slug</th>
                     <th>Server ID</th>
                     <th>Public?</th>
                     @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
@@ -19,7 +19,7 @@
                 @foreach($pastes as $paste)
                     <tr>
                         <td>{{ $paste->creator->displayname }}</td>
-                        <td><a href="http://bplug.in/{{ $paste->slug }}">http://bplug.in/{{ $paste->slug }}</a></td>
+                        <td>@if($paste->public) <a href="http://bplug.in/{{ $paste->slug }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>
                         @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
@@ -83,7 +83,9 @@
             <div class="field">
                 <div class="ui checkbox">
                     <input type="checkbox" name="strict" tabindex="0" class="hidden" @if($inputs->has('strict')) checked @endif>
-                    <label>Strict Filter? <small>('AND' instead of 'OR')</small></label>
+                    <label>Strict Filter?
+                        <small>('AND' instead of 'OR')</small>
+                    </label>
                 </div>
             </div>
             <div class="field">

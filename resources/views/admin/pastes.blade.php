@@ -33,16 +33,12 @@
                 @endforeach
                 </tbody>
             </table>
-        @else
-            <div class="ui message info">
-                There are no pastes that meet your search criteria.
-            </div>
         @endif
     </div>
-    <div class="grid-25">
+    <div class="grid-25 ui sticky">
         <h3>Filter</h3>
 
-        <div class="ui segment">
+        <div class="ui segment ">
             {!! Form::open(['url'=>URL::to('/tools/pastes', [], env('HTTPS_ENABLED', true)),'class'=>'ui form', 'method'=>'get']) !!}
             <div class="field">
                 <label>Server ID
@@ -105,6 +101,8 @@
                 $('input[name="' + $(this).attr('for') + '"]').attr('value', null);
                 $(this).hide();
             });
+
+            $('.ui.sticky').sticky({context: '#content'});
         });
     </script>
 @stop

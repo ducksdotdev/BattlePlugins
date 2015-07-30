@@ -5,7 +5,7 @@
             <div class="ui segment">
                 <h3>{{ $node }}</h3>
 
-                <div style="height:150px; overflow:auto;">
+                <div style="height:125px; overflow:auto;">
                     @if(count($permissions->whereNode($node)->get()) > 0)
                         <ul style="margin: 0;">
                             @foreach($permissions->whereNode($node)->get() as $perm)

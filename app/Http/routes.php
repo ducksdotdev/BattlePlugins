@@ -133,6 +133,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
             Route::post('/alert/delete/{id}', 'Admin\ToolsController@deleteAlert');
             Route::post('/cms/{toggle}', 'Admin\ToolsController@toggleSetting');
             Route::post('/pastes/filter', 'Admin\PageController@filterPastes');
+            Route::post('/pastes/delete/{id}', 'Admin\PageController@deletePaste');
         });
     });
 

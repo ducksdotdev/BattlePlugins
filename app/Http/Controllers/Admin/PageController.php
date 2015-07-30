@@ -180,7 +180,7 @@ class PageController extends Controller {
     public function pastes() {
         return view('admin.pastes', [
             'title' => 'Pastes',
-            'pastes' => new Paste(),
+            'pastes' => Paste::all(),
             'inputs' => $this->request
         ]);
     }
@@ -217,5 +217,15 @@ class PageController extends Controller {
             'pastes' => $pastes,
             'inputs' => $this->request
         ]);
+    }
+
+    public function deletePaste($id) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_PASTES_AS_ADMIN)) {
+            $paste = Paste::find($id);
+            if ($paste)
+                $paste->delete();
+
+            return redirect()->back();
+        } else abort(403);
     }
 }

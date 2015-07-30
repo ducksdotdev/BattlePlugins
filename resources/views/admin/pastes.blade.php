@@ -2,7 +2,7 @@
 @section('content')
     <div class="grid-75">
         <h3>All Pastes</h3>
-        @if(count($pastes))
+        @if(count($pastes) > 0)
             <table class="ui table">
                 <thead>
                 <tr>
@@ -10,15 +10,25 @@
                     <th>Link</th>
                     <th>Server ID</th>
                     <th>Public?</th>
+                    @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
+                        <th>Actions</th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($pastes->all() as $paste)
+                @foreach($pastes as $paste)
                     <tr>
                         <td>{{ $paste->creator->displayname }}</td>
                         <td><a href="http://bplug.in/{{ $paste->slug }}">http://bplug.in/{{ $paste->slug }}</a></td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>
+                        @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
+                            <td>
+                                {!! Form::open(['url'=>URL::to('/tools/pastes/delete/'.$paste->id, [], env('HTTPS_ENABLED', true))]) !!}
+                                <button class="ui button red mini">Delete Paste?</button>
+                                {!! Form::close() !!}
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

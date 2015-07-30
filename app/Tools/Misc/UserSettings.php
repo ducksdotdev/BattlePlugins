@@ -31,6 +31,7 @@ class UserSettings {
     const VIEW_API_KEYS = 'admin.apikeys';
     const HIDE_API_KEY = 'admin.apikeys.hide';
     const VIEW_PASTES = 'admin.pastes';
+    const DELETE_PASTES_AS_ADMIN = 'admin.pastes.delete';
     const DEVELOPER = 'developer';
     const CREATE_PASTE = 'paste.create';
     const MODIFY_PASTE = 'paste.modify';

@@ -45,7 +45,9 @@
         <div class="ui segment">
             {!! Form::open(['url'=>URL::to('/tools/pastes/filter', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
             <div class="field">
-                <label>Server ID</label>
+                <label>Server ID
+                    <small>(Starts with #sid)</small>
+                </label>
 
                 <div class="ui icon input">
                     <input name="serverid" type="text" value="{{ $inputs->input('serverid') }}"/>
@@ -55,7 +57,9 @@
                 </div>
             </div>
             <div class="field">
-                <label>Paste ID</label>
+                <label>Paste ID
+                    <small>(Paste's slug)</small>
+                </label>
 
                 <div class="ui icon input">
                     <input name="slug" type="text" value="{{ $inputs->input('slug') }}"/>
@@ -65,7 +69,9 @@
                 </div>
             </div>
             <div class="field">
-                <label>Author</label>
+                <label>Author
+                    <small>(Minecraft Name)</small>
+                </label>
 
                 <div class="ui icon input">
                     <input name="author" type="text" value="{{ $inputs->input('author') }}"/>
@@ -77,7 +83,7 @@
             <div class="field">
                 <div class="ui checkbox">
                     <input type="checkbox" name="strict" tabindex="0" class="hidden" @if($inputs->has('strict')) checked @endif>
-                    <label>Strict Filter?</label>
+                    <label>Strict Filter? <small>('AND' instead of 'OR')</small></label>
                 </div>
             </div>
             <div class="field">

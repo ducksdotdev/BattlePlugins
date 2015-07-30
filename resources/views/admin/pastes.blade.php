@@ -70,8 +70,9 @@
                     <label>Strict Filter?</label>
                 </div>
             </div>
-            <div class="field text-right">
-                <button class="ui button primary">Apply</button>
+            <div class="field">
+                <a href="{{ action('Admin\PageController@pastes') }}" class="ui button black">Clear</a>
+                <button class="ui button primary pull-right">Apply</button>
             </div>
             {!! Form::close() !!}
         </div>

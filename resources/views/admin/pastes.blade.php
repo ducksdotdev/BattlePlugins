@@ -89,7 +89,9 @@
                 </div>
             </div>
             <div class="field">
-                <a href="{{ action('Admin\PageController@pastes') }}" class="ui button black">Clear</a>
+                @if($inputs->has('author') || $inputs->has('slug') || $inputs->has('serverid'))
+                    <a href="{{ action('Admin\PageController@pastes') }}" class="ui button black">Clear</a>
+                @endif
                 <button class="ui button primary pull-right">Apply</button>
             </div>
             {!! Form::close() !!}

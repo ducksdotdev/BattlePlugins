@@ -168,5 +168,7 @@ Route::group(['domain' => 'bplug.in'], function () {
 });
 
 Route::group(['domain' => 'battleplugins.org'], function () {
-    Route::any('/', 'Blog\PageController@index');
+    Route::any('/', function () {
+        return redirect()->action('Blog\PageController@index');
+    });
 });

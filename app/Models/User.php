@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Tools\Misc\UserSettings;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -34,6 +35,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public static function boot() {
+        parent::boot();
+
+        static::created(function ($model) {
+            UserSettings::togglePermissionNode($model->id, UserSettings::USE_API);
+            UserSettings::togglePermissionNode($model->id, UserSettings::CREATE_PASTE);
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

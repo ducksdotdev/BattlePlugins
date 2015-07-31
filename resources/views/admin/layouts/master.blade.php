@@ -37,10 +37,8 @@
             </div>
             <div id="content" class="grid-container">
                 @yield('content')
-                <div class="grid-100">
-                    @include('footer')
-                </div>
             </div>
+            @include('footer')
         </div>
     </div>
 </div>

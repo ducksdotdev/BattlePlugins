@@ -42,9 +42,9 @@ class UserController extends Controller {
         if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
             $validator = $this->validate($this->request,
                 [
-                    'email' => 'email|unique:users,email',
+                    'email'       => 'email|unique:users,email',
                     'displayname' => 'max:16|unique:users,displayname',
-                    'password' => 'confirmed'
+                    'password'    => 'confirmed'
                 ]
             );
 
@@ -54,7 +54,7 @@ class UserController extends Controller {
             $email = $this->request->input('email');
             if ($email)
                 UserSettings::modify($user, 'email', $email);
-            
+
             $password = $this->request->input('password');
             if ($password)
                 UserSettings::modify($user, 'password', $password);
@@ -73,8 +73,8 @@ class UserController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
             $validator = $this->validate($this->request, [
                 'displayname' => 'required|max:16|unique:users,displayname',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required'
+                'email'       => 'required|email|unique:users,email',
+                'password'    => 'required'
             ]);
 
             if ($validator && $validator->fails())
@@ -84,10 +84,10 @@ class UserController extends Controller {
             $email = $this->request->input('email');
             $password = $this->request->input('password');
             $id = User::insertGetId([
-                'email' => $email,
-                'password' => Hash::make($password),
+                'email'       => $email,
+                'password'    => Hash::make($password),
                 'displayname' => $displayname,
-                'api_key' => GenerateApiKey::generateKey()
+                'api_key'     => GenerateApiKey::generateKey()
             ]);
 
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
@@ -95,7 +95,7 @@ class UserController extends Controller {
             CreateAlert::make($id, $message);
 
             Mail::send('emails.welcome', array(
-                'password' => $password,
+                'password'    => $password,
                 'displayname' => $this->request->input('displayname')
             ), function ($message) use ($email, $displayname) {
                 $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
@@ -135,8 +135,8 @@ class UserController extends Controller {
     public function postRegister() {
         if (Settings::get('registration')) {
             $validator = $this->validate($this->request, [
-                'name' => 'required|max:16|unique:users,displayname',
-                'email' => 'required|email|unique:users,email',
+                'name'     => 'required|max:16|unique:users,displayname',
+                'email'    => 'required|email|unique:users,email',
                 'password' => 'required|confirmed'
             ]);
 
@@ -145,12 +145,15 @@ class UserController extends Controller {
             if ($validator && $validator->fails())
                 return redirect()->back()->withInput(['name' => $name, 'email' => $email]);
 
-            User::insertGetId([
-                'email' => $email,
-                'password' => Hash::make($this->request->input('password')),
+            $id = User::insertGetId([
+                'email'       => $email,
+                'password'    => Hash::make($this->request->input('password')),
                 'displayname' => $name,
-                'api_key' => GenerateApiKey::generateKey()
+                'api_key'     => GenerateApiKey::generateKey()
             ]);
+
+            UserSettings::togglePermissionNode($id, UserSettings::USE_API);
+            UserSettings::togglePermissionNode($id, UserSettings::CREATE_PASTE);
 
             Mail::send('emails.registration', array(
                 'name' => $this->request->input('name')

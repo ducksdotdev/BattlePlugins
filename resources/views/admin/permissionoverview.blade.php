@@ -3,7 +3,7 @@
     @foreach($nodes as $node)
         <div class="grid-25 bottom-margin ten">
             <div class="ui segment">
-                <h3>{{ $node }}</h3>
+                <h3 style="margin: 5px 0">{{ $node }}</h3>
 
                 <div style="height:125px; overflow:auto;">
                     @if(count($permissions->whereNode($node)->get()) > 0)

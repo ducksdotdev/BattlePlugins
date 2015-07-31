@@ -90,6 +90,9 @@ class UserController extends Controller {
                 'api_key'     => GenerateApiKey::generateKey()
             ]);
 
+            UserSettings::togglePermissionNode($id, UserSettings::USE_API);
+            UserSettings::togglePermissionNode($id, UserSettings::CREATE_PASTE);
+
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
 
             CreateAlert::make($id, $message);

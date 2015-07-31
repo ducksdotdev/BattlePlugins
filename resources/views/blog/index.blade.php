@@ -49,9 +49,9 @@
 @if(isset($blog))
     @include('blog.partials.blog')
 @endif
+@include('footer')
 @if(Auth::check())
     @include('blog.modals.createBlog')
 @endif
-@include('footer')
 </body>
 </html>

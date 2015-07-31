@@ -15,7 +15,7 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                @if(!\App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::HIDE_API_KEY))
+                @if(!\App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::HIDE_API_KEY) && \App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::USE_API))
                     <tr>
                         <td>{{ $user->email }} - {{ $user->displayname }}</td>
                         <td><span class="spoiler">{{ $user->api_key }}</span></td>

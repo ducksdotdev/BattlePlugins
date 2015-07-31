@@ -1,5 +1,5 @@
 @if(count($alerts))
-    <div class="grid-100 grid-parent alerts" ng-controller="AlertsCtrl">
+    <div class="grid-100 alerts" ng-controller="AlertsCtrl">
         <table class="updates">
             <tbody>
             <tr>

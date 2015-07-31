@@ -24,22 +24,20 @@
 </head>
 <body>
 <div class="grid-100 grid-parent">
-    <div class="grid-100 grid-parent">
-        @include('admin.partials.menu')
-        <div class="grid-80 tablet-grid-100 mobile-grid-100 pull-right grid-parent">
-            @include('admin.partials.alerts')
-            <div class="titlebar">
-                <div class="grid-container">
-                    <div class="grid-100">
-                        <h1><i id="openMenu" class="icon sidebar pointer hide-on-desktop"></i> {{ $title }}</h1>
-                    </div>
+    @include('admin.partials.menu')
+    <div class="grid-80 tablet-grid-100 mobile-grid-100 pull-right grid-parent">
+        @include('admin.partials.alerts')
+        <div class="titlebar">
+            <div class="grid-container">
+                <div class="grid-100">
+                    <h1><i id="openMenu" class="icon sidebar pointer hide-on-desktop"></i> {{ $title }}</h1>
                 </div>
             </div>
-            <div id="content" class="grid-container">
-                @yield('content')
-            </div>
-            @include('footer')
         </div>
+        <div id="content" class="grid-container">
+            @yield('content')
+        </div>
+        @include('footer')
     </div>
 </div>
 </body>

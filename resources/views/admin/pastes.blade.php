@@ -33,6 +33,10 @@
                 @endforeach
                 </tbody>
             </table>
+        @else
+            <div class="ui message info">
+                There are no pastes that meet your search criteria.
+            </div>
         @endif
     </div>
     <div class="grid-25 ui sticky">

@@ -20,7 +20,7 @@
                         <td>{{ $node->user->email }} - {{ $node->user->displayname }}</td>
                         <td>
                             @if(\App\Tools\Misc\UserSettings::hasNode($node->user_id, \App\Tools\Misc\UserSettings::HIDE_API_KEY))
-                                Hidden
+                                Redacted
                             @else
                                 <span class="spoiler">{{ $node->user->api_key }}</span>
                             @endif

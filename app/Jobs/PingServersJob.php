@@ -20,7 +20,7 @@ class PingServersJob extends Job implements SelfHandling {
         foreach (config('servers') as $name => $server) {
             $serverData['servers'][] = [
                 'name'   => $name,
-                'online' => Domain::isOnline($server),fil
+                'online' => Domain::isOnline($server),
                 'url'    => $server
             ];
         }

@@ -1,6 +1,6 @@
 @if($serverData)
     <h3>
-        <small>Updated every minute. Last updated {{ $serverData['updated_at']->diffForHumans() }}.</small>
+        <small>Updated every minute. Last updated <span title="{{ $serverData['updated_at'] }}">{{ $serverData['updated_at']->diffForHumans() }}</span>.</small>
     </h3>
     <ul class="stats small">
         @foreach($serverData['servers'] as $server)

@@ -1,4 +1,4 @@
-@if(array_has($serverData, 'updated_at'))
+@if($serverData)
     <h3>
         <small>Updated every minute. Last updated {{ $serverData['updated_at']->diffForHumans() }}.</small>
     </h3>

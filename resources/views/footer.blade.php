@@ -1,20 +1,28 @@
 @if(Settings::get('footer'))
     <footer>
+        <ul>
+            <li>
+                <a href="{{ action('Blog\PageController@index') }}"><i class="icon home large"></i><br/> Home</a>
+            </li>
+            <li>
+                <a href="http://wiki.battleplugins.com"><i class="icon book large"></i><br/> Wiki</a>
+            </li>
+            <li>
+                <a href="http://ci.battleplugins.com"><i class="icon server large"></i><br/> Jenkins</a>
+            </li>
+            <li>
+                <a href="http://github.com/BattlePlugins"><i class="icon github large"></i><br/> GitHub</a>
+            </li>
+        </ul>
         <p>
-            <a href="{{ action('Blog\PageController@index') }}">Home</a>
-            | <a href="http://wiki.battleplugins.com">Wiki</a>
-            | <a href="http://ci.battleplugins.com">Jenkins</a>
-            | <a href="http://github.com/BattlePlugins">GitHub</a>
-            | <a href="{{ action('Download\PageController@index') }}">Download</a>
+            <a href="{{ action('Download\PageController@index') }}">Download Plugins</a>
             | <a href="{{ action('Voice\PageController@index') }}">TeamSpeak</a>
-            <br/>
-            <a href="{{ action('Tasks\PageController@index') }}">BattleTasks</a>
+            | <a href="{{ action('Tasks\PageController@index') }}">BattleTasks</a>
             | <a href="{{ action('API\PageController@index') }}">BattleWebAPI</a>
             | <a href="{{ action('Paste\PageController@index') }}">BattlePaste</a>
             | <a href="{{ action('ShortUrls\PageController@index') }}">bplug.in</a>
             @if(Auth::check())
-                <br/>
-                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
+                | @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
                     <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a> |
                 @endif
                 @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
@@ -29,8 +37,7 @@
         </p>
 
         <p>
-            Copyright &copy; 2012 - {{ date('Y') }} BattlePlugins. All Rights Reserved.<br/>
-            BattlePlugins is not affiliated with Mojang or Minecraft.
+            Copyright &copy; 2012 - {{ date('Y') }} BattlePlugins. All Rights Reserved. BattlePlugins is not affiliated with Mojang or Minecraft.
         </p>
     </footer>
 @endif

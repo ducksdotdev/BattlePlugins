@@ -2,21 +2,23 @@
     <footer>
         <ul>
             <li>
-                <a href="{{ action('Blog\PageController@index') }}"><i class="icon home large"></i><br/> Home</a>
+                <a href="{{ action('Blog\PageController@index') }}"><i class="icon home large"></i><br/> Homepage</a>
             </li>
             <li>
-                <a href="http://wiki.battleplugins.com"><i class="icon book large"></i><br/> Wiki</a>
+                <a href="http://wiki.battleplugins.com"><i class="icon book large"></i><br/> BattleWiki</a>
             </li>
             <li>
-                <a href="http://ci.battleplugins.com"><i class="icon server large"></i><br/> Jenkins</a>
+                <a href="http://ci.battleplugins.com"><i class="icon server large"></i><br/> Jenkins CI</a>
             </li>
             <li>
                 <a href="http://github.com/BattlePlugins"><i class="icon github large"></i><br/> GitHub</a>
             </li>
+            <li>
+                <a href="{{ action('Download\PageController@index') }}"><i class="icon download large"></i><br/> Download</a>
+            </li>
         </ul>
         <p>
-            <a href="{{ action('Download\PageController@index') }}">Download Plugins</a>
-            | <a href="{{ action('Voice\PageController@index') }}">TeamSpeak</a>
+            <a href="{{ action('Voice\PageController@index') }}">TeamSpeak</a>
             | <a href="{{ action('Tasks\PageController@index') }}">BattleTasks</a>
             | <a href="{{ action('API\PageController@index') }}">BattleWebAPI</a>
             | <a href="{{ action('Paste\PageController@index') }}">BattlePaste</a>

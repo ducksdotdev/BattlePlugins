@@ -3,57 +3,57 @@
 use App\Tools\Misc\UserSettings;
 
 return [
-    'Dashboard' => [
+    'Dashboard'       => [
         'action' => 'Admin\PageController@index',
     ],
-    'Feeds' => [
-        'Logs' => [
+    'Feeds'           => [
+        'Logs'   => [
             'action' => 'Admin\PageController@logs',
-            'node' => UserSettings::DEVELOPER
+            'node'   => UserSettings::DEVELOPER
         ],
         'GitHub' => [
             'action' => 'Admin\PageController@github',
         ]
     ],
-    'Statistics' => [
+    'Statistics'      => [
         'Short URLs' => [
             'action' => 'Admin\PageController@shortUrls',
-            'node' => UserSettings::DELETE_SHORTURL
+            'node'   => UserSettings::DELETE_SHORTURL
         ],
-        'API Keys' => [
+        'API Keys'   => [
             'action' => 'Admin\PageController@apiKeys',
-            'node' => UserSettings::VIEW_API_KEYS
+            'node'   => UserSettings::VIEW_API_KEYS
         ]
     ],
     'User Management' => [
-        'Create User' => [
+        'Create User'         => [
             'action' => 'Admin\PageController@createUser',
-            'node' => UserSettings::CREATE_USER
+            'node'   => UserSettings::CREATE_USER
         ],
-        'Modify User' => [
+        'Modify User'         => [
             'action' => 'Admin\PageController@modifyUser',
-            'node' => UserSettings::MODIFY_USER
+            'node'   => UserSettings::MODIFY_USER
         ],
         'Permission Overview' => [
             'action' => 'Admin\PageController@permissionOverview',
-            'node' => UserSettings::VIEW_PERMISSIONS
+            'node'   => UserSettings::VIEW_PERMISSIONS
         ]
     ],
-    'Tools' => [
-        'Create Alert' => [
+    'Tools'           => [
+        'Create Alert'   => [
             'action' => 'Admin\PageController@alerts',
-            'node' => UserSettings::CREATE_ALERT
+            'node'   => UserSettings::CREATE_ALERT
+        ],
+        'Pastes'         => [
+            'action' => 'Admin\PageController@pastes',
+            'node'   => UserSettings::VIEW_PASTES
         ],
         'Manage Content' => [
             'action' => 'Admin\PageController@cms',
-            'node' => UserSettings::MANAGE_CONTENT
+            'node'   => UserSettings::MANAGE_CONTENT
         ],
-        'Pastes' => [
-            'action' => 'Admin\PageController@pastes',
-            'node' => UserSettings::VIEW_PASTES
-        ]
     ],
-    'Logout' => [
+    'Logout'          => [
         'action' => 'Auth\AuthController@getLogout'
     ]
 ];

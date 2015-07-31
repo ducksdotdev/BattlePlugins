@@ -24,7 +24,7 @@
             | <a href="{{ action('Paste\PageController@index') }}">BattlePaste</a>
             | <a href="{{ action('ShortUrls\PageController@index') }}">bplug.in</a>
             @if(Auth::check())
-                | @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
+                <br/>@if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
                     <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a> |
                 @endif
                 @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))

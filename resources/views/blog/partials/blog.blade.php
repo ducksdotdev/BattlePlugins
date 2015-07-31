@@ -58,7 +58,7 @@
             </div>
         @endif
     </div>
-    <div class="grid-25">
+    <div class="grid-25 ui sticky">
         <h4>Latest Blog Posts:</h4>
 
         <div id="latestBlogPosts" class="ui divided list">

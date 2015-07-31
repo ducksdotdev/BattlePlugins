@@ -8,8 +8,8 @@
                     </a>
                 </div>
                 <div class="content">
-                    <div class="date">
-                        {{ (new \Carbon\Carbon($item->created_at))->diffForHumans() }}
+                    <div class="date" title="{{ $item->created_at }}">
+                        {{ $item->created_at->diffForHumans() }}
                     </div>
                     <div class="summary">
                         @include('admin.partials.dashboard.gittypes.'.$item->type)

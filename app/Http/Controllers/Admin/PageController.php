@@ -106,7 +106,6 @@ class PageController extends Controller {
                 'title'        => 'Manage Content',
                 'jenkins'      => Settings::get('jenkins'),
                 'registration' => Settings::get('registration'),
-                'footer'       => Settings::get('footer'),
                 'alert_bar'    => Settings::get('alert_bar'),
                 'comment_feed' => Settings::get('comment_feed')
             ]);

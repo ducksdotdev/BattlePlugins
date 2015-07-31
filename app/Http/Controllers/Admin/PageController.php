@@ -161,7 +161,7 @@ class PageController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::VIEW_API_KEYS)) {
             return view('admin.apikeys', [
                 'title' => 'API Keys',
-                'users' => User::all()
+                'nodes' => Permission::whereNode(UserSettings::USE_API)->get()
             ]);
         } else abort(403);
     }

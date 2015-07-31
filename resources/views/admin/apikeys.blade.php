@@ -6,23 +6,31 @@
         </div>
     </div>
     <div class="grid-100">
-        <table class="ui table">
-            <thead>
-            <tr>
-                <th>User</th>
-                <th>Key (Hover to view)</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($users as $user)
-                @if(!\App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::HIDE_API_KEY) && \App\Tools\Misc\UserSettings::hasNode($user, \App\Tools\Misc\UserSettings::USE_API))
+        @if(count($nodes))
+            <table class="ui table">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Key (Hover to view)</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($nodes as $node)
                     <tr>
-                        <td>{{ $user->email }} - {{ $user->displayname }}</td>
-                        <td><span class="spoiler">{{ $user->api_key }}</span></td>
+                        <td>{{ $node->user->email }} - {{ $node->user->displayname }}</td>
+                        <td>
+                            @if(\App\Tools\Misc\UserSettings::hasNode($node->user_id, \App\Tools\Misc\UserSettings::HIDE_API_KEY))
+                                Hidden
+                            @else
+                                <span class="spoiler">{{ $node->user->api_key }}</span>
+                            @endif
+                        </td>
                     </tr>
-                @endif
-            @endforeach
-            </tbody>
-        </table>
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            <div class="ui message info">No users can use the API.</div>
+        @endif
     </div>
 @stop

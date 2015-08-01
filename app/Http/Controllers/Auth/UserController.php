@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Tools\API\GenerateApiKey;
 use App\Tools\Misc\Settings;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller {
@@ -83,12 +81,7 @@ class UserController extends Controller {
             $displayname = $this->request->input('displayname');
             $email = $this->request->input('email');
             $password = $this->request->input('password');
-            $id = User::insertGetId([
-                'email'       => $email,
-                'password'    => Hash::make($password),
-                'displayname' => $displayname,
-                'api_key'     => GenerateApiKey::generateKey()
-            ]);
+            $id = UserSettings::create($email, $password, $displayname);
 
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
 
@@ -145,12 +138,7 @@ class UserController extends Controller {
             if ($validator && $validator->fails())
                 return redirect()->back()->withInput(['name' => $name, 'email' => $email]);
 
-            $id = User::insertGetId([
-                'email'       => $email,
-                'password'    => Hash::make($this->request->input('password')),
-                'displayname' => $name,
-                'api_key'     => GenerateApiKey::generateKey()
-            ]);
+            UserSettings::create($email, $this->request->get('password'), $name);
 
             Mail::send('emails.registration', array(
                 'name' => $this->request->input('name')

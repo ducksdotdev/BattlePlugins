@@ -5,6 +5,7 @@ namespace App\Tools\Misc;
 
 use App\Models\Permission;
 use App\Models\User;
+use App\Tools\API\GenerateApiKey;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -51,6 +52,26 @@ class UserSettings {
     }
 
     /**
+     * @param $email
+     * @param $password
+     * @param $displayname
+     * @return mixed
+     */
+    public static function create($email, $password, $displayname) {
+        $id = User::insertGetId([
+            'email'       => $email,
+            'password'    => Hash::make($password),
+            'displayname' => $displayname,
+            'api_key'     => GenerateApiKey::generateKey()
+        ]);
+
+        static::togglePermissionNode($id, static::USE_API);
+        static::togglePermissionNode($id, static::CREATE_PASTE);
+
+        return $id;
+    }
+
+    /**
      * @param $user
      * @param $key
      * @param $value
@@ -83,6 +104,11 @@ class UserSettings {
         $user->delete();
     }
 
+    /**
+     * @param $user
+     * @param $node
+     * @return bool
+     */
     public static function hasNode($user, $node) {
         if ($user instanceof User)
             $user = $user->id;
@@ -90,6 +116,10 @@ class UserSettings {
         return (bool)count(Permission::whereUserId($user)->whereNode($node)->first());
     }
 
+    /**
+     * @param $user
+     * @throws \Exception
+     */
     public static function delete($user) {
         if (!($user instanceof User))
             $user = User::find($user);
@@ -100,6 +130,10 @@ class UserSettings {
         $user->delete();
     }
 
+    /**
+     * @param $user
+     * @param $node
+     */
     public static function togglePermissionNode($user, $node) {
         if (!($user instanceof User))
             $user = User::find($user);
@@ -109,7 +143,7 @@ class UserSettings {
         else {
             Permission::create([
                 'user_id' => $user->id,
-                'node' => $node
+                'node'    => $node
             ]);
         }
     }

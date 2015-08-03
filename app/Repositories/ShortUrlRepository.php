@@ -42,4 +42,8 @@ class ShortUrlRepository {
         ShortUrl::whereSlug($slug)->update($data);
     }
 
+    public static function create($data) {
+        ShortUrl::create($data);
+    }
+
 }

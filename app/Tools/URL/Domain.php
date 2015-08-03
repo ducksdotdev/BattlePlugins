@@ -3,6 +3,7 @@
 namespace App\Tools\URL;
 
 use App\Models\ShortUrl;
+use App\Tools\Repositories\ShortUrlRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -54,7 +55,7 @@ class Domain {
             if (!$url) {
                 $slug = SlugGenerator::generate();
 
-                ShortUrl::create([
+                ShortUrlRepository::create([
                     'url'       => $req,
                     'slug'      => $slug,
                     'last_used' => Carbon::now()
@@ -62,7 +63,6 @@ class Domain {
 
                 return $slug;
             } else {
-
                 ShortUrl::whereUrl($req)->update([
                     'last_used' => Carbon::now()
                 ]);

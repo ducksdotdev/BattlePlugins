@@ -24,7 +24,7 @@
 <nav>
     <div class="grid-container">
         <div class="grid-30 tablet-grid-100 mobile-grid-100">
-            <h1 class="brand"><a href="{{ action('Blog\PageController@index') }}">battleplugins</a></h1>
+            <h1 class="brand"><a href="{{ action('BlogController@getIndex') }}">battleplugins</a></h1>
         </div>
     </div>
 </nav>

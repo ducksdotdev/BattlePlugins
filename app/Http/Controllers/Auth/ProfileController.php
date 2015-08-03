@@ -7,7 +7,7 @@ use App\Models\User;
 
 class ProfileController extends Controller {
 
-    public function index($user) {
+    public function getProfile($user) {
         $user = User::whereDisplayname($user)->first();
         if (!$user) return null;
 

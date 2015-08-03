@@ -51,7 +51,7 @@
 
                 <div class="ui secondary menu">
                     @foreach([5,15,25] as $num)
-                        <a href="{{ action('Admin\PageController@logs', [base64_encode($current_file), 1, $num]) }}"
+                        <a href="{{ action('AdminController@getLogs', [base64_encode($current_file), 1, $num]) }}"
                            class="@if($perPage == $num) active @endif item">
                             {{ $num }}
                         </a>

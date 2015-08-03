@@ -24,7 +24,7 @@
     </div>
     <div class="grid-container">
         <div class="grid-50 mobile-grid-50">
-            <a href="{{ action('Admin\PageController@modifyUser') }}" class="ui button">Back</a>
+            <a href="{{ action('AdminController@getModifyUser') }}" class="ui button">Back</a>
         </div>
         <div class="grid-50 mobile-grid-50 text-right">
             <a onclick="window.location.reload()" class="ui button black">Reset to Previous</a>

@@ -33,7 +33,7 @@ class UserController extends Controller {
         return redirect()->guest('/auth/login');
     }
 
-    public function changeSettings() {
+    public function postChangeSettings() {
         $user = Auth::user();
         $confirmation = $this->request->input('confirmation');
 
@@ -67,7 +67,7 @@ class UserController extends Controller {
             return $this->redirectBackWithErrors(['Invalid confirmation password.']);
     }
 
-    public function createUser() {
+    public function postCreateUser() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
             $validator = $this->validate($this->request, [
                 'displayname' => 'required|max:16|unique:users,displayname',
@@ -95,21 +95,21 @@ class UserController extends Controller {
             });
 
             if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
-                return redirect()->action('Admin\PageController@modifyUserPermissions', ['id' => $id]);
+                return redirect()->action('AdminController@getModifyUserPermissions', ['id' => $id]);
             else
                 return $this->redirectBackWithSuccess('User has been created and notified');
         } else
             abort(403);
     }
 
-    public function deleteUser($user) {
+    public function postDeleteUser($user) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
             UserSettings::delete($user);
 
         return redirect()->back();
     }
 
-    public function modifyUserPermissions($user) {
+    public function postModifyUserPermissions($user) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER)) {
             User::find($user)->permission()->delete();
 

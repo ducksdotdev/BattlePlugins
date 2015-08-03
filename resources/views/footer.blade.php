@@ -1,7 +1,7 @@
 <footer>
     <ul>
         <li>
-            <a href="{{ action('Blog\PageController@index') }}"><i class="icon home large"></i><br/> Homepage</a>
+            <a href="{{ action('BlogController@getIndex') }}"><i class="icon home large"></i><br/> Homepage</a>
         </li>
         <li>
             <a href="http://wiki.battleplugins.com"><i class="icon book large"></i><br/> BattleWiki</a>
@@ -13,21 +13,21 @@
             <a href="http://github.com/BattlePlugins"><i class="icon github large"></i><br/> GitHub</a>
         </li>
         <li>
-            <a href="{{ action('Download\PageController@index') }}"><i class="icon download large"></i><br/> Download</a>
+            <a href="{{ action('DownloadController@getIndex') }}"><i class="icon download large"></i><br/> Download</a>
         </li>
     </ul>
     <p>
-        <a href="{{ action('Voice\PageController@index') }}">TeamSpeak</a>
-        | <a href="{{ action('Tasks\PageController@index') }}">BattleTasks</a>
-        | <a href="{{ action('API\PageController@index') }}">BattleWebAPI</a>
-        | <a href="{{ action('Paste\PageController@index') }}">BattlePaste</a>
-        | <a href="{{ action('ShortUrls\PageController@index') }}">bplug.in</a>
+        <a href="{{ action('VoiceController@getIndex') }}">TeamSpeak</a>
+        | <a href="{{ action('TasksController@getIndex') }}">BattleTasks</a>
+        | <a href="{{ action('APIController@getIndex') }}">BattleWebAPI</a>
+        | <a href="{{ action('PasteController@getIndex') }}">BattlePaste</a>
+        | <a href="{{ action('ShortUrlsController@getIndex') }}">bplug.in</a>
         @if(Auth::check())
             <br/>@if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
-                <a href="{{ action('Admin\PageController@index') }}">BattleAdmin</a> |
+                <a href="{{ action('AdminController@getIndex') }}">BattleAdmin</a> |
             @endif
             @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
-                <a href="{{ action('Admin\PageController@logs') }}">Log Viewer</a> |
+                <a href="{{ action('AdminController@getLogs') }}">Log Viewer</a> |
             @endif
             <a href="{{ action('Auth\UserController@getSettings') }}">Your Settings</a>
             | <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>

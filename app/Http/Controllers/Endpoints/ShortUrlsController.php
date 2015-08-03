@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Endpoints;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
@@ -10,9 +10,27 @@ use App\Tools\URL\Domain;
 use Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Class ShortUrlsController
+ * @package App\Http\Controllers\Endpoints
+ */
 class ShortUrlsController extends ApiController {
+    /**
+     * @var ShortUrlTransformer
+     */
+    /**
+     * @var ApiStatusCode|ShortUrlTransformer
+     */
+    /**
+     * @var ApiStatusCode|ShortUrlTransformer|Request
+     */
     protected $shortUrlTransformer, $statusCode, $request;
 
+    /**
+     * @param ShortUrlTransformer $shortUrlTransformer
+     * @param ApiStatusCode $statusCode
+     * @param Request $request
+     */
     function __construct(ShortUrlTransformer $shortUrlTransformer, ApiStatusCode $statusCode, Request $request) {
         $this->middleware('auth.api');
         $this->shortUrlTransformer = $shortUrlTransformer;
@@ -20,6 +38,9 @@ class ShortUrlsController extends ApiController {
         $this->request = $request;
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index() {
         return $this->statusCode->respondNotFound();
     }

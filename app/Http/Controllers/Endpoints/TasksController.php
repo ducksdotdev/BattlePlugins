@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Endpoints;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Models\Task;
 use App\Tools\API\StatusCodes\ApiStatusCode;
@@ -96,6 +96,10 @@ class TasksController extends ApiController {
         }
     }
 
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function update($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_TASK)) {
             $task = Task::find($id);

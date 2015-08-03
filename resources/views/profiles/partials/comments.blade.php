@@ -4,7 +4,7 @@
         /* * * CONFIGURATION VARIABLES * * */
         var disqus_shortname = 'battleplugins';
         var disqus_title = 'User Profile: {{ $user->displayname }}';
-        var disqus_url = '{{ action('Auth\ProfileController@index', ['user'=>$user->displayname])  }}';
+        var disqus_url = '{{ action('Auth\ProfileController@getProfile', ['user'=>$user->displayname])  }}';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function () {

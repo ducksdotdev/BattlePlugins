@@ -1,6 +1,6 @@
 <div class="brand item">
     <h1>
-        <a href="{{ action('Admin\PageController@index') }}">battleadmin</a>
+        <a href="{{ action('AdminController@getIndex') }}">battleadmin</a>
     </h1>
 </div>
 

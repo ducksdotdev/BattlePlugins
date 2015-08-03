@@ -37,17 +37,21 @@ class JenkinsBuild {
     }
 
     /**
-     * @return mixed
+     * @param $w
+     * @param $h
+     * @param $font_size
+     * @return Image
      */
-    public function getData() {
-        $file = storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.json";
+    public function getVersionImage($w, $h, $font_size) {
+        $vers = $this->getVersion();
 
-        if (file_exists($file)) {
-            $json_decode = json_decode(file_get_contents($file));
-            return $json_decode;
-        }
+        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
+            $font->file('../public/assets/fonts/tenby-five.otf');
+            $font->size($font_size);
+            $font->valign('top');
+        })->encode('png');
 
-        return null;
+        return $img;
     }
 
     /**
@@ -69,21 +73,17 @@ class JenkinsBuild {
     }
 
     /**
-     * @param $w
-     * @param $h
-     * @param $font_size
-     * @return Image
+     * @return mixed
      */
-    public function getVersionImage($w, $h, $font_size) {
-        $vers = $this->getVersion();
+    public function getData() {
+        $file = storage_path() . "/jenkins/" . $this->job->getName() . "/$this->build.json";
 
-        $img = Image::canvas($w, $h)->text($vers, 15, 15, function ($font) use ($font_size) {
-            $font->file('../public/assets/fonts/tenby-five.otf');
-            $font->size($font_size);
-            $font->valign('top');
-        })->encode('png');
+        if (file_exists($file)) {
+            $json_decode = json_decode(file_get_contents($file));
+            return $json_decode;
+        }
 
-        return $img;
+        return null;
     }
 
     /**
@@ -108,18 +108,7 @@ class JenkinsBuild {
      * @return string
      */
     public function getDownloadUrl() {
-        return action('Download\JenkinsController@download', ['job' => $this->getJob()->getName(), 'build' => $this->getBuild()]);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDownloadCount() {
-        $dl = BuildDownloads::whereBuild($this->getData()->fullDisplayName)->pluck('downloads');
-        if ($dl)
-            return $dl;
-
-        return 0;
+        return action('DownloadController@getDownload', ['job' => $this->getJob()->getName(), 'build' => $this->getBuild()]);
     }
 
     /**
@@ -134,6 +123,17 @@ class JenkinsBuild {
      */
     public function getBuild() {
         return $this->build;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDownloadCount() {
+        $dl = BuildDownloads::whereBuild($this->getData()->fullDisplayName)->pluck('downloads');
+        if ($dl)
+            return $dl;
+
+        return 0;
     }
 
     /**

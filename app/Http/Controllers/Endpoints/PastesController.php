@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\Endpoints;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Models\Paste;
 use App\Models\ShortUrl;
@@ -12,11 +12,18 @@ use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Class PastesController
+ * @package App\Http\Controllers\Endpoints
+ */
 class PastesController extends ApiController {
     /**
      * @var PasteTransformer
      */
     protected $pasteTransformer, $statusCode, $webhooks, $request;
+    /**
+     * @var int
+     */
     private $limit = 5;
 
     /**

@@ -1,18 +1,16 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Justin
- * Date: 5/29/2015
- * Time: 7:24 PM
- */
 
-namespace App\Http\Controllers\API\Endpoints;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Models\User;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
+/**
+ * Class UsersController
+ * @package App\Http\Controllers\Endpoints
+ */
 class UsersController extends ApiController {
 
     /**

@@ -1,4 +1,4 @@
-<h3>Tasks Overview <a href="{{ action('Tasks\PageController@index') }}"><i class="icon external"></i></a></h3>
+<h3>Tasks Overview <a href="{{ action('TasksController@getIndex') }}"><i class="icon external"></i></a></h3>
 <ul class="stats">
     <li class="{{ $myTasks ? 'yellow' : 'green' }} has-small">
         {{ $myTasks }}

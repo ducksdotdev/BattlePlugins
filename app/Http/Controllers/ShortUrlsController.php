@@ -1,19 +1,18 @@
-<?php namespace App\Http\Controllers\ShortUrls;
+<?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\ShortUrl;
 use App\Tools\URL\Domain;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class PageController extends Controller {
+class ShortUrlsController extends Controller {
 
-    public function index() {
+    public function getIndex() {
         return view('shorturls.index');
     }
 
-    public function redirect($slug) {
+    public function getRedirect($slug) {
         $url = ShortUrl::whereSlug($slug)->first();
 
         if ($url) {
@@ -27,7 +26,7 @@ class PageController extends Controller {
         return abort(404);
     }
 
-    public function create(Request $request) {
+    public function postCreate(Request $request) {
         $url = $request->get('url');
 
         if (!$url)

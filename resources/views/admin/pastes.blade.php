@@ -19,7 +19,8 @@
                 @foreach($pastes as $paste)
                     <tr>
                         <td>{{ $paste->creator->displayname }}</td>
-                        <td>@if($paste->public) <a href="{{ action('Paste\PasteController@getPaste', ['slug'=>$paste->slug]) }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
+                        <td>@if($paste->public) <a
+                                    href="{{ action('PasteController@getPaste', ['slug'=>$paste->slug]) }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>
                         @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
@@ -90,7 +91,7 @@
             </div>
             <div class="field">
                 @if($inputs->has('author') || $inputs->has('slug') || $inputs->has('serverid'))
-                    <a href="{{ action('Admin\PageController@pastes') }}" class="ui button black">Clear</a>
+                    <a href="{{ action('AdminController@getPastes') }}" class="ui button black">Clear</a>
                 @endif
                 <button class="ui button primary pull-right">Apply</button>
             </div>

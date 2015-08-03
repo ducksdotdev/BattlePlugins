@@ -1,21 +1,26 @@
-<?php namespace App\Http\Controllers\Paste;
+<?php namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Paste;
-use App\Models\ShortUrl;
 use App\Tools\Misc\UserSettings;
-use App\Tools\URL\SlugGenerator;
 use Auth;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
+/**
+ * Class PasteController
+ * @package App\Http\Controllers\Paste
+ */
 class PasteController extends Controller {
 
+    /**
+     *
+     */
     function __construct() {
-        $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste', 'downloadPaste']]);
+        $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste', 'getDownloadPaste']]);
     }
 
-    public function createPaste(Request $request) {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postCreatePaste(Request $request) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
             $content = $request->get('content');
 
@@ -44,7 +49,11 @@ class PasteController extends Controller {
             abort(403);
     }
 
-    public function editPaste(Request $request) {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postEditPaste(Request $request) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE)) {
             $content = $request->get('content');
 
@@ -68,6 +77,10 @@ class PasteController extends Controller {
             abort(403);
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\View\View|void
+     */
     public function getPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
@@ -105,6 +118,10 @@ class PasteController extends Controller {
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\View\View|void
+     */
     public function getRawPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
@@ -117,7 +134,11 @@ class PasteController extends Controller {
         return view('paste.raw', ['content' => $content]);
     }
 
-    public function deletePaste($id) {
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postDeletePaste($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE)) {
             $paste = Paste::find($id);
 
@@ -132,7 +153,11 @@ class PasteController extends Controller {
             abort(403);
     }
 
-    public function downloadPaste($slug) {
+    /**
+     * @param $slug
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
+     */
+    public function getDownloadPaste($slug) {
         $paste = Paste::whereSlug($slug)->first();
 
         if (!$paste)
@@ -143,7 +168,11 @@ class PasteController extends Controller {
         return response()->download(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
     }
 
-    public function togglePublic($id) {
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postTogglePublic($id) {
         $paste = Paste::find($id);
 
         if ($paste->user_id == Auth::user()->id) {
@@ -154,4 +183,15 @@ class PasteController extends Controller {
         return redirect('/' . $paste->slug);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getIndex() {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
+            return view('paste.index', [
+                'pastes' => auth()->user()->pastes
+            ]);
+        } else
+            abort(403);
+    }
 }

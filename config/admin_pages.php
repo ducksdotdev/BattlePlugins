@@ -4,52 +4,52 @@ use App\Tools\Misc\UserSettings;
 
 return [
     'Dashboard'       => [
-        'action' => 'Admin\PageController@index',
+        'action' => 'AdminController@getIndex',
     ],
     'Feeds'           => [
         'Logs'   => [
-            'action' => 'Admin\PageController@logs',
+            'action' => 'AdminController@getLogs',
             'node'   => UserSettings::DEVELOPER
         ],
         'GitHub' => [
-            'action' => 'Admin\PageController@github',
+            'action' => 'AdminController@getGithub',
         ]
     ],
     'Statistics'      => [
         'Short URLs' => [
-            'action' => 'Admin\PageController@shortUrls',
+            'action' => 'AdminController@getShortUrls',
             'node'   => UserSettings::DELETE_SHORTURL
         ],
         'API Keys'   => [
-            'action' => 'Admin\PageController@apiKeys',
+            'action' => 'AdminController@getApiKeys',
             'node'   => UserSettings::VIEW_API_KEYS
         ]
     ],
     'User Management' => [
         'Create User'         => [
-            'action' => 'Admin\PageController@createUser',
+            'action' => 'AdminController@getCreateUser',
             'node'   => UserSettings::CREATE_USER
         ],
         'Modify User'         => [
-            'action' => 'Admin\PageController@modifyUser',
+            'action' => 'AdminController@getModifyUser',
             'node'   => UserSettings::MODIFY_USER
         ],
         'Permission Overview' => [
-            'action' => 'Admin\PageController@permissionOverview',
+            'action' => 'AdminController@getPermissionOverview',
             'node'   => UserSettings::VIEW_PERMISSIONS
         ]
     ],
     'Tools'           => [
         'Create Alert'   => [
-            'action' => 'Admin\PageController@alerts',
+            'action' => 'AdminController@getAlerts',
             'node'   => UserSettings::CREATE_ALERT
         ],
         'Pastes'         => [
-            'action' => 'Admin\PageController@pastes',
+            'action' => 'AdminController@getPastes',
             'node'   => UserSettings::VIEW_PASTES
         ],
         'Manage Content' => [
-            'action' => 'Admin\PageController@cms',
+            'action' => 'AdminController@getCms',
             'node'   => UserSettings::MANAGE_CONTENT
         ],
     ],

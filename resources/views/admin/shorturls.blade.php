@@ -59,7 +59,7 @@
 
             <div class="ui secondary menu">
                 @foreach([20,35,50] as $num)
-                    <a href="{{ action('Admin\PageController@shortUrls', [1, $num]) }}"
+                    <a href="{{ action('AdminController@getShortUrls', [1, $num]) }}"
                        class="@if($perPage == $num) active @endif item">
                         {{ $num }}
                     </a>

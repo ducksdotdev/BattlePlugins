@@ -41,7 +41,7 @@
                     /* * * CONFIGURATION VARIABLES * * */
                     var disqus_shortname = 'battleplugins';
                     var disqus_title = '{{ $blog->title }}';
-                    var disqus_url = '{{ action('Blog\PageController@index', ['id'=>$blog->id])  }}';
+                    var disqus_url = '{{ action('BlogController@getIndex', ['id'=>$blog->id])  }}';
 
                     /* * * DON'T EDIT BELOW THIS LINE * * */
                     (function () {
@@ -52,8 +52,8 @@
                         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
                     })();
                 </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript"
-                                                                  rel="nofollow">comments powered by Disqus.</a>
+                <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
                 </noscript>
             </div>
         @endif

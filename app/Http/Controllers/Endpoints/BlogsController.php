@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\API\Endpoints;
+namespace App\Http\Controllers\Endpoints;
 
 use App\Models\Blog;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\BlogTransformer;
 use App\Tools\Misc\UserSettings;
+use App\Tools\Repositories\BlogRepository;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Class BlogsController
+ * @package App\Http\Controllers\Endpoints
+ */
 class BlogsController extends ApiController {
     /**
      * @var BlogTransformer
      */
     protected $blogTransformer, $statusCode, $webhooks, $request;
+    /**
+     * @var int
+     */
     private $limit = 5;
 
     /**
@@ -70,12 +78,7 @@ class BlogsController extends ApiController {
             if (!$title || !$content)
                 return $this->statusCode->respondWithError("A required field has been left blank.");
 
-            Blog::create([
-                'title' => $title,
-                'author' => Auth::user()->id,
-                'content' => $content,
-            ]);
-
+            BlogRepository::create($title, $content, auth()->user());
             return $this->statusCode->respondCreated('Blog successfully created.');
         } else
             return $this->statusCode->respondValidationFailed();
@@ -87,12 +90,16 @@ class BlogsController extends ApiController {
      */
     public function destroy($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG)) {
-            Blog::find($id)->delete();
+            BlogRepository::delete($id);
             return $this->statusCode->respondWithSuccess("Blog has been deleted.");
         } else
             return $this->statusCode->respondValidationFailed();
     }
 
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function update($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG)) {
             $blog = Blog::find($id);
@@ -100,8 +107,7 @@ class BlogsController extends ApiController {
             if (!$blog)
                 return $this->statusCode->respondNotFound("Blog does not exist!");
 
-            $blog->update($this->request->all());
-
+            BlogRepository::update($blog, $this->request->all());
             return $this->statusCode->respondWithSuccess("Blog has been modified.");
         } else
             return $this->statusCode->respondValidationFailed();

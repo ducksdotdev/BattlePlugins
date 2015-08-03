@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Tools\Misc\UserSettings;
+use App\Tools\Repositories\PasteRepository;
+use App\Tools\Repositories\ShortUrlRepository;
 use Auth;
 
 /**
@@ -30,7 +32,7 @@ class PasteController extends Controller {
             $slug = SlugGenerator::generate();
 
             ShortUrl::create([
-                'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
+                'url'  => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
                 'slug' => $slug
             ]);
 
@@ -38,10 +40,10 @@ class PasteController extends Controller {
                 500000)));
 
             Paste::create([
-                'slug' => $slug,
+                'slug'    => $slug,
                 'user_id' => Auth::user()->id,
-                'title' => $request->title,
-                'public' => $request->has('public')
+                'title'   => $request->title,
+                'public'  => $request->has('public')
             ]);
 
             return redirect('/' . $slug);
@@ -82,7 +84,7 @@ class PasteController extends Controller {
      * @return \Illuminate\View\View|void
      */
     public function getPaste($slug) {
-        $paste = Paste::whereSlug($slug)->first();
+        $paste = PasteRepository::getBySlug($slug);
 
         if (!$paste)
             return abort(404);
@@ -91,7 +93,7 @@ class PasteController extends Controller {
 
         $file = storage_path() . "/app/pastes/" . $paste->slug . ".txt";
         if (!file_exists($file)) {
-            Paste::whereSlug($slug)->delete();
+            PasteRepository::deleteBySlug($slug);
             return abort(404);
         }
 
@@ -110,11 +112,11 @@ class PasteController extends Controller {
             $lang = 'txt';
 
         return view('paste.paste', [
-            'paste' => $paste,
-            'url' => ShortUrl::whereSlug($slug)->first(),
-            'lines' => $lines,
+            'paste'   => $paste,
+            'url'     => ShortUrlRepository::getBySlug($slug),
+            'lines'   => $lines,
             'content' => $content,
-            'lang' => $lang
+            'lang'    => $lang
         ]);
     }
 
@@ -123,7 +125,7 @@ class PasteController extends Controller {
      * @return \Illuminate\View\View|void
      */
     public function getRawPaste($slug) {
-        $paste = Paste::whereSlug($slug)->first();
+        $paste = PasteRepository::getBySlug($slug);
 
         if (!$paste)
             return abort(404);
@@ -142,11 +144,8 @@ class PasteController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE)) {
             $paste = Paste::find($id);
 
-            if ($paste->user_id == Auth::user()->id) {
-                ShortUrl::whereSlug($paste->slug)->delete();
-                unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
-                $paste->delete();
-            }
+            if ($paste->user_id == Auth::user()->id)
+                ShortUrlRepository::delete($id);
 
             return redirect("/");
         } else
@@ -157,8 +156,9 @@ class PasteController extends Controller {
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public function getDownloadPaste($slug) {
-        $paste = Paste::whereSlug($slug)->first();
+    public
+    function getDownloadPaste($slug) {
+        $paste = PasteRepository::getBySlug($slug);
 
         if (!$paste)
             return abort(404);
@@ -172,7 +172,8 @@ class PasteController extends Controller {
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postTogglePublic($id) {
+    public
+    function postTogglePublic($id) {
         $paste = Paste::find($id);
 
         if ($paste->user_id == Auth::user()->id) {
@@ -186,7 +187,8 @@ class PasteController extends Controller {
     /**
      * @return \Illuminate\View\View
      */
-    public function getIndex() {
+    public
+    function getIndex() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
             return view('paste.index', [
                 'pastes' => auth()->user()->pastes

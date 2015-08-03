@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\ShortUrl;
+use App\Tools\Repositories\ShortUrlRepository;
 use App\Tools\URL\Domain;
 use Auth;
 use Carbon\Carbon;
@@ -13,12 +13,12 @@ class ShortUrlsController extends Controller {
     }
 
     public function getRedirect($slug) {
-        $url = ShortUrl::whereSlug($slug)->first();
+        $url = ShortUrlRepository::getBySlug($slug);
 
         if ($url) {
-            ShortUrl::whereSlug($slug)->update([
+            ShortUrlRepository::update($slug, update([
                 'last_used' => Carbon::now()
-            ]);
+            ]));
 
             return redirect($url->url);
         }

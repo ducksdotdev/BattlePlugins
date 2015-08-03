@@ -3,8 +3,8 @@
 namespace App\Tools\URL;
 
 
-use App\Models\Paste;
-use App\Models\ShortUrl;
+use App\Tools\Repositories\PasteRepository;
+use App\Tools\Repositories\ShortUrlRepository;
 
 /**
  * Class SlugGenerator
@@ -18,7 +18,7 @@ class SlugGenerator {
     public static function generate() {
         $slug = str_random(6);
 
-        while (Paste::whereSlug($slug)->first() || ShortUrl::whereSlug($slug)->first())
+        while (PasteRepository::getBySlug($slug) || ShortUrlRepository::getBySlug($slug))
             $slug = str_random(6);
 
         return $slug;

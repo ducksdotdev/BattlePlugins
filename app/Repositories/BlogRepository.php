@@ -5,19 +5,32 @@ namespace App\Tools\Repositories;
 use App\Models\Blog;
 use App\Models\User;
 
+/**
+ * Class BlogRepository
+ * @package App\Tools\Repositories
+ */
 class BlogRepository {
 
+    /**
+     * @param $title
+     * @param $content
+     * @param $author
+     */
     public static function create($title, $content, $author) {
         if ($author instanceof User)
             $author = $author->id;
 
         Blog::create([
-            'title' => $title,
+            'title'   => $title,
             'content' => $content,
-            'author' => $author
+            'author'  => $author
         ]);
     }
 
+    /**
+     * @param $blog
+     * @throws \Exception
+     */
     public static function delete($blog) {
         if ($blog instanceof Blog)
             $blog->delete();
@@ -25,11 +38,15 @@ class BlogRepository {
             Blog::find($blog)->delete();
     }
 
-    public static function update($blog, $update) {
+    /**
+     * @param $blog
+     * @param array $data
+     */
+    public static function update($blog, array $data) {
         if ($blog instanceof Blog)
-            $blog->update($update);
+            $blog->update($data);
         else
-            Blog::find($blog)->update($update);
+            Blog::find($blog)->update($data);
     }
 
 }

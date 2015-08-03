@@ -7,6 +7,7 @@ use App\Models\ShortUrl;
 use App\Tools\API\StatusCodes\ApiStatusCode;
 use App\Tools\API\Transformers\PasteTransformer;
 use App\Tools\Misc\UserSettings;
+use App\Tools\Repositories\PasteRepository;
 use App\Tools\URL\SlugGenerator;
 use App\Tools\Webhooks\Webhooks;
 use Auth;
@@ -118,10 +119,8 @@ class PastesController extends ApiController {
      */
     public function destroy($id) {
         $paste = Paste::find($id);
-
         if ($paste->user_id == Auth::user()->id) {
-            ShortUrl::whereSlug($paste->slug)->delete();
-            $paste->delete();
+            PasteRepository::delete($id);
             return $this->statusCode->respondWithSuccess("Paste has been deleted.");
         }
 

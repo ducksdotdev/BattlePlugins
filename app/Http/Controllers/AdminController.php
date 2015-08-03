@@ -12,6 +12,7 @@ use App\Tools\Misc\GitHub;
 use App\Tools\Misc\LaravelLogViewer;
 use App\Tools\Misc\Settings;
 use App\Tools\Misc\UserSettings;
+use App\Tools\Repositories\ShortUrlRepository;
 use App\Tools\URL\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -290,7 +291,7 @@ class AdminController extends Controller {
      */
     public function postDeleteShortUrl($slug) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
-            ShortUrl::whereSlug($slug)->delete();
+            ShortUrlRepository::deleteBySlug($slug);
             return redirect()->back();
         } else
             abort(403);

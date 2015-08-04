@@ -7,17 +7,17 @@
             <div ng-bind-html="serverstats"></div>
         </div>
         <div class="grid-100">
-            @include('admin.partials.dashboard.tasks')
+            @include('admin.dashboard.tasks')
         </div>
         <div class="grid-100">
-            @include('admin.partials.dashboard.overview')
+            @include('admin.dashboard.overview')
         </div>
     </div>
     <div class="grid-45 grid-parent">
-        @include('admin.partials.dashboard.github')
-        @include('admin.partials.dashboard.jenkins')
+        @include('admin.dashboard.github')
+        @include('admin.dashboard.jenkins')
     </div>
     <div class="grid-100">
-        @include('admin.partials.dashboard.log')
+        @include('admin.dashboard.log')
     </div>
 @stop

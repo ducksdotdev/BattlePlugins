@@ -12,7 +12,7 @@
                         {{ (new \Carbon\Carbon($item->created_at))->diffForHumans() }}
                     </div>
                     <div class="summary">
-                        @include('admin.partials.dashboard.gittypes.'.$item->type)
+                        @include('admin.gittypes.'.$item->type)
                     </div>
                 </div>
             </div>

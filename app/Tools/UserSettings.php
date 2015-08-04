@@ -23,6 +23,7 @@ class UserSettings {
     const DELETE_TASK = 'task.delete';
     const ADMIN_PANEL = 'admin.access';
     const CREATE_ALERT = 'admin.alert';
+    const DELETE_ALERT = 'admin.alert.delete';
     const CREATE_USER = 'admin.user.create';
     const MODIFY_USER = 'admin.user.modify';
     const DELETE_USER = 'admin.user.delete';
@@ -59,10 +60,10 @@ class UserSettings {
      */
     public static function create($email, $password, $displayname) {
         $id = User::insertGetId([
-            'email'       => $email,
-            'password'    => Hash::make($password),
+            'email' => $email,
+            'password' => Hash::make($password),
             'displayname' => $displayname,
-            'api_key'     => GenerateApiKey::generateKey()
+            'api_key' => GenerateApiKey::generateKey()
         ]);
 
         static::togglePermissionNode($id, static::USE_API);

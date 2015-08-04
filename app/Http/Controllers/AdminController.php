@@ -324,14 +324,16 @@ class AdminController extends Controller {
     }
 
     public function postAdminDeleteAlert($id) {
-        $alert = Alert::find($id);
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_ALERT)) {
+            $alert = Alert::find($id);
 
-        foreach ($alert->users as $user)
-            $user->alerts()->detach($id);
+            foreach ($alert->users as $user)
+                $user->alerts()->detach($id);
 
-        $alert->delete();
+            $alert->delete();
 
-        return redirect()->back();
+            return redirect()->back();
+        } else abort(403);
     }
 
     /**

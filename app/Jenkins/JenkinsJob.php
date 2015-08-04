@@ -4,6 +4,10 @@
 namespace App\Jenkins;
 
 
+    /**
+     * Class JenkinsJob
+     * @package App\Jenkins
+     */
 /**
  * Class JenkinsJob
  * @package App\Jenkins
@@ -99,5 +103,12 @@ class JenkinsJob {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColor() {
+        return static::getData()->color;
     }
 }

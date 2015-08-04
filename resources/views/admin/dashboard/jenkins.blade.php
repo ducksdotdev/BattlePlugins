@@ -11,7 +11,7 @@
     @else
         @foreach($jenkins as $build)
             <div class="grid-100">
-                <div class="ui small message {{ $build->getData()->result == 'SUCCESS' ? 'green' : 'red' }}">
+                <div class="ui small message {{ $build->getJob()->getColor() }}">
                     <a href="{{ $build->getData()->url }}">{{ $build->getData()->fullDisplayName }} -
                     <span title="{{ $build->createdAt() }}">
                         {{ $build->createdAt()->diffForHumans() }}

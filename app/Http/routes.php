@@ -131,6 +131,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
         Route::group(['before' => 'csrf'], function () {
             Route::post('/alert', 'AdminController@postAlert');
             Route::post('/alert/delete/{id}', 'AdminController@postDeleteAlert');
+            Route::post('/alert/admin-delete/{id}', 'AdminController@postAdminDeleteAlert');
             Route::post('/cms/{toggle}', 'AdminController@postToggleSetting');
             Route::post('/pastes/delete/{id}', 'AdminController@postDeletePaste');
         });

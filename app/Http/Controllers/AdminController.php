@@ -2,12 +2,14 @@
 namespace App\Http\Controllers;
 
 use App\Jenkins\Jenkins;
+use App\Models\Alert;
 use App\Models\Blog;
 use App\Models\Paste;
 use App\Models\Permission;
 use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
+use App\Queries\CreateAlert;
 use App\Repositories\ShortUrlRepository;
 use App\Tools\Domain;
 use App\Tools\GitHub;
@@ -126,7 +128,8 @@ class AdminController extends Controller {
     public function getAlerts() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
             return view('admin.alerts', [
-                'title' => 'Create Alert'
+                'title' => 'Create Alert',
+                'alerts' => Alert::all()
             ]);
         } else
             abort(403);
@@ -317,6 +320,17 @@ class AdminController extends Controller {
      */
     public function postDeleteAlert($id) {
         auth()->user()->alerts()->detach($id);
+        return redirect()->back();
+    }
+
+    public function postAdminDeleteAlert($id) {
+        $alert = Alert::find($id);
+
+        foreach ($alert->users as $user)
+            $user->alerts()->detach($id);
+
+        $alert->delete();
+
         return redirect()->back();
     }
 

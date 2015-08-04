@@ -215,7 +215,8 @@ return [
         'Jenkins' => 'App\Tools\Jenkins',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => 'Intervention\Image\Facades\Image',
-        'UserSettings' => 'App\Tools\UserSettings'
+        'UserSettings' => 'App\Tools\UserSettings',
+        'StringTools' => 'App\Tools\StringTools'
     ],
 
 ];

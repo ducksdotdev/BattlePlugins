@@ -5,6 +5,7 @@ use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use App\Tools\Domain;
 use App\Tools\Settings;
+use App\Tools\UserSettings;
 use Illuminate\Http\Request;
 
 /**

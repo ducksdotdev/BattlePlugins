@@ -54,20 +54,20 @@ class AdminController extends Controller {
      */
     public function getIndex() {
         return view('admin.index', [
-            'title' => 'Dashboard',
-            'issues' => count(GitHub::getIssues()),
-            'blogs' => count(Blog::all()),
-            'tasks' => new Task,
-            'jenkins' => Jenkins::getAllBuilds(3),
-            'updateMins' => $this->updateMins,
-            'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks()->whereCompleted(false)->get()),
-            'closedTasks' => count(Task::whereCompleted(true)->get()),
-            'pastes' => count(Paste::all()),
-            'urls' => count(ShortUrl::all()),
-            'downloads' => Jenkins::getBuildDownloadCount(),
+            'title'          => 'Dashboard',
+            'issues'         => count(GitHub::getIssues()),
+            'blogs'          => count(Blog::all()),
+            'tasks'          => new Task,
+            'jenkins'        => Jenkins::getAllBuilds(3),
+            'updateMins'     => $this->updateMins,
+            'github'         => GitHub::getEventsFeed(),
+            'myTasks'        => count(auth()->user()->tasks()->whereCompleted(false)->get()),
+            'closedTasks'    => count(Task::whereCompleted(true)->get()),
+            'pastes'         => count(Paste::all()),
+            'urls'           => count(ShortUrl::all()),
+            'downloads'      => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'log' => LaravelLogViewer::getPaginated(null, 1, 1)[0]
+            'log'            => LaravelLogViewer::getPaginated(null, 1, 1)[0]
         ]);
     }
 
@@ -115,7 +115,7 @@ class AdminController extends Controller {
 
             return view('admin.modifyuserpermissions', [
                 'title' => 'Modify ' . $user->displayname,
-                'user' => $user,
+                'user'  => $user,
                 'nodes' => UserSettings::getPossible()
             ]);
         } else
@@ -128,7 +128,7 @@ class AdminController extends Controller {
     public function getAlerts() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
             return view('admin.alerts', [
-                'title' => 'Create Alert',
+                'title'       => 'Create Alert',
                 'adminalerts' => Alert::all()
             ]);
         } else
@@ -141,10 +141,10 @@ class AdminController extends Controller {
     public function getCms() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MANAGE_CONTENT)) {
             return view('admin.cms', [
-                'title' => 'Manage Content',
-                'jenkins' => Settings::get('jenkins'),
+                'title'        => 'Manage Content',
+                'jenkins'      => Settings::get('jenkins'),
                 'registration' => Settings::get('registration'),
-                'alert_bar' => Settings::get('alert_bar'),
+                'alert_bar'    => Settings::get('alert_bar'),
                 'comment_feed' => Settings::get('comment_feed')
             ]);
         } else
@@ -155,7 +155,7 @@ class AdminController extends Controller {
      * @return \Illuminate\View\View
      */
     public function getServerStats() {
-        return view('admin.partials.dashboard.serverstats', [
+        return view('admin.dashboard.serverstats', [
             'serverData' => Cache::get('serverData'),
             'updateMins' => $this->updateMins
         ]);
@@ -166,10 +166,10 @@ class AdminController extends Controller {
      */
     public function getGithub() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
-            'github' => GitHub::getEventsFeed(25),
+            'title'   => 'GitHub Information',
+            'github'  => GitHub::getEventsFeed(25),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'   => GitHub::getRepositories()
         ]);
     }
 
@@ -182,12 +182,12 @@ class AdminController extends Controller {
     public function getLogs($l = null, $curPage = 1, $perPage = 15) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER)) {
             return view('admin.logs', [
-                'title' => 'Logs',
-                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
-                'files' => LaravelLogViewer::getFiles(true),
+                'title'        => 'Logs',
+                'logs'         => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
+                'files'        => LaravelLogViewer::getFiles(true),
                 'current_file' => LaravelLogViewer::getFileName(),
-                'perPage' => $perPage,
-                'url' => $this->request->url()
+                'perPage'      => $perPage,
+                'url'          => $this->request->url()
             ]);
         } else
             abort(403);
@@ -204,8 +204,8 @@ class AdminController extends Controller {
             $urls = new LengthAwarePaginator($urls->forPage($curPage, $perPage), $urls->count(), $perPage, $curPage);
 
             return view('admin.shorturls', [
-                'title' => 'Short URLs',
-                'urls' => $urls,
+                'title'   => 'Short URLs',
+                'urls'    => $urls,
                 'perPage' => $perPage
             ]);
         } else
@@ -230,8 +230,8 @@ class AdminController extends Controller {
     public function getPermissionOverview() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::VIEW_PERMISSIONS)) {
             return view('admin.permissionoverview', [
-                'title' => "Permission Overview",
-                'nodes' => UserSettings::getPossible(),
+                'title'       => "Permission Overview",
+                'nodes'       => UserSettings::getPossible(),
                 'permissions' => new Permission()
             ]);
         } else abort(403);
@@ -268,7 +268,7 @@ class AdminController extends Controller {
             $pastes = $pastes->get();
 
         return view('admin.pastes', [
-            'title' => 'Pastes',
+            'title'  => 'Pastes',
             'pastes' => $pastes,
             'inputs' => $this->request
         ]);

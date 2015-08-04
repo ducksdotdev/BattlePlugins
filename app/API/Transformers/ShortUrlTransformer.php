@@ -4,7 +4,7 @@ namespace App\API\Transformers;
 
 /**
  * Class ShortUrlTransformer
- * @package App\Tools\API\Transformers
+ * @package App\API\Transformers
  */
 class ShortUrlTransformer extends Transformer {
 

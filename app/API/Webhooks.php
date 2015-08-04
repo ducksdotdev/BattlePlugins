@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Webhooks;
+namespace App\API;
 
 use App\Jobs\SendPayload;
 use App\Models\Webhook;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 
 /**
  * Class Webhooks
- * @package App\Tools\Webhooks
+ * @package App\API\Webhooks
  */
 class Webhooks {
 
@@ -27,6 +27,25 @@ class Webhooks {
     public static function getTypes() {
         $oClass = new \ReflectionClass(__CLASS__);
         return $oClass->getConstants();
+    }
+
+    /**
+     * @param $url
+     * @param $event
+     */
+    public static function create($url, $event) {
+        $uid = Auth::user()->id;
+
+        if (!$url)
+            auth()->user()->webhooks()->whereEvent($event)->delete();
+        else {
+            Webhook::updateOrCreate([
+                'event' => $event,
+                'user_id' => $uid
+            ])->update([
+                'url' => $url
+            ]);
+        }
     }
 
     /**
@@ -66,24 +85,5 @@ class Webhooks {
         curl_exec($ch);
 
         curl_close($ch);
-    }
-
-    /**
-     * @param $url
-     * @param $event
-     */
-    public static function create($url, $event) {
-        $uid = Auth::user()->id;
-
-        if (!$url)
-            auth()->user()->webhooks()->whereEvent($event)->delete();
-        else {
-            Webhook::updateOrCreate([
-                'event' => $event,
-                'user_id' => $uid
-            ])->update([
-                'url' => $url
-            ]);
-        }
     }
 }

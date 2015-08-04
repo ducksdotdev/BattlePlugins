@@ -22,7 +22,7 @@
         <h4><a href="/">Click here to go to a page we <em>can</em> find.</a></h4>
     </div>
     <div class="grid-100">
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 </body>

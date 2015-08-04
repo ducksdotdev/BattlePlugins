@@ -24,23 +24,6 @@ class Domain {
     }
 
     /**
-     * @param $url
-     * @return bool
-     */
-    public static function isUrl($url) {
-        $validator = Validator::make(['url' => $url], ['url' => 'url']);
-        return !$validator->fails();
-    }
-
-    /**
-     * @param $url
-     * @return string
-     */
-    public static function stripTrailingSlash($url) {
-        return rtrim($url, "/");
-    }
-
-    /**
      * @param $req
      * @return null|string
      */
@@ -56,8 +39,8 @@ class Domain {
                 $slug = SlugGenerator::generate();
 
                 ShortUrlRepository::create([
-                    'url'       => $req,
-                    'slug'      => $slug,
+                    'url' => $req,
+                    'slug' => $slug,
                     'last_used' => Carbon::now()
                 ]);
 
@@ -75,12 +58,20 @@ class Domain {
     }
 
     /**
-     * @param $host
+     * @param $url
+     * @return string
+     */
+    public static function stripTrailingSlash($url) {
+        return rtrim($url, "/");
+    }
+
+    /**
+     * @param $url
      * @return bool
      */
-    public static function isOnline($host) {
-        exec("ping -c 4 " . $host, $outcome, $status);
-        return (0 == $status);
+    public static function isUrl($url) {
+        $validator = Validator::make(['url' => $url], ['url' => 'url']);
+        return !$validator->fails();
     }
 
     /**
@@ -121,6 +112,38 @@ class Domain {
         curl_close($curl);
 
         return $ret;
+    }
+
+    /**
+     * @param $host
+     * @return bool
+     */
+    public static function isOnline($host) {
+        exec("ping -c 4 " . $host, $outcome, $status);
+        return (0 == $status);
+    }
+
+    /**
+     * @param $content
+     * @return string
+     */
+    public static function linkify($content) {
+        $paragraphs = preg_split('/[\n]/', $content);
+        $newContent = '';
+        foreach ($paragraphs as $paragraph) {
+            $words = preg_split('/[\s]/', $paragraph);
+            foreach ($words as $word) {
+                if (starts_with($word, 'http')) {
+                    $word = HTML::link(htmlentities($word));
+                }
+
+                $newContent = $newContent . ' ' . $word;
+            }
+
+            $newContent = $newContent . '<br/>';
+        }
+
+        return $newContent;
     }
 
 }

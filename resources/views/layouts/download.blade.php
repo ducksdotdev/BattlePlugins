@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattlePlugins :: Download Center</title>
     <link rel="icon" href="/assets/img/bp.png"/>
@@ -43,6 +43,6 @@
     </div>
     @yield('content')
 </div>
-@include('footer')
+@include('globalpartials.footer')
 </body>
 </html>

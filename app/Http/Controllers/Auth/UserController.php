@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Queries\CreateAlert;
 use App\Tools\Misc\Settings;
 use App\Tools\Misc\UserSettings;
-use App\Tools\Queries\CreateAlert;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;

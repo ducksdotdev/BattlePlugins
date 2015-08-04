@@ -7,7 +7,7 @@ use Auth;
 
 /**
  * Class PasteTransformer
- * @package App\Tools\API\Transformers
+ * @package App\API\Transformers
  */
 class PasteTransformer extends Transformer {
 

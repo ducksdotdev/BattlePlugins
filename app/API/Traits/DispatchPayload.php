@@ -2,7 +2,7 @@
 
 namespace App\API\Traits;
 
-use App\Tools\Webhooks\Webhooks;
+use App\API\Webhooks;
 use Illuminate\Support\Facades\Config;
 use ReflectionClass;
 

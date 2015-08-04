@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\API\Traits\DispatchPayload;
-use App\Tools\Queries\CreateAlert;
+use App\Queries\CreateAlert;
 use Illuminate\Database\Eloquent\Model;
 
 /**

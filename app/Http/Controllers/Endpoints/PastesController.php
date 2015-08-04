@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\API\StatusCodes\ApiStatusCode;
 use App\API\Transformers\PasteTransformer;
+use App\API\Webhooks;
 use App\Models\Paste;
 use App\Models\ShortUrl;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Repositories\PasteRepository;
 use App\Tools\URL\SlugGenerator;
-use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 

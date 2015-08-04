@@ -2,7 +2,7 @@
 <html lang="en" ng-app="BattleTasks">
 <head>
     <meta charset="utf-8">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattleTasks :: BattlePlugins Task Management</title>
     <link rel="icon" href="/assets/img/bt.png"/>
@@ -26,7 +26,7 @@
 <div class="grid-container">
     @yield('content')
     <div class="grid-100">
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 @if(Auth::check())

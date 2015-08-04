@@ -19,7 +19,7 @@
     <script type="text/javascript" src="/assets/js/scripts.js"></script>
     @yield('extraScripts')
     <!--        End Scripts -->
-    
+
     <title>
         @if($paste->title)
             {{ $paste->title }}
@@ -44,6 +44,6 @@
     </div>
 </nav>
 @yield('content')
-@include('footer')
+@include('globalpartials.footer')
 </body>
 </html>

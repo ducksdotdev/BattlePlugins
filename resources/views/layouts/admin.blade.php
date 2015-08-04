@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <title>{{ $title }} :: BattlePlugins Administration Panel</title>
     <link rel="icon" href="/assets/img/bp.png"/>
 
@@ -37,7 +37,7 @@
         <div id="content" class="grid-container">
             @yield('content')
         </div>
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 </body>

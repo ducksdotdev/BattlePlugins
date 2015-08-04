@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <title>BattleWebAPI :: Website API for BattlePlugins</title>
     <link rel="icon" href="/assets/img/api.png"/>
     <!--        Styles -->
@@ -23,7 +23,7 @@
     </div>
 </nav>
 @yield('content')
-@include('footer')
+@include('globalpartials.footer')
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
 <script type="text/javascript" src="/assets/js/scripts.js"></script>

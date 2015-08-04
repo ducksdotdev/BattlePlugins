@@ -22,7 +22,7 @@
         <h4><a href="/">Click here to Return to Safety</a></h4>
     </div>
     <div class="grid-100">
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 </body>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Queries;
+namespace App\Queries;
 
 use App\Models\Alert;
 use App\Models\User;
@@ -8,7 +8,7 @@ use App\Models\UserAlert;
 
 /**
  * Class CreateAlert
- * @package App\Tools\Queries
+ * @package App\Queries
  */
 class CreateAlert {
 

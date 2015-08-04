@@ -4,7 +4,7 @@ namespace App\API\Transformers;
 
 /**
  * Class UserTransformer
- * @package App\Tools\API\Transformers
+ * @package App\API\Transformers
  */
 class UserTransformer extends Transformer {
 

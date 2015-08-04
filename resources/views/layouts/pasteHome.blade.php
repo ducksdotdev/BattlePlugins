@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/img/bp.png"/>
@@ -24,6 +24,6 @@
 </head>
 <body>
 @yield('content')
-@include('footer')
+@include('globalpartials.footer')
 </body>
 </html>

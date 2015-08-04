@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Tools\Webhooks\Webhooks;
+use App\API\Webhooks;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class SendPayload extends Job implements SelfHandling {

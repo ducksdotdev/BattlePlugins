@@ -2,7 +2,7 @@
 <html lang="en" ng-app="BattleTeamSpeak">
 <head>
     <meta charset="utf-8">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeamSpeak :: BattlePlugins Voice Chat</title>
     <link rel="icon" href="/assets/img/bp.png"/>
@@ -36,7 +36,7 @@
             </div>
         </div>
         @yield('content')
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 </body>

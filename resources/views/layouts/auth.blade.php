@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    @include('mobilecolor')
+    @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password :: BattlePlugins</title>
     <link rel="icon" href="/assets/img/bp.png"/>
@@ -32,7 +32,7 @@
                 @yield('content')
             </div>
         </div>
-        @include('footer')
+        @include('globalpartials.footer')
     </div>
 </div>
 </body>

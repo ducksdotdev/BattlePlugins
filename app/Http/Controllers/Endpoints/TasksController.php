@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\API\StatusCodes\ApiStatusCode;
 use App\API\Transformers\TaskTransformer;
+use App\API\Webhooks;
 use App\Models\Task;
 use App\Tools\Misc\UserSettings;
-use App\Tools\Webhooks\Webhooks;
 use Auth;
 use Illuminate\Http\Request;
 

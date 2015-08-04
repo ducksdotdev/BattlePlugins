@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Jenkins\Jenkins;
+use App\Jenkins\JenkinsBuild;
 use App\Jenkins\JenkinsJob;
 use App\Models\ProductionBuilds;
 use App\Tools\URL\Domain;
@@ -24,10 +25,10 @@ class DownloadController extends Controller {
             $stableBuilds = Jenkins::getStableBuilds(20);
 
         return view('download.index', [
-            'jobs' => Jenkins::getJobs(),
-            'current_job' => $current_job,
-            'stableBuilds' => $stableBuilds,
-            'production' => new ProductionBuilds(),
+            'jobs'          => Jenkins::getJobs(),
+            'current_job'   => $current_job,
+            'stableBuilds'  => $stableBuilds,
+            'production'    => new ProductionBuilds(),
             'server_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
     }

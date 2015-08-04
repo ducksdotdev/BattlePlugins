@@ -2,7 +2,6 @@
 
 namespace App\API;
 
-
 use App\Models\User;
 
 /**
@@ -18,7 +17,7 @@ class GenerateApiKey {
         if (!($user instanceof User))
             $user = User::find($user);
 
-        $user->api_key = GenerateApiKey::generateKey();
+        $user->api_key = static::generateKey();
         $user->save();
     }
 

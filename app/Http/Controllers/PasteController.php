@@ -2,6 +2,7 @@
 
 use App\Repositories\PasteRepository;
 use App\Repositories\ShortUrlRepository;
+use App\Tools\Domain;
 use App\Tools\UserSettings;
 use Auth;
 
@@ -29,7 +30,7 @@ class PasteController extends Controller {
             if (!$content)
                 return redirect("/")->with('error', 'Do not leave the content field blank.');
 
-            $slug = SlugGenerator::generate();
+            $slug = Domain::generateSlug();
 
             ShortUrl::create([
                 'url'  => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,

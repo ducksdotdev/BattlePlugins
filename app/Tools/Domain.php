@@ -3,6 +3,7 @@
 namespace App\Tools;
 
 use App\Models\ShortUrl;
+use App\Repositories\PasteRepository;
 use App\Repositories\ShortUrlRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,10 +37,10 @@ class Domain {
             $url = ShortUrl::whereUrl($req)->first();
 
             if (!$url) {
-                $slug = SlugGenerator::generate();
+                $slug = static::generateSlug();
 
                 ShortUrlRepository::create([
-                    'url' => $req,
+                    'url'  => $req,
                     'slug' => $slug,
                     'last_used' => Carbon::now()
                 ]);
@@ -112,6 +113,18 @@ class Domain {
         curl_close($curl);
 
         return $ret;
+    }
+
+    /**
+     * @return string
+     */
+    public static function generateSlug() {
+        $slug = str_random(6);
+
+        while (PasteRepository::getBySlug($slug) || ShortUrlRepository::getBySlug($slug))
+            $slug = str_random(6);
+
+        return $slug;
     }
 
     /**

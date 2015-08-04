@@ -25,7 +25,7 @@
         </div>
         {!! Form::close() !!}
     </div>
-    @if(count($alerts) && UserSettings::hasNode(auth()->user(), UserSettings::DELETE_ALERT))
+    @if(count($adminalerts) && UserSettings::hasNode(auth()->user(), UserSettings::DELETE_ALERT))
         <div class="grid-100 grid-parent">
             <div class="grid-100">
                 <h3>Existing Alerts</h3>

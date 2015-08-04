@@ -26,7 +26,8 @@ class Task extends Model {
             static::$event(function ($model) use ($event) {
                 if ($model->assignee_id && !$model->status) {
                     $message = "A task has been assigned to you by " . User::find($model->user_id)->displayname;
-                    CreateAlert::make($model->assignee_id, $message);
+                    $alert = CreateAlert::make($message);
+                    CreateAlert::attach($alert, $model->assignee);
                 }
             });
         }

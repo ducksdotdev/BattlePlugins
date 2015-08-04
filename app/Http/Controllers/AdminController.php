@@ -305,9 +305,10 @@ class AdminController extends Controller {
      */
     public function postAlert() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
-            foreach (User::all() as $user) {
-                CreateAlert::make($user, $this->request->get('content'));
-            }
+            $alert = CreateAlert::make($this->request->get('content'));
+
+            foreach (User::all() as $user)
+                CreateAlert::attach($alert, $user);
 
             return redirect()->back()->with('success', 'Users have been alerted.');
         } else

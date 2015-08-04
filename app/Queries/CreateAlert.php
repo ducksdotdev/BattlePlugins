@@ -13,17 +13,22 @@ use App\Models\UserAlert;
 class CreateAlert {
 
     /**
-     * @param $user
      * @param $content
+     * @return mixed
      */
-    public static function make($user, $content) {
-        if ($user instanceof User)
-            $user = $user->id;
+    public static function make($content) {
+        $id = Alert::insertGetId([
+            'content' => $content
+        ]);
 
-        $alert = new Alert();
-        $alert->content = $content;
-        $alert->save();
+        return Alert::find($id);
+    }
 
+    /**
+     * @param Alert $alert
+     * @param User $user
+     */
+    public static function attach(Alert $alert, User $user) {
         $alert->users()->attach($user);
     }
 

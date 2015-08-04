@@ -321,6 +321,11 @@ class AdminController extends Controller {
      */
     public function postDeleteAlert($id) {
         auth()->user()->alerts()->detach($id);
+        $alert = Alert::find($id);
+
+        if (!count($alert->users))
+            $alert->delete();
+
         return redirect()->back();
     }
 

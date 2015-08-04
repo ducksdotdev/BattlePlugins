@@ -30,30 +30,30 @@
             </div>
         </div>
         <div class="grid-100">{!! Markdown::convertToHTML(strip_tags($blog->content)) !!}</div>
-    </div>
-    @if($comment_feed)
-        <div class="grid-100">
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                /* * * CONFIGURATION VARIABLES * * */
-                var disqus_shortname = 'battleplugins';
-                var disqus_title = '{{ $blog->title }}';
-                var disqus_url = '{{ action('BlogController@getIndex', ['id'=>$blog->id])  }}';
+        @if($comment_feed)
+            <div class="grid-100">
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    /* * * CONFIGURATION VARIABLES * * */
+                    var disqus_shortname = 'battleplugins';
+                    var disqus_title = '{{ $blog->title }}';
+                    var disqus_url = '{{ action('BlogController@getIndex', ['id'=>$blog->id])  }}';
 
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function () {
-                    var dsq = document.createElement('script');
-                    dsq.type = 'text/javascript';
-                    dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>
-                Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-            </noscript>
-        </div>
-    @endif
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function () {
+                        var dsq = document.createElement('script');
+                        dsq.type = 'text/javascript';
+                        dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>
+                    Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+                </noscript>
+            </div>
+        @endif
+    </div>
     <div class="grid-25 ui sticky">
         <h4>Latest Blog Posts:</h4>
 

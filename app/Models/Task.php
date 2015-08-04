@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\API\Traits\DispatchPayload;
-use App\Queries\CreateAlert;
+use App\Repositories\AlertRepository;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,8 +26,7 @@ class Task extends Model {
             static::$event(function ($model) use ($event) {
                 if ($model->assignee_id && !$model->status) {
                     $message = "A task has been assigned to you by " . User::find($model->user_id)->displayname;
-                    $alert = CreateAlert::make($message);
-                    CreateAlert::attach($alert, $model->assignee);
+                    AlertRepository::create($message, [$model->assignee]);
                 }
             });
         }

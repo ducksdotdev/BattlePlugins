@@ -1,27 +1,31 @@
 <?php
 
-namespace App\Queries;
+namespace App\Repositories;
 
 use App\Models\Alert;
 use App\Models\User;
-use App\Models\UserAlert;
+
 
 /**
- * Class CreateAlert
- * @package App\Queries
+ * Class AlertRepository
+ * @package App\Repositories
  */
-class CreateAlert {
-
+class AlertRepository {
     /**
      * @param $content
      * @return mixed
      */
-    public static function make($content) {
+    public static function create($content, $users) {
         $id = Alert::insertGetId([
             'content' => $content
         ]);
 
-        return Alert::find($id);
+        $alert = Alert::find($id);
+
+        foreach ($users as $user)
+            static::attach($alert, $user);
+
+        return $alert;
     }
 
     /**
@@ -31,5 +35,4 @@ class CreateAlert {
     public static function attach(Alert $alert, User $user) {
         $alert->users()->attach($user);
     }
-
 }

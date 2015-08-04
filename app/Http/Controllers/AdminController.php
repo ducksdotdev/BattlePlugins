@@ -9,7 +9,7 @@ use App\Models\Permission;
 use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
-use App\Queries\CreateAlert;
+use App\Repositories\AlertRepository;
 use App\Repositories\ShortUrlRepository;
 use App\Tools\Domain;
 use App\Tools\GitHub;
@@ -305,10 +305,7 @@ class AdminController extends Controller {
      */
     public function postAlert() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
-            $alert = CreateAlert::make($this->request->get('content'));
-
-            foreach (User::all() as $user)
-                CreateAlert::attach($alert, $user);
+            AlertRepository::create($this->request->get('content'), User::all());
 
             return redirect()->back()->with('success', 'Users have been alerted.');
         } else
@@ -329,6 +326,10 @@ class AdminController extends Controller {
         return redirect()->back();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postAdminDeleteAlert($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_ALERT)) {
             $alert = Alert::find($id);

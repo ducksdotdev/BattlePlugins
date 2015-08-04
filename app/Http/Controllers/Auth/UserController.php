@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Queries\CreateAlert;
+use App\Repositories\AlertRepository;
 use App\Tools\Settings;
 use App\Tools\UserSettings;
 use Auth;
@@ -107,8 +107,7 @@ class UserController extends Controller {
 
             $message = "Welcome, $displayname This is the BattlePlugins admin panel. This is a portal for checking server information and website management. This panel is also a hub for all of the BattlePlugins websites. If you have any questions please talk to lDucks.";
 
-            $alert = CreateAlert::make($message);
-            CreateAlert::attach($alert, User::find($id));
+            AlertRepository::create($message, [User::find($id)]);
 
             Mail::send('emails.welcome', array(
                 'password' => $password,

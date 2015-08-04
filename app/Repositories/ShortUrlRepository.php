@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tools\Repositories;
+namespace App\Repositories;
 
 
 use App\Models\ShortUrl;
@@ -53,7 +53,7 @@ class ShortUrlRepository {
      * @return mixed
      */
     public static function all() {
-        return ShortUrl::get('last_used', 'desc')->get();
+        return ShortUrl::orderBy('last_used', 'desc')->get();
     }
 
 }

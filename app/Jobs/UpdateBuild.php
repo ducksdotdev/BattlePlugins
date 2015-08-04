@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Jenkins\JenkinsBuild;
-use App\Tools\URL\Domain;
+use App\Tools\Domain;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class UpdateBuild extends Job implements SelfHandling {

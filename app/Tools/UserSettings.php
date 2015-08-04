@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tools\Misc;
+namespace App\Tools;
 
 use App\API\GenerateApiKey;
 use App\Models\Permission;

@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 
 /**
  * Class ApiStatusCode
- * @package App\Tools\API\StatusCodes
+ * @package App\API\StatusCodes
  */
 class ApiStatusCode extends StatusCode {
 

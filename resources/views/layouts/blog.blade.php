@@ -40,7 +40,7 @@
             </ul>
         </div>
         <div class="grid-10 tablet-grid-100 mobile-grid-100">
-            @if(Auth::check() && \App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::CREATE_BLOG))
+            @if(Auth::check() && UserSettings::hasNode(auth()->user(), UserSettings::CREATE_BLOG))
                 <button id="createBlog" class="circular small ui positive icon button">
                     <i class="icon plus"></i>
                 </button>

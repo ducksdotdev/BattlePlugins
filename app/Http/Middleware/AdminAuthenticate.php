@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Tools\Misc\UserSettings;
+use App\Tools\UserSettings;
 use Closure;
 
 /**

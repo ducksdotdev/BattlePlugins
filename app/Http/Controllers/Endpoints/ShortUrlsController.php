@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Endpoints;
 
 use App\API\StatusCodes\ApiStatusCode;
 use App\API\Transformers\ShortUrlTransformer;
-use App\Tools\Misc\UserSettings;
-use App\Tools\Repositories\ShortUrlRepository;
-use App\Tools\URL\Domain;
+use App\Repositories\ShortUrlRepository;
+use App\Tools\Domain;
+use App\Tools\UserSettings;
 use Auth;
 use Illuminate\Http\Request;
 

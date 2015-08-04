@@ -1,8 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-use App\Tools\Misc\UserSettings;
-use App\Tools\Repositories\PasteRepository;
-use App\Tools\Repositories\ShortUrlRepository;
+use App\Repositories\PasteRepository;
+use App\Repositories\ShortUrlRepository;
+use App\Tools\UserSettings;
 use Auth;
 
 /**

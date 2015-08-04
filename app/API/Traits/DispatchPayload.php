@@ -8,7 +8,7 @@ use ReflectionClass;
 
 /**
  * Class DispatchPayload
- * @package App\Tools\API\Traits
+ * @package App\API\Traits
  */
 trait DispatchPayload {
 

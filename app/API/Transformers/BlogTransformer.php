@@ -7,7 +7,7 @@ use Auth;
 
 /**
  * Class TaskTransformer
- * @package App\Tools\Transformers
+ * @package App\API\Transformers
  */
 class BlogTransformer extends Transformer {
 

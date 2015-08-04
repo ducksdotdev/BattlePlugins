@@ -1,8 +1,6 @@
 <?php
 
-
-namespace App\Tools\Repositories;
-
+namespace App\Repositories;
 
 use App\Models\Paste;
 use App\Models\ShortUrl;
@@ -12,6 +10,13 @@ use App\Models\ShortUrl;
  * @package App\Tools\Repositories
  */
 class PasteRepository {
+
+    /**
+     * @param $slug
+     */
+    public static function deleteBySlug($slug) {
+        static::delete(static::getBySlug($slug)->id);
+    }
 
     /**
      * @param $paste
@@ -26,13 +31,6 @@ class PasteRepository {
         ShortUrl::deleteByUrl(action('PasteController@getDownloadPaste', ['slug' => $paste->slug]));
         unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
         $paste->delete();
-    }
-
-    /**
-     * @param $slug
-     */
-    public static function deleteBySlug($slug) {
-        static::delete(static::getBySlug($slug)->id);
     }
 
     /**

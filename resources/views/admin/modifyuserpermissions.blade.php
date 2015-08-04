@@ -16,7 +16,7 @@
         @foreach($nodes as $node)
             <div class="grid-20 bottom-margin ten">
                 <div class="ui checkbox">
-                    <input type="checkbox" name="{{ $node }}" tabindex="0" class="hidden" @if(\App\Tools\Misc\UserSettings::hasNode($user, $node)) checked @endif>
+                    <input type="checkbox" name="{{ $node }}" tabindex="0" class="hidden" @if(UserSettings::hasNode($user, $node)) checked @endif>
                     <label>{{ $node }}</label>
                 </div>
             </div>

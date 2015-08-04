@@ -2,8 +2,8 @@
 
 use App\Models\Task;
 use App\Models\User;
-use App\Tools\Misc\GitHub;
-use App\Tools\Misc\UserSettings;
+use App\Tools\GitHub;
+use App\Tools\UserSettings;
 use Auth;
 
 /**

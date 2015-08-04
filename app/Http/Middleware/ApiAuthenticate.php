@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\API\StatusCodes\StatusCode;
 use App\Models\User;
-use App\Tools\Misc\UserSettings;
+use App\Tools\UserSettings;
 use Auth;
 use Closure;
 

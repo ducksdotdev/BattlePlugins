@@ -1,6 +1,6 @@
 <tr @if(!$build->isStable()) class="warning" @endif>
     <td>
-        @if(auth()->check() && \App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::MANAGE_BUILDS))
+        @if(auth()->check() && UserSettings::hasNode(auth()->user(), UserSettings::MANAGE_BUILDS))
             {!! Form::open(['url'=>URL::to('/job/' . $build->getData()->timestamp .'/production', [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
             @if($production->find($build->getData()->timestamp))
                 <button class="ui button mini red">Mark Unstable</button>

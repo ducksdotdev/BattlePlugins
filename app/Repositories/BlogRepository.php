@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tools\Repositories;
+namespace App\Repositories;
 
 use App\Models\Blog;
 use App\Models\User;
 
 /**
  * Class BlogRepository
- * @package App\Tools\Repositories
+ * @package App\Repositories
  */
 class BlogRepository {
 

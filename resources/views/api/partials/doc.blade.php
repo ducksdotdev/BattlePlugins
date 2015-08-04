@@ -3,7 +3,7 @@
         <h1>{{ $docType['name'] }}</h1>
     </div>
     @foreach($docType['methods'] as $doc)
-        @if(!array_has($doc, 'node') || \App\Tools\Misc\UserSettings::hasNode(auth()->user(), $doc['node']))
+        @if(!array_has($doc, 'node') || UserSettings::hasNode(auth()->user(), $doc['node']))
             <div class="grid-100" id="{{ $doc['title'] }}">
                 <h2 id="{{ $docType['name'] }}-{{ $doc['title'] }}">
                     {{ $doc['title'] }}

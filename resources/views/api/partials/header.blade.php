@@ -2,7 +2,7 @@
     <div class="grid-container">
         <div class="grid-100">
             <h2>API Documentation (BattleWebAPI {{env('API_VERSION')}})
-                @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::USE_WEBHOOKS))
+                @if(UserSettings::hasNode(auth()->user(), UserSettings::USE_WEBHOOKS))
                     <button id="manageWebhooks" class="ui small button default">Manage Webhooks</button>
                 @endif
             </h2>

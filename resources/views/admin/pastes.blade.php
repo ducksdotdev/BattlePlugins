@@ -10,7 +10,7 @@
                     <th>Slug</th>
                     <th>Server ID</th>
                     <th>Public?</th>
-                    @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
+                    @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_PASTES_AS_ADMIN))
                         <th>Actions</th>
                     @endif
                 </tr>
@@ -23,7 +23,7 @@
                                     href="{{ action('PasteController@getPaste', ['slug'=>$paste->slug]) }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>
-                        @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_PASTES_AS_ADMIN))
+                        @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_PASTES_AS_ADMIN))
                             <td>
                                 {!! Form::open(['url'=>URL::to('/tools/pastes/delete/'.$paste->id, [], env('HTTPS_ENABLED', true))]) !!}
                                 <button class="ui button red mini">Delete Paste?</button>

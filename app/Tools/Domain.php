@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tools\URL;
+namespace App\Tools;
 
 use App\Models\ShortUrl;
-use App\Tools\Repositories\ShortUrlRepository;
+use App\Repositories\ShortUrlRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Domain
- * @package App\Tools\URL
+ * @package App\Tools
  */
 class Domain {
 

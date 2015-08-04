@@ -1,4 +1,4 @@
-@if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
+@if(UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER))
     <h3>Latest Log <a href="{{ action('AdminController@getLogs') }}"><i class="icon external"></i></a></h3>
 
     <div class="ui message {{$log['level_class']}} log">

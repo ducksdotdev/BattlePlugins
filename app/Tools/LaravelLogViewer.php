@@ -1,5 +1,5 @@
 <?php
-namespace App\Tools\Misc;
+namespace App\Tools;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
@@ -31,19 +31,33 @@ class LaravelLogViewer {
     ];
 
     /**
+     * @return string
+     */
+    public static function getFileName() {
+        return basename(self::$file);
+    }
+
+    /**
+     * @param null $l
+     * @param int $curPage
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public static function getPaginated($l = null, $curPage = 1, $perPage = 15) {
+        if ($l)
+            static::setFile(base64_decode($l));
+
+        $logs = collect(static::all());
+        return new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
+    }
+
+    /**
      * @param string $file
      */
     public static function setFile($file) {
         if (File::exists(storage_path() . '/logs/' . $file)) {
             self::$file = storage_path() . '/logs/' . $file;
         }
-    }
-
-    /**
-     * @return string
-     */
-    public static function getFileName() {
-        return basename(self::$file);
     }
 
     /**
@@ -102,6 +116,14 @@ class LaravelLogViewer {
     }
 
     /**
+     * @return array
+     */
+    private static function getLogLevels() {
+        $class = new ReflectionClass(new LogLevel);
+        return $class->getConstants();
+    }
+
+    /**
      * @param bool $basename
      * @return array
      */
@@ -114,27 +136,5 @@ class LaravelLogViewer {
             }
         }
         return $files;
-    }
-
-    /**
-     * @return array
-     */
-    private static function getLogLevels() {
-        $class = new ReflectionClass(new LogLevel);
-        return $class->getConstants();
-    }
-
-    /**
-     * @param null $l
-     * @param int $curPage
-     * @param int $perPage
-     * @return LengthAwarePaginator
-     */
-    public static function getPaginated($l = null, $curPage = 1, $perPage = 15) {
-        if ($l)
-            static::setFile(base64_decode($l));
-
-        $logs = collect(static::all());
-        return new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
     }
 }

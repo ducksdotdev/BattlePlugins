@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Tools\API;
+namespace App\API;
 
 
 use App\Models\User;
 
 /**
  * Class GenerateApiKey
- * @package App\Tools\API
+ * @package App\API
  */
 class GenerateApiKey {
 

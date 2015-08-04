@@ -6,8 +6,8 @@ use App\API\StatusCodes\ApiStatusCode;
 use App\API\Transformers\BlogTransformer;
 use App\API\Webhooks;
 use App\Models\Blog;
-use App\Tools\Misc\UserSettings;
-use App\Tools\Repositories\BlogRepository;
+use App\Repositories\BlogRepository;
+use App\Tools\UserSettings;
 use Auth;
 use Illuminate\Http\Request;
 

@@ -1,4 +1,4 @@
-@if(Auth::check() && Auth::user()->id == $paste->creator->id && \App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::MODIFY_PASTE))
+@if(Auth::check() && Auth::user()->id == $paste->creator->id && UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_PASTE))
     <div class="grid-100 text-right">
         {!! Form::open(['url'=>URL::to('/togglepub/' . $paste->id, [], env('HTTPS_ENABLED', true)), 'class'=>'inline']) !!}
         @if($paste->public)

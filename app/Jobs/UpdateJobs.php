@@ -3,8 +3,8 @@
 namespace App\Jobs;
 
 use App\Jenkins\JenkinsJob;
-use App\Tools\Misc\Jenkins;
-use App\Tools\URL\Domain;
+use App\Tools\Domain;
+use App\Tools\Jenkins;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

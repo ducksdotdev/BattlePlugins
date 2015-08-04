@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Tools\Repositories\ShortUrlRepository;
-use App\Tools\URL\Domain;
+use App\Repositories\ShortUrlRepository;
+use App\Tools\Domain;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

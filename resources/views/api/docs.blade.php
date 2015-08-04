@@ -27,7 +27,7 @@
                     </div>
                     <div class="content">
                         @foreach($docType['methods'] as $doc)
-                            @if(!array_has($doc, 'node') || \App\Tools\Misc\UserSettings::hasNode(auth()->user(), $doc['node']))
+                            @if(!array_has($doc, 'node') || UserSettings::hasNode(auth()->user(), $doc['node']))
                                 <p>
                                     <a href="#{{ $docType['name'] }}-{{ $doc['title'] }}">{{ $doc['title'] }}</a>
                                 </p>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::USE_WEBHOOKS))
+    @if(UserSettings::hasNode(auth()->user(), UserSettings::USE_WEBHOOKS))
         @include('api.modals.webhooks')
     @endif
 @stop

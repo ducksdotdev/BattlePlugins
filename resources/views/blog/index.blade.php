@@ -18,12 +18,12 @@
                     </div>
                     <div class="grid-15">
                         @if(auth()->check())
-                            @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::MODIFY_BLOG))
+                            @if(UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG))
                                 <button id="editBlog" class="circular black ui icon button">
                                     <i class="icon pencil"></i>
                                 </button>
                             @endif
-                            @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DELETE_BLOG))
+                            @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG))
                                 {!! Form::open(['url'=>URL::to('/delete/'.$blog->id, [], env('HTTPS_ENABLED', true)),
                                 'class'=>'inline']) !!}
                                 <button id="delete" href="" class="circular red ui icon button"><i class="icon trash"></i></button>

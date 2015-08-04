@@ -23,15 +23,15 @@
         | <a href="{{ action('PasteController@getIndex') }}">BattlePaste</a>
         | <a href="{{ action('ShortUrlsController@getIndex') }}">bplug.in</a>
         @if(Auth::check())
-            <br/>@if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::ADMIN_PANEL))
+            <br/>@if(UserSettings::hasNode(auth()->user(), UserSettings::ADMIN_PANEL))
                 <a href="{{ action('AdminController@getIndex') }}">BattleAdmin</a> |
             @endif
-            @if(\App\Tools\Misc\UserSettings::hasNode(auth()->user(), \App\Tools\Misc\UserSettings::DEVELOPER))
+            @if(UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER))
                 <a href="{{ action('AdminController@getLogs') }}">Log Viewer</a> |
             @endif
             <a href="{{ action('Auth\UserController@getSettings') }}">Your Settings</a>
             | <a href="{{ action('Auth\AuthController@getLogout') }}">Logout</a>
-        @elseif(\App\Tools\Misc\Settings::get('registration'))
+        @elseif(Settings::get('registration'))
             <br/><a href="{{ action('Auth\AuthController@getLogin') }}">Login</a>
             | <a href="{{ action('Auth\AuthController@getRegister') }}">Register</a>
         @endif

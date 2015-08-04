@@ -4,7 +4,7 @@ use App\Jenkins\Jenkins;
 use App\Jenkins\JenkinsBuild;
 use App\Jenkins\JenkinsJob;
 use App\Models\ProductionBuilds;
-use App\Tools\URL\Domain;
+use App\Tools\Domain;
 use Auth;
 
 /**

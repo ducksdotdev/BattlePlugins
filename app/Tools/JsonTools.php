@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Misc;
+namespace App\Tools;
 
 /**
  * Class JsonTools

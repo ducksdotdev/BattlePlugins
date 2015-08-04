@@ -7,9 +7,9 @@ use App\API\Transformers\PasteTransformer;
 use App\API\Webhooks;
 use App\Models\Paste;
 use App\Models\ShortUrl;
-use App\Tools\Misc\UserSettings;
-use App\Tools\Repositories\PasteRepository;
-use App\Tools\URL\SlugGenerator;
+use App\Repositories\PasteRepository;
+use App\Tools\SlugGenerator;
+use App\Tools\UserSettings;
 use Auth;
 use Illuminate\Http\Request;
 

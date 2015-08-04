@@ -2,9 +2,9 @@
 
 use App\Jenkins\Jenkins;
 use App\Models\Blog;
-use App\Tools\Misc\Settings;
-use App\Tools\Repositories\BlogRepository;
-use App\Tools\URL\Domain;
+use App\Repositories\BlogRepository;
+use App\Tools\Domain;
+use App\Tools\Settings;
 use Illuminate\Http\Request;
 
 /**

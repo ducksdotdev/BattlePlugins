@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\Misc;
+namespace App\Tools;
 
 use App\Models\ServerSettings;
 
@@ -9,14 +9,6 @@ use App\Models\ServerSettings;
  * @package App\Tools\Misc
  */
 class Settings {
-    /**
-     * @param $key
-     * @return mixed
-     */
-    public static function get($key) {
-        return ServerSettings::whereKey($key)->pluck('value');
-    }
-
     /**
      * @param $setting
      */
@@ -29,5 +21,13 @@ class Settings {
             'value'      => $value,
             'updated_by' => auth()->user()->id
         ]);
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public static function get($key) {
+        return ServerSettings::whereKey($key)->pluck('value');
     }
 }

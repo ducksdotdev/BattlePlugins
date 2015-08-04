@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tools\Misc;
+namespace App\Tools;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -29,43 +29,6 @@ class GitHub {
         ];
 
         $data = static::getFeed($url, $params);
-        return $data;
-    }
-
-    /**
-     * @return array
-     */
-    public static function getIssues() {
-        $repos = 'orgs/BattlePlugins/repos';
-        $repos = static::getFeed($repos);
-
-        $issues = [];
-        foreach ($repos as $repo) {
-            $url = 'repos/' . $repo->full_name . '/issues';
-            $issues = array_merge($issues, static::getFeed($url));
-        }
-
-        return $issues;
-    }
-
-    /**
-     * @param string $org
-     * @return mixed
-     */
-    public static function getOrgMembers($org = 'battleplugins') {
-        $url = 'orgs/' . $org . '/members';
-        $data = static::getFeed($url);
-        return $data;
-    }
-
-    /**
-     * @param string $type
-     * @param string $owner
-     * @return mixed
-     */
-    public static function getRepositories($type = 'org', $owner = 'battleplugins') {
-        $url = str_plural($type) . '/' . $owner . '/repos';
-        $data = static::getFeed($url);
         return $data;
     }
 
@@ -106,11 +69,39 @@ class GitHub {
     }
 
     /**
-     * @param $event
-     * @return mixed
+     * @return array
      */
-    public static function convertEvent($event) {
-        return config('github.events.' . $event);
+    public static function getIssues() {
+        $repos = 'orgs/BattlePlugins/repos';
+        $repos = static::getFeed($repos);
+
+        $issues = [];
+        foreach ($repos as $repo) {
+            $url = 'repos/' . $repo->full_name . '/issues';
+            $issues = array_merge($issues, static::getFeed($url));
+        }
+
+        return $issues;
     }
 
+    /**
+     * @param string $org
+     * @return mixed
+     */
+    public static function getOrgMembers($org = 'battleplugins') {
+        $url = 'orgs/' . $org . '/members';
+        $data = static::getFeed($url);
+        return $data;
+    }
+
+    /**
+     * @param string $type
+     * @param string $owner
+     * @return mixed
+     */
+    public static function getRepositories($type = 'org', $owner = 'battleplugins') {
+        $url = str_plural($type) . '/' . $owner . '/repos';
+        $data = static::getFeed($url);
+        return $data;
+    }
 }

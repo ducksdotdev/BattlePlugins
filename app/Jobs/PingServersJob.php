@@ -4,7 +4,7 @@
 namespace App\Jobs;
 
 
-use App\Tools\URL\Domain;
+use App\Tools\Domain;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\Facades\Cache;

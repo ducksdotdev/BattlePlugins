@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tools\URL;
+namespace App\Tools;
 
 
-use App\Tools\Repositories\PasteRepository;
-use App\Tools\Repositories\ShortUrlRepository;
+use App\Repositories\PasteRepository;
+use App\Repositories\ShortUrlRepository;
 
 /**
  * Class SlugGenerator

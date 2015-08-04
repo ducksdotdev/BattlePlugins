@@ -1,6 +1,6 @@
 <?php
 
-use App\Tools\Misc\UserSettings;
+use App\Tools\UserSettings;
 
 return [
     'Dashboard' => [

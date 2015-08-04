@@ -12,6 +12,17 @@ use App\Models\User;
 class GenerateApiKey {
 
     /**
+     * @param $user
+     */
+    public static function changeKey($user) {
+        if (!($user instanceof User))
+            $user = User::find($user);
+
+        $user->api_key = GenerateApiKey::generateKey();
+        $user->save();
+    }
+
+    /**
      * @return string
      */
     public static function generateKey() {
@@ -22,17 +33,6 @@ class GenerateApiKey {
             $apiKey = str_random(32);
 
         return $apiKey;
-    }
-
-    /**
-     * @param $user
-     */
-    public static function changeKey($user) {
-        if (!($user instanceof User))
-            $user = User::find($user);
-
-        $user->api_key = GenerateApiKey::generateKey();
-        $user->save();
     }
 
 }

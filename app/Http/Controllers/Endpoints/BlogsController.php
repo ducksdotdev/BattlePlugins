@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\API\StatusCodes\ApiStatusCode;
+use App\API\Transformers\BlogTransformer;
 use App\Models\Blog;
-use App\Tools\API\StatusCodes\ApiStatusCode;
-use App\Tools\API\Transformers\BlogTransformer;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Repositories\BlogRepository;
 use App\Tools\Webhooks\Webhooks;

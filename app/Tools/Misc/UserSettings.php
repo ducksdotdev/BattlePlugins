@@ -3,9 +3,9 @@
 
 namespace App\Tools\Misc;
 
+use App\API\GenerateApiKey;
 use App\Models\Permission;
 use App\Models\User;
-use App\Tools\API\GenerateApiKey;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -73,6 +73,36 @@ class UserSettings {
 
     /**
      * @param $user
+     * @param $node
+     */
+    public static function togglePermissionNode($user, $node) {
+        if (!($user instanceof User))
+            $user = User::find($user);
+
+        if (static::hasNode($user, $node))
+            $user->permission()->whereNode($node)->delete();
+        else {
+            Permission::create([
+                'user_id' => $user->id,
+                'node' => $node
+            ]);
+        }
+    }
+
+    /**
+     * @param $user
+     * @param $node
+     * @return bool
+     */
+    public static function hasNode($user, $node) {
+        if ($user instanceof User)
+            $user = $user->id;
+
+        return (bool)count(Permission::whereUserId($user)->whereNode($node)->first());
+    }
+
+    /**
+     * @param $user
      * @param $key
      * @param $value
      */
@@ -106,18 +136,6 @@ class UserSettings {
 
     /**
      * @param $user
-     * @param $node
-     * @return bool
-     */
-    public static function hasNode($user, $node) {
-        if ($user instanceof User)
-            $user = $user->id;
-
-        return (bool)count(Permission::whereUserId($user)->whereNode($node)->first());
-    }
-
-    /**
-     * @param $user
      * @throws \Exception
      */
     public static function delete($user) {
@@ -128,23 +146,5 @@ class UserSettings {
         $user->blogs()->delete();
         $user->permission()->delete();
         $user->delete();
-    }
-
-    /**
-     * @param $user
-     * @param $node
-     */
-    public static function togglePermissionNode($user, $node) {
-        if (!($user instanceof User))
-            $user = User::find($user);
-
-        if (static::hasNode($user, $node))
-            $user->permission()->whereNode($node)->delete();
-        else {
-            Permission::create([
-                'user_id' => $user->id,
-                'node'    => $node
-            ]);
-        }
     }
 }

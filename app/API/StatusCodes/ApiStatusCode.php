@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\API\StatusCodes;
+namespace App\API\StatusCodes;
 
 use Illuminate\Http\Response;
 

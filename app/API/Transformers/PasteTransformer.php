@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\API\Transformers;
+namespace App\API\Transformers;
 
 use App\Models\User;
 use Auth;

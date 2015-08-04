@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\API\StatusCodes\StatusCode;
 use App\Models\User;
-use App\Tools\API\StatusCodes\StatusCode;
 use App\Tools\Misc\UserSettings;
 use Auth;
 use Closure;

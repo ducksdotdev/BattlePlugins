@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-use App\Tools\API\Traits\DispatchPayload;
+use App\API\Traits\DispatchPayload;
 use Illuminate\Database\Eloquent\Model;
 
 /**

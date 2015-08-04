@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\API\StatusCodes\ApiStatusCode;
+use App\API\Transformers\TaskTransformer;
 use App\Models\Task;
-use App\Tools\API\StatusCodes\ApiStatusCode;
-use App\Tools\API\Transformers\TaskTransformer;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;

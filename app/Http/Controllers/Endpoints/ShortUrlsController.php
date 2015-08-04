@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Endpoints;
 
-use App\Tools\API\StatusCodes\ApiStatusCode;
-use App\Tools\API\Transformers\ShortUrlTransformer;
+use App\API\StatusCodes\ApiStatusCode;
+use App\API\Transformers\ShortUrlTransformer;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Repositories\ShortUrlRepository;
 use App\Tools\URL\Domain;

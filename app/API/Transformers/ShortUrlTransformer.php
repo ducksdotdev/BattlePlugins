@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\API\Transformers;
+namespace App\API\Transformers;
 
 /**
  * Class ShortUrlTransformer

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\API\StatusCodes\ApiStatusCode;
+use App\API\Transformers\PasteTransformer;
 use App\Models\Paste;
 use App\Models\ShortUrl;
-use App\Tools\API\StatusCodes\ApiStatusCode;
-use App\Tools\API\Transformers\PasteTransformer;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Repositories\PasteRepository;
 use App\Tools\URL\SlugGenerator;

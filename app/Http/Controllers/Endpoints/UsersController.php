@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Endpoints;
 
+use App\API\StatusCodes\ApiStatusCode;
+use App\API\Transformers\UserTransformer;
 use App\Models\User;
-use App\Tools\API\StatusCodes\ApiStatusCode;
-use App\Tools\API\Transformers\UserTransformer;
 use Illuminate\Http\Request;
 
 /**

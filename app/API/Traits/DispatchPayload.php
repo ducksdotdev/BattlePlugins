@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tools\API\Traits;
+namespace App\API\Traits;
 
 use App\Tools\Webhooks\Webhooks;
 use Illuminate\Support\Facades\Config;

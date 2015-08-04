@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Tools\API\GenerateApiKey;
+use App\API\GenerateApiKey;
 use App\Tools\Misc\UserSettings;
 use App\Tools\Webhooks\Webhooks;
 use Auth;

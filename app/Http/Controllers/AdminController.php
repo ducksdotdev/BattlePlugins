@@ -197,7 +197,7 @@ class AdminController extends Controller {
      */
     public function getShortUrls($curPage = 1, $perPage = 35) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
-            $urls = ShortUrl::orderBy('last_used', 'desc')->get();
+            $urls = ShortUrlRepository::all();
             $urls = new LengthAwarePaginator($urls->forPage($curPage, $perPage), $urls->count(), $perPage, $curPage);
 
             return view('admin.shorturls', [

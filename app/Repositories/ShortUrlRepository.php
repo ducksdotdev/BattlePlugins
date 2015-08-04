@@ -42,8 +42,18 @@ class ShortUrlRepository {
         ShortUrl::whereSlug($slug)->update($data);
     }
 
+    /**
+     * @param $data
+     */
     public static function create($data) {
         ShortUrl::create($data);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function all() {
+        return ShortUrl::get('last_used', 'desc')->get();
     }
 
 }

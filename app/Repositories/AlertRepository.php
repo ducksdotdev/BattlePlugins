@@ -35,4 +35,27 @@ class AlertRepository {
     public static function attach(Alert $alert, User $user) {
         $alert->users()->attach($user);
     }
+
+    /**
+     * @param Alert $alert
+     * @throws \Exception
+     */
+    public static function delete(Alert $alert) {
+        foreach ($alert->users as $user)
+            AlertRepository::detach($alert, $user);
+
+        $alert->delete();
+    }
+
+    /**
+     * @param Alert $alert
+     * @param User $user
+     * @throws \Exception
+     */
+    public static function detach(Alert $alert, User $user) {
+        $user->alerts()->detach($alert->id);
+
+        if (!count($alert->users))
+            $alert->delete();
+    }
 }

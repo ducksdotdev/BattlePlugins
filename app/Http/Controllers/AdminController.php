@@ -317,12 +317,8 @@ class AdminController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postDeleteAlert($id) {
-        auth()->user()->alerts()->detach($id);
         $alert = Alert::find($id);
-
-        if (!count($alert->users))
-            $alert->delete();
-
+        AlertRepository::detach($alert, auth()->user());
         return redirect()->back();
     }
 
@@ -333,12 +329,7 @@ class AdminController extends Controller {
     public function postAdminDeleteAlert($id) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_ALERT)) {
             $alert = Alert::find($id);
-
-            foreach ($alert->users as $user)
-                $user->alerts()->detach($id);
-
-            $alert->delete();
-
+            AlertRepository::delete($alert);
             return redirect()->back();
         } else abort(403);
     }

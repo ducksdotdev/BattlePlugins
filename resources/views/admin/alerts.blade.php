@@ -30,7 +30,7 @@
             <div class="grid-100">
                 <h3>Existing Alerts</h3>
             </div>
-            @foreach($alerts as $alert)
+            @foreach($adminalerts as $alert)
                 <div class="grid-100">
                     <div class="ui message">
                         <p>{{ $alert->content }}</p>

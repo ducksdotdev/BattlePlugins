@@ -129,7 +129,7 @@ class AdminController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_ALERT)) {
             return view('admin.alerts', [
                 'title' => 'Create Alert',
-                'alerts' => Alert::all()
+                'adminalerts' => Alert::all()
             ]);
         } else
             abort(403);

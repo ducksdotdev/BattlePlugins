@@ -1,4 +1,4 @@
-@extends('paste.layouts.paste')
+@extends('layouts.paste')
 @section('content')
     <div class="grid-container">
         <h1 class="grid-85">

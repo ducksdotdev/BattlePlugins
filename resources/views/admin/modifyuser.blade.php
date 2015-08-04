@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     <div class="grid-100">
         <table class="ui striped table">

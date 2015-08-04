@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     {!! Form::open(['url'=>URL::to('/user/modify/'.$user->id.'/permissions', [], env('HTTPS_ENABLED', true))]) !!}
     <div class="grid-container">

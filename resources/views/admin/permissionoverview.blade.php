@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     @foreach($nodes as $node)
         <div class="grid-25 bottom-margin ten">

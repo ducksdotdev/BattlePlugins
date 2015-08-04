@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     {!! Form::open(['url'=>URL::to('/user/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     <div class="grid-100">

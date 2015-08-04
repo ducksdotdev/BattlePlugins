@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     <div class="grid-55 grid-parent">
         <div class="grid-100" ng-controller="ServerStatusCtrl">

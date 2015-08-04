@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.admin')
 @section('content')
     <div class="grid-75">
         <h3>All Pastes</h3>

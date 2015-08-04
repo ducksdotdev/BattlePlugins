@@ -1,4 +1,4 @@
-@extends('api.layouts.master')
+@extends('layouts.api')
 @section('content')
     @include('api.partials.header')
     <div class="grid-container" id="docs">

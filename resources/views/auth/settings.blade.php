@@ -1,4 +1,4 @@
-@extends('auth.layouts.layout')
+@extends('layouts.auth')
 @section('content')
     {!! Form::open(['url'=>URL::to('/user/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)

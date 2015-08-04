@@ -1,4 +1,4 @@
-@extends('paste.layouts.master')
+@extends('layouts.pasteHome')
 @section('content')
     <div class="grid-container">
         <div class="grid-65 grid-parent grid-center">

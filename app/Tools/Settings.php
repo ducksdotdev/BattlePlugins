@@ -18,7 +18,7 @@ class Settings {
         ServerSettings::firstOrCreate([
             'key' => $setting
         ])->update([
-            'value'      => $value,
+            'value' => $value,
             'updated_by' => auth()->user()->id
         ]);
     }
@@ -29,5 +29,10 @@ class Settings {
      */
     public static function get($key) {
         return ServerSettings::whereKey($key)->pluck('value');
+    }
+
+    public static function getUserWhoUpdated($key) {
+        $setting = ServerSettings::whereKey($key)->first();
+        return $setting->user->displayname;
     }
 }

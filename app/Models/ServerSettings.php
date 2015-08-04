@@ -20,9 +20,9 @@ class ServerSettings extends Model {
     protected $fillable = ['key', 'value', 'updated_by'];
 
     /**
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user() {
-        $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }

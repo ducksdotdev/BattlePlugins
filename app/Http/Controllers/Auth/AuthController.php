@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Validator;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers\Auth
+ */
 class AuthController extends Controller {
     /*
     |--------------------------------------------------------------------------
@@ -23,6 +27,9 @@ class AuthController extends Controller {
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
+    /**
+     * @var string
+     */
     protected $redirectPath = '/';
 
     /**

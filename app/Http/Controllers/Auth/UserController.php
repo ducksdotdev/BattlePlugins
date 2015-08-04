@@ -12,20 +12,36 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers\Auth
+ */
 class UserController extends Controller {
 
     use ThrottlesLogins;
 
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * @param Request $request
+     */
     function __construct(Request $request) {
         $this->request = $request;
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function getLogin() {
         return view('auth.login');
     }
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function getSettings() {
         if (auth()->check())
             return view('auth.settings');
@@ -33,6 +49,9 @@ class UserController extends Controller {
         return redirect()->guest('/auth/login');
     }
 
+    /**
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function postChangeSettings() {
         $user = Auth::user();
         $confirmation = $this->request->input('confirmation');
@@ -67,6 +86,9 @@ class UserController extends Controller {
             return $this->redirectBackWithErrors(['Invalid confirmation password.']);
     }
 
+    /**
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function postCreateUser() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
             $validator = $this->validate($this->request, [
@@ -102,6 +124,10 @@ class UserController extends Controller {
             abort(403);
     }
 
+    /**
+     * @param $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postDeleteUser($user) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
             UserSettings::delete($user);
@@ -109,6 +135,10 @@ class UserController extends Controller {
         return redirect()->back();
     }
 
+    /**
+     * @param $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postModifyUserPermissions($user) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER)) {
             User::find($user)->permission()->delete();
@@ -125,6 +155,9 @@ class UserController extends Controller {
             abort(403);
     }
 
+    /**
+     * @return $this
+     */
     public function postRegister() {
         if (Settings::get('registration')) {
             $validator = $this->validate($this->request, [

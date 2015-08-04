@@ -6,12 +6,23 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * Class ShortUrlsController
+ * @package App\Http\Controllers
+ */
 class ShortUrlsController extends Controller {
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function getIndex() {
         return view('shorturls.index');
     }
 
+    /**
+     * @param $slug
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|void
+     */
     public function getRedirect($slug) {
         $url = ShortUrlRepository::getBySlug($slug);
 
@@ -26,6 +37,10 @@ class ShortUrlsController extends Controller {
         return abort(404);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postCreate(Request $request) {
         $url = $request->get('url');
 

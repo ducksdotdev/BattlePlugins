@@ -21,9 +21,9 @@
             <h3>Authentication</h3>
 
             <p>Please use the X-API-Key header for all requests. If you cannot, use the _key get parameter. An example request:</p>
-            <pre>GET /{{env('API_VERSION')}}/tasks HTTP/1.1<br/>Host: {{ action('APIController@getIndex') }}<br/>X-API-Key: {{ $apiKey }}</pre>
+            <pre>GET /{{env('API_VERSION')}}/tasks HTTP/1.1<br/>Host: {{ action('ApiController@getIndex') }}<br/>X-API-Key: {{ $apiKey }}</pre>
             <h4>OR</h4>
-            <pre>GET {{ action('APIController@getIndex') }}/v1/tasks?_key={{ $apiKey }} HTTP/1.1</pre>
+            <pre>GET {{ action('ApiController@getIndex') }}/v1/tasks?_key={{ $apiKey }} HTTP/1.1</pre>
         </div>
     </div>
 </div>

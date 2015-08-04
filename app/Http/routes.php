@@ -32,7 +32,7 @@ Route::group(['domain' => $url], function () {
 });
 
 Route::group(['domain' => 'api.' . $url], function () {
-    Route::get('/', 'APIController@getIndex');
+    Route::get('/', 'ApiController@getIndex');
 
     Route::group(['prefix' => 'v1'], function () {
         Route::resource('tasks', 'Endpoints\TasksController');
@@ -43,7 +43,7 @@ Route::group(['domain' => 'api.' . $url], function () {
     });
 
     Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
-        Route::post('/generateKey', 'APIController@postGenerateKey');
+        Route::post('/generateKey', 'ApiController@postGenerateKey');
         Route::post('/webhooks', 'ApiController@postCreateWebhook');
     });
 });

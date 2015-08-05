@@ -4,7 +4,6 @@ namespace App\API;
 
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * Class GenerateApiKey
@@ -27,7 +26,7 @@ class GenerateApiKey {
      * @return string
      */
     public static function generateKey() {
-        return Hash::make(Carbon::now());
+        return md5(Carbon::now());
     }
 
 }

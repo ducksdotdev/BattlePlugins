@@ -3,6 +3,8 @@
 namespace App\API;
 
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class GenerateApiKey
@@ -25,13 +27,7 @@ class GenerateApiKey {
      * @return string
      */
     public static function generateKey() {
-        $apiKey = str_random(32);
-
-        // Prevent collisions:
-        while (User::where('api_key', $apiKey)->first())
-            $apiKey = str_random(32);
-
-        return $apiKey;
+        return Hash::make(Carbon::now());
     }
 
 }

@@ -184,11 +184,12 @@ class AdminController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER)) {
             return view('admin.logs', [
                 'title' => 'Logs',
-                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage),
+                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage, $this->request->get('log_level')),
                 'files' => LaravelLogViewer::getFiles(true),
                 'current_file' => LaravelLogViewer::getFileName(),
                 'perPage' => $perPage,
-                'url' => $this->request->url()
+                'url' => $this->request->url(),
+                'levels' => LaravelLogViewer::getLogLevelsClasses()
             ]);
         } else
             abort(403);

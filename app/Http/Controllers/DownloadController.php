@@ -6,6 +6,7 @@ use App\Jenkins\JenkinsJob;
 use App\Models\ProductionBuilds;
 use App\Tools\Domain;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class DownloadController
@@ -83,7 +84,7 @@ class DownloadController extends Controller {
      * @param string $event
      * @return string
      */
-    public function postUpdateJenkins($event = "Manual") {
+    public function anyUpdateJenkins($event = "Manual") {
         Log::info("Updating Jenkins Jobs from webhook event: $event");
 
         if (Domain::remoteFileExists("http://ci.battleplugins.com"))

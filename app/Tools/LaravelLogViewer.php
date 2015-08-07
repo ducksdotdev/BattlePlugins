@@ -21,13 +21,13 @@ class LaravelLogViewer {
      * @var array
      */
     private static $levels_classes = [
-        'debug'    => 'blue',
-        'info'     => 'blue',
-        'notice'   => 'blue',
-        'warning'  => 'yellow',
-        'error'    => 'red',
+        'debug' => 'blue',
+        'info' => 'blue',
+        'notice' => 'blue',
+        'warning' => 'yellow',
+        'error' => 'red',
         'critical' => 'red',
-        'alert'    => 'red',
+        'alert' => 'red',
     ];
 
     /**
@@ -41,13 +41,14 @@ class LaravelLogViewer {
      * @param null $l
      * @param int $curPage
      * @param int $perPage
+     * @param null $log_levels
      * @return LengthAwarePaginator
      */
-    public static function getPaginated($l = null, $curPage = 1, $perPage = 15) {
+    public static function getPaginated($l = null, $curPage = 1, $perPage = 15, $log_levels = null) {
         if ($l)
             static::setFile(base64_decode($l));
 
-        $logs = collect(static::all());
+        $logs = collect(static::all($log_levels));
         return new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
     }
 
@@ -61,9 +62,10 @@ class LaravelLogViewer {
     }
 
     /**
+     * @param $display_level
      * @return array
      */
-    public static function all() {
+    public static function all($display_level) {
         $log = array();
 
         $log_levels = self::getLogLevels();
@@ -99,14 +101,16 @@ class LaravelLogViewer {
 
                         if (!isset($current[2])) continue;
 
-                        $log[] = array(
-                            'level'       => $level_value,
-                            'level_class' => self::$levels_classes[$level_value],
-                            'date'        => $current[1],
-                            'text'        => $current[2],
-                            'in_file'     => isset($current[3]) ? $current[3] : null,
-                            'stack'       => preg_replace("/^\n*/", '', $log_data[$i])
-                        );
+                        if ($display_level && $display_level == $level_value) {
+                            $log[] = array(
+                                'level' => $level_value,
+                                'level_class' => self::$levels_classes[$level_value],
+                                'date' => $current[1],
+                                'text' => $current[2],
+                                'in_file' => isset($current[3]) ? $current[3] : null,
+                                'stack' => preg_replace("/^\n*/", '', $log_data[$i])
+                            );
+                        }
                     }
                 }
             }
@@ -136,5 +140,12 @@ class LaravelLogViewer {
             }
         }
         return $files;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getLogLevelsClasses() {
+        return static::$levels_classes;
     }
 }

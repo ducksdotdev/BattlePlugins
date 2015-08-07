@@ -13,8 +13,7 @@
             {!! Form::close() !!}
 
             <p class="top-margin ten">
-                <a href="https://github.com/BattlePlugins/BattleWebApi.java">Use BattleWebAPI.java in your plugins in order to make a connection to the API for your
-                    plugins.</a>
+                <a href="https://github.com/BattlePlugins/BattleWebApi.java">Use BattleWebAPI.java in your plugin in order to make a connection to this API.</a>
             </p>
         </div>
         <div class="grid-100" id="authentication">

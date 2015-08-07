@@ -2,8 +2,8 @@
 @section('content')
     <div class="grid-container">
         <div class="grid-100">
-            <div class="ui message info">All data is collected from {{ Carbon::now()->formatLocalized('%B') }} 1
-                until {{ Carbon::now()->formatLocalized('%B') }} {{ (new Carbon('last day of this month'))->day }}. Updated every half hour.
+            <div class="ui message info">All data is collected from {{ (new Carbon('first of this month'))->formatLocalized('%B %e') }} 1
+                until {{ Carbon::now()->formatLocalized('%B %e') }}. Updated every half hour.
             </div>
         </div>
         @foreach(config('google-analytics-sites') as $name => $gaid)

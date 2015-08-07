@@ -23,7 +23,7 @@ class LaravelLogViewer {
     private static $levels_classes = [
         'debug' => 'blue',
         'info' => 'blue',
-        'notice' => 'blue',
+        'notice' => 'green',
         'warning' => 'yellow',
         'error' => 'red',
         'critical' => 'red',

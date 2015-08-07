@@ -194,7 +194,8 @@ class AdminController extends Controller {
                 'current_file' => LaravelLogViewer::getFileName(),
                 'perPage' => $perPage,
                 'url' => $this->request->url(),
-                'levels' => LaravelLogViewer::getLogLevelsClasses()
+                'levels' => LaravelLogViewer::getLogLevelsClasses(),
+                'cur_level' => $log_level
             ]);
         } else
             abort(403);

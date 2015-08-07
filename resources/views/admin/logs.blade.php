@@ -3,7 +3,8 @@
     <div class="grid-100 bottom-margin ten">
         <strong>Show:</strong>
         @foreach($levels as $name => $color)
-            <a href="{{ action('AdminController@getLogs', [base64_encode($current_file)]) }}?log_level={{ $name }}" class="ui button {{ $color }} mini">{{ $name }}</a>
+            <a href="{{ action('AdminController@getLogs', [base64_encode($current_file)]) }}?log_level={{ $name }}"
+               class="ui button {{ $color }} @if($cur_level != $name) mini @endif">{{ $name }}</a>
         @endforeach
         <a href="{{ action('AdminController@getLogs', [base64_encode($current_file)]) }}" class="ui button mini">Clear</a>
     </div>
@@ -32,22 +33,22 @@
         <div class="text-center">
             @if ($logs->lastPage() > 1)
                 <div class="ui menu pagination">
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/1/{{ $perPage }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/1/{{ $perPage }}?log_level={{ $cur_level }}"
                        class="ui item {{ ($logs->currentPage() == 1) ? ' disabled' : '' }}">
                         <i class="icon angle double left"></i>
                     </a>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()-1 }}/{{ $perPage }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()-1 }}/{{ $perPage }}?log_level={{ $cur_level }}"
                        class="ui item {{ ($logs->currentPage() == 1) ? ' disabled' : '' }}">
                         <i class="icon angle left"></i>
                     </a>
                     <span class="ui item disabled">
                         {{ $logs->currentPage() }}
                     </span>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()+1 }}/{{ $perPage }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->currentPage()+1 }}/{{ $perPage }}?log_level={{ $cur_level }}"
                        class="ui item {{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }}">
                         <i class="icon angle right"></i>
                     </a>
-                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->lastPage() }}/{{ $perPage }}"
+                    <a href="/feeds/logs/{{ base64_encode($current_file) }}/{{ $logs->lastPage() }}/{{ $perPage }}?log_level={{ $cur_level }}"
                        class="ui item {{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }}">
                         <i class="icon angle double right"></i>
                     </a>
@@ -62,7 +63,7 @@
 
                 <div class="ui secondary menu">
                     @foreach([5,15,25] as $num)
-                        <a href="{{ action('AdminController@getLogs', [base64_encode($current_file), 1, $num]) }}"
+                        <a href="{{ action('AdminController@getLogs', [base64_encode($current_file), 1, $num]) }}?log_level={{ $cur_level }}"
                            class="@if($perPage == $num) active @endif item">
                             {{ $num }}
                         </a>
@@ -75,7 +76,7 @@
 
             <div class="ui vertical menu">
                 @foreach($files as $file)
-                    <a href="/feeds/logs/{{ base64_encode($file) }}"
+                    <a href="/feeds/logs/{{ base64_encode($file) }}?log_level={{ $cur_level }}"
                        class="item @if ($current_file == $file) active @endif">
                         {{ ($date = Carbon::createFromFormat('Y m d', trim(str_replace(['-', 'laravel', '.log'], ' ', $file)))->diffInDays()) > 0 ? ($date > 1 ? $date . ' days ago' : '1 day ago') : 'Today' }}
                     </a>

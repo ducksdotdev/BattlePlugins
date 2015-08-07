@@ -182,9 +182,14 @@ class AdminController extends Controller {
      */
     public function getLogs($l = null, $curPage = 1, $perPage = 15) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::DEVELOPER)) {
+
+            $log_level = null;
+            if ($this->request->has('log_level'))
+                $log_level = $this->request->get('log_level');
+
             return view('admin.logs', [
                 'title' => 'Logs',
-                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage, $this->request->get('log_level')),
+                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage, $log_level),
                 'files' => LaravelLogViewer::getFiles(true),
                 'current_file' => LaravelLogViewer::getFileName(),
                 'perPage' => $perPage,

@@ -41,14 +41,14 @@ class LaravelLogViewer {
      * @param null $l
      * @param int $curPage
      * @param int $perPage
-     * @param null $log_levels
+     * @param null $display_level
      * @return LengthAwarePaginator
      */
-    public static function getPaginated($l = null, $curPage = 1, $perPage = 15, $log_levels = null) {
+    public static function getPaginated($l = null, $curPage = 1, $perPage = 15, $display_level = null) {
         if ($l)
             static::setFile(base64_decode($l));
 
-        $logs = collect(static::all($log_levels));
+        $logs = collect(static::all($display_level));
         return new LengthAwarePaginator($logs->forPage($curPage, $perPage), $logs->count(), $perPage, $curPage);
     }
 
@@ -65,7 +65,7 @@ class LaravelLogViewer {
      * @param $display_level
      * @return array
      */
-    public static function all($display_level) {
+    public static function all($display_level = null) {
         $log = array();
 
         $log_levels = self::getLogLevels();
@@ -101,7 +101,7 @@ class LaravelLogViewer {
 
                         if (!isset($current[2])) continue;
 
-                        if ($display_level && $display_level == $level_value) {
+                        if (!$display_level || $display_level == $level_value) {
                             $log[] = array(
                                 'level' => $level_value,
                                 'level_class' => self::$levels_classes[$level_value],

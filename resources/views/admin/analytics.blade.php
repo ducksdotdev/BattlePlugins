@@ -8,7 +8,7 @@
             </div>
         </div>
         @foreach(config('google-analytics-sites') as $name => $gaid)
-            <div class="grid-50">
+            <div class="grid-50 text-center">
                 <h2>{{ $name }}</h2>
                 <ul class="stats">
                     <li class="has-small {{ LaravelAnalytics::setSiteId("ga:$gaid")->getVisitorsAndPageViewsForPeriod(new Carbon('first day of this month'), new Carbon('last day of this month'), 'yearMonth')[0]['visitors'] > 0 ? 'green' : 'yellow'}}">

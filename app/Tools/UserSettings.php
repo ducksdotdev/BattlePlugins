@@ -68,6 +68,7 @@ class UserSettings {
 
         static::togglePermissionNode($id, static::USE_API);
         static::togglePermissionNode($id, static::CREATE_PASTE);
+        static::togglePermissionNode($id, static::MODIFY_PASTE);
 
         return $id;
     }

@@ -16,7 +16,11 @@
                     <tr>
                         <td>{{ $url->slug }}</td>
                         <td class="break-all"><a href="{{ $url->url }}">{{ $url->url }}</a></td>
-                        <td title="{{ $url->last_used }}">{{ (new Carbon($url->last_used))->diffForhumans() }}</td>
+                        @if($url->last_used != '0000-00-00 00:00:00')
+                            <td title="{{ $url->last_used }}">{{ (new Carbon($url->last_used))->diffForhumans() }}</td>
+                        @else
+                            <td>Never</td>
+                        @endif
                         <td>
                             {!! Form::open(['url'=>URL::to('/statistics/shorturls/delete/'.$url->slug, [], env('HTTPS_ENABLED', true))]) !!}
                             <button class="ui button icon circular red"><i class="icon remove"></i></button>

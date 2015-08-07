@@ -4,6 +4,6 @@
     </h1>
 </div>
 
-@foreach(config('admin_pages') as $name => $value)
+@foreach(config('admin-pages') as $name => $value)
     @include('admin.partials.menuitem')
 @endforeach

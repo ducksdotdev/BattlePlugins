@@ -115,6 +115,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
     Route::group(['prefix' => 'statistics'], function () {
         Route::get('/shorturls/{currPage?}/{perPage?}', 'AdminController@getShortUrls');
         Route::get('/apikeys', 'AdminController@getApiKeys');
+        Route::get('/analytics', 'AdminController@getAnalytics');
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/shorturls/delete/{id}', 'AdminController@postDeleteShortUrl');

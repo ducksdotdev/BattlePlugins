@@ -16,6 +16,10 @@ return [
         ]
     ],
     'Statistics' => [
+        'Google Analytics' => [
+            'action' => 'AdminController@getAnalytics',
+            'node' => UserSettings::VIEW_ANALYTICS
+        ],
         'Short URLs' => [
             'action' => 'AdminController@getShortUrls',
             'node' => UserSettings::DELETE_SHORTURL

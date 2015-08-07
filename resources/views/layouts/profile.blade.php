@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $user->displayname }} :: Minecraft Plugin Development Team</title>
+    <title>{{ $user->displayname }} :: BattlePlugins Profile</title>
     <link rel="icon" href="/assets/img/bp.png"/>
 
     <!--        Styles -->

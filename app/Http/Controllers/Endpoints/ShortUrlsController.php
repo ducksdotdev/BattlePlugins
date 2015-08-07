@@ -32,7 +32,7 @@ class ShortUrlsController extends ApiController {
      * @param Request $request
      */
     function __construct(ShortUrlTransformer $shortUrlTransformer, ApiStatusCode $statusCode, Request $request) {
-        $this->middleware('auth.api');
+        $this->middleware('auth.api', ['except' => ['index', 'store']]);
         $this->shortUrlTransformer = $shortUrlTransformer;
         $this->statusCode = $statusCode;
         $this->request = $request;
@@ -62,7 +62,7 @@ class ShortUrlsController extends ApiController {
     }
 
     /**
-     * @param $id
+     * @param $url
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function destroy($url) {

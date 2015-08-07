@@ -7,11 +7,11 @@ return array(
     //  Basic API methods
     'docs' => [
         array(
-            'name' => 'Users',
+            'name'    => 'Users',
             'methods' => array(
                 array(
-                    'title' => 'Get Users',
-                    'url' => 'users',
+                    'title'   => 'Get Users',
+                    'url'     => 'users',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -23,11 +23,11 @@ return array(
                         'error' => 'Not applicable.'
                     ),
                     'description' => 'This endpoint will return all users. Limited 20 users per page.',
-                    'params' => array('limit INT', 'page INT')
+                    'params'  => array('limit INT', 'page INT')
                 ),
                 array(
-                    'title' => 'Get Specific User',
-                    'url' => 'users/{id}',
+                    'title'   => 'Get Specific User',
+                    'url'     => 'users/{id}',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -43,11 +43,11 @@ return array(
             )
         ),
         array(
-            'name' => 'BattleTasks',
+            'name'    => 'BattleTasks',
             'methods' => array(
                 array(
-                    'title' => 'Get Tasks',
-                    'url' => 'tasks',
+                    'title'   => 'Get Tasks',
+                    'url'     => 'tasks',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -63,11 +63,11 @@ return array(
                         'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
                     ),
                     'description' => 'This endpoint will return all tasks, regardless of status (open or completed). Limited 20 tasks per page.',
-                    'params' => array('limit INT', 'page INT')
+                    'params'  => array('limit INT', 'page INT')
                 ),
                 array(
-                    'title' => 'Get Specific Task',
-                    'url' => 'tasks/{id}',
+                    'title'   => 'Get Specific Task',
+                    'url'     => 'tasks/{id}',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -85,9 +85,9 @@ return array(
                     'description' => 'This endpoint will return a single specified task, regardless of status (open or completed).',
                 ),
                 array(
-                    'title' => 'Create Task',
-                    'url' => 'tasks',
-                    'node' => UserSettings::CREATE_TASK,
+                    'title'   => 'Create Task',
+                    'url'     => 'tasks',
+                    'node'    => UserSettings::CREATE_TASK,
                     'methods' => array(
                         array(
                             'name' => 'post',
@@ -103,12 +103,12 @@ return array(
                         'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
                     ),
                     'description' => 'This endpoint will create a new task.',
-                    'params' => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
+                    'params'  => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
                 ),
                 array(
-                    'title' => 'Edit Task',
-                    'url' => 'tasks/{id}',
-                    'node' => UserSettings::MODIFY_TASK,
+                    'title'   => 'Edit Task',
+                    'url'     => 'tasks/{id}',
+                    'node'    => UserSettings::MODIFY_TASK,
                     'methods' => array(
                         array(
                             'name' => 'put/patch',
@@ -124,12 +124,12 @@ return array(
                         'error' => '{"error":{"message":"Task does not exist!","status_code":404}}'
                     ),
                     'description' => 'This endpoint will edit an existing task.',
-                    'params' => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
+                    'params'  => array('title VARCHAR(64)', 'assignee_id INT(11)', 'public BOOLEAN()', 'content TEXT()', 'status BOOLEAN()'),
                 ),
                 array(
-                    'title' => 'Delete Task',
-                    'url' => 'tasks/{id}',
-                    'node' => UserSettings::DELETE_TASK,
+                    'title'   => 'Delete Task',
+                    'url'     => 'tasks/{id}',
+                    'node'    => UserSettings::DELETE_TASK,
                     'methods' => array(
                         array(
                             'name' => 'destroy',
@@ -149,11 +149,11 @@ return array(
             )
         ),
         array(
-            'name' => 'BattleBlog',
+            'name'    => 'BattleBlog',
             'methods' => array(
                 array(
-                    'title' => 'Get Blogs',
-                    'url' => 'blogs',
+                    'title'   => 'Get Blogs',
+                    'url'     => 'blogs',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -169,11 +169,11 @@ return array(
                         'error' => 'Not Applicable.'
                     ),
                     'description' => 'This endpoint will return all blog posts. Limited 5 posts per page.',
-                    'params' => array('limit INT', 'page INT')
+                    'params'  => array('limit INT', 'page INT')
                 ),
                 array(
-                    'title' => 'Get Specific Blog',
-                    'url' => 'tasks/{id}',
+                    'title'   => 'Get Specific Blog',
+                    'url'     => 'tasks/{id}',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -187,9 +187,9 @@ return array(
                     'description' => 'This endpoint will return a single specified blog post.',
                 ),
                 array(
-                    'title' => 'Create Blog',
-                    'url' => 'blogs',
-                    'node' => UserSettings::CREATE_BLOG,
+                    'title'   => 'Create Blog',
+                    'url'     => 'blogs',
+                    'node'    => UserSettings::CREATE_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'post',
@@ -205,12 +205,12 @@ return array(
                         'error' => '{"error":{"message":"A required field has been left blank.","status_code":200}}'
                     ),
                     'description' => 'This endpoint will create a new blog post.',
-                    'params' => array('title VARCHAR(64)', 'author INT(11)', 'content TEXT()'),
+                    'params'  => array('title VARCHAR(64)', 'author INT(11)', 'content TEXT()'),
                 ),
                 array(
-                    'title' => 'Edit Blog',
-                    'url' => 'blogs/{id}',
-                    'node' => UserSettings::MODIFY_BLOG,
+                    'title'   => 'Edit Blog',
+                    'url'     => 'blogs/{id}',
+                    'node'    => UserSettings::MODIFY_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'put/patch',
@@ -226,12 +226,12 @@ return array(
                         'error' => '{"error":{"message":"Blog does not exist!","status_code":404}}'
                     ),
                     'description' => 'This endpoint will edit an existing blog post.',
-                    'params' => array('title VARCHAR(64)', 'content TEXT()'),
+                    'params'  => array('title VARCHAR(64)', 'content TEXT()'),
                 ),
                 array(
-                    'title' => 'Delete Blog',
-                    'url' => 'blogs/{id}',
-                    'node' => UserSettings::DELETE_BLOG,
+                    'title'   => 'Delete Blog',
+                    'url'     => 'blogs/{id}',
+                    'node'    => UserSettings::DELETE_BLOG,
                     'methods' => array(
                         array(
                             'name' => 'destroy',
@@ -251,11 +251,11 @@ return array(
             )
         ),
         array(
-            'name' => 'BattlePaste',
+            'name'    => 'BattlePaste',
             'methods' => array(
                 array(
-                    'title' => 'Get Pastes',
-                    'url' => 'pastes',
+                    'title'   => 'Get Pastes',
+                    'url'     => 'pastes',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -272,11 +272,11 @@ return array(
                     ),
                     'description' => 'This endpoint will return all public pastes. If authenticated, this will also
                     return the respective user\'s pastes. Limited 5 pastes per page.',
-                    'params' => array('limit INT', 'page INT')
+                    'params'  => array('limit INT', 'page INT')
                 ),
                 array(
-                    'title' => 'Get Specific Paste',
-                    'url' => 'pastes/{id}',
+                    'title'   => 'Get Specific Paste',
+                    'url'     => 'pastes/{id}',
                     'methods' => array(
                         array(
                             'name' => 'get',
@@ -292,10 +292,10 @@ return array(
                     'description' => 'This endpoint will return a single specified paste.',
                 ),
                 array(
-                    'title' => 'Create Paste',
-                    'url' => 'pastes',
-                    'node' => UserSettings::CREATE_PASTE,
-                    'methods' => array(
+                    'title'       => 'Create Paste',
+                    'url'         => 'pastes',
+                    'node'        => UserSettings::CREATE_PASTE,
+                    'methods'     => array(
                         array(
                             'name' => 'post',
                             'color' => 'red'
@@ -305,21 +305,21 @@ return array(
                             'color' => 'black'
                         )
                     ),
-                    'example' => array(
+                    'example'     => array(
                         'success' => '{"success":{"message":"gIRj65","status_code":201}}',
                         'error' => '{"error":{"message":"A required field has been left blank.","status_code":200}}'
                     ),
                     'description' => 'This endpoint will create a new paste. The message field of a successful paste
                     will contain the slug to the paste and shorturl. IE) The message is gIRj65 which means bplug
-                    .in/gIRj65 will bring you to that paste. If your paste content exceeds '. env("PASTE_MAX_LEN", 500000) .' characters, it will throw an error. You can force the paste to cut after the
+                    .in/gIRj65 will bring you to that paste. If your paste content exceeds ' . env("PASTE_MAX_LEN", 500000) . ' characters, it will throw an error. You can force the paste to cut after the
                             maximum length by setting the force param to true.',
-                    'params' => array('title VARCHAR(64)', 'content TEXT('. env("PASTE_MAX_LEN", 500000) .')', 'public BOOLEAN()', 'force BOOLEAN
+                    'params'      => array('title VARCHAR(64)', 'content TEXT(' . env("PASTE_MAX_LEN", 500000) . ')', 'public BOOLEAN()', 'force BOOLEAN
                     ()'),
                 ),
                 array(
-                    'title' => 'Delete Paste',
-                    'url' => 'pastes/{id}',
-                    'node' => UserSettings::MODIFY_PASTE,
+                    'title'   => 'Delete Paste',
+                    'url'     => 'pastes/{id}',
+                    'node'    => UserSettings::MODIFY_PASTE,
                     'methods' => array(
                         array(
                             'name' => 'destroy',
@@ -340,19 +340,15 @@ return array(
             )
         ),
         array(
-            'name' => 'bplug.in',
+            'name'    => 'bplug.in',
             'methods' => array(
                 array(
-                    'title' => 'Create Short URL',
-                    'url' => 'shorturls',
+                    'title'   => 'Create Short URL',
+                    'url'     => 'shorturls',
                     'methods' => array(
                         array(
                             'name' => 'post',
                             'color' => 'red'
-                        ),
-                        array(
-                            'name' => 'requires auth',
-                            'color' => 'black'
                         )
                     ),
                     'example' => array(
@@ -363,7 +359,7 @@ return array(
 				already exists, it will just return the URL. The shortened URL is returned under the "message" key.
 				Append that key to the end of https://bplug.in to access it. IE) https://bplug.in/BgmPUd where BgmPUd
 				 is the short url ID.',
-                    'params' => array('url VARCHAR(255)')
+                    'params'  => array('url VARCHAR(255)')
                 )
             )
         ),

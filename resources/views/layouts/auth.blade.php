@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     @include('globalpartials.mobilecolor')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password :: BattlePlugins</title>
+    <title>User System :: BattlePlugins</title>
     <link rel="icon" href="/assets/img/bp.png"/>
     <!--        Styles -->
     <link rel="stylesheet" href="/assets/css/semantic.css">

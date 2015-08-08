@@ -33,7 +33,7 @@ class Domain {
         if (!starts_with($req, ['https://', 'http://']))
             $req = 'http://' . $req;
 
-        if (static::isUrl($req) && static::remoteFileExists($req)) {
+        if (static::isUrl($req)) {
             $url = ShortUrl::whereUrl($req)->first();
 
             if (!$url) {
@@ -76,6 +76,18 @@ class Domain {
     }
 
     /**
+     * @return string
+     */
+    public static function generateSlug() {
+        $slug = str_random(6);
+
+        while (PasteRepository::getBySlug($slug) || ShortUrlRepository::getBySlug($slug))
+            $slug = str_random(6);
+
+        return $slug;
+    }
+
+    /**
      * @param $url
      * @param bool|false $cache
      * @param int $cacheLength
@@ -113,18 +125,6 @@ class Domain {
         curl_close($curl);
 
         return $ret;
-    }
-
-    /**
-     * @return string
-     */
-    public static function generateSlug() {
-        $slug = str_random(6);
-
-        while (PasteRepository::getBySlug($slug) || ShortUrlRepository::getBySlug($slug))
-            $slug = str_random(6);
-
-        return $slug;
     }
 
     /**

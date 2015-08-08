@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Alert;
 use App\Models\User;
+use App\Tools\UserSettings;
 
 
 /**
@@ -22,8 +23,10 @@ class AlertRepository {
 
         $alert = Alert::find($id);
 
-        foreach ($users as $user)
-            static::attach($alert, $user);
+        foreach ($users as $user) {
+            if (UserSettings::hasNode($user, UserSettings::ADMIN_PANEL))
+                static::attach($alert, $user);
+        }
 
         return $alert;
     }

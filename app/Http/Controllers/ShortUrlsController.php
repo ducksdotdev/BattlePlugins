@@ -27,9 +27,9 @@ class ShortUrlsController extends Controller {
         $url = ShortUrlRepository::getBySlug($slug);
 
         if ($url) {
-            ShortUrlRepository::update($slug, update([
+            ShortUrlRepository::update($slug, [
                 'last_used' => Carbon::now()
-            ]));
+            ]);
 
             return redirect($url->url);
         }

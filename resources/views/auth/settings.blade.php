@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    {!! Form::open(['url'=>URL::to(action('Auth\UserController@postChangeSettings'), [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
+    {!! Form::open(['url'=>URL::to('/user/settings', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">
             There was an error processing your request!
@@ -42,7 +42,7 @@
     @if(auth()->user()->google2fa_secret)
         <div class="field">
             {!! Form::label('google2fa_secret', '2FA Secret') !!}
-            {!! Form::text('google2fa_secret') !!}
+            {!! Form::password('google2fa_secret') !!}
         </div>
     @endif
     <div class="field text-right">

@@ -236,6 +236,8 @@ class UserController extends Controller {
             $user->google2fa_secret = null;
             $user->save();
 
+            session()->forget('google2fa_secret');
+
             return redirect()->action('Auth\UserController@getSettings');
         } else return static::redirectBackWithErrors('Invalid secret.');
     }

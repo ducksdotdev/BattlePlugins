@@ -49,6 +49,16 @@ class AuthController extends Controller {
     }
 
     /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function getLogout() {
+        Auth::logout();
+        session()->flush();
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array $data

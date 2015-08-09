@@ -267,7 +267,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":[{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"http:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}],"paginator":{"total_count":1,"total_pages":1,"current_page":1,"limit":5}}',
+                        'success' => '{"data":[{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"https:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}],"paginator":{"total_count":1,"total_pages":1,"current_page":1,"limit":5}}',
                         'error' => 'Not Applicable.'
                     ),
                     'description' => 'This endpoint will return all public pastes. If authenticated, this will also
@@ -284,7 +284,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"http:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000",
+                        'success' => '{"data":{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"https:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000",
                         "timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}}',
                         'error' => '{"error":{"message":"You don\'t have permission to view this paste.",
                         "status_code":422}}'

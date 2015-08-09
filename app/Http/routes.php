@@ -6,7 +6,24 @@ Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
 
-Route::get('/user/settings', 'Auth\UserController@getSettings');
+Route::group(['before' => 'auth'], function () {
+    Route::get('/auth/google2fa', 'Auth\UserController@getVerifyTwoFactorAuthentication');
+
+    Route::group(['before' => 'csrf'], function () {
+        Route::post('/auth/google2fa', 'Auth\UserController@postVerifyTwoFactorAuthentication');
+    });
+});
+
+Route::group(['before' => 'auth', 'prefix' => 'user'], function () {
+    Route::get('/settings', 'Auth\UserController@getSettings');
+    Route::get('/settings/google2fa', 'Auth\UserController@getTwoFactorAuthentication');
+    Route::get('/settings/google2fa/disable', 'Auth\UserController@getDisableTwoFactorAuthentication');
+
+    Route::group(['before' => 'csrf'], function () {
+        Route::post('/settings/google2fa', 'Auth\UserController@postTwoFactorAuthentication');
+        Route::post('/settings/google2fa/disable', 'Auth\UserController@postDisableTwoFactorAuthentication');
+    });
+});
 
 Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
@@ -14,9 +31,7 @@ Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::group(['before' => 'csrf'], function () {
     Route::post('/auth/login', 'Auth\AuthController@postLogin');
     Route::post('/auth/register', 'Auth\UserController@postRegister');
-
     Route::post('/user/settings', 'Auth\UserController@changeSettings');
-
     Route::post('/password/email', 'Auth\PasswordController@postEmail');
     Route::post('/password/reset', 'Auth\PasswordController@postReset');
 });

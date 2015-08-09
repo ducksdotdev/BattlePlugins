@@ -40,6 +40,11 @@
         {!! Form::password('confirmation') !!}
     </div>
     <div class="field text-right">
+        @if(!auth()->user()->google2fa_secret)
+            <a href="{{ action('Auth\UserController@getTwoFactorAuthentication') }}" class="pull-left ui button black">Setup 2FA</a>
+        @else
+            <a href="{{ action('Auth\UserController@getDisableTwoFactorAuthentication') }}" class="pull-left ui button black">Turn Off 2FA</a>
+        @endif
         {!! Form::submit('Save Changes', ['class'=>'ui button primary']) !!}
     </div>
     {!! Form::close() !!}

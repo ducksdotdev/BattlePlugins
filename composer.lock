@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e52f9daea662dd9230df52941303d2fe",
+    "hash": "6ac63630523b5e356ff4ab589276609d",
     "packages": [
         {
             "name": "awjudd/feed-reader",
@@ -1563,6 +1563,58 @@
                 "teamspeak"
             ],
             "time": "2013-10-17 10:10:03"
+        },
+        {
+            "name": "pragmarx/google2fa",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/google2fa.git",
+                "reference": "ff92a3f979b7807a2219f895db92b5c28f2a5498"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/google2fa/zipball/ff92a3f979b7807a2219f895db92b5c28f2a5498",
+                "reference": "ff92a3f979b7807a2219f895db92b5c28f2a5498",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.7"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1@dev"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "frameworks": [
+                    "Laravel"
+                ]
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\Google2FA\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator & Designer"
+                }
+            ],
+            "description": "A One Time Password Authentication package, compatible with Google Authenticator.",
+            "keywords": [
+                "Authentication",
+                "Two Factor Authentication",
+                "google2fa",
+                "laravel"
+            ],
+            "time": "2015-02-20 01:25:04"
         },
         {
             "name": "psr/http-message",

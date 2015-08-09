@@ -11,6 +11,7 @@ use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use PragmaRX\Google2FA\Google2FA;
 
 /**
  * Class UserController
@@ -24,6 +25,7 @@ class UserController extends Controller {
      * @var Request
      */
     private $request;
+
 
     /**
      * @param Request $request
@@ -59,7 +61,7 @@ class UserController extends Controller {
         if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
             $validator = $this->validate($this->request,
                 [
-                    'email' => 'email|unique:users,email',
+                    'email'    => 'email|unique:users,email',
                     'displayname' => 'max:16|unique:users,displayname',
                     'password' => 'confirmed'
                 ]
@@ -93,7 +95,7 @@ class UserController extends Controller {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
             $validator = $this->validate($this->request, [
                 'displayname' => 'required|max:16|unique:users,displayname',
-                'email' => 'required|email|unique:users,email',
+                'email'    => 'required|email|unique:users,email',
                 'password' => 'required'
             ]);
 
@@ -161,7 +163,7 @@ class UserController extends Controller {
     public function postRegister() {
         if (Settings::get('registration')) {
             $validator = $this->validate($this->request, [
-                'name' => 'required|max:16|unique:users,displayname',
+                'name'  => 'required|max:16|unique:users,displayname',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|confirmed'
             ]);
@@ -181,5 +183,79 @@ class UserController extends Controller {
 
             return redirect('/auth/login')->withInput(['email' => $email]);
         } else abort(403);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getTwoFactorAuthentication() {
+        if (!auth()->user()->google2fa_secret) {
+            if (!session('google2fa_secret'))
+                session()->put('google2fa_secret', (new Google2FA)->generateSecretKey());
+
+            return view('auth.google2fa', [
+                'google2fa_secret' => session('google2fa_secret')
+            ]);
+        } else return redirect()->back();
+    }
+
+    /**
+     *
+     */
+    public function postTwoFactorAuthentication(Request $request) {
+        $secret = $request->input('google2fa_secret');
+        $secret_confirmation = $request->input('google2fa_secret_confirmation');
+
+        if ((new Google2FA)->verifyKey($secret, $secret_confirmation)) {
+            $user = auth()->user();
+            $user->google2fa_secret = $secret;
+            $user->save();
+
+            session()->put('2fa_authed', true);
+            return redirect()->action('Auth\UserController@getSettings');
+        }
+
+        return static::redirectBackWithErrors('Invalid secret. Please try again');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getDisableTwoFactorAuthentication() {
+        return view('auth.disable2fa');
+    }
+
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function postDisableTwoFactorAuthentication(Request $request) {
+        $secret = $request->input('google2fa_secret');
+        if ((new Google2FA)->verifyKey(auth()->user()->google2fa_secret, $secret)) {
+            $user = auth()->user();
+            $user->google2fa_secret = null;
+            $user->save();
+
+            return redirect()->action('Auth\UserController@getSettings');
+        } else return static::redirectBackWithErrors('Invalid secret.');
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getVerifyTwoFactorAuthentication() {
+        return view('auth.verify2fa');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function postVerifyTwoFactorAuthentication(Request $request) {
+        $secret = $request->input('google2fa_secret');
+        if ((new Google2FA)->verifyKey(auth()->user()->google2fa_secret, $secret)) {
+            session()->put('2fa_authed', true);
+            return redirect()->intended();
+        } else return static::redirectBackWithErrors('Invalid secret.');
     }
 }

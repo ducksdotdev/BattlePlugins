@@ -59,6 +59,13 @@ class UserController extends Controller {
         $confirmation = $this->request->input('confirmation');
 
         if (Auth::validate(['id' => $user->id, 'password' => $confirmation])) {
+            if (auth()->user()->google2fa_secret) {
+                $secret = $this->request->input('google2fa_secret');
+
+                if (!(new Google2FA())->verifyKey(auth()->user()->google2fa_secret, $secret))
+                    return static::redirectBackWithErrors('Invalid 2FA secret.');
+            }
+
             $validator = $this->validate($this->request,
                 [
                     'email'    => 'email|unique:users,email',

@@ -31,7 +31,7 @@ Route::get('/password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::group(['before' => 'csrf'], function () {
     Route::post('/auth/login', 'Auth\AuthController@postLogin');
     Route::post('/auth/register', 'Auth\UserController@postRegister');
-    Route::post('/user/settings', 'Auth\UserController@changeSettings');
+    Route::post('/user/settings', 'Auth\UserController@postChangeSettings');
     Route::post('/password/email', 'Auth\PasswordController@postEmail');
     Route::post('/password/reset', 'Auth\PasswordController@postReset');
 });

@@ -20,6 +20,7 @@
         {!! Form::text('google2fa_secret') !!}
     </div>
     <div class="field text-right">
+        <a href="{{ action('Auth\UserController@getSettings') }}" class="pull-left ui button black">Back</a>
         {!! Form::submit('Disable', ['class'=>'ui button primary']) !!}
     </div>
     {!! Form::close() !!}

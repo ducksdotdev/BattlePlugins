@@ -9,7 +9,7 @@ return
          *
          * Should look like: ga:xxxxxxxx.
          */
-        'siteId' => env('ANALYTICS_SITE_ID'),
+        'siteId'          => config('google-analytics-sites'),
 
         /*
          * Set the client id
@@ -17,7 +17,7 @@ return
          * Should look like:
          * xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
          */
-        'clientId' => env('ANALYTICS_CLIENT_ID'),
+        'clientId'        => env('ANALYTICS_CLIENT_ID'),
 
         /*
          * Set the service account name
@@ -25,7 +25,7 @@ return
          * Should look like:
          * xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@developer.gserviceaccount.com
          */
-        'serviceEmail' => env('ANALYTICS_SERVICE_EMAIL'),
+        'serviceEmail'    => env('ANALYTICS_SERVICE_EMAIL'),
 
         /*
          * You need to download a p12-certifciate from the Google API console
@@ -37,7 +37,7 @@ return
          * The amount of minutes the Google API responses will be cached.
          * If you set this to zero, the responses won't be cached at all.
          */
-        'cacheLifetime' => 60,
+        'cacheLifetime'   => 60,
 
         /*
          * The amount of seconds the Google API responses will be cached for

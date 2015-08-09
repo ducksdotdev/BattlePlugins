@@ -38,7 +38,8 @@
         ga('create', 'UA-66072914-1', 'auto');
         ga('send', 'pageview');
     </script>
-    <!--       End Scripts -->
+    @include('globalpartials.globalanalytics')
+            <!--       End Scripts -->
 </head>
 <body>
 <nav>

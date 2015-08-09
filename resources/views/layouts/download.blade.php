@@ -34,7 +34,8 @@
         ga('send', 'pageview');
 
     </script>
-    <!--       End Scripts -->
+    @include('globalpartials.globalanalytics')
+            <!--       End Scripts -->
 </head>
 <body>
 <nav>

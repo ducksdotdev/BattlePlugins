@@ -35,9 +35,9 @@
 
         ga('create', 'UA-66072914-2', 'auto');
         ga('send', 'pageview');
-
     </script>
-    <!--       End Scripts -->
+    @include('globalpartials.globalanalytics')
+            <!--       End Scripts -->
 </head>
 <body>
 <div class="grid-100 grid-parent">

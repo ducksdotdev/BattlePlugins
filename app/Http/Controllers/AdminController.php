@@ -68,7 +68,7 @@ class AdminController extends Controller {
             'urls' => count(ShortUrl::all()),
             'downloads' => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'log' => LaravelLogViewer::getPaginated(null, 1, 1)[0]
+            'log' => LaravelLogViewer::getPaginated(null, 1, 1)[0],
         ]);
     }
 

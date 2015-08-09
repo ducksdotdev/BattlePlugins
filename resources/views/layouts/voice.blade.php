@@ -31,7 +31,8 @@
         ga('send', 'pageview');
 
     </script>
-    <!--        End Scripts -->
+    @include('globalpartials.globalanalytics')
+            <!--        End Scripts -->
     <style>
         .query {
             display: none;

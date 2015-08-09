@@ -36,6 +36,7 @@
         ga('create', 'UA-66072914-1', 'auto');
         ga('send', 'pageview');
     </script>
+    @include('globalpartials.globalanalytics')
 </head>
 <body>
 <div class="grid-container">

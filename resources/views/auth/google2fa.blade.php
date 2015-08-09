@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    {!! Form::open(['url'=>URL::to(action('Auth\UserController@postTwoFactorAuthentication'), [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
+    {!! Form::open(['url'=>URL::to('/user/settings/google2fa', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     {!! Form::hidden('google2fa_secret', $google2fa_secret) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">

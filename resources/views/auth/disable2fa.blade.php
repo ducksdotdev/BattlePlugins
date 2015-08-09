@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    {!! Form::open(['url'=>URL::to(action('Auth\UserController@postDisableTwoFactorAuthentication'), [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
+    {!! Form::open(['url'=>URL::to('/user/settings/google2fa/disable', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">
             There was an error processing your request!

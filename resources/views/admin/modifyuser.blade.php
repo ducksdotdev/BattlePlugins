@@ -11,7 +11,7 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <tr @if($user->google2fa_secret) class="green" @endif>
+                <tr @if($user->google2fa_secret) class="positive" @endif>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->displayname }}</td>
                     <td>

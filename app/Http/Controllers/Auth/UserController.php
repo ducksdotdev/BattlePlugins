@@ -229,8 +229,8 @@ class UserController extends Controller {
      * @return \Illuminate\View\View
      */
     public function getDisableTwoFactorAuthentication() {
-        if (!UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA)
-        return view('auth.disable2fa');
+        if (!UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA))
+            return view('auth.disable2fa');
         else abort(403);
     }
 

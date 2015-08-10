@@ -11,7 +11,8 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-                <tr @if($user->google2fa_secret) class="positive" @endif>
+                <tr @if($user->google2fa_secret) class="positive"
+                    @elseif(UserSettings::hasNode($user, UserSettings::FORCE_2FA) && !$user->google2fa_secret) class="danger" @endif>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->displayname }}</td>
                     <td>

@@ -6,7 +6,7 @@
                 until {{ Carbon::now()->formatLocalized('%B %e') }}. Updated every half hour.
             </div>
         </div>
-        @foreach(config('google-analytics-sites') as $name => $gaid)
+        @foreach(config('laravel-analytics.siteIds') as $name => $gaid)
             <div class="grid-33 text-center">
                 <h2>{{ $name }}</h2>
                 <ul class="stats">

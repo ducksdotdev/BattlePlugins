@@ -41,6 +41,7 @@ class UserSettings {
     const USE_API = 'api.use';
     const USE_WEBHOOKS = 'api.webhooks';
     const MANAGE_BUILDS = 'download.togglestable';
+    const FORCE_2FA = '2fa.force';
 
     /**
      * @return array

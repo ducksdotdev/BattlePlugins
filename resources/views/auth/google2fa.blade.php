@@ -1,5 +1,10 @@
 @extends('layouts.auth')
 @section('content')
+    @if(UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA) && !auth()->user()->google2fa_secret)
+        <div class="ui message info">
+            Because of your elevated permissions, you must use two factor authentication.
+        </div>
+    @endif
     {!! Form::open(['url'=>URL::to('/user/settings/google2fa', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     {!! Form::hidden('google2fa_secret', $google2fa_secret) !!}
     @if(count($errors) > 0)
@@ -27,7 +32,9 @@
         {!! Form::text('google2fa_secret_confirmation') !!}
     </div>
     <div class="field text-right">
-        <a href="{{ action('Auth\UserController@getSettings') }}" class="pull-left ui button black">Back</a>
+        @if(!(UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA) && !auth()->user()->google2fa_secret))
+            <a href="{{ action('Auth\UserController@getSettings') }}" class="pull-left ui button black">Back</a>
+        @endif
         {!! Form::submit('Enable 2FA', ['class'=>'ui button primary']) !!}
     </div>
     {!! Form::close() !!}

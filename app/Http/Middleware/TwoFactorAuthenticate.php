@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Tools\UserSettings;
 use Closure;
 
 /**
@@ -11,7 +12,8 @@ use Closure;
 class TwoFactorAuthenticate {
 
     protected $except_urls = [
-        'auth/google2fa'
+        'auth/google2fa',
+        'user/settings/google2fa'
     ];
 
     /**
@@ -22,8 +24,12 @@ class TwoFactorAuthenticate {
     public function handle($request, Closure $next) {
         $regex = '#' . implode('|', $this->except_urls) . '#';
 
-        if (!preg_match($regex, $request->path()) && auth()->check() && auth()->user()->google2fa_secret && !session('2fa_authed'))
-            return redirect('/auth/google2fa');
+        if (!preg_match($regex, $request->path())) {
+            if (auth()->check() && auth()->user()->google2fa_secret && !session('2fa_authed'))
+                return redirect('/auth/google2fa');
+            else if (UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA) && !auth()->user()->google2fa_secret)
+                return redirect('/user/settings/google2fa');
+        }
 
         return $next($request);
     }

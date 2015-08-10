@@ -6,7 +6,6 @@ use App\Models\ShortUrl;
 use App\Repositories\PasteRepository;
 use App\Repositories\ShortUrlRepository;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,14 +14,6 @@ use Illuminate\Support\Facades\Validator;
  * @package App\Tools
  */
 class Domain {
-
-    /**
-     * @param Request $request
-     * @return string
-     */
-    public static function getTld(Request $request) {
-        return substr($request, strrpos($request, ".") + 1);
-    }
 
     /**
      * @param $req
@@ -40,7 +31,7 @@ class Domain {
                 $slug = static::generateSlug();
 
                 ShortUrlRepository::create([
-                    'url'  => $req,
+                    'url' => $req,
                     'slug' => $slug,
                     'last_used' => Carbon::now()
                 ]);

@@ -37,35 +37,48 @@ class GitHub {
      * @param array $params
      * @return mixed
      */
-    private static function getFeed($url, $params = []) {
+    private static function getFeed($url, $params = [], $cache = true) {
         $name = str_replace('/', '_', $url);
 
         foreach ($params as $key => $value)
             $name .= '_' . $key . '_' . $value;
 
-        $data = Cache::get($name, function () use ($url, $params, $name) {
-            $url = static::$base_url . $url;
-
-            $params = array_merge([
-                'client_id' => env('GITHUB_APP_ID'),
-                'client_secret' => env('GITHUB_APP_SECRET')
-            ], $params);
-
-            $url = $url . '?' . http_build_query($params);
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_USERAGENT, 'apache');
-            $data = curl_exec($ch);
-            curl_close($ch);
-
-            Cache::put($name, $data, 30);
-
-            return $data;
-        });
+        if ($cache) {
+            $data = Cache::get($name, function () use ($url, $params, $name) {
+                static::getFeedData($url, $params, $name);
+            });
+        } else
+            $data = static::getFeedData($url, $params, $name);
 
         return json_decode($data);
+    }
+
+    /**
+     * @param $url
+     * @param $params
+     * @param $name
+     * @return mixed
+     */
+    private function getFeedData($url, $params, $name) {
+        $url = static::$base_url . $url;
+
+        $params = array_merge([
+            'client_id' => env('GITHUB_APP_ID'),
+            'client_secret' => env('GITHUB_APP_SECRET')
+        ], $params);
+
+        $url = $url . '?' . http_build_query($params);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'apache');
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        Cache::put($name, $data, 30);
+
+        return $data;
     }
 
     /**

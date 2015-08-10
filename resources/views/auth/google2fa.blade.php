@@ -25,7 +25,8 @@
         <small>{{ $google2fa_secret }}</small>
         <br/>
         {!! HTML::image(Google2FA::getQRCodeGoogleUrl('BattlePlugins', auth()->user()->email, $google2fa_secret)) !!}
-        <br/>Scan this QR code into your authentication app or enter the key manually.
+        <br/>Scan this QR code into your authentication app or enter the key manually. Afterwards, enter the number it gives you in the box below to confirm that your 2FA has
+        been set up properly.
     </div>
     <div class="field">
         {!! Form::label('google2fa_secret_confirmation', 'Enter Secret') !!}

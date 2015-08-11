@@ -58,7 +58,6 @@ class GitHub {
     /**
      * @param $url
      * @param $params
-     * @param $name
      * @return mixed
      */
     private static function getFeedData($url, $params) {

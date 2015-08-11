@@ -5,6 +5,7 @@ use App\Repositories\ShortUrlRepository;
 use App\Tools\Domain;
 use App\Tools\UserSettings;
 use Auth;
+use Illuminate\Http\Request;
 
 /**
  * Class PasteController

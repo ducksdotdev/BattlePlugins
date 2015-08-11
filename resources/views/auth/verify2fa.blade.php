@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 @section('content')
     <div class="ui message info">
-        Please verify that you are {{ auth()->user()->email }} by entering the code from your two factor authentication app. (Authy, Google Auth, etc.)
+        Please verify that you are {{ StringTools::hideEmail(auth()->user()->email) }} by entering the code from your two factor authentication app. (Authy, Google Auth, etc.)
     </div>
     {!! Form::open(['url'=>URL::to('/auth/google2fa', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)

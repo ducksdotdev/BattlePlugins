@@ -59,7 +59,7 @@ class GitHub {
      * @param $name
      * @return mixed
      */
-    private function getFeedData($url, $params, $name) {
+    private static function getFeedData($url, $params, $name) {
         $url = static::$base_url . $url;
 
         $params = array_merge([

@@ -21,8 +21,8 @@ class StringTools {
      */
     public static function hideEmail($email) {
         $mail_segments = explode("@", $email);
-        $mail_segments[0] = str_repeat("*", strlen($mail_segments[0]));
+        $mail_segments[0] = str_repeat("*", strlen($mail_segments[0]) - 1);
 
-        return implode("@", $mail_segments);
+        return substr($email, 0, 1) . implode("@", $mail_segments);
     }
 }

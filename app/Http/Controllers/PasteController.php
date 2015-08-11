@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Paste;
+use App\Models\ShortUrl;
 use App\Repositories\PasteRepository;
 use App\Repositories\ShortUrlRepository;
 use App\Tools\Domain;

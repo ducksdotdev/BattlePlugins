@@ -1,5 +1,8 @@
 @extends('layouts.auth')
 @section('content')
+    <div class="ui message info">
+        Please verify that you are {{ auth()->user()->email }} by entering the code from your two factor authentication app. (Authy, Google Auth, etc.)
+    </div>
     {!! Form::open(['url'=>URL::to('/auth/google2fa', [], env('HTTPS_ENABLED', true)), 'class'=>'ui fluid form']) !!}
     @if(count($errors) > 0)
         <div class="ui message negative">
@@ -16,7 +19,7 @@
         </div>
     @endif
     <div class="field">
-        {!! Form::label('google2fa_secret', 'Enter Secret ('.auth()->user()->email.')') !!}
+        {!! Form::label('google2fa_secret', 'Enter Secret') !!}
         {!! Form::text('google2fa_secret') !!}
     </div>
     <div class="field text-right">

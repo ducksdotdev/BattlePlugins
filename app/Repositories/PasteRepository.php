@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Paste;
-use App\Models\ShortUrl;
 
 /**
  * Class PasteRepository
@@ -27,8 +26,8 @@ class PasteRepository {
             $paste = Paste::find($paste);
 
         ShortUrlRepository::deleteBySlug($paste->slug);
-        ShortUrl::deleteByUrl(action('PasteController@getRawPaste', ['slug' => $paste->slug]));
-        ShortUrl::deleteByUrl(action('PasteController@getDownloadPaste', ['slug' => $paste->slug]));
+        ShortUrlRepository::deleteByUrl(action('PasteController@getRawPaste', ['slug' => $paste->slug]));
+        ShortUrlRepository::deleteByUrl(action('PasteController@getDownloadPaste', ['slug' => $paste->slug]));
         unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
         $paste->delete();
     }

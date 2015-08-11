@@ -16,7 +16,7 @@
         </div>
     @endif
     <div class="field">
-        {!! Form::label('google2fa_secret', 'Enter Secret') !!}
+        {!! Form::label('google2fa_secret', 'Enter Secret ('.auth()->user()->email.')') !!}
         {!! Form::text('google2fa_secret') !!}
     </div>
     <div class="field text-right">

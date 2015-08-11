@@ -14,10 +14,6 @@ use Illuminate\Http\Request;
  * @package App\Http\Controllers\Paste
  */
 class PasteController extends Controller {
-
-    /**
-     *
-     */
     function __construct() {
         $this->middleware('auth', ['except' => ['getPaste', 'getRawPaste', 'getDownloadPaste']]);
     }
@@ -149,7 +145,7 @@ class PasteController extends Controller {
             $paste = Paste::find($id);
 
             if ($paste->user_id == Auth::user()->id)
-                ShortUrlRepository::deleteBySlug($paste->slug);
+                PasteRepository::delete($paste);
 
             return redirect("/");
         } else
@@ -160,8 +156,7 @@ class PasteController extends Controller {
      * @param $slug
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|void
      */
-    public
-    function getDownloadPaste($slug) {
+    public function getDownloadPaste($slug) {
         $paste = PasteRepository::getBySlug($slug);
 
         if (!$paste)
@@ -176,8 +171,7 @@ class PasteController extends Controller {
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public
-    function postTogglePublic($id) {
+    public function postTogglePublic($id) {
         $paste = Paste::find($id);
 
         if ($paste->user_id == Auth::user()->id) {
@@ -191,8 +185,7 @@ class PasteController extends Controller {
     /**
      * @return \Illuminate\View\View
      */
-    public
-    function getIndex() {
+    public function getIndex() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
             return view('paste.index', [
                 'pastes' => auth()->user()->pastes

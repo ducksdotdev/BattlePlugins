@@ -45,7 +45,9 @@ class GitHub {
 
         if ($cache) {
             $data = Cache::get($name, function () use ($url, $params, $name) {
-                static::getFeedData($url, $params, $name);
+                $data = static::getFeedData($url, $params);
+                Cache::put($name, $data, 30);
+                return $data;
             });
         } else
             $data = static::getFeedData($url, $params, $name);
@@ -59,7 +61,7 @@ class GitHub {
      * @param $name
      * @return mixed
      */
-    private static function getFeedData($url, $params, $name) {
+    private static function getFeedData($url, $params) {
         $url = static::$base_url . $url;
 
         $params = array_merge([
@@ -75,8 +77,6 @@ class GitHub {
         curl_setopt($ch, CURLOPT_USERAGENT, 'apache');
         $data = curl_exec($ch);
         curl_close($ch);
-
-        Cache::put($name, $data, 30);
 
         return $data;
     }

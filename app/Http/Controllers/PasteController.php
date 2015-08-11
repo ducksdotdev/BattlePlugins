@@ -149,7 +149,7 @@ class PasteController extends Controller {
             $paste = Paste::find($id);
 
             if ($paste->user_id == Auth::user()->id)
-                ShortUrlRepository::delete($id);
+                ShortUrlRepository::deleteBySlug($id);
 
             return redirect("/");
         } else

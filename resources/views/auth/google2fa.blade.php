@@ -31,7 +31,7 @@
     </div>
     <div class="field">
         {!! Form::label('google2fa_secret_confirmation', 'Enter Secret') !!}
-        {!! Form::text('google2fa_secret_confirmation') !!}
+        {!! Form::text('google2fa_secret_confirmation', null, ['autocomplete'=>'false']) !!}
     </div>
     <div class="field text-right">
         @if(!(UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA) && !auth()->user()->google2fa_secret))

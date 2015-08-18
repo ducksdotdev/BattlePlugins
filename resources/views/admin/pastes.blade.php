@@ -19,7 +19,7 @@
                 @foreach($pastes as $paste)
                     <tr>
                         <td>{{ $paste->creator->displayname }}</td>
-                        <td>@if($paste->public) <a
+                        <td>@if($paste->public || $paste->user_id == auth()->user()->id) <a
                                     href="{{ action('PasteController@getPaste', ['slug'=>$paste->slug]) }}">@endif {{ $paste->slug }} @if($paste->public)</a>@endif</td>
                         <td>{{ count($split = explode('#sid', $paste->title)) > 1 ? $split[1] : 'N/A' }}</td>
                         <td>{{ $paste->public ? 'Public' : 'Private' }}</td>

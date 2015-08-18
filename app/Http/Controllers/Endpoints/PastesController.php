@@ -83,7 +83,6 @@ class PastesController extends ApiController {
      */
     public function store() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_PASTE)) {
-            $title = $this->request->input('title');
             $content = $this->request->input('content');
             $force = $this->request->input('force');
 
@@ -101,15 +100,11 @@ class PastesController extends ApiController {
 
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
-            $public = $this->request->input('public');
-            if (!$public)
-                $public = false;
-
             Paste::create([
                 'slug'   => $slug,
                 'creator' => Auth::user()->id,
-                'title'  => $title,
-                'public' => $public
+                'title'  => $this->request->input('title') ?: $slug,
+                'public' => $this->request->input('public') ?: false
             ]);
 
             return $this->statusCode->respondCreated($slug);

@@ -34,10 +34,10 @@ class ApiAuthenticate {
 
         $result = User::where('api_key', $key)->first();
         if ($result) {
-            Auth::loginUsingId($result->id);
-
-            if (UserSettings::hasNode(auth()->user(), UserSettings::USE_API))
+            if (UserSettings::hasNode($result->id, UserSettings::USE_API)) {
+                auth()->loginUsingId($result->id);
                 return $next($request);
+            }
         }
 
         return $this->statusCode->respondValidationFailed('Failed to validate API-Key.');

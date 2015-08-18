@@ -25,7 +25,7 @@ class TwoFactorAuthenticate {
         $regex = '#' . implode('|', $this->except_urls) . '#';
 
         if (!preg_match($regex, $request->path())) {
-            if (auth()->check() && auth()->user()->google2fa_secret && !session('2fa_authed'))
+            if (auth()->check() && auth()->user()->google2fa_secret && !session('2fa_authed') && !$request->has('_key'))
                 return redirect('/auth/google2fa');
             else if (UserSettings::hasNode(auth()->user(), UserSettings::FORCE_2FA) && !auth()->user()->google2fa_secret)
                 return redirect('/user/settings/google2fa');

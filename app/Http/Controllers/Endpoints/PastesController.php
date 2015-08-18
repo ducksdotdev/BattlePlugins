@@ -101,10 +101,10 @@ class PastesController extends ApiController {
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 
             Paste::create([
-                'slug'   => $slug,
-                'creator' => Auth::user()->id,
-                'title'  => $this->request->input('title') ?: $slug,
-                'public' => $this->request->input('public') ?: false
+                'slug'    => $slug,
+                'user_id' => auth()->user()->id,
+                'title'   => $this->request->input('title') ?: $slug,
+                'public'  => $this->request->input('public') ?: false
             ]);
 
             return $this->statusCode->respondCreated($slug);

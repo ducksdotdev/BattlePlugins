@@ -94,7 +94,7 @@ class PastesController extends ApiController {
             $slug = Domain::generateSlug();
 
             ShortUrl::create([
-                'url' => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
+                'url' => action('PasteController@getPaste', ['slug' => $slug]),
                 'slug' => $slug
             ]);
 

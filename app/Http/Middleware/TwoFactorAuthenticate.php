@@ -13,7 +13,8 @@ class TwoFactorAuthenticate {
 
     protected $except_urls = [
         'auth/google2fa',
-        'user/settings/google2fa'
+        'user/settings/google2fa',
+        'logout'
     ];
 
     /**

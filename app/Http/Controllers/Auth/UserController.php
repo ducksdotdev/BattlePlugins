@@ -274,7 +274,7 @@ class UserController extends Controller {
 
     public function postResetTwoFactorAuthentication($user) {
         $user = User::find($user);
-        if (!UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER)) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER)) {
             $user->google2fa_secret = null;
             $user->save();
             return redirect()->back();

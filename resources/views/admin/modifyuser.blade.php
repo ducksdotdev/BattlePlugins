@@ -19,6 +19,11 @@
                         <a href="/user/modify/{{ $user->id }}"><i class="icon table"></i> Edit Permissions</a>
                     </td>
                     <td>
+                        @if($user->google2fa_secret)
+                            {!! Form::open(['url'=>URL::to('/user/modify/'. $user->id .'/reset2fa', [], env('HTTPS_ENABLED', true)), "class"=>'inline']) !!}
+                            <button href="" class="ui button red mini">Reset 2FA</button>
+                            {!! Form::close() !!}
+                        @endif
                         @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_USER))
                             {!! Form::open(['url'=>URL::to('/user/modify/'. $user->id .'/delete', [], env('HTTPS_ENABLED', true)), "class"=>'inline']) !!}
                             <button href="" class="ui button red mini">Delete User</button>

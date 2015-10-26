@@ -122,6 +122,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
 
         Route::group(['before' => 'csrf'], function () {
             Route::post('/modify/{id}/delete', 'Auth\UserController@postDeleteUser');
+            Route::post('/modify/{id}/reset2fa', 'Auth\UserController@postResetTwoFactorAuthentication');
             Route::post('/create', 'Auth\UserController@postDreateUser');
             Route::post('/modify/{uid}/permissions', 'Auth\UserController@postModifyUserPermissions');
         });

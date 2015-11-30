@@ -3,6 +3,7 @@
 use App\Jenkins\Jenkins;
 use App\Jenkins\JenkinsBuild;
 use App\Jenkins\JenkinsJob;
+use App\Jobs\UpdateJobs;
 use App\Models\ProductionBuilds;
 use App\Tools\Domain;
 use Auth;

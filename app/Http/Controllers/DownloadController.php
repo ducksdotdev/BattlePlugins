@@ -6,6 +6,7 @@ use App\Jenkins\JenkinsJob;
 use App\Jobs\UpdateJobs;
 use App\Models\ProductionBuilds;
 use App\Tools\Domain;
+use App\Tools\UserSettings;
 use Auth;
 use Illuminate\Support\Facades\Log;
 

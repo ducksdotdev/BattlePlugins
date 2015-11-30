@@ -85,7 +85,7 @@ class BlogController extends Controller {
         return view('blog.index', [
             'blog' => $blog,
             'list' => Blog::latest()->take(4)->get(),
-            'jenkins' => Settings::get('jenkins') ? Jenkins::getStableBuilds(null, 4) : null,
+            'jenkins' => Settings::get('jenkins') ? Jenkins::getStableBuilds(4) : null,
             'download_server' => Domain::remoteFileExists('http://ci.battleplugins.com'),
             'comment_feed' => Settings::get('comment_feed')
         ]);

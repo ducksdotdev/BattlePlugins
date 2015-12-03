@@ -7,7 +7,7 @@
             </div>
         @else
             @foreach($tasks as $task)
-                <div class="ui segment" id="{{ $task->id }}">
+                <div class="ui segment">
                     {{$task->title}}
                     @if(Auth::check() && $task->public)
                         (Public)
@@ -20,7 +20,7 @@
                     </small>
                     {!! Markdown::convertToHTML(strip_tags($task->content)) !!}
                     @if(Auth::check())
-                        <div class="actions grid-10 text-right">
+                        <div class="text-right">
                             @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_TASK))
                                 {!! Form::open(['url'=>URL::to('/tasks/delete/' . $task->id, [], env('HTTPS_ENABLED', true))]) !!}
                                 <button class="circular red small ui icon button"><i class="icon trash"></i></button>

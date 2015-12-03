@@ -12,9 +12,6 @@
         <div class="grid-100">
             @include('admin.dashboard.overview')
         </div>
-        <div class="grid-100">
-            @include('admin.dashboard.analytics')
-        </div>
     </div>
     <div class="grid-45 grid-parent">
         @include('admin.dashboard.github')

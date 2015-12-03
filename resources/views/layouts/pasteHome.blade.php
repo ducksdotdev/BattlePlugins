@@ -36,7 +36,6 @@
         ga('send', 'pageview');
 
     </script>
-    @include('globalpartials.globalanalytics')
             <!--        End Scripts -->
     <title>BattlePaste :: BattlePlugins Paste Service</title>
 </head>

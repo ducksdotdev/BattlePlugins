@@ -29,7 +29,6 @@
         ga('send', 'pageview');
 
     </script>
-    @include('globalpartials.globalanalytics')
 </head>
 <body>
 <div class="grid-container">

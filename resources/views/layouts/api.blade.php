@@ -47,7 +47,6 @@
     ga('send', 'pageview');
 
 </script>
-@include('globalpartials.globalanalytics')
 @yield('extraScripts')
 </body>
 </html>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="grid-100 grid-parent">
-        @if(!$tasks)
+        @if(!count($tasks))
             <div class="grid-100">
                 <div class="ui message info">
                     There are no tasks to show!

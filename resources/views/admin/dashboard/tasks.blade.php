@@ -5,13 +5,13 @@
             {{ $myTasks }}
             <div class="small">Assigned to You</div>
         </li>
+        <li class="{{ count($tasks->get()) ? 'yellow' : 'green' }} has-small">
+            {{ count($tasks->get()) }}
+            <div class="small">Incomplete</div>
+        </li>
         <li class="{{ $issues ? 'red' : 'green' }} has-small">
             {{ $issues }}
             <div class="small">GitHub Issues</div>
-        </li>
-        <li class="{{ $closedTasks ? 'green' : 'red'}} has-small">
-            {{ $closedTasks }}
-            <div class="small">Completed</div>
         </li>
     </ul>
 @endif

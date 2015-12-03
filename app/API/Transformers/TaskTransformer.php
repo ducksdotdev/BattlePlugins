@@ -26,8 +26,6 @@ class TaskTransformer extends Transformer {
             'content' => $task['content'],
             'creator' => User::find($task['creator'])['displayname'],
             'assignee_id' => $assignee_id,
-            'public' => (boolean)$task['public'],
-            'completed' => (boolean)$task['status']
         ];
     }
 

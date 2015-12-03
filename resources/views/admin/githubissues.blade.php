@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 @section('content')
+    <div class="grid-100 text-right">
+        <a href="{{ action('AdminController@getGithub') }}" class="ui labeled icon button"><i class="ui icon reply"></i> Back</a>
+    </div>
     <div class="grid-100">
         @if(!$gitIssues)
             <div class="ui message info">

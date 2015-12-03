@@ -36,7 +36,8 @@
 
                     <p>{{ $repo->description }}</p>
                     @if($repo->open_issues > 0)
-                        <a href="{{ $repo->html_url }}/issues">This repo has {{ $repo->open_issues }} open {{ $repo->open_issues > 1 ? 'issues' : 'issue' }}.</a>
+                        <a href="{{ action('AdminController@getGithubIssues', ['repo'=>$repo->name]) }}">This repo has {{ $repo->open_issues }}
+                            open {{ $repo->open_issues > 1 ? 'issues' : 'issue' }}.</a>
                     @endif
                 </div>
             </div>

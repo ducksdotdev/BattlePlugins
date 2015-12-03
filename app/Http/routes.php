@@ -99,6 +99,8 @@ Route::group(['domain' => 'admin.' . $url], function () {
 
     Route::group(['prefix' => 'feeds'], function () {
         Route::get('/github', 'AdminController@getGithub');
+        Route::get('/github/{repo}', 'AdminController@getGithubIssues');
+
         Route::get('/logs/{name?}/{currPage?}/{perPage?}', 'AdminController@getLogs');
     });
 
@@ -145,7 +147,6 @@ Route::group(['domain' => 'admin.' . $url], function () {
     Route::group(['prefix' => 'tasks'], function () {
 
         Route::get('/', 'AdminController@getTasks');
-        Route::get('/github', 'AdminController@getGithubIssues');
         Route::get('/tasks/create', 'AdminController@getCreateTask');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {

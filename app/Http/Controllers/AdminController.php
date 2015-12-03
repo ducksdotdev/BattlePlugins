@@ -398,16 +398,16 @@ class AdminController extends Controller {
             abort(403);
     }
 
-    public function getGithubIssues() {
+    public function getGithubIssues($repo) {
         $users = User::all();
-        $gitIssues = array_sort(GitHub::getIssues(), function ($value) {
+        $gitIssues = array_sort(GitHub::getIssues($repo), function ($value) {
             return $value->created_at;
         });
 
         return view('admin.githubissues', [
             'users' => $users,
             'gitIssues' => $gitIssues,
-            'title' => 'Github Issues'
+            'title' => $repo . ' Github Issues'
         ]);
     }
 

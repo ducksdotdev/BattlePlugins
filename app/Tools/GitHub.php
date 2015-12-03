@@ -81,17 +81,23 @@ class GitHub {
     }
 
     /**
+     * @param null $repo
      * @return array
      */
-    public static function getIssues() {
-        $repos = 'orgs/BattlePlugins/repos';
-        $repos = static::getFeed($repos);
+    public static function getIssues($repo = null) {
+        if (!$repo) {
+            $repos = 'orgs/BattlePlugins/repos';
+            $repos = static::getFeed($repos);
 
-        $issues = [];
-        foreach ($repos ?: [] as $repo) {
-            $url = 'repos/' . $repo->full_name . '/issues';
-            $issues = array_merge($issues, static::getFeed($url));
-        }
+
+            $issues = [];
+            foreach ($repos ?: [] as $repo) {
+                $url = 'repos/' . $repo->full_name . '/issues';
+                $issues = array_merge($issues, static::getFeed($url));
+            }
+        } else
+            $issues = static::getFeed('repos/BattlePlugins/' . $repo . '/issues');
+
 
         return $issues;
     }

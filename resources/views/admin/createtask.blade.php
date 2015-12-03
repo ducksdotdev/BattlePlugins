@@ -23,15 +23,9 @@
     </div>
     <div class="grid-100">
         <div class="actions text-right">
-            <div class="ui buttons">
-                <button class="ui button">
-                    Cancel
-                </button>
-                <div class="or"></div>
-                <button id="saveTask" class="ui positive button" form="createTaskForm">
-                    Save Task
-                </button>
-            </div>
+            <button id="saveTask" class="ui positive button" form="createTaskForm">
+                Save Task
+            </button>
         </div>
     </div>
 @stop

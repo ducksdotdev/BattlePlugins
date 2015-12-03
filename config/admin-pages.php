@@ -51,10 +51,7 @@ return [
         'Create Task' => [
             'action' => 'AdminController@getCreateTask',
             'node' => UserSettings::CREATE_TASK
-        ],
-        'Github Issues' => [
-            'action' => 'AdminController@getGithubIssues'
-        ],
+        ]
     ],
     'User Management' => [
         'Create User' => [

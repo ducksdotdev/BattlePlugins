@@ -359,11 +359,92 @@ class AdminController extends Controller {
         return response()->json($alerts);
     }
 
+    /**
+     * @return \Illuminate\View\View|void
+     */
     public function getAnalytics() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::VIEW_ANALYTICS)) {
             return view('admin.analytics', [
                 'title' => 'Google Analytics'
             ]);
         } else return abort(403);
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function getTasks() {
+        if (auth()->check() && UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASK))
+            $tasks = Task::all();
+        else
+            $tasks = Task::wherePublic(true)->get();
+
+        $users = User::all();
+
+        return view('admin.viewtasks', [
+            'tasks' => $tasks,
+            'users' => $users,
+            'title' => 'View Tasks'
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDeleteTask($id) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_TASK)) {
+            Task::find($id)->delete();
+            return redirect()->back();
+        } else
+            abort(403);
+    }
+
+    public function getGithubIssues() {
+        $users = User::all();
+        $gitIssues = array_sort(GitHub::getIssues(), function ($value) {
+            return $value->created_at;
+        });
+
+        return view('admin.githubissues', [
+            'users' => $users,
+            'gitIssues' => $gitIssues,
+            'title' => 'Github Issues'
+        ]);
+    }
+
+    public function getCreateTask() {
+        return view('admin.createtask', [
+            'title' => 'Create Task',
+            'users' => User::all()
+        ]);
+    }
+
+    public function postCreateTask(Request $request) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_TASK)) {
+            $title = $request->input('title');
+            $public = $request->input('public');
+
+            if (!$title)
+                $title = 'Untitled';
+
+            if (!$public)
+                $public = false;
+
+            $task = new Task();
+
+            $assignee = $request->input('assignee_id');
+            if ($assignee)
+                $task->assignee_id = $assignee;
+
+            $task->title = $title;
+            $task->user_id = Auth::user()->id;
+            $task->public = $public;
+            $task->content = $request->input('content');
+            $task->save();
+
+            return redirect()->back();
+        } else
+            abort(403);
     }
 }

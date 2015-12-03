@@ -88,7 +88,7 @@ class GitHub {
         $repos = static::getFeed($repos);
 
         $issues = [];
-        foreach ($repos as $repo) {
+        foreach ($repos ?: [] as $repo) {
             $url = 'repos/' . $repo->full_name . '/issues';
             $issues = array_merge($issues, static::getFeed($url));
         }

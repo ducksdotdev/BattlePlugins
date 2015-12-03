@@ -18,7 +18,6 @@
     </ul>
     <p>
         <a href="{{ action('VoiceController@getIndex') }}">TeamSpeak</a>
-        | <a href="{{ action('TasksController@getIndex') }}">BattleTasks</a>
         | <a href="{{ action('ApiController@getIndex') }}">BattleWebAPI</a>
         | <a href="{{ action('PasteController@getIndex') }}">BattlePaste</a>
         | <a href="{{ action('ShortUrlsController@getIndex') }}">bplug.in</a>

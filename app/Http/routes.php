@@ -63,18 +63,6 @@ Route::group(['domain' => 'api.' . $url], function () {
     });
 });
 
-Route::group(['domain' => 'tasks.' . $url], function () {
-
-    Route::get('/', 'TasksController@getIndex');
-    Route::get('/refreshIssues', 'TasksController@getRefreshIssues');
-
-    Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
-        Route::post('/tasks/complete/{id}', 'TasksController@postCompleteTask');
-        Route::post('/tasks/delete/{id}', 'TasksController@postDeleteTask');
-        Route::post('/tasks/create', 'TasksController@postCreateTask');
-    });
-});
-
 Route::group(['domain' => 'paste.' . $url], function () {
     Route::get('/', 'PasteController@getIndex');
 
@@ -151,6 +139,18 @@ Route::group(['domain' => 'admin.' . $url], function () {
             Route::post('/alert/admin-delete/{id}', 'AdminController@postAdminDeleteAlert');
             Route::post('/cms/{toggle}', 'AdminController@postToggleSetting');
             Route::post('/pastes/delete/{id}', 'AdminController@postDeletePaste');
+        });
+    });
+
+    Route::group(['prefix' => 'tasks'], function () {
+
+        Route::get('/', 'AdminController@getTasks');
+        Route::get('/github', 'AdminController@getGithubIssues');
+        Route::get('/tasks/create', 'AdminController@getCreateTask');
+
+        Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
+            Route::post('/delete/{id}', 'AdminController@postDeleteTask');
+            Route::post('/tasks/create', 'AdminController@postCreateTask');
         });
     });
 });

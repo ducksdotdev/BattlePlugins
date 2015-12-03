@@ -43,6 +43,19 @@ return [
             'node' => UserSettings::MANAGE_CONTENT
         ],
     ],
+    'Tasks' => [
+        'View Tasks' => [
+            'action' => 'AdminController@getTasks',
+            'node' => UserSettings::VIEW_TASK
+        ],
+        'Create Task' => [
+            'action' => 'AdminController@getCreateTask',
+            'node' => UserSettings::CREATE_TASK
+        ],
+        'Github Issues' => [
+            'action' => 'AdminController@getGithubIssues'
+        ],
+    ],
     'User Management' => [
         'Create User' => [
             'action' => 'AdminController@getCreateUser',

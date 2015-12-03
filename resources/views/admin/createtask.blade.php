@@ -19,17 +19,6 @@
             <label>Task Description</label>
             {!! Form::textarea('content') !!}
         </div>
-        <div class="fields">
-            <div class="field">
-                <div class="ui toggle checkbox">
-                    {!! Form::checkbox('public') !!}
-                    <label>Allow <b>anyone</b> to see this task?</label>
-                </div>
-            </div>
-            <div class="field">
-                <small>(If checked, unregistered users will be able to view this task)</small>
-            </div>
-        </div>
         {!! Form::close() !!}
     </div>
     <div class="grid-100">

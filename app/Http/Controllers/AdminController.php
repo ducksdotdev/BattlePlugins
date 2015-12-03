@@ -374,18 +374,16 @@ class AdminController extends Controller {
      * @return \Illuminate\View\View
      */
     public function getTasks() {
-        if (auth()->check() && UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASK))
+        if (auth()->check() && UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASK)) {
             $tasks = Task::all();
-        else
-            $tasks = Task::wherePublic(true)->get();
+            $users = User::all();
 
-        $users = User::all();
-
-        return view('admin.viewtasks', [
-            'tasks' => $tasks,
-            'users' => $users,
-            'title' => 'View Tasks'
-        ]);
+            return view('admin.viewtasks', [
+                'tasks' => $tasks,
+                'users' => $users,
+                'title' => 'View Tasks'
+            ]);
+        } else abort(403);
     }
 
     /**
@@ -423,13 +421,9 @@ class AdminController extends Controller {
     public function postCreateTask(Request $request) {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_TASK)) {
             $title = $request->input('title');
-            $public = $request->input('public');
 
             if (!$title)
                 $title = 'Untitled';
-
-            if (!$public)
-                $public = false;
 
             $task = new Task();
 
@@ -439,7 +433,6 @@ class AdminController extends Controller {
 
             $task->title = $title;
             $task->user_id = Auth::user()->id;
-            $task->public = $public;
             $task->content = $request->input('content');
             $task->save();
 

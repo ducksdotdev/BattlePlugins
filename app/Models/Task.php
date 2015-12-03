@@ -17,7 +17,7 @@ class Task extends Model {
     /**
      * @var array
      */
-    protected $fillable = ['title', 'user_id', 'content', 'assignee_id', 'public', 'completed'];
+    protected $fillable = ['title', 'user_id', 'content', 'assignee_id', 'completed'];
 
     public static function boot() {
         parent::boot();

@@ -74,7 +74,6 @@ class TasksController extends ApiController {
                 'title' => $this->request->input('title') ?: 'Untitled',
                 'user_id' => Auth::user()->id,
                 'assignee_id' => $this->request->input('assignee_id') ?: 0,
-                'public' => $this->request->input('public') ?: false,
                 'content' => $this->request->input('content') ?: ''
             ];
 

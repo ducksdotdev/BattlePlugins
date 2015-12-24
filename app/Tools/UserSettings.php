@@ -62,10 +62,10 @@ class UserSettings {
      */
     public static function create($email, $password, $displayname) {
         $id = User::insertGetId([
-            'email' => $email,
+            'email'    => $email,
             'password' => Hash::make($password),
             'displayname' => $displayname,
-            'api_key' => GenerateApiKey::generateKey()
+            'api_key'  => GenerateApiKey::generateKey()
         ]);
 
         static::togglePermissionNode($id, static::USE_API);

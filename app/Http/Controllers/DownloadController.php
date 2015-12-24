@@ -17,16 +17,19 @@ use Illuminate\Support\Facades\Log;
 class DownloadController extends Controller {
 
     /**
-     * @param null $current_job
      * @return \Illuminate\View\View
      */
-    public function getIndex($current_job = null) {
-        if ($current_job) {
-            $current_job = new JenkinsJob($current_job);
-            $stableBuilds = $current_job->getStableBuilds(20);
-        } else
-            $stableBuilds = Jenkins::getStableBuilds(20);
+    public function getIndex() {
+        $stableBuilds = Jenkins::getStableBuilds(20);
+        return static::returnIndex(null, $stableBuilds);
+    }
 
+    /**
+     * @param $current_job
+     * @param $stableBuilds
+     * @return \Illuminate\View\View
+     */
+    private function returnIndex($current_job, $stableBuilds) {
         return view('download.index', [
             'jobs'          => Jenkins::getJobs(),
             'current_job'   => $current_job,
@@ -34,6 +37,17 @@ class DownloadController extends Controller {
             'production'    => new ProductionBuilds(),
             'server_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
+    }
+
+    /**
+     * @param $current_job
+     * @return \Illuminate\View\View
+     */
+    public function getJob($current_job) {
+        $current_job = new JenkinsJob($current_job);
+        $stableBuilds = $current_job->getStableBuilds(20);
+
+        return static::returnIndex($current_job, $stableBuilds);
     }
 
     /**

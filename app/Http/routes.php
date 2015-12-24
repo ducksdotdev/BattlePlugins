@@ -83,7 +83,7 @@ Route::group(['domain' => 'dl.' . $url], function () {
     Route::any('/update/{event?}', 'DownloadController@anyUpdateJenkins');
 
     Route::group(['prefix' => 'job'], function () {
-        Route::get('/{job?}', 'DownloadController@getIndex');
+        Route::get('/{job?}', 'DownloadController@getJob');
         Route::get('/{job}/download/{build?}', 'DownloadController@getDownload');
         Route::get('/{job}/latestVersionImage/{w?}/{h?}/{font_size?}', 'DownloadController@getLatestVersionImage');
         Route::get('/{job}/latestStableVersionImage/{w?}/{h?}/{font_size?}', 'DownloadController@getLatestStableVersionImage');

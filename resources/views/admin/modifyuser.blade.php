@@ -4,9 +4,9 @@
         <table class="ui striped table">
             <thead>
             <tr>
-                <th width="50%">Email</th>
+                <th width="45%">Email</th>
                 <th width="20%">Display Name</th>
-                <th width="30%" colspan="2">User Settings</th>
+                <th width="35%" colspan="2">User Settings</th>
             </tr>
             </thead>
             <tbody>

@@ -33,7 +33,7 @@ class TasksController extends ApiController {
         $this->webhooks = $webhooks;
         $this->request = $request;
 
-        if (!UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASKS))
+        if (!UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASK))
             return $this->statusCode->respondValidationFailed();
     }
 
@@ -71,7 +71,7 @@ class TasksController extends ApiController {
     public function store() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_TASK)) {
             $insert = [
-                'title' => $this->request->input('title') ?: 'Untitled',
+                'title'   => $this->request->input('title') ?: 'Untitled',
                 'user_id' => Auth::user()->id,
                 'assignee_id' => $this->request->input('assignee_id') ?: 0,
                 'content' => $this->request->input('content') ?: ''

@@ -4,34 +4,16 @@
     @if(isset($blog))
         <div class="grid-container">
             <div class="grid-75 grid-parent" id="blog">
-                <div class="grid-100 grid-parent">
-                    <div class="grid-85">
-                        <h1>
-                            {{ $blog->title }}
-                            <small class="author">
-                                Written by {{ $blog->user->displayname }} <span title="{{ $blog->created_at }}">{{ $blog->created_at->diffForHumans() }}</span>
-                                @if($blog->updated_at != $blog->created_at)
-                                    <span title="Edited {{ $blog->updated_at->diffForHumans() }} ({{ $blog->updated_at }})">*</span>
-                                @endif
-                            </small>
-                        </h1>
-                    </div>
-                    <div class="grid-15">
-                        @if(auth()->check())
-                            @if(UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG))
-                                <button id="editBlog" class="circular black ui icon button">
-                                    <i class="icon pencil"></i>
-                                </button>
+                <div class="grid-100">
+                    <h1>
+                        {{ $blog->title }}
+                        <small class="author">
+                            Written by {{ $blog->user->displayname }} <span title="{{ $blog->created_at }}">{{ $blog->created_at->diffForHumans() }}</span>
+                            @if($blog->updated_at != $blog->created_at)
+                                <span title="Edited {{ $blog->updated_at->diffForHumans() }} ({{ $blog->updated_at }})">*</span>
                             @endif
-                            @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG))
-                                {!! Form::open(['url'=>URL::to('/delete/'.$blog->id, [], env('HTTPS_ENABLED', true)),
-                                'class'=>'inline']) !!}
-                                <button id="delete" href="" class="circular red ui icon button"><i class="icon trash"></i></button>
-                                {!! Form::close() !!}
-                                &nbsp;
-                            @endif
-                        @endif
-                    </div>
+                        </small>
+                    </h1>
                 </div>
                 <div class="grid-100">{!! Markdown::convertToHTML(strip_tags($blog->content)) !!}</div>
                 @if($comment_feed)

@@ -11,7 +11,6 @@
     "graham-campbell/markdown": "~3.1",
     "awjudd/feed-reader": "1.2.*",
     "simplepie/simplepie": "dev-master",
-    "laravel/socialite": "^2.0",
     "planetteamspeak/ts3-php-framework": "^1.1",
     "pda/pheanstalk": "^3.0",
     "intervention/image": "2.3.*",

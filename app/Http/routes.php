@@ -38,8 +38,6 @@ Route::group(['before' => 'csrf'], function () {
 
 Route::group(['domain' => $url], function () {
     Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
-        Route::post('/delete/{blog}', 'BlogController@postDeleteBlog');
-        Route::post('/create', 'BlogController@postCreateBlog');
         Route::post('/{id}', 'BlogController@postEditBlog');
     });
 
@@ -144,10 +142,22 @@ Route::group(['domain' => 'admin.' . $url], function () {
         });
     });
 
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', 'AdminController@getEditBlogPosts');
+        Route::get('/create', 'AdminController@getCreateBlogPost');
+        Route::get('/edit/{id}', 'AdminController@getEditBlogPost');
+
+        Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
+            Route::post('/create', 'AdminController@postCreateBlogPost');
+            Route::post('/delete/{blog}', 'AdminController@postDeleteBlogPost');
+            Route::post('/edit/{blog}', 'AdminController@postEditBlogPost');
+        });
+    });
+
     Route::group(['prefix' => 'tasks'], function () {
 
         Route::get('/', 'AdminController@getTasks');
-        Route::get('/tasks/create', 'AdminController@getCreateTask');
+        Route::get('/create', 'AdminController@getCreateTask');
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/delete/{id}', 'AdminController@postDeleteTask');

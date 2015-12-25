@@ -10,6 +10,7 @@ use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
 use App\Repositories\AlertRepository;
+use App\Repositories\BlogRepository;
 use App\Repositories\ShortUrlRepository;
 use App\Tools\AnalyticsHelper;
 use App\Tools\Domain;
@@ -55,20 +56,20 @@ class AdminController extends Controller {
      */
     public function getIndex() {
         return view('admin.index', [
-            'title' => 'Dashboard',
-            'issues' => count(GitHub::getIssues()),
-            'blogs' => count(Blog::all()),
-            'tasks' => new Task,
-            'jenkins' => Jenkins::getAllBuilds(3),
-            'updateMins' => $this->updateMins,
-            'github' => GitHub::getEventsFeed(),
-            'myTasks' => count(auth()->user()->tasks()->get()),
+            'title'       => 'Dashboard',
+            'issues'      => count(GitHub::getIssues()),
+            'blogs'       => count(Blog::all()),
+            'tasks'       => new Task,
+            'jenkins'     => Jenkins::getAllBuilds(3),
+            'updateMins'  => $this->updateMins,
+            'github'      => GitHub::getEventsFeed(),
+            'myTasks'     => count(auth()->user()->tasks()->get()),
             'closedTasks' => count(Task::all()),
-            'pastes' => count(Paste::all()),
-            'urls' => count(ShortUrl::all()),
-            'downloads' => Jenkins::getBuildDownloadCount(),
+            'pastes'      => count(Paste::all()),
+            'urls'        => count(ShortUrl::all()),
+            'downloads'   => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com'),
-            'log' => LaravelLogViewer::getPaginated(null, 1, 1)[0],
+            'log'         => LaravelLogViewer::getPaginated(null, 1, 1)[0],
         ]);
     }
 
@@ -142,8 +143,8 @@ class AdminController extends Controller {
     public function getCms() {
         if (UserSettings::hasNode(auth()->user(), UserSettings::MANAGE_CONTENT)) {
             return view('admin.cms', [
-                'title' => 'Manage Content',
-                'jenkins' => Settings::get('jenkins'),
+                'title'     => 'Manage Content',
+                'jenkins'   => Settings::get('jenkins'),
                 'registration' => Settings::get('registration'),
                 'alert_bar' => Settings::get('alert_bar'),
                 'comment_feed' => Settings::get('comment_feed')
@@ -167,10 +168,10 @@ class AdminController extends Controller {
      */
     public function getGithub() {
         return view('admin.github', [
-            'title' => 'GitHub Information',
+            'title'  => 'GitHub Information',
             'github' => GitHub::getEventsFeed(25),
             'members' => GitHub::getOrgMembers(),
-            'repos' => GitHub::getRepositories()
+            'repos'  => GitHub::getRepositories()
         ]);
     }
 
@@ -188,13 +189,13 @@ class AdminController extends Controller {
                 $log_level = $this->request->get('log_level');
 
             return view('admin.logs', [
-                'title' => 'Logs',
-                'logs' => LaravelLogViewer::getPaginated($l, $curPage, $perPage, $log_level),
-                'files' => LaravelLogViewer::getFiles(true),
+                'title'     => 'Logs',
+                'logs'      => LaravelLogViewer::getPaginated($l, $curPage, $perPage, $log_level),
+                'files'     => LaravelLogViewer::getFiles(true),
                 'current_file' => LaravelLogViewer::getFileName(),
-                'perPage' => $perPage,
-                'url' => $this->request->url(),
-                'levels' => LaravelLogViewer::getLogLevelsClasses(),
+                'perPage'   => $perPage,
+                'url'       => $this->request->url(),
+                'levels'    => LaravelLogViewer::getLogLevelsClasses(),
                 'cur_level' => $log_level
             ]);
         } else
@@ -213,7 +214,7 @@ class AdminController extends Controller {
 
             return view('admin.shorturls', [
                 'title' => 'Short URLs',
-                'urls' => $urls,
+                'urls'  => $urls,
                 'perPage' => $perPage
             ]);
         } else
@@ -437,6 +438,108 @@ class AdminController extends Controller {
             $task->save();
 
             return redirect()->back();
+        } else
+            abort(403);
+    }
+
+    public function getCreateBlogPost() {
+        return view('admin.createblogpost', [
+            'title' => 'Create Blog Post'
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postCreateBlogPost() {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_BLOG)) {
+            $validator = $this->validate($this->request, [
+                'title'   => 'required|max:64',
+                'content' => 'required'
+            ]);
+
+            if ($validator && $validator->failed())
+                return static::redirectBackWithErrors($validator->messages());
+
+            BlogRepository::create($this->request->input('title'), $this->request->input('content'), auth()->user());
+            return redirect()->action('BlogController@getIndex');
+        } else
+            abort(403);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getEditBlogPosts() {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::BLOG_ADMIN))
+            $posts = Blog::all();
+        else
+            $posts = Blog::whereAuthor(auth()->user()->id)->get();
+
+        return view('admin.editblogposts', [
+            'title' => 'Blog Posts',
+            'posts' => $posts
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDeleteBlogPost($id) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_BLOG)) {
+            BlogRepository::delete($id);
+            return redirect()->back();
+        } else
+            abort(403);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
+    public function getEditBlogPost($id) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::BLOG_ADMIN))
+            $post = Blog::find($id);
+        else
+            $post = Blog::whereAuthor(auth()->user()->id)->whereId($id)->first();
+
+        if (!$post)
+            return abort(403);
+
+        return view('admin.editblogpost', [
+            'title' => 'Edit Post #' . $id,
+            'post'  => $post
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postEditBlogPost($id) {
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG)) {
+            $title = $this->request->input('title');
+            $content = $this->request->input('content');
+            $blog = Blog::find($id);
+
+            if (!$blog)
+                return static::redirectBackWithErrors(['Invalid blog post']);
+
+            $validator = $this->validate($this->request, [
+                'title'   => 'required|max:64',
+                'content' => 'required'
+            ]);
+
+            if ($validator && $validator->failed())
+                return static::redirectBackWithErrors($validator->messages());
+
+            BlogRepository::update($blog, [
+                'title'   => $title,
+                'content' => $content,
+            ]);
+
+            return static::redirectBackWithSuccess('Your blog post has been edited.');
         } else
             abort(403);
     }

@@ -17,6 +17,7 @@ class UserSettings {
     const CREATE_BLOG = 'blog.create';
     const MODIFY_BLOG = 'blog.modify';
     const DELETE_BLOG = 'blog.delete';
+    const BLOG_ADMIN = 'blog.admin';
     const VIEW_TASK = 'task.view';
     const CREATE_TASK = 'task.create';
     const MODIFY_TASK = 'task.modify';

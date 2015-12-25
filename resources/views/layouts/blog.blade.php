@@ -17,7 +17,6 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <script type="text/javascript" src="/assets/js/blog/scripts.js"></script>
-    <script type="text/javascript" src="/assets/js/scripts.js"></script>
     <script>
         $(function () {
             $(".ui.sticky").sticky({context: '#blog'});
@@ -38,7 +37,7 @@
         ga('create', 'UA-66072914-1', 'auto');
         ga('send', 'pageview');
     </script>
-            <!--       End Scripts -->
+    <!--       End Scripts -->
 </head>
 <body>
 <nav>
@@ -46,7 +45,7 @@
         <div class="grid-30 tablet-grid-100 mobile-grid-100">
             <h1 class="brand"><a href="/">battleplugins</a></h1>
         </div>
-        <div class="grid-60 tablet-grid-100 mobile-grid-100">
+        <div class="grid-70 tablet-grid-100 mobile-grid-100">
             <ul>
                 <li><a href="{{ action('DownloadController@getIndex') }}">Get Plugins</a></li>
                 <li><a href="http://ci.battleplugins.com">Jenkins</a></li>
@@ -54,21 +53,9 @@
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>
         </div>
-        <div class="grid-10 tablet-grid-100 mobile-grid-100">
-            @if(Auth::check() && UserSettings::hasNode(auth()->user(), UserSettings::CREATE_BLOG))
-                <button id="createBlog" class="circular small ui positive icon button">
-                    <i class="icon plus"></i>
-                </button>
-            @elseif(!Auth::check())
-                <a href="/auth/login" class="ui button primary">Login</a>
-            @endif
-        </div>
     </div>
 </nav>
 @yield('content')
 @include('globalpartials.footer')
-@if(Auth::check())
-    @include('blog.modals.createBlog')
-@endif
 </body>
 </html>

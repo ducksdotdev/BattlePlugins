@@ -3,10 +3,10 @@
 use App\Tools\UserSettings;
 
 return [
-    'Dashboard' => [
+    'Dashboard'       => [
         'action' => 'AdminController@getIndex',
     ],
-    'Feeds' => [
+    'Feeds'           => [
         'Logs' => [
             'action' => 'AdminController@getLogs',
             'node' => UserSettings::DEVELOPER
@@ -15,26 +15,26 @@ return [
             'action' => 'AdminController@getGithub',
         ]
     ],
-    'Statistics' => [
+    'Statistics'      => [
         'Google Analytics' => [
             'action' => 'AdminController@getAnalytics',
             'node' => UserSettings::VIEW_ANALYTICS
         ],
-        'Short URLs' => [
+        'Short URLs'       => [
             'action' => 'AdminController@getShortUrls',
             'node' => UserSettings::DELETE_SHORTURL
         ],
-        'API Keys' => [
+        'API Keys'         => [
             'action' => 'AdminController@getApiKeys',
             'node' => UserSettings::VIEW_API_KEYS
         ]
     ],
-    'Tools' => [
-        'Create Alert' => [
+    'Tools'           => [
+        'Create Alert'   => [
             'action' => 'AdminController@getAlerts',
             'node' => UserSettings::CREATE_ALERT
         ],
-        'Pastes' => [
+        'Pastes'         => [
             'action' => 'AdminController@getPastes',
             'node' => UserSettings::VIEW_PASTES
         ],
@@ -43,8 +43,18 @@ return [
             'node' => UserSettings::MANAGE_CONTENT
         ],
     ],
-    'Tasks' => [
-        'View Tasks' => [
+    'Blog'            => [
+        'Blog Posts'  => [
+            'action' => 'AdminController@getEditBlogPosts',
+            'node'   => UserSettings::MODIFY_BLOG
+        ],
+        'Create Post' => [
+            'action' => 'AdminController@getCreateBlogPost',
+            'node'   => UserSettings::CREATE_BLOG
+        ]
+    ],
+    'Tasks'           => [
+        'View Tasks'  => [
             'action' => 'AdminController@getTasks',
             'node' => UserSettings::VIEW_TASK
         ],
@@ -54,11 +64,11 @@ return [
         ]
     ],
     'User Management' => [
-        'Create User' => [
+        'Create User'         => [
             'action' => 'AdminController@getCreateUser',
             'node' => UserSettings::CREATE_USER
         ],
-        'Modify User' => [
+        'Modify User'         => [
             'action' => 'AdminController@getModifyUser',
             'node' => UserSettings::MODIFY_USER
         ],
@@ -67,7 +77,7 @@ return [
             'node' => UserSettings::VIEW_PERMISSIONS
         ]
     ],
-    'Logout' => [
+    'Logout'          => [
         'action' => 'Auth\AuthController@getLogout'
     ]
 ];

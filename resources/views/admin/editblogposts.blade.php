@@ -16,7 +16,7 @@
                 <tbody>
                 @foreach($posts as $post)
                     <tr>
-                        <td>{{ $post->title }}</td>
+                        <td><a href="{{ action('BlogController@getIndex', ['id'=>$post->id]) }}">{{ $post->title }}</a></td>
                         <td>{{ $post->user->displayname }}</td>
                         <td>{{ $post->created_at->diffForHumans() }}</td>
                         <td>

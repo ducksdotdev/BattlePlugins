@@ -496,21 +496,24 @@ class AdminController extends Controller {
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getEditBlogPost($id) {
-        if (UserSettings::hasNode(auth()->user(), UserSettings::BLOG_ADMIN))
-            $post = Blog::find($id);
-        else
-            $post = Blog::whereAuthor(auth()->user()->id)->whereId($id)->first();
+        if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_BLOG)) {
+            if (UserSettings::hasNode(auth()->user(), UserSettings::BLOG_ADMIN))
+                $post = Blog::find($id);
+            else
+                $post = Blog::whereAuthor(auth()->user()->id)->whereId($id)->first();
 
-        if (!$post)
-            return abort(403);
+            if (!$post)
+                abort(404);
 
-        return view('admin.editblogpost', [
-            'title' => 'Edit Post #' . $id,
-            'post'  => $post
-        ]);
+            return view('admin.editblogpost', [
+                'title' => 'Edit Post #' . $id,
+                'post'  => $post
+            ]);
+        } else
+            abort(403);
     }
 
     /**

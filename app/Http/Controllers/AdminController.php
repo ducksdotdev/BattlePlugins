@@ -377,7 +377,13 @@ class AdminController extends Controller {
     public function getTasks() {
         if (auth()->check() && UserSettings::hasNode(auth()->user(), UserSettings::VIEW_TASK)) {
             $tasks = Task::all();
-            $users = User::all();
+            $users = Permission::whereNode(UserSettings::VIEW_TASK);
+
+            $ids = [];
+            foreach ($users as $user)
+                $id[] = $user->id;
+
+            $users = User::whereIn('id', $ids)->get();
 
             return view('admin.viewtasks', [
                 'tasks' => $tasks,

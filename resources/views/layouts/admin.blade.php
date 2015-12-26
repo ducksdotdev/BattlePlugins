@@ -17,6 +17,7 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.12.2/semantic.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/autosize.js/1.18.18/jquery.autosize.min.js"></script>
     <script type="text/javascript" src="/assets/js/admin/admin.js"></script>
     <script type="text/javascript" src="/assets/js/scripts.js"></script>
     @yield('extraScripts')
@@ -36,7 +37,7 @@
         ga('create', 'UA-66072914-2', 'auto');
         ga('send', 'pageview');
     </script>
-            <!--       End Scripts -->
+    <!--       End Scripts -->
 </head>
 <body>
 <div class="grid-100 grid-parent">

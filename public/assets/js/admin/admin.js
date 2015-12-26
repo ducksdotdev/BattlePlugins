@@ -48,6 +48,8 @@ BattleAdmin.controller("ServerStatusCtrl", function ($scope, $http, $sce, $inter
 $(function () {
     var menu = $('#mobileMenu').sidebar('setting', 'transition', 'overlay');
 
+    $('textarea').autosize();
+
     $("#openMenu").click(function () {
         menu.sidebar('show');
     });

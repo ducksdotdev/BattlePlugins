@@ -161,7 +161,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
 
         Route::group(['before' => 'csrf', 'before' => 'auth'], function () {
             Route::post('/delete/{id}', 'AdminController@postDeleteTask');
-            Route::post('/tasks/create', 'AdminController@postCreateTask');
+            Route::post('/create', 'AdminController@postCreateTask');
         });
     });
 });

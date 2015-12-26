@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="grid-100">
-        {!! Form::open(['id'=>'createTaskForm','url'=>URL::to('/tasks/create', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+        {!! Form::open(['id'=>'createTaskForm','url'=>URL::to(action('AdminController@postCreateTask'), [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
         <div class="twelve wide field">
             <label>Title</label>
             {!! Form::text('title', '', ['maxlength'=>64]) !!}

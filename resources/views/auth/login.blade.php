@@ -8,9 +8,6 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-            @if($throttles)
-                <p>You have {{ 5 - $attempts }} attempts remaining!</p>
-            @endif
         </div>
     @endif
     {!! Form::open(['url'=>URL::to('/auth/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}

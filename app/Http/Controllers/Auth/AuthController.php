@@ -39,13 +39,7 @@ class AuthController extends Controller {
      */
     public function __construct(Request $request) {
         $this->middleware('guest', ['except' => 'getLogout']);
-
-        $throttles = $this->isUsingThrottlesLoginsTrait();
-
-        if ($throttles) {
-            view()->share('throttles', $throttles);
-            view()->share('attempts', $this->getLoginAttempts($request));
-        }
+        $this->isUsingThrottlesLoginsTrait();
     }
 
     /**
@@ -66,7 +60,7 @@ class AuthController extends Controller {
      */
     protected function validator(array $data) {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name'  => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
@@ -80,7 +74,7 @@ class AuthController extends Controller {
      */
     protected function create(array $data) {
         return User::create([
-            'name' => $data['name'],
+            'name'  => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

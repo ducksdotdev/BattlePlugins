@@ -31,10 +31,10 @@ class DownloadController extends Controller {
      */
     private function returnIndex($current_job, $stableBuilds) {
         return view('download.index', [
-            'jobs'          => Jenkins::getJobs(),
-            'current_job'   => $current_job,
-            'stableBuilds'  => $stableBuilds,
-            'production'    => new ProductionBuilds(),
+            'jobs' => Jenkins::getJobs(),
+            'current_job' => $current_job,
+            'stableBuilds' => $stableBuilds,
+            'production' => new ProductionBuilds(),
             'server_online' => Domain::remoteFileExists('http://ci.battleplugins.com')
         ]);
     }
@@ -45,6 +45,10 @@ class DownloadController extends Controller {
      */
     public function getJob($current_job) {
         $current_job = new JenkinsJob($current_job);
+
+        if (!$current_job->exists())
+            abort(404);
+
         $stableBuilds = $current_job->getStableBuilds(20);
 
         return static::returnIndex($current_job, $stableBuilds);

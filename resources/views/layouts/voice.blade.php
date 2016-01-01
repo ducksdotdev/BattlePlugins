@@ -47,8 +47,7 @@
                     <h2>teamspeak</h2>
                 </div>
                 <div class="grid-15 tablet-grid-15 mobile-grid-15 text-right text-middle actions">
-                    <a href="ts3://voice.battleplugins.com" class="circular small ui primary icon button"><i
-                                class="icon forward mail"></i></a>
+                    <a href="ts3://voice.battleplugins.com" class="circular small ui primary icon button"><i class="icon forward mail"></i></a>
                 </div>
             </div>
         </div>

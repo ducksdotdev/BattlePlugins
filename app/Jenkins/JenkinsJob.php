@@ -18,16 +18,15 @@ namespace App\Jenkins;
  */
 class JenkinsJob {
 
-    /**
-     * @var
-     */
     private $name;
+    private $path;
 
     /**
      * @param $name
      */
     function __construct($name) {
         $this->name = $name;
+        $this->path = storage_path() . "/jenkins/$name.json";
     }
 
     /**
@@ -65,7 +64,7 @@ class JenkinsJob {
     public function getAllBuilds($limit = null, $start = 0) {
         $builds = [];
 
-        if (array_key_exists('builds', $this->getData())) {
+        if ($this->getData() && array_key_exists('builds', $this->getData())) {
             foreach ($this->getData()->builds as $build)
                 array_push($builds, $this->getBuild($build));
         }
@@ -85,11 +84,17 @@ class JenkinsJob {
      * @return mixed|null
      */
     public function getData() {
-        $path = storage_path() . "/jenkins/$this->name.json";
-        if (file_exists($path))
-            return json_decode(file_get_contents($path));
+        if (static::exists())
+            return json_decode(file_get_contents($this->path));
 
         return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function exists() {
+        return file_exists($this->path);
     }
 
     /**

@@ -64,7 +64,10 @@ class JenkinsJob {
     public function getAllBuilds($limit = null, $start = 0) {
         $builds = [];
 
-        if ($this->getData() && array_key_exists('builds', $this->getData())) {
+        if (!is_array($this->getData()))
+            return [];
+
+        if (array_key_exists('builds', $this->getData())) {
             foreach ($this->getData()->builds as $build)
                 array_push($builds, $this->getBuild($build));
         }

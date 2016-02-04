@@ -90,6 +90,9 @@ class JenkinsBuild {
      * @return null|string
      */
     public function downloadPlugin() {
+        if(!array_key_exists("artifacts", $this->getData()))
+            return null;
+        
         foreach ($this->getData()->artifacts as $artifact) {
             if (ends_with($artifact->fileName, '.jar')) {
                 $downloads = BuildDownloads::firstOrCreate([

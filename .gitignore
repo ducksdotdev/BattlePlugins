@@ -3,3 +3,4 @@
 .idea
 .sass-cache
 _ide_helper.php
+*.iml

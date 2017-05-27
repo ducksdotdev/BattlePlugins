@@ -4,3 +4,4 @@
 .sass-cache
 _ide_helper.php
 *.iml
+/node_modules

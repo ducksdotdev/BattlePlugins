@@ -20,7 +20,6 @@
         <a href="{{ action('VoiceController@getIndex') }}">TeamSpeak</a>
         | <a href="{{ action('ApiController@getIndex') }}">BattleWebAPI</a>
         | <a href="{{ action('PasteController@getIndex') }}">BattlePaste</a>
-        | <a href="{{ action('ShortUrlsController@getIndex') }}">bplug.in</a>
         @if(Auth::check())
             <br/>@if(UserSettings::hasNode(auth()->user(), UserSettings::ADMIN_PANEL))
                 <a href="{{ action('AdminController@getIndex') }}">BattleAdmin</a> |

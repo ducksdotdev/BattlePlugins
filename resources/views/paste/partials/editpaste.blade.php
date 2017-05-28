@@ -1,5 +1,5 @@
 <div class="grid-container">
-    {!! Form::open(['id'=>'editPasteForm','url'=>URL::to('/edit', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
+    {!! Form::open(['id'=>'editPasteForm','url'=>URL::to(action('PasteController@postEditPaste'), [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
     {!! Form::hidden('id', $paste->id) !!}
     <div class="grid-100">
         {!! Form::textarea('content', $content, ['maxlength'=>env("PASTE_MAX_LEN", 500000), 'class'=>'monospace']) !!}

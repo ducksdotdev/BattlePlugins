@@ -1,4 +1,4 @@
-{!! Form::open(['id'=>'createPasteForm','url'=>URL::to('/create', [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
+{!! Form::open(['id'=>'createPasteForm','url'=>URL::to(action('PasteController@postCreatePaste'), [], env('HTTPS_ENABLED', true)), 'class'=>'ui form']) !!}
 <div class="field">
     <label for="title">Title
         <small>(Optional. End your title with the file type to use

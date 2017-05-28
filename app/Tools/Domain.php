@@ -2,9 +2,7 @@
 
 namespace App\Tools;
 
-use App\Models\ShortUrl;
 use App\Repositories\PasteRepository;
-use App\Repositories\ShortUrlRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
@@ -14,40 +12,6 @@ use Illuminate\Support\Facades\Validator;
  * @package App\Tools
  */
 class Domain {
-
-    /**
-     * @param $req
-     * @return null|string
-     */
-    public static function shorten($req) {
-        $req = static::stripTrailingSlash($req);
-        if (!starts_with($req, ['https://', 'http://']))
-            $req = 'http://' . $req;
-
-        if (static::isUrl($req)) {
-            $url = ShortUrl::whereUrl($req)->first();
-
-            if (!$url) {
-                $slug = static::generateSlug();
-
-                ShortUrlRepository::create([
-                    'url' => $req,
-                    'slug' => $slug,
-                    'last_used' => Carbon::now()
-                ]);
-
-                return $slug;
-            } else {
-                ShortUrl::whereUrl($req)->update([
-                    'last_used' => Carbon::now()
-                ]);
-
-                return $url->path;
-            }
-        }
-
-        return null;
-    }
 
     /**
      * @param $url
@@ -72,7 +36,7 @@ class Domain {
     public static function generateSlug() {
         $slug = str_random(6);
 
-        while (PasteRepository::getBySlug($slug) || ShortUrlRepository::getBySlug($slug))
+        while (PasteRepository::getBySlug($slug))
             $slug = str_random(6);
 
         return $slug;

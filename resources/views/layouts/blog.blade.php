@@ -48,7 +48,7 @@
         <div class="grid-70 tablet-grid-100 mobile-grid-100">
             <ul>
                 <li><a href="{{ action('DownloadController@getIndex') }}">Get Plugins</a></li>
-                <li><a href="http://ci.battleplugins.com">Jenkins</a></li>
+                {{--<li><a href="http://ci.battleplugins.com">Jenkins</a></li>--}}
                 <li><a href="http://wiki.battleplugins.com">Wiki</a></li>
                 <li><a href="http://github.com/BattlePlugins">Github</a></li>
             </ul>

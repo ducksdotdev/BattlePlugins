@@ -9,7 +9,7 @@
         We have sent you an email with instructions on how to change your password.
     </div>
 @endif
-{!! Form::open(['url'=>URL::to('/password/email', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+{!! Form::open(['url'=>URL::to(action('Auth\PasswordController@getEmail'), [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
 <div class="field">
     <label for="email">Your Email</label>
     {!! Form::text('email', '', ['placeholder'=>'Your Email']) !!}

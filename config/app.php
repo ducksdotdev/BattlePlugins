@@ -152,8 +152,7 @@ return [
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
         'Awjudd\FeedReader\FeedReaderServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        'Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider',
-        'PragmaRX\Google2FA\Vendor\Laravel\ServiceProvider'
+        'Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider'
     ],
 
     /*
@@ -218,7 +217,6 @@ return [
         'UserSettings' => 'App\Tools\UserSettings',
         'StringTools'  => 'App\Tools\StringTools',
         'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
-        'Google2FA'    => 'PragmaRX\Google2FA\Vendor\Laravel\Facade',
         'StringTools'  => 'App\Tools\StringTools'
     ],
 

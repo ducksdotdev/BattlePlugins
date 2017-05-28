@@ -10,7 +10,7 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['url'=>URL::to('/password/reset', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+    {!! Form::open(['url'=>URL::to(action('Auth\PasswordController@postReset'), [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
     {!! Form::hidden('token', $token) !!}
     <div class="field">
         <label for="email">Your Email</label>

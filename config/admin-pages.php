@@ -20,10 +20,6 @@ return [
             'action' => 'AdminController@getAnalytics',
             'node' => UserSettings::VIEW_ANALYTICS
         ],
-        'Short URLs'       => [
-            'action' => 'AdminController@getShortUrls',
-            'node' => UserSettings::DELETE_SHORTURL
-        ],
         'API Keys'         => [
             'action' => 'AdminController@getApiKeys',
             'node' => UserSettings::VIEW_API_KEYS

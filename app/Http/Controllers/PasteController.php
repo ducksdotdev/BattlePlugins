@@ -1,9 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\Paste;
-use App\Models\ShortUrl;
 use App\Repositories\PasteRepository;
-use App\Repositories\ShortUrlRepository;
 use App\Tools\Domain;
 use App\Tools\UserSettings;
 use Auth;
@@ -31,11 +29,6 @@ class PasteController extends Controller {
                 return redirect("/")->with('error', 'Do not leave the content field blank.');
 
             $slug = Domain::generateSlug();
-
-            ShortUrl::create([
-                'url'  => 'http://' . $_SERVER['HTTP_HOST'] . '/' . $slug,
-                'slug' => $slug
-            ]);
 
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", str_limit($content, env("PASTE_MAX_LEN",
                 500000)));
@@ -114,7 +107,6 @@ class PasteController extends Controller {
 
         return view('paste.paste', [
             'paste'   => $paste,
-            'url'     => ShortUrlRepository::getBySlug($slug),
             'lines'   => $lines,
             'content' => $content,
             'lang'    => $lang

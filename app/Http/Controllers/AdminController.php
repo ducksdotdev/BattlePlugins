@@ -6,12 +6,10 @@ use App\Models\Alert;
 use App\Models\Blog;
 use App\Models\Paste;
 use App\Models\Permission;
-use App\Models\ShortUrl;
 use App\Models\Task;
 use App\Models\User;
 use App\Repositories\AlertRepository;
 use App\Repositories\BlogRepository;
-use App\Repositories\ShortUrlRepository;
 use App\Tools\AnalyticsHelper;
 use App\Tools\Domain;
 use App\Tools\GitHub;
@@ -66,7 +64,6 @@ class AdminController extends Controller {
             'myTasks'     => count(auth()->user()->tasks()->get()),
             'closedTasks' => count(Task::all()),
             'pastes'      => count(Paste::all()),
-            'urls'        => count(ShortUrl::all()),
             'downloads'   => Jenkins::getBuildDownloadCount(),
             'jenkins_online' => Domain::remoteFileExists('http://ci.battleplugins.com'),
             'log'         => LaravelLogViewer::getPaginated(null, 1, 1)[0],
@@ -203,25 +200,6 @@ class AdminController extends Controller {
     }
 
     /**
-     * @param int $curPage
-     * @param int $perPage
-     * @return \Illuminate\View\View
-     */
-    public function getShortUrls($curPage = 1, $perPage = 35) {
-        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
-            $urls = ShortUrlRepository::all();
-            $urls = new LengthAwarePaginator($urls->forPage($curPage, $perPage), $urls->count(), $perPage, $curPage);
-
-            return view('admin.shorturls', [
-                'title' => 'Short URLs',
-                'urls'  => $urls,
-                'perPage' => $perPage
-            ]);
-        } else
-            abort(403);
-    }
-
-    /**
      * @return \Illuminate\View\View
      */
     public function getApiKeys() {
@@ -295,18 +273,6 @@ class AdminController extends Controller {
 
             return redirect()->back();
         } else abort(403);
-    }
-
-    /**
-     * @param $slug
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function postDeleteShortUrl($slug) {
-        if (UserSettings::hasNode(auth()->user(), UserSettings::DELETE_SHORTURL)) {
-            ShortUrlRepository::deleteBySlug($slug);
-            return redirect()->back();
-        } else
-            abort(403);
     }
 
     /**

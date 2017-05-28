@@ -6,7 +6,6 @@ use App\API\StatusCodes\ApiStatusCode;
 use App\API\Transformers\PasteTransformer;
 use App\API\Webhooks;
 use App\Models\Paste;
-use App\Models\ShortUrl;
 use App\Repositories\PasteRepository;
 use App\Tools\Domain;
 use App\Tools\UserSettings;
@@ -92,11 +91,6 @@ class PastesController extends ApiController {
                 return $this->statusCode->respondWithError("Paste exceeds " . env("PASTE_MAX_LEN", 500000) . " max character limit. Set the force param to true to cut your paste after " . env("PASTE_MAX_LEN", 500000) . "characters");
 
             $slug = Domain::generateSlug();
-
-            ShortUrl::create([
-                'url' => action('PasteController@getPaste', ['slug' => $slug]),
-                'slug' => $slug
-            ]);
 
             file_put_contents(storage_path() . "/app/pastes/$slug.txt", $content);
 

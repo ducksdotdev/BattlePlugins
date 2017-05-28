@@ -5,10 +5,6 @@
         <div class="small">Pastes</div>
     </li>
     <li class="has-small">
-        {{ $urls }}
-        <div class="small">Short URLs</div>
-    </li>
-    <li class="has-small">
         {{ $blogs }}
         <div class="small">Blog Posts</div>
     </li>

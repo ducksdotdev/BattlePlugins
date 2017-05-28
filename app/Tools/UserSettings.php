@@ -29,7 +29,6 @@ class UserSettings {
     const MODIFY_USER = 'admin.user.modify';
     const DELETE_USER = 'admin.user.delete';
     const VIEW_PERMISSIONS = 'admin.user.viewpermissions';
-    const DELETE_SHORTURL = 'admin.deleteshorturl';
     const MANAGE_CONTENT = 'admin.cms';
     const VIEW_API_KEYS = 'admin.apikeys';
     const HIDE_API_KEY = 'admin.apikeys.hide';
@@ -42,7 +41,6 @@ class UserSettings {
     const USE_API = 'api.use';
     const USE_WEBHOOKS = 'api.webhooks';
     const MANAGE_BUILDS = 'download.togglestable';
-    const FORCE_2FA = '2fa.force';
 
     /**
      * @return array

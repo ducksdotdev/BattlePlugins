@@ -25,9 +25,6 @@ class PasteRepository {
         if (!($paste instanceof Paste))
             $paste = Paste::find($paste);
 
-        ShortUrlRepository::deleteBySlug($paste->slug);
-        ShortUrlRepository::deleteByUrl(action('PasteController@getRawPaste', ['slug' => $paste->slug]));
-        ShortUrlRepository::deleteByUrl(action('PasteController@getDownloadPaste', ['slug' => $paste->slug]));
         unlink(storage_path() . "/app/pastes/" . $paste->slug . ".txt");
         $paste->delete();
     }

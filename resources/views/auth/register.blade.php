@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    {!! Form::open(['url'=>URL::to('/auth/register', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+    {!! Form::open(['url'=>URL::to(action('Auth\UserController@postRegister'), [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
     <div class="field">
         <label>Minecraft Name</label>
         <input type="text" name="name" value="{{ old('name') }}">

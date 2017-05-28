@@ -26,7 +26,6 @@ class PasteTransformer extends Transformer {
             'author' => User::find($paste['creator'])['displayname'],
             'content' => $content,
             'public' => (bool)$paste['public'],
-            'shorturl' => 'http://bplug.in/' . $paste['slug'],
             'created_at' => $paste['created_at'],
             'updated_at' => $paste['updated_at']
         ];

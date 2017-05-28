@@ -267,7 +267,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":[{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"https:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}],"paginator":{"total_count":1,"total_pages":1,"current_page":1,"limit":5}}',
+                        'success' => '{"data":[{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"created_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}],"paginator":{"total_count":1,"total_pages":1,"current_page":1,"limit":5}}',
                         'error' => 'Not Applicable.'
                     ),
                     'description' => 'This endpoint will return all public pastes. If authenticated, this will also
@@ -284,7 +284,7 @@ return array(
                         )
                     ),
                     'example' => array(
-                        'success' => '{"data":{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"shorturl":"https:\/\/bplug.in\/gIRj65","created_at":{"date":"2015-06-22 16:58:12.000000",
+                        'success' => '{"data":{"id":11,"title":"","slug":"gIRj65","author":"lDucks","content":"\nSome random content","public":false,"created_at":{"date":"2015-06-22 16:58:12.000000",
                         "timezone_type":3,"timezone":"UTC"},"updated_at":{"date":"2015-06-22 16:58:12.000000","timezone_type":3,"timezone":"UTC"}}}',
                         'error' => '{"error":{"message":"You don\'t have permission to view this paste.",
                         "status_code":422}}'
@@ -310,7 +310,7 @@ return array(
                         'error' => '{"error":{"message":"A required field has been left blank.","status_code":200}}'
                     ),
                     'description' => 'This endpoint will create a new paste. The message field of a successful paste
-                    will contain the slug to the paste and shorturl. IE) The message is gIRj65 which means bplug
+                    will contain the slug to the paste. IE) The message is gIRj65 which means bplug
                     .in/gIRj65 will bring you to that paste. If your paste content exceeds ' . env("PASTE_MAX_LEN", 500000) . ' characters, it will throw an error. You can force the paste to cut after the
                             maximum length by setting the force param to true.',
                     'params'      => array('title VARCHAR(64)', 'content TEXT(' . env("PASTE_MAX_LEN", 500000) . ')', 'public BOOLEAN()', 'force BOOLEAN
@@ -338,30 +338,6 @@ return array(
                     you have created.'
                 )
             )
-        ),
-        array(
-            'name'    => 'bplug.in',
-            'methods' => array(
-                array(
-                    'title'   => 'Create Short URL',
-                    'url'     => 'shorturls',
-                    'methods' => array(
-                        array(
-                            'name' => 'post',
-                            'color' => 'red'
-                        )
-                    ),
-                    'example' => array(
-                        'success' => '{"success":{"message":"BgmPUd","status_code":201}}',
-                        'error' => '{"error":{"message":"Failed to validate API-Key.","status_code":422}}'
-                    ),
-                    'description' => 'This endpoint will create a short URL for the provided url. If the short url
-				already exists, it will just return the URL. The shortened URL is returned under the "message" key.
-				Append that key to the end of https://bplug.in to access it. IE) https://bplug.in/BgmPUd where BgmPUd
-				 is the short url ID.',
-                    'params'  => array('url VARCHAR(255)')
-                )
-            )
-        ),
+        )
     ]
 );

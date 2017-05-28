@@ -10,7 +10,7 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['url'=>URL::to('/auth/login', [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
+    {!! Form::open(['url'=>URL::to(action('Auth\AuthController@postLogin'), [], env('HTTPS_ENABLED', true)),'class'=>'ui form']) !!}
     <div class="two fields">
         <div class="field">
             <label>Email</label>

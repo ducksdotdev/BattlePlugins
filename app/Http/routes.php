@@ -1,7 +1,5 @@
 <?php
 
-$url = env('APP_ENV_URL');
-
 Route::get('/auth/login', 'Auth\AuthController@getLogin');
 Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
@@ -44,7 +42,7 @@ Route::group(['domain' => $url], function () {
     Route::get('/{id?}', 'BlogController@getIndex');
 });
 
-Route::group(['domain' => 'api.' . $url], function () {
+Route::group(['domain' => 'api'], function () {
     Route::get('/', 'ApiController@getIndex');
 
     Route::group(['prefix' => 'v1'], function () {
@@ -61,7 +59,7 @@ Route::group(['domain' => 'api.' . $url], function () {
     });
 });
 
-Route::group(['domain' => 'paste.' . $url], function () {
+Route::group(['domain' => 'paste'], function () {
     Route::get('/', 'PasteController@getIndex');
 
     Route::group(['before' => 'auth', 'before' => 'csrf'], function () {
@@ -76,7 +74,7 @@ Route::group(['domain' => 'paste.' . $url], function () {
     Route::get('/{slug}/download', 'PasteController@getDownloadPaste');
 });
 
-Route::group(['domain' => 'dl.' . $url], function () {
+Route::group(['domain' => 'dl'], function () {
     Route::get('/', 'DownloadController@getIndex');
     Route::any('/update/{event?}', 'DownloadController@anyUpdateJenkins');
 
@@ -92,7 +90,7 @@ Route::group(['domain' => 'dl.' . $url], function () {
     });
 });
 
-Route::group(['domain' => 'admin.' . $url], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@getIndex');
 
     Route::group(['prefix' => 'feeds'], function () {
@@ -166,7 +164,7 @@ Route::group(['domain' => 'admin.' . $url], function () {
     });
 });
 
-Route::group(['domain' => 'short.' . $url], function () {
+Route::group(['prefix' => 'short'], function () {
     Route::group(['before' => 'csrf'], function () {
         Route::post('/create', 'ShortUrlsController@postCreate');
     });
@@ -174,12 +172,12 @@ Route::group(['domain' => 'short.' . $url], function () {
     Route::get('/', 'ShortUrlsController@getIndex');
 });
 
-Route::group(['domain' => 'voice.' . $url], function () {
+Route::group(['prefix' => 'voice'], function () {
     Route::get('/', 'VoiceController@getIndex');
     Route::get('/feed', 'VoiceController@getFeed');
 });
 
-Route::group(['domain' => '{user}.' . $url], function () {
+Route::group(['prefix' => '{user}'], function () {
     Route::get('/', 'Auth\ProfileController@getProfile');
 });
 

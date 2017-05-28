@@ -152,7 +152,6 @@ return [
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
         'Awjudd\FeedReader\FeedReaderServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-        'Spatie\LaravelAnalytics\LaravelAnalyticsServiceProvider'
     ],
 
     /*
@@ -216,7 +215,6 @@ return [
         'Image'        => 'Intervention\Image\Facades\Image',
         'UserSettings' => 'App\Tools\UserSettings',
         'StringTools'  => 'App\Tools\StringTools',
-        'LaravelAnalytics' => 'Spatie\LaravelAnalytics\LaravelAnalyticsFacade',
         'StringTools'  => 'App\Tools\StringTools'
     ],
 

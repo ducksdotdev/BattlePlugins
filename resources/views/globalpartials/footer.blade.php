@@ -17,8 +17,7 @@
         </li>
     </ul>
     <p>
-        <a href="{{ action('VoiceController@getIndex') }}">TeamSpeak</a>
-        | <a href="{{ action('ApiController@getIndex') }}">BattleWebAPI</a>
+        <a href="{{ action('ApiController@getIndex') }}">BattleWebAPI</a>
         | <a href="{{ action('PasteController@getIndex') }}">BattlePaste</a>
         @if(Auth::check())
             <br/>@if(UserSettings::hasNode(auth()->user(), UserSettings::ADMIN_PANEL))

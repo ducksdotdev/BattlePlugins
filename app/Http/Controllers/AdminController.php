@@ -10,14 +10,12 @@ use App\Models\Task;
 use App\Models\User;
 use App\Repositories\AlertRepository;
 use App\Repositories\BlogRepository;
-use App\Tools\AnalyticsHelper;
 use App\Tools\Domain;
 use App\Tools\GitHub;
 use App\Tools\LaravelLogViewer;
 use App\Tools\Settings;
 use App\Tools\UserSettings;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -324,17 +322,6 @@ class AdminController extends Controller {
     public function getJsonAlerts() {
         $alerts = auth()->user()->alerts;
         return response()->json($alerts);
-    }
-
-    /**
-     * @return \Illuminate\View\View|void
-     */
-    public function getAnalytics() {
-        if (UserSettings::hasNode(auth()->user(), UserSettings::VIEW_ANALYTICS)) {
-            return view('admin.analytics', [
-                'title' => 'Google Analytics'
-            ]);
-        } else return abort(403);
     }
 
     /**

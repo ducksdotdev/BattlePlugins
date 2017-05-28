@@ -77,7 +77,7 @@ Route::group(['prefix' => 'dl'], function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-  Route::get('/dashboard', 'AdminController@getIndex');
+  Route::get('/', 'AdminController@getIndex');
 
   Route::group(['prefix' => 'feeds'], function () {
     Route::get('github', 'AdminController@getGithub');
@@ -91,17 +91,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('modify', 'AdminController@getModifyUser');
     Route::get('modify/{uid}', 'AdminController@getModifyUserPermissions');
     Route::get('permissions', 'AdminController@getPermissionOverview');
+    Route::get('apikeys', 'AdminController@getApiKeys');
 
     Route::group(['before' => 'csrf'], function () {
       Route::post('modify/{id}/delete', 'Auth\UserController@postDeleteUser');
       Route::post('create', 'Auth\UserController@postDreateUser');
       Route::post('modify/{uid}/permissions', 'Auth\UserController@postModifyUserPermissions');
     });
-  });
-
-  Route::group(['prefix' => 'statistics'], function () {
-    Route::get('apikeys', 'AdminController@getApiKeys');
-    Route::get('analytics', 'AdminController@getAnalytics');
   });
 
   Route::group(['prefix' => 'tools'], function () {
@@ -142,13 +138,4 @@ Route::group(['prefix' => 'admin'], function () {
       Route::post('create', 'AdminController@postCreateTask');
     });
   });
-});
-
-Route::group(['prefix' => 'voice'], function () {
-  Route::get('/', 'VoiceController@getIndex');
-  Route::get('feed', 'VoiceController@getFeed');
-});
-
-Route::group(['prefix' => '{user}'], function () {
-  Route::get('/', 'Auth\ProfileController@getProfile');
 });

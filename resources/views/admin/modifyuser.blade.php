@@ -15,7 +15,7 @@
           <td>{{ $user->email }}</td>
           <td>{{ $user->displayname }}</td>
           <td>
-            <a href="/user/modify/{{ $user->id }}"><i class="icon table"></i> Edit Permissions</a>
+            <a href="{{ action('AdminController@getModifyUser', $user->id) }}"><i class="icon table"></i> Edit Permissions</a>
           </td>
           <td>
             @if(UserSettings::hasNode(auth()->user(), UserSettings::DELETE_USER))

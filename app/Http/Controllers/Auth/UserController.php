@@ -10,8 +10,6 @@ use App\Tools\UserSettings;
 use Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use PragmaRX\Google2FA\Google2FA;
 
 /**
  * Class UserController
@@ -89,7 +87,7 @@ class UserController extends Controller {
   }
 
   /**
-   * @return $this|\Illuminate\Http\RedirectResponse
+   * @return \Illuminate\Http\RedirectResponse
    */
   public function postCreateUser() {
     if (UserSettings::hasNode(auth()->user(), UserSettings::CREATE_USER)) {
@@ -111,12 +109,13 @@ class UserController extends Controller {
 
       AlertRepository::create($message, [User::find($id)]);
 
-      Mail::send('emails.welcome', array(
-          'password' => $password,
-          'displayname' => $this->request->input('displayname')
-      ), function ($message) use ($email, $displayname) {
-        $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
-      });
+      // TODO: Fix email server
+//      Mail::send('emails.welcome', array(
+//          'password' => $password,
+//          'displayname' => $this->request->input('displayname')
+//      ), function ($message) use ($email, $displayname) {
+//        $message->to($email, $displayname)->subject('BattleAdmin Registration Confirmation');
+//      });
 
       if (UserSettings::hasNode(auth()->user(), UserSettings::MODIFY_USER))
         return redirect()->action('AdminController@getModifyUserPermissions', ['id' => $id]);
@@ -175,11 +174,12 @@ class UserController extends Controller {
 
       UserSettings::create($email, $this->request->get('password'), $name);
 
-      Mail::send('emails.registration', array(
-          'name' => $this->request->input('name')
-      ), function ($message) use ($email, $name) {
-        $message->to($email, $name)->subject('BattlePlugins Registration Confirmation');
-      });
+      // TODO: Fix email server
+//      Mail::send('emails.registration', array(
+//          'name' => $this->request->input('name')
+//      ), function ($message) use ($email, $name) {
+//        $message->to($email, $name)->subject('BattlePlugins Registration Confirmation');
+//      });
 
       return redirect('/auth/login')->withInput(['email' => $email]);
     } else abort(403);

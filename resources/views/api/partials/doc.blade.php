@@ -15,7 +15,7 @@
                 </h2>
                 <p>{{ $doc['description'] }}</p>
 
-                <p><strong>URL: </strong><code>/{{env('API_VERSION')}}/{{ $doc['url']}}</code></p>
+                <p><strong>URL: </strong><code>{{env('API_VERSION')}}/{{ $doc['url']}}</code></p>
                 @if(array_has($doc, 'params'))
                     <strong>Params:</strong>
                     <p>
